@@ -27,13 +27,11 @@ if exist %usedir%\bin\Nsudo\%nsarchbit%\NSudoLG.exe goto skipnsudo
  %uacadmuser% %powshcmd% Set-ExecutionPolicy -ExecutionPolicy Bypass
 :: powershell Start-process powershell -Verb RunAS %cd%\dotnet-install.ps1
 :: %admuser% dotnet add package Microsoft.UI.Xaml 
- %uacadmuser% %powshcmd% -File %usedir%\winget-pkg.ps1
-echo Starting powershell this way does not pause the script, so wait for that to finish to get the required programs.
-pause
- %uacadmuser% %usedir%\bootstrap-AltanOS.cmd
+ %uacadmuser% %powshcmd% -File %usedir%\pkgs-prep.ps1
+ %uacadmuser% %usedir%\harden-AltanOS.cmd
 :: needs proper testing
- %uacadmuser% %powshcmd% "New-ItemProperty -Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Run" -Name "Update Windows and Applications" -Value "%HOMEDRIVE%%HOMEPATH%\Desktop\AltanOS\autorun-update.cmd"  -PropertyType "String""
- %uacadmuser% reg load %usedir%\AltanOS\bin\registry\minorfix.reg
+:: %uacadmuser% %powshcmd% "New-ItemProperty -Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Run" -Name "Update Windows and Applications" -Value "%HOMEDRIVE%%HOMEPATH%\Desktop\AltanOS\autorun-update.cmd"  -PropertyType "String""
+ %uacadmuser% reg load %usedir%\AltanOS\bin\registry\harden.reg
  %uacadmuser% %powshcmd% Set-ExecutionPolicy -ExecutionPolicy Restricted
 pause
 
