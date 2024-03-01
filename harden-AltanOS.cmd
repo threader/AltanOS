@@ -354,7 +354,7 @@ reg add "HKCU\SOFTWARE\Policies\Microsoft\Windows\Explorer" /v "NoRemoteDestinat
 
 :: %uacadmuser% %powshcmd% "Set-ProcessMitigation -System -Enable DEP, EmulateAtlThunks"
 
- %uacadmuser% %powshcmd% "Set-ProcessMitigation -System -Enable DEP, EmulateAtlThunks, RequireInfo, BottomUp, HighEntropy, StrictHandle, CFG, StrictCFG, SuppressExports, SEHOP, AuditSEHOP, SEHOPTelemetry, ForceRelocateImages"
+ %uacadmuser% %powshcmd% "Set-ProcessMitigation -System -Enable DEP, EmulateAtlThunks, RequireInfo, BottomUp, HighEntropy, StrictHandle, CFG, StrictCFG, SuppressExports, SEHOP, AuditSEHOP, SEHOPTelemetry, ForceRelocateImages, AuditStoreSigned, EnforceModuleDependencyString, AuditFont"
  bcdedit /set nx Optin
 
 @echo on
