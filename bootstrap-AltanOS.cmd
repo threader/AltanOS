@@ -24,8 +24,6 @@ set "dismpkg=DISM /online /add-package"
 set "msipkg=msiexec.exe /quiet /norestart /passive /package"
 set "gitget=%ProgramFiles%\Git\bin\git.exe"
 
-SETLOCAL EnableDelayedExpansion
-
 echo Will need net for this 
 
 :: display details about the connection
@@ -354,7 +352,9 @@ reg add "HKCU\SOFTWARE\Policies\Microsoft\Windows\Explorer" /v "NoRemoteDestinat
 :: - harden process mitigations (lower compatibilty for legacy apps) 
 :: %powshcmd% "Set-ProcessMitigation -System -Enable DEP, EmulateAtlThunks, RequireInfo, BottomUp, HighEntropy, StrictHandle, CFG, StrictCFG, SuppressExports, SEHOP, AuditSEHOP, SEHOPTelemetry, ForceRelocateImages"
 
- %uacadmuser% %powshcmd% "Set-ProcessMitigation -System -Enable DEP, EmulateAtlThunks"
+:: %uacadmuser% %powshcmd% "Set-ProcessMitigation -System -Enable DEP, EmulateAtlThunks"
+
+ %uacadmuser% %powshcmd% "Set-ProcessMitigation -System -Enable DEP, EmulateAtlThunks, RequireInfo, BottomUp, HighEntropy, StrictHandle, CFG, StrictCFG, SuppressExports, SEHOP, AuditSEHOP, SEHOPTelemetry, ForceRelocateImages"
  bcdedit /set nx Optin
 
 @echo on
@@ -388,12 +388,11 @@ echo Disablng WMP and IE, enable Hyper-V and WSL
 ::  DevManView.exe /enable "Microsoft Hyper-V Virtual Machine Bus Provider"
 ::  DevManView.exe /enable "Microsoft Hyper-V Virtualization Infrastructure Driver"
 
-::  %msipkg% %usedir%\TinyWall-v3-Installer.msi
+  %msipkg% %usedir%\TinyWall-v3-Installer.msi
 
  echo info: cleaning the winsxs folder - bah this needs to be done after a reboot 
- DISM /Online /Cleanup-Image /StartComponentCleanup /ResetBase
-:: sfc /SCANNOW
-:: DISM /Online /Cleanup-Image /RestoreHealth
+ sfc /SCANNOW
+ DISM /Online /Cleanup-Image /StartComponentCleanup /ResetBase /RestoreHealth
 
 :: - open scripts in notepad++ to preview instead of executing when clicking
 if exist %ProgramFiles%\Notepad++\Notepad++.exe (
@@ -421,7 +420,7 @@ for %%a in (
 ) do (
    ftype %%a="%ProgramFiles%\Notepad++\Notepad++.exe" "%1"
 ) ) 
-:: reset the password prompt, a value of 1 on here on the admin account will require password to be entered. 2 is a prompt.
- %powshcmd% Set-ItemProperty -Path REGISTRY::HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System -Name ConsentPromptBehaviorAdmin -Value 2
- echo All done, pausing to review for you what might have gone astray
+:: reset the admin password prompt, a value of 1 on here on the admin account will require password to be entered. 2 is a prompt.
+ %powshcmd% Set-ItemProperty -Path REGISTRY::HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System -Name ConsentPromptBehaviorAdmin -Value 1
+ echo All done, pausing for you to review what might have gone astray.
  pause

@@ -1,7 +1,7 @@
 $DesktopPath = [Environment]::GetFolderPath("Desktop")
 $usedir = $DesktopPath\AltanOS.inst\
 if (-not (Test-Path -Path $usedir))
-mkdir $usedir
+	mkdir $usedir
 }
 
 Write-Output "Removing non-essential packages and installing some bare minimums"
@@ -26,19 +26,20 @@ Write-Output "Removing non-essential packages and installing some bare minimums"
 
 # Invoke-WebRequest -uri https://globalcdn.nuget.org/packages/microsoft.ui.xaml.2.8.2.nupkg -OutFile $DesktopPath\AltanOS.inst\microsoft.ui.xaml.2.8.2.nupkg
 if (-not (Test-Path "$DesktopPath\AltanOS.inst\Microsoft.DesktopAppInstaller.msixbundle")) {
-write-output "Winget not found. Grab and install" 
-Invoke-WebRequest -uri https://github.com/microsoft/winget-cli/releases/download/v1.4.10173/Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle -OutFile $DesktopPath\AltanOS.inst\Microsoft.DesktopAppInstaller.msixbundle
-# Install-Package https://globalcdn.nuget.org/packages/microsoft.ui.xaml.2.8.2.nupkg
+	write-output "Winget not found. Grab and install" 
+	Invoke-WebRequest -uri https://github.com/microsoft/winget-cli/releases/download/v1.4.10173/Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle -OutFile $DesktopPath\AltanOS.inst\Microsoft.DesktopAppInstaller.msixbundle
+	# Install-Package https://globalcdn.nuget.org/packages/microsoft.ui.xaml.2.8.2.nupkg
 }
 add-appxpackage -Path "$DesktopPath\AltanOS.inst\Microsoft.DesktopAppInstaller.msixbundle"
 
 Write-Output "Installing a set of applications and updating all recognized by 'winget'"
 # todo: change source to MStore find vcredist
 # winget install --disable-interactivity --accept-source-agreements --id vcredist
+winget install --disable-interactivity --accept-source-agreements --id SomePythonThings.WingetUIStore --source winget
 winget install --disable-interactivity --accept-source-agreements --id Git.Git --source winget
 winget install --disable-interactivity --accept-source-agreements --id Microsoft.Sysinternals.ProcessMonitor --source winget
 winget install --disable-interactivity --accept-source-agreements --id Microsoft.Sysinternals.ProcessExplorer --source winget
-winget install --disable-interactivity --accept-source-agreements --id Microsoft.Powershell --source winget
+#winget install --disable-interactivity --accept-source-agreements --id Microsoft.Powershell --source winget
 winget install --disable-interactivity --accept-source-agreements --id Mozilla.Firefox --source winget
 winget install --disable-interactivity --accept-source-agreements --id 7zip.7zip --source winget
 winget install --disable-interactivity --accept-source-agreements --id VideoLAN.VLC --source winget
@@ -54,13 +55,31 @@ winget install --disable-interactivity --accept-source-agreements --id SaferNetw
 # winget remove --id Microsoft.OneDrive --accept-source-agreements --disable-interactivity
 winget upgrade --accept-source-agreements --disable-interactivity --include-unknown -r
 
-Write-output "Installing PSWindowsUpdate and running Win Update, warnings will ensue"
+Write-output "Installing and running PSWindowsUpdate."
 # Set-ExecutionPolicy -ExecutionPolicy Bypass
-Install-Module PSWindowsUpdate
+Install-Module -Force PSWindowsUpdate
 Import-Module PSWindowsUpdate
 Get-WindowsUpdate -AcceptAll -Install
 # Install-WindowsUpdate
 # Set-ExecutionPolicy -ExecutionPolicy Restricted
+
+# Add to startup
+# New-ItemProperty -Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Run" -Name "Update Windows and Applications" -Value "%HOMEDRIVE%%HOMEPATH%\Desktop\AltanOS\autorun-update.cmd"  -PropertyType "String"
+
+# Scheduled Task new task 
+$trigger = New-ScheduledTaskTrigger -Weekly -At 18pm -DaysOfWeek Thuesday
+
+function shed_task() {	
+$action = New-ScheduledTaskAction -Execute "%HOMEDRIVE%%HOMEPATH%\Desktop\AltanOS\autorun-update.cmd"
+$principal = "System\Administrator"
+$settings = New-ScheduledTaskSettingsSet -RunOnlyIfNetworkAvailable -WakeToRun
+$task = New-ScheduledTask -Action $action -Principal $principal -Trigger $trigger -Settings $settings
+Register-ScheduledTask T1 -InputObject $task
+}
+shed_task
+
+$trigger = New-ScheduledTaskTrigger -AtLogon
+shed_task
 
 Write-output "Pause here to review"
 pause
