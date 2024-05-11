@@ -35,13 +35,17 @@ echo Will need net for this
 mkdir %usedir%
 if exist %usedir%\bin\Nsudo\%nsarchbit%\NSudoLG.exe goto skipnsudo
  %bitsadminget% https://github.com/M2Team/NSudo/releases/download/9.0-Preview1/NSudo_9.0_Preview1_9.0.2676.0.zip %usedir%\Nsudo.zip 
+ %powscmd% "Invoke-WebRequest -uri  https://github.com/M2Team/NSudo/releases/download/9.0-Preview1/NSudo_9.0_Preview1_9.0.2676.0.zip --OutFile %usedir%\Nsudo.zip"
  %powshcmd% "Expand-Archive -Force '%usedir%\Nsudo.zip' '%usedir%\bin\Nsudo'"
 :skipnsudo
 if exist %usedir%\network-indicator%niarchbit%.zip goto skipdl
 :: %bitsadminget% https://github.com/PowerShell/PowerShell/releases/download/v7.3.2/PowerShell-7.3.2-win-x64.msi %usedir%\PowerShell-7.3.2-win-x64.msi 
- %bitsadminget% https://tinywall.pados.hu/files/TinyWall-v3-Installer.msi %usedir%\TinyWall-v3-Installer.msi 
- %bitsadminget% https://privazer.com/en/PrivaZer.exe %usedir%\bin\PrivaZer.exe
- %bitsadminget% http://www.itsamples.com/downloads/network-activity-indicator-setup%niarchbit%.zip %usedir%\network-indicator%niarchbit%.zip
+ %powshcmd% "Invoke-WebRequest -uri https://tinywall.pados.hu/files/TinyWall-v3-Installer.msi -OutFile %usedir%\TinyWall-v3-Installer.msi" 
+# %bitsadminget% https://tinywall.pados.hu/files/TinyWall-v3-Installer.msi %usedir%\TinyWall-v3-Installer.msi 
+ %powshcmd% "Invoke-WebRequest -uri https://privazer.com/en/PrivaZer.exe -OutFile %usedir%\bin\PrivaZer.exe"
+# %bitsadminget% https://privazer.com/en/PrivaZer.exe %usedir%\bin\PrivaZer.exe
+ %powshcmd% "Invoke-WebRequest -uri http://www.itsamples.com/downloads/network-activity-indicator-setup%niarchbit%.zip -OutFile %usedir%\network-indicator%niarchbit%.zip"
+# %bitsadminget% http://www.itsamples.com/downloads/network-activity-indicator-setup%niarchbit%.zip %usedir%\network-indicator%niarchbit%.zip
  %powshcmd% "Expand-Archive -Force '%usedir%\network-indicator%niarchbit%.zip' '%usedir%\bin\network-indicator%niarchbit%'"
 :skipdl
  %powshcmd% "Set-ItemProperty -Path REGISTRY::HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System -Name ConsentPromptBehaviorAdmin -Value 0"
@@ -350,11 +354,14 @@ reg add "HKCU\SOFTWARE\Policies\Microsoft\Windows\Explorer" /v "NoRemoteDestinat
 ::)
 
 :: - harden process mitigations (lower compatibilty for legacy apps) 
-:: %powshcmd% "Set-ProcessMitigation -System -Enable DEP, EmulateAtlThunks, RequireInfo, BottomUp, HighEntropy, StrictHandle, CFG, StrictCFG, SuppressExports, SEHOP, AuditSEHOP, SEHOPTelemetry, ForceRelocateImages"
-
-:: %uacadmuser% %powshcmd% "Set-ProcessMitigation -System -Enable DEP, EmulateAtlThunks"
-
- %uacadmuser% %powshcmd% "Set-ProcessMitigation -System -Enable DEP, EmulateAtlThunks, RequireInfo, BottomUp, HighEntropy, StrictHandle, SuppressExports, SEHOP, AuditSEHOP, SEHOPTelemetry, ForceRelocateImages, AuditMiceosoftSigned, AuditStoreSigned, EnforceModuleDependencyString, DisableNonSystemFonts, AuditFont"
+:: This is way to strict.
+:: %uacadmuser% %powshcmd% "Set-ProcessMitigation -System -Enable DEP, EmulateAtlThunks, RequireInfo, BottomUp, HighEntropy, StrictHandle, CFG, StrictCFG, SuppressExports, SEHOP, AuditSEHOP, SEHOPTelemetry, ForceRelocateImages"
+:: Try maybe?
+:: %uacadmuser% %powshcmd% "Set-ProcessMitigation -System -Enable DEP, EmulateAtlThunks, RequireInfo, BottomUp, HighEntropy, StrictHandle, SuppressExports, SEHOP, AuditSEHOP, SEHOPTelemetry, ForceRelocateImages, AuditMiceosoftSigned, AuditStoreSigned, EnforceModuleDependencyString, DisableNonSystemFonts, AuditFont"
+:: Set these tested settings for now
+ %uacadmuser% %powshcmd% "Set-ProcessMitigation -System -Enable DEP, EmulateAtlThunks"
+ 
+ 
  bcdedit /set nx Optin
 
 @echo on
@@ -388,11 +395,12 @@ echo Disablng WMP and IE, enable Hyper-V and WSL
 ::  DevManView.exe /enable "Microsoft Hyper-V Virtual Machine Bus Provider"
 ::  DevManView.exe /enable "Microsoft Hyper-V Virtualization Infrastructure Driver"
 
-  %msipkg% %usedir%\TinyWall-v3-Installer.msi
-
  echo info: cleaning the winsxs folder - bah this needs to be done after a reboot 
  sfc /SCANNOW
  DISM /Online /Cleanup-Image /StartComponentCleanup /ResetBase /RestoreHealth
+
+ echo Remember to configure the TinyWall firewall, select autolearn from the menu for a while for instance to allo trafficw
+  %msipkg% %usedir%\TinyWall-v3-Installer.msi
 
 :: - open scripts in notepad++ to preview instead of executing when clicking
 if exist %ProgramFiles%\Notepad++\Notepad++.exe (
