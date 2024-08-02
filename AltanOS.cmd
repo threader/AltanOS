@@ -27,18 +27,21 @@ if exist %usedir%\bin\Nsudo\%nsarchbit%\NSudoLG.exe goto skipnsudo
 %uacadmuser% reg load %usedir%\AltanOS\harden.reg
 :: %uacadmuser% %powshcmd% "New-ItemProperty -Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Run" -Name "Update Windows and Applications" -Value "%cd%\autorun-update.cmd"  -PropertyType "String""
  %uacadmuser% %powshcmd% Set-ExecutionPolicy -ExecutionPolicy Restricted
+ 
+ 
 :: powershell Start-process powershell -Verb RunAS %cd%\dotnet-install.ps1
 :: %admuser% dotnet add package Microsoft.UI.Xaml 
 
 :: i had a script to do this. Steal this example i guess 
 ::$taskTriggers = @(
+:: Any better suggestions for -At? - Ask?
 ::New-ScheduledTaskTrigger -Weekly -DaysOfWeek Thuesday -At 17pm 
 ::New-ScheduledTaskTrigger -AtLogon
 ::)
 :: The following will probably not work and include cd% in the path instead of the actual path
 ::$taskAction = New-ScheduledTaskAction -Execute "PowerShell" -Argument "-NoProfile -ExecutionPolicy Bypass -File 'cd%\autorun-update.cmd' -Output 'HTML'" -WorkingDirectory 'cd%\AltanOS'
 :: Get-ScheduledTask -TaskPath cd%\AltanOS
-:: Register-ScheduledTask 'Update Windows and Applications' -Action $taskAction -Trigger $taskTrigger
+:: Register-ScheduledTask 'Update Windows and Applications' -TaskPath 'AltanOS' -Action $taskAction -Trigger $taskTrigger
 
 
 pause
