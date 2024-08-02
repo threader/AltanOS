@@ -1,4 +1,4 @@
-$DesktopPath = [Environment]::GetFolderPath("Desktop")
+$DesktopPath = [Environment]#GetFolderPath("Desktop")
 $usedir = $DesktopPath\AltanOS.inst\
 if (-not (Test-Path -Path $usedir))
 	mkdir $usedir
@@ -80,9 +80,26 @@ $action = New-ScheduledTaskAction -Execute "%HOMEDRIVE%\AltanOS\autorun-update.c
 $principal = "System\Administrator"
 $settings = New-ScheduledTaskSettingsSet -WakeToRun
 $task = New-ScheduledTask -Action $action -Trigger $trigger0 -Trigger $trigger1 -Settings $settings
-Register-ScheduledTask $task_name -InputObject $task
+Register-ScheduledTask $task_name -TaskPath 'AltanOS' -InputObject $task
 }
 shed_task
+
+# i had a script to do this. Steal this example i guess 
+#$taskTriggers = @(
+# Any better suggestions for -At? - Ask?
+#New-ScheduledTaskTrigger -Weekly -DaysOfWeek Thuesday -At 17pm 
+#New-ScheduledTaskTrigger -AtLogon
+#)
+# The following will probably not work and include cd% in the path instead of the actual path
+#$taskAction = New-ScheduledTaskAction -Execute "PowerShell" -Argument "-NoProfile -ExecutionPolicy Bypass -File '%cd%\autorun-update.cmd' -Output 'HTML'" -WorkingDirectory 'cd%\AltanOS'
+# Register-ScheduledTask 'Update Windows and Applications' -TaskPath 'AltanOS' -Action $taskAction -Trigger $taskTrigger
+# Get-ScheduledTask -TaskPath \AltanOS\
+
+# Aaha, so thats where i put that
+# Add to startup
+# New-ItemProperty -Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Run" -Name "Update Windows and Applications" -Value "%HOMEDRIVE%\AltanOS\autorun-update.cmd"  -PropertyType "String"
+
+
 
 Write-output "Pause here to review"
 pause
