@@ -10,7 +10,7 @@ IF "%PROCESSOR_ARCHITECTURE%"=="AMD64" (set niarchbit=-64)
 IF "%PROCESSOR_ARCHITECTURE%"=="AMD64" (set nsarchbit=x64
 ) ELSE (set nsarchbit=Win32)
 
-set "usedir=%HOMEDRIVE%%HOMEPATH%\Desktop\AltanOS.inst" 
+set "usedir=%HOMEDRIVE%\AltanOS.inst" 
 set "currentuser=%usedir%\bin\Nsudo\%nsarchbit%\NSudoLC.exe -Priority:AboveNormal -U:C -P:E --wait"
 set "admuser=%usedir%\bin\Nsudo\%nsarchbit%\NSudoLC.exe -Priority:AboveNormal -M:S -U:S -P:E --wait"
 set "uacuser=%usedir%\bin\Nsudo\%nsarchbit%\NSudoLG.exe -Priority:AboveNormal -U:C -P:E --wait"

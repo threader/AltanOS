@@ -1,11 +1,10 @@
 @echo on
+set "altosdir=%cd%"
 set "powshcmd=PowerShell -WindowStyle Normal"
-set "usedir=%HOMEDRIVE%%HOMEPATH%\Desktop\AltanOS.inst"
+set "usedir=%HOMEDRIVE%\AltanOS.inst"
 set "bitsadminget=bitsadmin /transfer /Download /priority HIGH"
 set "webgetps=%powshcmd% Invoke-WebRequest -uri "%geturl%" -OutFile %geturlout% -v"
 set "admuser=%usedir%\bin\Nsudo\%nsarchbit%\NSudoLC.exe -UseCurrentConsole -Priority:AboveNormal -M:S -U:S -P:E --wait"
-:: set "uacadmuser=%usedir%\bin\Nsudo\%nsarchbit%\NSudoLG.exe -UseCurrentConsole -Priority:AboveNormal -M:S -U:S -P:E --wait"
-
 
 mkdir %usedir%
 
@@ -20,6 +19,8 @@ if exist %usedir%\bin\Nsudo\%nsarchbit%\NSudoLG.exe goto skipnsudo
  %powshcmd% "Invoke-WebRequest -uri https://github.com/M2TeamArchived/NSudo/releases/download/9.0-Preview1/NSudo_9.0_Preview1_9.0.2676.0.zip -OutFile %usedir%\Nsudo.zip"
  %powshcmd% "Expand-Archive -Force '%usedir%\Nsudo.zip' '%usedir%\bin\Nsudo'"
 :skipnsudo
+
+ %uacadmuser% %powshcmd% 'mv %altanosdir% %HOMEDRIVE%\AltanOS̈́'
 
  %uacadmuser% %powshcmd% Set-ExecutionPolicy -ExecutionPolicy Bypass
  %uacadmuser% %powshcmd% -File %cd%\pkgs-prep.ps1
@@ -40,8 +41,26 @@ if exist %usedir%\bin\Nsudo\%nsarchbit%\NSudoLG.exe goto skipnsudo
 ::)
 :: The following will probably not work and include cd% in the path instead of the actual path
 ::$taskAction = New-ScheduledTaskAction -Execute "PowerShell" -Argument "-NoProfile -ExecutionPolicy Bypass -File '%cd%\autorun-update.cmd' -Output 'HTML'" -WorkingDirectory 'cd%\AltanOS'
-:: Get-ScheduledTask -TaskPath \AltanOS\
 :: Register-ScheduledTask 'Update Windows and Applications' -TaskPath 'AltanOS' -Action $taskAction -Trigger $taskTrigger
+:: Get-ScheduledTask -TaskPath \AltanOS\
+
+:: Aaha, so thats where i put that
+# Add to startup
+# New-ItemProperty -Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Run" -Name "Update Windows and Applications" -Value "%HOMEDRIVE%%HOMEPATH%\Desktop\AltanOS\autorun-update.cmd"  -PropertyType "String"
+
+# Scheduled Task new task 
+$trigger0 = New-ScheduledTaskTrigger -Weekly -At 18pm -DaysOfWeek Tuesday 
+$trigger1 = New-ScheduledTaskTrigger -AtLogon
+$task_name = "Autorun update"
+
+function shed_task() {	
+$action = New-ScheduledTaskAction -Execute "%HOMEDRIVE%\AltanOS\autorun-update.cmd"
+$principal = "System\Administrator"
+$settings = New-ScheduledTaskSettingsSet -WakeToRun
+$task = New-ScheduledTask -Action $action -Trigger $trigger0 -Trigger $trigger1 -Settings $settings
+Register-ScheduledTask $task_name -InputObject $task
+}
+shed_task
 
 
 pause

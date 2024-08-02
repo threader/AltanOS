@@ -70,23 +70,5 @@ Get-WindowsUpdate -AcceptAll -Install
 # Install-WindowsUpdate
 # Set-ExecutionPolicy -ExecutionPolicy Restricted
 
-# Add to startup
-# New-ItemProperty -Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Run" -Name "Update Windows and Applications" -Value "%HOMEDRIVE%%HOMEPATH%\Desktop\AltanOS\autorun-update.cmd"  -PropertyType "String"
-
-# Scheduled Task new task 
-$trigger0 = New-ScheduledTaskTrigger -Weekly -At 18pm -DaysOfWeek Tuesday 
-$trigger1 = New-ScheduledTaskTrigger -AtLogon
-$task_name = "Autorun update"
-
-function shed_task() {	
-$action = New-ScheduledTaskAction -Execute "%HOMEDRIVE%%HOMEPATH%\Desktop\AltanOS\autorun-update.cmd"
-$principal = "System\Administrator"
-$settings = New-ScheduledTaskSettingsSet -WakeToRun
-$task = New-ScheduledTask -Action $action -Trigger $trigger0 -Trigger $trigger1 -Settings $settings
-Register-ScheduledTask $task_name -InputObject $task
-}
-shed_task
-
-
 Write-output "Pause here to review"
 pause

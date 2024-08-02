@@ -1,6 +1,6 @@
 @echo off
-set "altosdir=%HOMEDRIVE%%HOMEPATH%\Desktop\AltanOS"
-set "usedir=%HOMEDRIVE%%HOMEPATH%\Desktop\AltanOS.inst"
+set "altosdir=%HOMEDRIVE%\AltanOS"
+set "usedir=%HOMEDRIVE%\AltanOS.inst"
 set "powshcmd=powershell -WindowStyle Normal"
 
 IF "%PROCESSOR_ARCHITECTURE%"=="AMD64" (set nsarchbit=x64
