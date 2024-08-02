@@ -25,7 +25,7 @@ Write-Output "Removing non-essential packages and installing some bare minimums"
 
 if (-not (Test-Path "$DesktopPath\AltanOS.inst\Microsoft.DesktopAppInstaller.msixbundle")) {
 	write-output "Winget not found. Grab and install" 
-	Invoke-WebRequest -uri https://github.com/microsoft/winget-cli/releases/download/v1.4.10173/Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle -OutFile $DesktopPath\AltanOS.inst\Microsoft.DesktopAppInstaller.msixbundle
+	Invoke-WebRequest -uri https://github.com/microsoft/winget-cli/releases/download/v1.8.1911/Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle -OutFile $DesktopPath\AltanOS.inst\Microsoft.DesktopAppInstaller.msixbundle
 }
 add-appxpackage -Path "$DesktopPath\AltanOS.inst\Microsoft.DesktopAppInstaller.msixbundle"
 
@@ -50,6 +50,7 @@ winget install --disable-interactivity --accept-source-agreements --id Notepad++
 winget install --disable-interactivity --accept-source-agreements --id Nlitesoft.NTLite --source winget
 winget install --disable-interactivity --accept-source-agreements --id Malwarebytes.Malwarebytes --source winget
 winget install --disable-interactivity --accept-source-agreements --id SaferNetworking.SpybotAntiBeacon --source winget
+winget install --exact --id SomePythonThings.WingetUIStore --source winget
 Write-Output "Remove applications:"
 winget remove --id Microsoft.Edge --accept-source-agreements --disable-interactivity
 # winget remove --id Microsoft Edge Update* --accept-source-agreements --disable-interactivity # uuh, is this needed for Microsoft.EdgeWebView2Runtime that one probably needs?

@@ -30,7 +30,7 @@ if exist %usedir%\bin\Nsudo\%nsarchbit%\NSudoLG.exe goto skipnsudo
  %uacadmuser% %usedir%\harden-AltanOS.cmd
 :: needs proper testing
 :: %uacadmuser% %powshcmd% "New-ItemProperty -Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Run" -Name "Update Windows and Applications" -Value "%HOMEDRIVE%%HOMEPATH%\Desktop\AltanOS\autorun-update.cmd"  -PropertyType "String""
- %uacadmuser% reg load %usedir%\AltanOS\bin\registry\harden.reg
+ %uacadmuser% reg load %usedir%\AltanOS\harden.reg
  %uacadmuser% %powshcmd% Set-ExecutionPolicy -ExecutionPolicy Restricted
 pause
 
