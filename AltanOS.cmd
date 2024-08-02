@@ -38,7 +38,7 @@ if exist %usedir%\bin\Nsudo\%nsarchbit%\NSudoLG.exe goto skipnsudo
 :: The following will probably not work and include cd% in the path instead of the actual path
 ::$taskAction = New-ScheduledTaskAction -Execute "PowerShell" -Argument "-NoProfile -ExecutionPolicy Bypass -File 'cd%\autorun-update.cmd' -Output 'HTML'" -WorkingDirectory 'cd%\AltanOS'
 :: Get-ScheduledTask -TaskPath cd%\AltanOS
-Register-ScheduledTask 'Update Windows and Applications' -Action $taskAction -Trigger $taskTrigger
+:: Register-ScheduledTask 'Update Windows and Applications' -Action $taskAction -Trigger $taskTrigger
 
 
 pause
