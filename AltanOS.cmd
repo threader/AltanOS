@@ -45,23 +45,8 @@ if exist %usedir%\bin\Nsudo\%nsarchbit%\NSudoLG.exe goto skipnsudo
 :: Get-ScheduledTask -TaskPath \AltanOS\
 
 :: Aaha, so thats where i put that
-# Add to startup
-# New-ItemProperty -Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Run" -Name "Update Windows and Applications" -Value "%HOMEDRIVE%%HOMEPATH%\Desktop\AltanOS\autorun-update.cmd"  -PropertyType "String"
-
-# Scheduled Task new task 
-$trigger0 = New-ScheduledTaskTrigger -Weekly -At 18pm -DaysOfWeek Tuesday 
-$trigger1 = New-ScheduledTaskTrigger -AtLogon
-$task_name = "Autorun update"
-
-function shed_task() {	
-$action = New-ScheduledTaskAction -Execute "%HOMEDRIVE%\AltanOS\autorun-update.cmd"
-$principal = "System\Administrator"
-$settings = New-ScheduledTaskSettingsSet -WakeToRun
-$task = New-ScheduledTask -Action $action -Trigger $trigger0 -Trigger $trigger1 -Settings $settings
-Register-ScheduledTask $task_name -InputObject $task
-}
-shed_task
-
+:: Add to startup
+:: New-ItemProperty -Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Run" -Name "Update Windows and Applications" -Value "%HOMEDRIVE%\AltanOS\autorun-update.cmd"  -PropertyType "String"
 
 pause
 
