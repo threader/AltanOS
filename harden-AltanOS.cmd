@@ -3,7 +3,7 @@
 :: and https://github.com/amitxv/PC-Tuning
 @echo on
 cls
-echo Setting up and updating Windows and Applications.
+echo Setting up and hardening Windows.
 
 :: set variables
 IF "%PROCESSOR_ARCHITECTURE%"=="AMD64" (set niarchbit=-64)
@@ -332,7 +332,7 @@ reg add "HKCU\SOFTWARE\Policies\Microsoft\Windows\Explorer" /v "NoRemoteDestinat
  reg add "HKLM\SYSTEM\CurrentControlSet\Control\DeviceGuard\Scenarios\HypervisorEnforcedCodeIntegrity" /v "WasEnabledBy" /t REG_DWORD /d "1" /f
  reg add "HKLM\SYSTEM\CurrentControlSet\Control\DeviceGuard\Scenarios\HypervisorEnforcedCodeIntegrity" /v "Enabled" /t REG_DWORD /d "1" /f
 
-:: disable spectre and meltdown
+:: disable spectre and meltdown - make this optional? Albeit, not a good idea as there are javascript implimentations that exploit this...
 :: reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management" /v "FeatureSettingsOverride" /t REG_DWORD /d "3" /f
 :: reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management" /v "FeatureSettingsOverrideMask" /t REG_DWORD /d "3" /f
 
@@ -361,8 +361,7 @@ reg add "HKCU\SOFTWARE\Policies\Microsoft\Windows\Explorer" /v "NoRemoteDestinat
 :: Set these tested settings for now
  %uacadmuser% %powshcmd% "Set-ProcessMitigation -System -Enable DEP, EmulateAtlThunks"
  
- 
- bcdedit /set nx Optin
+bcdedit /set nx Optin
 
 @echo on
 

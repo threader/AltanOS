@@ -12,7 +12,7 @@ Tested on Windows 10 and Windows 11.
 
 TODO:
 * Fix the sheduled task and create one for sfc and dism every... two, maybe three weeks?
-* Move AltanOS.inst somewhere out of the way like Documents or something.
+* Move AltanOS* to somewhere predictable. 
 * More testing.
 * Add a script to run at startup to resolve an iusse where we are already in need to reboot.
 * Try to stop loosing work due to inconsistent behavior when hibernating linux and not properly exiting windows....
