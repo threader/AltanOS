@@ -31,7 +31,7 @@ shed_task_maintian
 # Scheduled Task new task 
 $trigger0 = New-ScheduledTaskTrigger -Once
 $trigger1 = New-ScheduledTaskTrigger -AtLogon
-$task_name = "Autorun maintainance"
+$task_name = "Autorun maintainance first boot"
 
 function shed_task_once() {	
 $action = New-ScheduledTaskAction -Execute "PowerShell" -Argument "-NoProfile -ExecutionPolicy Bypass -File '$altanosdir\autorun-maintain.ps1"
@@ -53,6 +53,5 @@ shed_task_once
 # Register-ScheduledTask 'Update Windows and Applications' -TaskPath 'AltanOS' -Action $taskAction -Trigger $taskTrigger
 # Get-ScheduledTask -TaskPath \AltanOS\
 
-# Aaha, so thats where i put that
 # Add to startup
 # New-ItemProperty -Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Run" -Name "Update Windows and Applications" -Value "$altanosdir\autorun-update.cmd"  -PropertyType "String"
