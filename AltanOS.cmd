@@ -20,13 +20,15 @@ if exist %usedir%\bin\Nsudo\%nsarchbit%\NSudoLG.exe goto skipnsudo
  %powshcmd% "Expand-Archive -Force '%usedir%\Nsudo.zip' '%usedir%\bin\Nsudo'"
 :skipnsudo
 
- %uacadmuser% %powshcmd% 'mv %altanosdir% %HOMEDRIVE%\AltanOS̈́'
-
+ %uacadmuser% %powshcmd% 'cp -r %altanosdir% %HOMEDRIVE%\AltanOS̈́'
+ %uacadmuser% %powshcmd% 'cp -r %altanosinstdir% %HOMEDRIVE%\AltanOS̈́.inst'
+ 
  %uacadmuser% %powshcmd% Set-ExecutionPolicy -ExecutionPolicy Bypass
- %uacadmuser% %powshcmd% -File %cd%\pkgs-prep.ps1
- %uacadmuser% %cd%\harden-AltanOS.cmd
-%uacadmuser% reg load %cd%\harden.reg
-:: %uacadmuser% %powshcmd% "New-ItemProperty -Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Run" -Name "Update Windows and Applications" -Value "%cd%\autorun-update.cmd"  -PropertyType "String""
+ %uacadmuser% %powshcmd% -File %altanosdir%\pkgs-prep.ps1
+ %uacadmuser% %altanosdir%\harden-AltanOS.cmd
+%uacadmuser% reg load %altanosdir%\harden.reg
+ %uacadmuser% %powshcmd% -File %altanosdir%\schedule-tasks.ps1
+:: %uacadmuser% %powshcmd% "New-ItemProperty -Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Run" -Name "Update Windows and Applications" -Value "%altanosdir%\autorun-update.cmd"  -PropertyType "String""
  %uacadmuser% %powshcmd% Set-ExecutionPolicy -ExecutionPolicy Restricted
  
  

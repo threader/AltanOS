@@ -372,8 +372,8 @@ bcdedit /set nx Optin
 :: %uacadmuser% %powshcmd% Set-ExecutionPolicy -ExecutionPolicy Restricted
 :: %uacadmuser% %powshcmd% add-appxpackage -Path "%usedir%\Microsoft.DesktopAppInstaller.msixbundle"
 
-echo Hopefully now git clone the latest AltanOS stuff
- %gitget% clone -b middle https://github.com/threader/AltanOS "%HOMEDRIVE%%HOMEPATH%\Desktop\AltanOS"
+echo git clone the latest AltanOS
+ %gitget% clone -b main https://github.com/threader/AltanOS "%HOMEDRIVE%\AltanOS"
 
 echo Disablng WMP and IE, enable Hyper-V and WSL
  DISM /Online /Disable-Feature /FeatureName:WindowsMediaPlayer /norestart
