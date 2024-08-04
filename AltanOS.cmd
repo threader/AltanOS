@@ -6,7 +6,7 @@ set "bitsadminget=bitsadmin /transfer /Download /priority HIGH"
 set "webgetps=%powshcmd% Invoke-WebRequest -uri "%geturl%" -OutFile %geturlout% -v"
 set "admuser=%usedir%\bin\Nsudo\%nsarchbit%\NSudoLC.exe -UseCurrentConsole -Priority:AboveNormal -M:S -U:S -P:E --wait"
 
-set "powshadmcmd=%powshcmd% "start-process "powershell -Verb RunAS""
+set "powshadmcmd=%powshcmd% "start-process "powershell -Wait -Verb RunAS""
  :: [Environment]::CurrentDirectory = $ExecutionContext.SessionState.Path.CurrentFileSystemLocation.ProviderPath
 if exist %usedir% goto skipusedir
  mkdir %usedir%
@@ -26,11 +26,14 @@ if exist %usedir%\bin\Nsudo\%nsarchbit%\NSudoLG.exe goto skipnsudo
 :: %powshcmd% "Invoke-WebRequest -uri https://github.com/M2TeamArchived/NSudo/releases/download/9.0-Preview1/NSudo_9.0_Preview1_9.0.2676.0.zip -OutFile %usedir%\Nsudo.zip"
 :: %powshcmd% "Expand-Archive -Force '%usedir%\Nsudo.zip' '%usedir%\bin\Nsudo'"
 :skipnsudo
- 
+
+ %powshadmcmd% '%powshcmd% "Set-ItemProperty -Path REGISTRY::HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System -Name ConsentPromptBehaviorAdmin -Value 0"'
  %powshadmcmd% '%powshcmd% "Set-ExecutionPolicy -ExecutionPolicy Bypass"'
+ Echo There will be packages that fail to remove here because they are core components, some red text to follow.
+ pause
  %powshadmcmd% %altanosdir%\pkgs-prep.ps1
  %powshadmcmd% %altanosdir%\harden-AltanOS.cmd
-%powshadmcmd% reg load %altanosdir%\harden.reg
+ %powshadmcmd% reg load %altanosdir%\harden.reg
  %powshadmcmd% %altanosdir%\schedule-tasks.ps1
 :: %uacadmuser% %powshcmd% "New-ItemProperty -Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Run" -Name "Update Windows and Applications" -Value "%altanosdir%\autorun-update.cmd"  -PropertyType "String""
  %powshadmcmd% '%powshcmd% "Set-ExecutionPolicy -ExecutionPolicy Restricted"'
@@ -39,6 +42,6 @@ if exist %usedir%\bin\Nsudo\%nsarchbit%\NSudoLG.exe goto skipnsudo
 :: powershell Start-process powershell -Verb RunAS %cd%\dotnet-install.ps1
 :: %admuser% dotnet add package Microsoft.UI.Xaml 
 
-
+ %powshadmcmd% "Set-ItemProperty -Path REGISTRY::HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System -Name ConsentPromptBehaviorAdmin -Value 1"
 pause
 
