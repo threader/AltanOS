@@ -4,7 +4,7 @@ This project is undergoing change, testing and has not settled. It might not run
 
 The goal of this project is to optimize/minimize and harden Windows systems, making the deployed system more maintainable with tools like winget and UniGetUI and the 3rd party module 'PSWindowsUpdate'.
 
-Run AltanOS.cmd and the rest should happen with little interaction. Just be sure to run it from it's parent directory.
+Run AltanOS.cmd and the rest should happen with little interaction. Just be sure to run it from it's parent directory. It will copy itself to C:\AltanOS and C:\AltanOS.inst
 Mind the TinyWall firewall - select 'Autolearn' if you have problems and use the 'Manage' dialog to tune the selection. Hopefully a more elegant solution cand be found like importing the .tws file in AltanOS\bin
 N.B: Uninstalling TinyWall while configured to block an application or default settings will lead to connection blocking even after uninstall!
 
