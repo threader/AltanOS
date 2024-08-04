@@ -7,19 +7,19 @@ set "webgetps=%powshcmd% Invoke-WebRequest -uri "%geturl%" -OutFile %geturlout% 
 set "admuser=%usedir%\bin\Nsudo\%nsarchbit%\NSudoLC.exe -UseCurrentConsole -Priority:AboveNormal -M:S -U:S -P:E --wait"
 
 set "powshadmcmd=%powshcmd% "start-process "powershell -Verb RunAS""
-
+ :: [Environment]::CurrentDirectory = $ExecutionContext.SessionState.Path.CurrentFileSystemLocation.ProviderPath
 if exist %usedir% goto skipusedir
  mkdir %usedir%
 :skipusedir
 
 %powshcmd% 'cp -r %altanosdir% %HOMEDRIVE%\AltanOS'
-:: %powshcmd% 'cp -r %altanosinstdir% %HOMEDRIVE%\AltanOS.inst'
 
 IF "%PROCESSOR_ARCHITECTURE%"=="AMD64" (set nsarchbit=x64
 ) ELSE (set nsarchbit=Win32)
 
 :: set "uacadmuser=%usedir%\bin\Nsudo\%nsarchbit%\NSudoLG.exe -Priority:AboveNormal -M:S -U:S -P:E --wait"
 
+:: Flagged bt Defender
 if exist %usedir%\bin\Nsudo\%nsarchbit%\NSudoLG.exe goto skipnsudo
 :: %bitsadminget% https://dotnet.microsoft.com/download/dotnet/scripts/v1/dotnet-install.ps1 %usedir%\dotnet-install.ps1
 :: %bitsadminget% https://github.com/M2TeamArchived/NSudo/releases/download/9.0-Preview1/NSudo_9.0_Preview1_9.0.2676.0.zip %usedir%\Nsudo.zip 
@@ -28,10 +28,10 @@ if exist %usedir%\bin\Nsudo\%nsarchbit%\NSudoLG.exe goto skipnsudo
 :skipnsudo
  
  %powshadmcmd% '%powshcmd% "Set-ExecutionPolicy -ExecutionPolicy Bypass"'
- %powshadmcmd% -File %altanosdir%\pkgs-prep.ps1
+ %powshadmcmd% %altanosdir%\pkgs-prep.ps1
  %powshadmcmd% %altanosdir%\harden-AltanOS.cmd
 %powshadmcmd% reg load %altanosdir%\harden.reg
- %powshadmcmd%  -File %altanosdir%\schedule-tasks.ps1
+ %powshadmcmd% %altanosdir%\schedule-tasks.ps1
 :: %uacadmuser% %powshcmd% "New-ItemProperty -Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Run" -Name "Update Windows and Applications" -Value "%altanosdir%\autorun-update.cmd"  -PropertyType "String""
  %powshadmcmd% '%powshcmd% "Set-ExecutionPolicy -ExecutionPolicy Restricted"'
  
