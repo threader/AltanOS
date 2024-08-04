@@ -8,11 +8,14 @@ set "admuser=%usedir%\bin\Nsudo\%nsarchbit%\NSudoLC.exe -UseCurrentConsole -Prio
 
 set "powshadmcmd=%powshcmd% "start-process "powershell -Wait -Verb RunAS""
  :: [Environment]::CurrentDirectory = $ExecutionContext.SessionState.Path.CurrentFileSystemLocation.ProviderPath
+
 if exist %usedir% goto skipusedir
  mkdir %usedir%
 :skipusedir
 
+if exist %altanosdir% goto skipaltanosdir
 %powshcmd% 'cp -r %altanosdir% %HOMEDRIVE%\AltanOS'
+:skipaltanosdir
 
 IF "%PROCESSOR_ARCHITECTURE%"=="AMD64" (set nsarchbit=x64
 ) ELSE (set nsarchbit=Win32)
