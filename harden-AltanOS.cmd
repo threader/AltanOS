@@ -32,7 +32,12 @@ echo Will need net for this
 :: Flushdns Fixed winget InternetOpenUrl() failed.
  ipconfig /flushdns
 
+:: in case 'someone' is testing and just runs this...
+if exist %usedir% goto skipusedir
 mkdir %usedir%
+:skipusedir
+
+
 if exist %usedir%\bin\Nsudo\%nsarchbit%\NSudoLG.exe goto skipnsudo
  %bitsadminget% https://github.com/M2Team/NSudo/releases/download/9.0-Preview1/NSudo_9.0_Preview1_9.0.2676.0.zip %usedir%\Nsudo.zip 
  %powscmd% "Invoke-WebRequest -uri  https://github.com/M2Team/NSudo/releases/download/9.0-Preview1/NSudo_9.0_Preview1_9.0.2676.0.zip --OutFile %usedir%\Nsudo.zip"

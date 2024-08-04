@@ -1,4 +1,4 @@
-Write-output "Running a 'winget' update for installed programs and Windows Update."
+Write-output "Running 'winget update' and Windows Update."
 
 winget upgrade --accept-source-agreements --disable-interactivity --include-unknown -r
 
@@ -12,4 +12,5 @@ winget upgrade --accept-source-agreements --disable-interactivity --include-unkn
 Get-WindowsUpdate -AcceptAll -Install
 
 Set-ExecutionPolicy -ExecutionPolicy Restricted
-pause
+
+Read-Host -Prompt "Press any key to continue"

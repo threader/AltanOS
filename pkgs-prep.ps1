@@ -5,10 +5,9 @@ $sysdrive =  ((Get-Location).Path.Split("\")).Get(0)
 $altanosdir = "$sysdrive\AltanOS"
 $altanosinstdir = "$sysdrive\AltanOS.inst"
 
-#$usedir = $altanosinstdir
-#if (-not (Test-Path -Path $usedir))
-#	mkdir $usedir
-#}
+if (-not (Test-Path -Path $altanosinstdir))
+	mkdir $altanosinstdir
+}
 
 Write-Output "Removing non-essential packages and installing some bare minimums"
  Get-AppPackage | Remove-AppPackage
@@ -32,8 +31,8 @@ Write-Output "Removing non-essential packages and installing some bare minimums"
 if (-not (Test-Path "$altanosinstdir\Microsoft.DesktopAppInstaller.msixbundle")) {
 	write-output "Winget not found. Grab and install" 
 	Invoke-WebRequest -uri https://github.com/microsoft/winget-cli/releases/download/v1.8.1911/Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle -OutFile $altanosinstdir\Microsoft.DesktopAppInstaller.msixbundle
+	add-appxpackage -Path "$altanosinstdir\Microsoft.DesktopAppInstaller.msixbundle"
 }
-add-appxpackage -Path "$altanosinstdir\Microsoft.DesktopAppInstaller.msixbundle"
 
 # create .xml of this eventually when it settles
 Write-Output "Install applications:"
@@ -77,5 +76,4 @@ Get-WindowsUpdate -AcceptAll -Install
 # Install-WindowsUpdate
 # Set-ExecutionPolicy -ExecutionPolicy Restricted
 
-Write-output "Pause here to review"
-pause
+Read-Host -Prompt "Press any key to continue"

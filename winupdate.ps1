@@ -11,4 +11,5 @@ winget upgrade --accept-source-agreements --disable-interactivity --include-unkn
 Get-WindowsUpdate -AcceptAll -Install
 # Install-WindowsUpdate
 # Set-ExecutionPolicy -ExecutionPolicy Restricted
-pause
+
+Read-Host -Prompt "Press any key to continue"

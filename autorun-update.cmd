@@ -10,5 +10,6 @@ set "uacadmuser=%usedir%\bin\Nsudo\%nsarchbit%\NSudoLG.exe -Priority:AboveNormal
 
 :: %uacadmuser% %powshcmd% "Set-ExecutionPolicy -ExecutionPolicy Bypass"
 %uacadmuser% %powshcmd% -File %altosdir%\winupdate.ps1
-pause
+
 %uacadmuser% %powshcmd% "Set-ExecutionPolicy -ExecutionPolicy Restricted"
+pause
