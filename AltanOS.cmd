@@ -42,6 +42,7 @@ if exist %usedir%\bin\Nsudo\%nsarchbit%\NSudoLG.exe goto skipnsudo
 :: powershell Start-process powershell -Verb RunAS %cd%\dotnet-install.ps1
 :: %admuser% dotnet add package Microsoft.UI.Xaml 
 
- %powshadmcmd% "Set-ItemProperty -Path REGISTRY::HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System -Name ConsentPromptBehaviorAdmin -Value 1"
+:: set the admin password prompt, a value of 1 on here and the admin account will require password to be entered. 2 is a prompt.
+ %powshadmcmd% '%powshcmd% "Set-ItemProperty -Path REGISTRY::HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System -Name ConsentPromptBehaviorAdmin -Value 1"'
 pause
 
