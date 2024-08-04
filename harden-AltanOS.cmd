@@ -32,7 +32,7 @@ echo Will need net for this
 :: Flushdns Fixed winget InternetOpenUrl() failed.
  ipconfig /flushdns
 
-:: in case 'someone' is testing and just runs this...
+:: if 'someone' is testing and just runs this file...
 if exist %usedir% goto skipusedir
 mkdir %usedir%
 :skipusedir

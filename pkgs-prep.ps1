@@ -1,14 +1,15 @@
-# $DesktopPath = [Environment]::GetFolderPath("Desktop")
-# Get-Location | Foreach-Object { $_.Path }
-
 $sysdrive =  ((Get-Location).Path.Split("\")).Get(0)
 $altanosdir = "$sysdrive\AltanOS"
 $altanosinstdir = "$sysdrive\AltanOS.inst"
 
-if (-not (Test-Path -Path $altanosinstdir))
+if (-not (Test-Path -Path $altanosinstdir)) {
 	mkdir $altanosinstdir
 }
 
+# $DesktopPath = [Environment]::GetFolderPath("Desktop")
+# Get-Location | Foreach-Object { $_.Path }
+
+Read-Host -Prompt "Press any key to continue"
 Write-Output "Removing non-essential packages and installing some bare minimums"
  Get-AppPackage | Remove-AppPackage
  Get-AppxPackage -allusers Microsoft.VCLibs* | Foreach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
