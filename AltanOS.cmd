@@ -4,7 +4,8 @@ set "powshcmd=PowerShell -command"
 set "usedir=%HOMEDRIVE%\AltanOS.inst"
 set "bitsadminget=bitsadmin /transfer /Download /priority HIGH"
 set "webgetps=%powshcmd% Invoke-WebRequest -uri "%geturl%" -OutFile %geturlout% -v"
-set "admuser=%usedir%\bin\Nsudo\%nsarchbit%\NSudoLC.exe -UseCurrentConsole -Priority:AboveNormal -M:S -U:S -P:E --wait"
+
+:: set "admuser=%usedir%\bin\Nsudo\%nsarchbit%\NSudoLC.exe -UseCurrentConsole -Priority:AboveNormal -M:S -U:S -P:E --wait"
 
 set "powshadmcmd=%powshcmd% "start-process "powershell -Wait -Verb RunAS""
  :: [Environment]::CurrentDirectory = $ExecutionContext.SessionState.Path.CurrentFileSystemLocation.ProviderPath

@@ -11,7 +11,10 @@ if (-not (Test-Path -Path $altanosinstdir)) {
 
 Read-Host -Prompt "Press any key to continue"
 Write-Output "Removing non-essential packages and installing some bare minimums"
- Get-AppPackage | Remove-AppPackage
+
+ Get-AppPackage -AllUsers | Remove-AppPackage -AllUsers
+ Get-AppxPackage -AllUsers | Remove-AppxPackage -AllUsers
+ 
  Get-AppxPackage -allusers Microsoft.VCLibs* | Foreach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
  Get-AppxPackage -allusers Microsoft.NET.CoreRuntime* | Foreach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
  Get-AppxPackage -allusers Microsoft.NET.Native* | Foreach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
