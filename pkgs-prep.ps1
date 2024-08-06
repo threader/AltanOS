@@ -9,10 +9,12 @@ if (-not (Test-Path -Path $altanosinstdir)) {
 # $DesktopPath = [Environment]::GetFolderPath("Desktop")
 # Get-Location | Foreach-Object { $_.Path }
 
-Read-Host -Prompt "Press any key to continue"
+Read-Host -Prompt "This will remove all removable Windows packages on the system, for all users.. Are you sure you know what you are doing? Press any key to continue."
 Write-Output "Removing non-essential packages and installing some bare minimums"
 
+
  Get-AppPackage -AllUsers | Remove-AppPackage -AllUsers
+ # This will remove all user installed packages on the system.. 
  Get-AppxPackage -AllUsers | Remove-AppxPackage -AllUsers
  
  Get-AppxPackage -allusers Microsoft.VCLibs* | Foreach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
@@ -27,7 +29,6 @@ Write-Output "Removing non-essential packages and installing some bare minimums"
  Get-AppxPackage -allusers Microsoft.WindowsStore* | Foreach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
  Get-AppxPackage -allusers Microsoft.StorePurchaseApp* | Foreach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
 ## Get-AppxPackage -allusers Microsoft.MicrosoftOfficeHub* | Foreach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
-## Get-AppxPackage -allusers Microsoft.Windows.Search* | Foreach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
  Get-AppxPackage -allusers Microsoft.WindowsCalculator* | Foreach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
  Get-AppxPackage -allusers Microsoft.MSPaint* | Foreach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
  Get-AppxPackage -allusers Microsoft.MicrosoftSolitaireCollection* | Foreach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
@@ -40,8 +41,10 @@ if (-not (Test-Path "$altanosinstdir\Microsoft.DesktopAppInstaller.msixbundle"))
 
 # create .xml of this eventually when it settles
 Write-Output "Install applications:"
-winget install --disable-interactivity --accept-source-agreements --id abbodi1406.vcredist --source winget
-winget remove  --disable-interactivity --accept-source-agreements --id Sandboxie.Plus --source winget
+# This should not really be needed
+# winget install --disable-interactivity --accept-source-agreements --id abbodi1406.vcredist --source winget
+
+winget install  --disable-interactivity --accept-source-agreements --id Sandboxie.Plus --source winget
 winget install --disable-interactivity --accept-source-agreements --id SomePythonThings.WingetUIStore --source winget
 winget install --disable-interactivity --accept-source-agreements --id Git.Git --source winget
 winget install --disable-interactivity --accept-source-agreements --id Microsoft.Sysinternals.ProcessMonitor --source winget
