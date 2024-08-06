@@ -1,4 +1,4 @@
-# AltanOS - started it's life after reading trough the scripts of from PC-Tuning and Atlas by 'amitvxv' and co.  
+# AltanOS - started it's life as a necessity after reading trough the scripts of from PC-Tuning and Atlas by 'amitvxv' and co. .
 
 This project is undergoing change, testing and has not settled. It might not run as expected, experience adviced. This will remove all removable Windows packages on the system.
 
@@ -27,6 +27,44 @@ The following files can run standalone if needed:
 * harden.reg 				- ofc 
 * pkgs-prep.ps1
 * schedule-tasks.ps1
+
+The following packages are installed:
+
+* VCLibs
+* NET.CoreRuntime
+* NET.Native
+* NET.Native.Runtime
+* NET.Native.Framework.1.7
+* UI.Xaml* 
+* PackageManagement.NuGetProvider
+* UI.Xaml.2.7* 
+* WindowsStore
+* StorePurchaseApp
+* ##MicrosoftOfficeHub
+* WindowsCalculator
+* MSPaint
+* MicrosoftSolitaireCollection
+
+The folloiwng packages are grabbed by 'WinGet'
+
+* Sandboxie.Plus
+* SomePythonThings.WingetUIStore
+* Git.Git
+* Microsoft.Sysinternals.ProcessMonitor
+* Microsoft.Sysinternals.ProcessExplorer
+* #Microsoft.Powershell
+* Google.Chrome 
+* Mozilla.Firefox
+* 7zip.7zip
+* VideoLAN.VLC
+* GIMP.GIMP
+* TheDocumentFoundation.LibreOffice
+* Piriform.Recuva
+* Piriform.Defraggler
+* Nlitesoft.NTLite
+* Malwarebytes.Malwarebytes
+* SaferNetworking.SpybotAntiBeacon
+* SomePythonThings.WingetUIStore
 
 
 TODO:
