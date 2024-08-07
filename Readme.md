@@ -1,4 +1,4 @@
-# AltanOS - started it's life as an overdue todo item of severe necessity and randomly being inspired to persue after reading trough the scripts of from PC-Tuning and Atlas by 'amitvxv' and co. .
+# AltanOS - started it's life as an overdue todo item of severe necessity and randomly being inspired to persue after reading trough the scripts of from PC-Tuning and Atlas by 'amitvxv' and co.
 
 This project is undergoing change, testing and has not settled. It might not run as expected, experience adviced. This will remove all removable Windows packages on the system.
 
@@ -12,24 +12,18 @@ Mind the TinyWall firewall - select 'Autolearn' if you have problems and use the
 
 N.B: Uninstalling TinyWall while configured to block an application or default settings will lead to connection blocking even after uninstall!
 
-N.B: Malwarebytes and Spybot Antibeacon. Antibeacon modifies the host file and Malwarebytes believes this is host file hijacking.
+N.B: Malwarebytes and Spybot AntiBeacon. AntiBeacon modifies the host file and Malwarebytes believes this is host file hijacking.
 
 Tested on Windows 10 and Windows 11.
 
 
-A bit of topology.
-
-
-The following files can run standalone if needed:
-
-
+# The following files can run standalone if needed:
 * harden-AltanOS.cmd
 * harden.reg 				- ofc 
 * pkgs-prep.ps1
 * schedule-tasks.ps1
 
-The following packages are installed:
-
+# The following packages are installed:
 * VCLibs
 * NET.CoreRuntime
 * NET.Native
@@ -45,8 +39,7 @@ The following packages are installed:
 * MSPaint
 * MicrosoftSolitaireCollection
 
-The folloiwng packages are grabbed by 'WinGet'
-
+# The folloiwng packages are grabbed by 'WinGet'
 * Sandboxie.Plus
 * SomePythonThings.WingetUIStore
 * Git.Git
@@ -66,20 +59,22 @@ The folloiwng packages are grabbed by 'WinGet'
 * SaferNetworking.SpybotAntiBeacon
 * SomePythonThings.WingetUIStore
 
-It will schedule 3 tasks to be autorun: 
+# It will schedule 3 tasks to be autorun: 
 * autorun-update.ps1				- Runs PSWindowsUpdate every thuesday at 18pm
 * autorun-maintain.ps1				- Runs sfc /scannow and DISM /Online /Cleanup-Image /StartComponentCleanup /ResetBase /RestoreHealth every 3 weeks at 18pm  
 * autorun-maintain-privazy.ps1		- Runs PrivaZer to delete residue in the NTFS journal, and write ZERO to the free disk space as well as remove temporary files everywhere.
 
-autorun-maintain.ps1 will be run upon login once after login, after a reboot(!!!).
+autorun-maintain.ps1 will also be run upon login, once, after a reboot(!!!).
 
-TODO:
+# TODO:
 * Add AwdCleaner and scan quickly before proceeding. 
 * Ask if you wish to install LibreOffice or Microsoft Office.
 * Dig around for more hardening or other things that make sense.
 * Better Readme and explenation, 2 days now i've layed down in bed to sleep then having a great idea what to write, then not when i wake up...
 * Try to preconfigure Sandboxie.
+
 v 0.0.1 - ish
+
 * Fix the sheduled task and create one for sfc and dism every... two, maybe three weeks? - Maybe fixed
 * Move AltanOS* to somewhere predictable. - Fixed
 * More testing. - Ongoing - Still.. 
