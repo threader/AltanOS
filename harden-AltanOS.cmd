@@ -13,12 +13,14 @@ IF "%PROCESSOR_ARCHITECTURE%"=="AMD64" (set nsarchbit=x64
 set "usedir=%HOMEDRIVE%\AltanOS.inst" 
 set "wingetinstdcmd=winget install --disable-interactivity --accept-source-agreements"
 set "powshcmd=PowerShell -Command"
-set "powshadmcmd=%powshcmd% "Start-process powershell -Wait -Verb RunAS""
+set "powshadmcmd=%powshcmd% "Start-process "powershell -Wait -Verb RunAS"""
 set "bitsadminget=bitsadmin /transfer /Download /priority HIGH"
 set "webgetps=%powshcmd% Invoke-WebRequest -uri "%geturl%" -OutFile %geturlout% -v"
 set "dismpkg=DISM /online /add-package"
 set "msipkg=msiexec.exe /quiet /norestart /passive /package"
 set "gitget=%ProgramFiles%\Git\bin\git.exe"
+
+reg import %altanosdir%\harden.reg
 
 echo Will need net for this 
 

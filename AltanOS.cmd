@@ -1,10 +1,11 @@
 @echo on
 set "altanosdir=%cd%"
+set "shcmd=""
 set "powshcmd=PowerShell -command"
 set "usedir=%HOMEDRIVE%\AltanOS.inst"
 set "bitsadminget=bitsadmin /transfer /Download /priority HIGH"
 set "webgetps=%powshcmd% Invoke-WebRequest -uri "%geturl%" -OutFile %geturlout% -v"
-set "powshadmcmd=%powshcmd% "start-process "powershell -Wait -Verb RunAS""
+set "powshadmcmd=%powshcmd% "start-process "powershell -Wait -Verb RunAS" %shcmd% ""
 set "msipkg=msiexec.exe /quiet /norestart /passive /package"
 set "gitget=%ProgramFiles%\Git\bin\git.exe"
  :: [Environment]::CurrentDirectory = $ExecutionContext.SessionState.Path.CurrentFileSystemLocation.ProviderPath
@@ -91,14 +92,14 @@ if exist %usedir%\network-indicator%niarchbit%.zip goto skipdl
  %powshadmcmd% '%powshcmd% "Set-ExecutionPolicy -ExecutionPolicy Bypass"'
  Echo There will be packages that fail to remove here because they are core components, some red text to follow.
  pause
- %powshadmcmd% %altanosdir%\pkgs-prep.ps1
+ %powshadmcmd% "%altanosdir%\pkgs-prep.ps1"
  
 echo git clone the latest AltanOS
  %gitget% clone -b main https://github.com/threader/AltanOS "%altanosdir%"
  
- %powshadmcmd% %altanosdir%\harden-AltanOS.cmd
- %powshadmcmd% reg load %altanosdir%\harden.reg
- %powshadmcmd% %altanosdir%\schedule-tasks.ps1
+ %powshadmcmd% "%altanosdir%\harden-AltanOS.cmd"
+::  %powshadmcmd% 'powshcmd% "reg import %altanosdir%\harden.reg"'
+ %powshadmcmd% "%altanosdir%\schedule-tasks.ps1"
 :: %uacadmuser% %powshcmd% "New-ItemProperty -Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Run" -Name "Update Windows and Applications" -Value "%altanosdir%\autorun-update.cmd"  -PropertyType "String""
 
 

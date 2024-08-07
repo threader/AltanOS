@@ -14,22 +14,22 @@ Register-ScheduledTask $task_name -TaskPath 'AltanOS' -InputObject $task
 shed_task_update
 
 # Scheduled Task new task
-$trigger0 = New-ScheduledTaskTrigger -Weekly 3 -At 16pm -DaysOfWeek Wedensday 
-$trigger1 = New-ScheduledTaskTrigger -AtLogon
+$trigger2 = New-ScheduledTaskTrigger -Weekly 3 -At 16pm -DaysOfWeek Wednesday
+$trigger3 = New-ScheduledTaskTrigger -AtLogon
 $task_name = "Autorun AwdCleaner.."
 
-function shed_task_maintain_awdcleaner() {	
-$action = New-ScheduledTaskAction -Execute "PowerShell" -Argument "-NoProfile -ExecutionPolicy Bypass -File '$altanosdir\autorun-adwcleaner.ps1"
+function shed_task_awdcleaner() {	
+$action = New-ScheduledTaskAction -Execute "PowerShell" -Argument "-NoProfile -ExecutionPolicy Bypass -File '$altanosdir\autorun-awdcleaner.ps1"
 $principal = "System\Administrator"
 $settings = New-ScheduledTaskSettingsSet -WakeToRun
 $task = New-ScheduledTask -Action $action -Trigger $trigger0 -Trigger $trigger1 -Settings $settings
 Register-ScheduledTask $task_name -TaskPath 'AltanOS' -InputObject $task
 }
-shed_task_maintian_awdcleaner
+shed_task_awdcleaner
 
 # Scheduled Task new task
-$trigger0 = New-ScheduledTaskTrigger -Weekly -WeeksInterval 3 -At 17pm -DaysOfWeek Wedensday 
-$trigger1 = New-ScheduledTaskTrigger -AtLogon
+$trigger4 = New-ScheduledTaskTrigger -Weekly -WeeksInterval 3 -At 17pm -DaysOfWeek Wedensday 
+$trigger5 = New-ScheduledTaskTrigger -AtLogon
 $task_name = "Autorun maintainance"
 
 function shed_task_maintain() {	
@@ -42,8 +42,8 @@ Register-ScheduledTask $task_name -TaskPath 'AltanOS' -InputObject $task
 shed_task_maintian
 
 # Scheduled Task new task
-$trigger0 = New-ScheduledTaskTrigger -Weekly -WeeksInterval 3 -At 04pm -DaysOfWeek Wedensday 
-$trigger1 = New-ScheduledTaskTrigger -AtLogon
+$trigger5 = New-ScheduledTaskTrigger -Weekly -WeeksInterval 3 -At 04pm -DaysOfWeek Wedensday 
+$trigger7 = New-ScheduledTaskTrigger -AtLogon
 $task_name = "Autorun privacy and temporary file mesures."
 
 function shed_task_maintain_privazy() {	
@@ -56,8 +56,8 @@ Register-ScheduledTask $task_name -TaskPath 'AltanOS' -InputObject $task
 shed_task_maintian_privazy
 
 # Scheduled Task new task 
-$trigger0 = New-ScheduledTaskTrigger -Once
-$trigger1 = New-ScheduledTaskTrigger -AtLogon
+$trigger8 = New-ScheduledTaskTrigger -Once
+$trigger9 = New-ScheduledTaskTrigger -AtLogon
 $task_name = "Autorun maintainance first boot"
 
 function shed_task_once() {	
@@ -68,6 +68,7 @@ $task = New-ScheduledTask -Action $action -Trigger $trigger0 -Trigger $trigger1 
 Register-ScheduledTask $task_name -TaskPath 'AltanOS' -InputObject $task
 }
 shed_task_once
+ Read-Host -Prompt "Press any key to continue."
 
 # i had a script to do this. Steal this example i guess 
 #$taskTriggers = @(
