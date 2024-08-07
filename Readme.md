@@ -60,10 +60,10 @@ Tested on Windows 10 and Windows 11.
 * SomePythonThings.WingetUIStore
 
 # It will schedule tasks to be autorun: 
-* autorun-update.ps1				- Runs PSWindowsUpdate every thuesday at 17pm
-* autorun-maintain.ps1				- Runs sfc /scannow and DISM /Online /Cleanup-Image /StartComponentCleanup /ResetBase /RestoreHealth every 3 weeks at 18pm  
-* autorun-privazer.ps1				- Runs PrivaZer to delete residue in the NTFS journal, and write ZERO to the free disk space as well as remove temporary files everywhere. Every 3 weeks Wedensday at 17pm
-* autorun-awdcleaner				- Runs AwdClenaer every Wedensday at 16pm.
+* autorun-update.ps1                - Runs PSWindowsUpdate every thuesday at 17pm
+* autorun-maintain.ps1              - Runs sfc /scannow and DISM /Online /Cleanup-Image /StartComponentCleanup /ResetBase /RestoreHealth every 3 weeks at 18pm  
+* autorun-privazer.ps1              - Runs PrivaZer to delete residue in the NTFS journal, and write ZERO to the free disk space as well as remove temporary files everywhere. Every 3 weeks Wedensday at 17pm
+* autorun-awdcleaner.ps1            - Runs AwdClenaer every Wedensday at 16pm.
 
 autorun-maintain.ps1 will also be run upon login, once, after a reboot(!!!).
 
@@ -82,5 +82,6 @@ v 0.0.1 - ish
 * Move AltanOS* to somewhere predictable. - Fixed
 * More testing. - Ongoing - Still.. 
 * Add a script to run once at first startup to resolve an iusse where we are already in need to reboot. - Maybe fixed
-* Try to stop loosing work due to inconsistent behavior when hibernating linux and not properly shutting down windows (holding left ctrl while selecting power off), linux isnt grabbing the new journal state of the NTFS drive file states after resuming from hibernation, this results in data loss and corruption if you then proceed ot unmount the volume in linux, a chkdsk from windows _can_ fix this, or a hard reset of linux if you've got nothing to loose.... - I almost lost all this again instead ...
+* Try to stop loosing work when hibernating linux and not properly shutting down windows (holding left ctrl while selecting power off), linux isnt grabbing the new journal state of the NTFS drive file states after resuming from hibernation, this results in data loss and corruption if you then proceed ot unmount the volume in linux, a chkdsk from windows _can_ fix this, or a hard reset of linux if you've got nothing to loose....   - I almost lost all this again instead ...
+
 v 0.0.0
