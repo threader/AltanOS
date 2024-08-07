@@ -59,14 +59,17 @@ Tested on Windows 10 and Windows 11.
 * SaferNetworking.SpybotAntiBeacon
 * SomePythonThings.WingetUIStore
 
-# It will schedule 3 tasks to be autorun: 
-* autorun-update.ps1				- Runs PSWindowsUpdate every thuesday at 18pm
+# It will schedule tasks to be autorun: 
+* autorun-update.ps1				- Runs PSWindowsUpdate every thuesday at 17pm
 * autorun-maintain.ps1				- Runs sfc /scannow and DISM /Online /Cleanup-Image /StartComponentCleanup /ResetBase /RestoreHealth every 3 weeks at 18pm  
-* autorun-maintain-privazy.ps1		- Runs PrivaZer to delete residue in the NTFS journal, and write ZERO to the free disk space as well as remove temporary files everywhere.
+* autorun-privazer.ps1				- Runs PrivaZer to delete residue in the NTFS journal, and write ZERO to the free disk space as well as remove temporary files everywhere. Every 3 weeks Wedensday at 17pm
+* autorun-awdcleaner				- Runs AwdClenaer every Wedensday at 16pm.
 
 autorun-maintain.ps1 will also be run upon login, once, after a reboot(!!!).
 
 # TODO:
+* Bother to ask when to schedule.
+* Ask to either install MalwareBytes or run to AwdCleaner sometimes?
 * Add AwdCleaner and scan quickly before proceeding. 
 * Ask if you wish to install LibreOffice or Microsoft Office.
 * Dig around for more hardening or other things that make sense.
