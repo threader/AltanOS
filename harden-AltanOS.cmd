@@ -11,10 +11,6 @@ IF "%PROCESSOR_ARCHITECTURE%"=="AMD64" (set nsarchbit=x64
 ) ELSE (set nsarchbit=Win32)
 
 set "usedir=%HOMEDRIVE%\AltanOS.inst" 
-set "currentuser=%usedir%\bin\Nsudo\%nsarchbit%\NSudoLC.exe -Priority:AboveNormal -U:C -P:E --wait"
-set "admuser=%usedir%\bin\Nsudo\%nsarchbit%\NSudoLC.exe -Priority:AboveNormal -M:S -U:S -P:E --wait"
-set "uacuser=%usedir%\bin\Nsudo\%nsarchbit%\NSudoLG.exe -Priority:AboveNormal -U:C -P:E --wait"
-set "uacadmuser=%usedir%\bin\Nsudo\%nsarchbit%\NSudoLG.exe -Priority:AboveNormal -M:S -U:S -P:E --wait"
 set "wingetinstdcmd=winget install --disable-interactivity --accept-source-agreements"
 set "powshcmd=PowerShell -Command"
 set "powshadmcmd=%powshcmd% "Start-process powershell -Wait -Verb RunAS""
@@ -37,7 +33,7 @@ if exist %usedir% goto skipusedir
  mkdir %usedir%
 :skipusedir
 
-:: Flagged by Defender
+:: Flagged by Defender - not really needed
 :: if exist %usedir%\bin\Nsudo\%nsarchbit%\NSudoLG.exe goto skipnsudo
 :: %bitsadminget% https://github.com/... %usedir%\...
 :: %powscmd% "Invoke-WebRequest -uri  https://github.com/...--OutFile %usedir%\.."
@@ -351,8 +347,9 @@ reg add "HKCU\SOFTWARE\Policies\Microsoft\Windows\Explorer" /v "NoRemoteDestinat
 :: Try maybe?
 :: %uacadmuser% %powshcmd% "Set-ProcessMitigation -System -Enable DEP, EmulateAtlThunks, RequireInfo, BottomUp, HighEntropy, StrictHandle, SuppressExports, SEHOP, AuditSEHOP, SEHOPTelemetry, ForceRelocateImages, AuditMiceosoftSigned, AuditStoreSigned, EnforceModuleDependencyString, DisableNonSystemFonts, AuditFont"
 :: Set these tested settings for now
- %uacadmuser% %powshcmd% "Set-ProcessMitigation -System -Enable DEP, EmulateAtlThunks"
- 
+:: %powshcmd% "Set-ProcessMitigation -System -Enable DEP, EmulateAtlThunks"
+:: After reading and learning that fonts can have executable code....
+ %powshcmd% "Set-ProcessMitigation -System -Enable DEP, EmulateAtlThunks, AuditMiceosoftSigned, AuditStoreSigned, DisableNonSystemFonts, AuditFont"
 bcdedit /set nx Optin
 
 @echo on
@@ -386,12 +383,12 @@ echo Disablng WMP and IE, enable Hyper-V and WSL
 ::  DevManView.exe /enable "Microsoft Hyper-V Virtual Machine Bus Provider"
 ::  DevManView.exe /enable "Microsoft Hyper-V Virtualization Infrastructure Driver"
 
- echo info: cleaning the winsxs folder - bah this needs to be done after a reboot 
- sfc /SCANNOW
- DISM /Online /Cleanup-Image /StartComponentCleanup /ResetBase /RestoreHealth
+ :: echo info: cleaning the winsxs folder - bah this needs to be done after a reboot 
+ :: sfc /SCANNOW
+ :: DISM /Online /Cleanup-Image /StartComponentCleanup /ResetBase /RestoreHealth
 
- echo Remember to configure the TinyWall firewall, select autolearn from the menu for a while for instance to allo trafficw
-  %msipkg% %usedir%\TinyWall-v3-Installer.msi
+ :: echo Remember to configure the TinyWall firewall, select autolearn from the menu for a while for instance to allo traffic
+ :: %msipkg% %usedir%\TinyWall-v3-Installer.msi
 
 :: - open scripts in notepad++ to preview instead of executing when clicking
 if exist %ProgramFiles%\Notepad++\Notepad++.exe (

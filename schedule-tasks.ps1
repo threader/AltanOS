@@ -14,7 +14,7 @@ Register-ScheduledTask $task_name -TaskPath 'AltanOS' -InputObject $task
 shed_task_update
 
 
-# Scheduled Task new task 
+# Scheduled Task new task
 $trigger0 = New-ScheduledTaskTrigger -Weekly -WeeksInterval 3 -At 18pm -DaysOfWeek Wedensday 
 $trigger1 = New-ScheduledTaskTrigger -AtLogon
 $task_name = "Autorun maintainance"
@@ -27,6 +27,21 @@ $task = New-ScheduledTask -Action $action -Trigger $trigger0 -Trigger $trigger1 
 Register-ScheduledTask $task_name -TaskPath 'AltanOS' -InputObject $task
 }
 shed_task_maintian
+
+# Scheduled Task new task
+$trigger0 = New-ScheduledTaskTrigger -Weekly -WeeksInterval 3 -At 04pm -DaysOfWeek Wedensday 
+$trigger1 = New-ScheduledTaskTrigger -AtLogon
+$task_name = "Autorun privacy and temporary file mesures."
+
+function shed_task_maintain_privazy() {	
+$action = New-ScheduledTaskAction -Execute "PowerShell" -Argument "-NoProfile -ExecutionPolicy Bypass -File '$altanosdir\autorun-privazer.ps1"
+$principal = "System\Administrator"
+$settings = New-ScheduledTaskSettingsSet -WakeToRun
+$task = New-ScheduledTask -Action $action -Trigger $trigger0 -Trigger $trigger1 -Settings $settings
+Register-ScheduledTask $task_name -TaskPath 'AltanOS' -InputObject $task
+}
+shed_task_maintian_privazy
+
 
 # Scheduled Task new task 
 $trigger0 = New-ScheduledTaskTrigger -Once

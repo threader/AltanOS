@@ -13,4 +13,4 @@ Get-WindowsUpdate -AcceptAll -Install
 
 Set-ExecutionPolicy -ExecutionPolicy Restricted
 
-Read-Host -Prompt "Press any key to continue"
+Read-Host -Prompt "Press any key to continue".

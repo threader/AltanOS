@@ -10,8 +10,8 @@ set "msipkg=msiexec.exe /quiet /norestart /passive /package"
 
 if exist %usedir% goto skipusedir
  mkdir %usedir%
-  mkdir "%usedir%"\bin
-    mkdir "%usedir%"\bin\ni
+ mkdir "%usedir%"\bin
+ mkdir "%usedir%"\bin\ni
 :skipusedir
 
 if exist %altanosdir% goto skipaltanosdir
@@ -92,9 +92,12 @@ if exist %usedir%\network-indicator%niarchbit%.zip goto skipdl
 
 
 
-:: Ask to install - Tinywall, Network activity indicator, PrivaZer, with config?.
+:: Ask to install - Tinywall, Network activity indicator, (auto)/run PrivaZer, with config?.
+
+:: echo Remember to configure the TinyWall firewall, select autolearn from the menu for a while for instance to allo traffic
 :: %msipkg% %usedir%\TinyWall-v3-Installer.msi
-:: %usedir%\bin\ni\NetworkIndicatorSetup.exe
+
+:: "%usedir%\bin\network-indicator%niarchbit%"\NetworkIndicatorSetup.exe
 
  %powshadmcmd% '%powshcmd% "Set-ExecutionPolicy -ExecutionPolicy Restricted"'
  
