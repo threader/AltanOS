@@ -6,12 +6,12 @@ set "bitsadminget=bitsadmin /transfer /Download /priority HIGH"
 set "webgetps=%powshcmd% Invoke-WebRequest -uri "%geturl%" -OutFile %geturlout% -v"
 set "powshadmcmd=%powshcmd% "start-process "powershell -Wait -Verb RunAS""
 set "msipkg=msiexec.exe /quiet /norestart /passive /package"
+set "gitget=%ProgramFiles%\Git\bin\git.exe"
  :: [Environment]::CurrentDirectory = $ExecutionContext.SessionState.Path.CurrentFileSystemLocation.ProviderPath
 
 if exist %usedir% goto skipusedir
  mkdir %usedir%
  mkdir "%usedir%"\bin
- mkdir "%usedir%"\bin\ni
 :skipusedir
 
 if exist %altanosdir% goto skipaltanosdir
@@ -68,13 +68,21 @@ echo So you are sure. Okay, let's go ...
 
 if exist %usedir%\network-indicator%niarchbit%.zip goto skipdl
 :: %bitsadminget% https://github.com/PowerShell/PowerShell/releases/download/v7.3.2/PowerShell-7.3.2-win-x64.msi %usedir%\PowerShell-7.3.2-win-x64.msi 
+
+:: %powshcmd% "Invoke-WebRequest -uri https://adwcleaner.malwarebytes.com/adwcleaner?channel=release -OutFile %usedir%\adwcleaner.exe"
+ %powshcmd% "Invoke-WebRequest -uri https://downloads.malwarebytes.com/file/adwcleaner -OutFile %usedir%\adwcleaner.exe"
+ %usedir%\adwcleaner.exe
+ 
  %powshcmd% "Invoke-WebRequest -uri https://tinywall.pados.hu/files/TinyWall-v3-Installer.msi -OutFile %usedir%\TinyWall-v3-Installer.msi" 
 # %bitsadminget% https://tinywall.pados.hu/files/TinyWall-v3-Installer.msi %usedir%\TinyWall-v3-Installer.msi 
+
  %powshcmd% "Invoke-WebRequest -uri https://privazer.com/en/PrivaZer.exe -OutFile %usedir%\bin\PrivaZer.exe"
 # %bitsadminget% https://privazer.com/en/PrivaZer.exe %usedir%\bin\PrivaZer.exe
+
  %powshcmd% "Invoke-WebRequest -uri http://www.itsamples.com/downloads/network-activity-indicator-setup%niarchbit%.zip -OutFile %usedir%\network-indicator%niarchbit%.zip"
 # %bitsadminget% http://www.itsamples.com/downloads/network-activity-indicator-setup%niarchbit%.zip %usedir%\network-indicator%niarchbit%.zip
  %powshcmd% "Expand-Archive -Force '%usedir%\network-indicator%niarchbit%.zip' '%usedir%\bin\network-indicator%niarchbit%'"
+
 :skipdl
 
 :: The following operations can under some circumstances take a hellova lot of thime, i'm not really sure if this really is ideal.
@@ -84,6 +92,10 @@ if exist %usedir%\network-indicator%niarchbit%.zip goto skipdl
  Echo There will be packages that fail to remove here because they are core components, some red text to follow.
  pause
  %powshadmcmd% %altanosdir%\pkgs-prep.ps1
+ 
+echo git clone the latest AltanOS
+ %gitget% clone -b main https://github.com/threader/AltanOS "%altanosdir%"
+ 
  %powshadmcmd% %altanosdir%\harden-AltanOS.cmd
  %powshadmcmd% reg load %altanosdir%\harden.reg
  %powshadmcmd% %altanosdir%\schedule-tasks.ps1

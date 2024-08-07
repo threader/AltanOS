@@ -141,9 +141,6 @@ for %%i in (tif tiff bmp dib gif jfif jpe jpeg jpg jxr png) do (
      reg add "HKCU\SOFTWARE\Classes\.wdp" /ve /t REG_SZ /d "PhotoViewer.FileAssoc.Wdp" /f
 )
 
-:: set .ps1 file types to open with PowerShell by default
- reg add "HKCR\Microsoft.PowerShellScript.1\Shell\Open\Command" /ve /t REG_SZ /d "\"C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe\" -NoLogo -File \"%1\"" /f
-
 :: add about:blank as start page in internet explorer
  reg add "HKCU\SOFTWARE\Policies\Microsoft\Internet Explorer\Main" /v "Start Page" /t REG_SZ /d "about:blank" /f
 
@@ -335,11 +332,11 @@ reg add "HKCU\SOFTWARE\Policies\Microsoft\Windows\Explorer" /v "NoRemoteDestinat
 
 :: Figure out why these fail at some point 
 
-:: disable audio excludive mode on all devices
-:: for /f "delims=" %%a in ('reg query "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\MMDevices\Audio\Capture"') do (
-::    reg add "%%a\Properties" /v "{b3f8fa53-0004-438e-9003-51a46e139bfc},3" /t REG_DWORD /d "0" /f
-::    reg add "%%a\Properties" /v "{b3f8fa53-0004-438e-9003-51a46e139bfc},4" /t REG_DWORD /d "0" /f
-::)
+ disable audio excludive mode on all devices
+ for /f "delims=" %%a in ('reg query "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\MMDevices\Audio\Capture"') do (
+    reg add "%%a\Properties" /v "{b3f8fa53-0004-438e-9003-51a46e139bfc},3" /t REG_DWORD /d "0" /f
+    reg add "%%a\Properties" /v "{b3f8fa53-0004-438e-9003-51a46e139bfc},4" /t REG_DWORD /d "0" /f
+)
 
 :: - harden process mitigations (lower compatibilty for legacy apps) 
 :: This is way to strict.
@@ -353,16 +350,6 @@ reg add "HKCU\SOFTWARE\Policies\Microsoft\Windows\Explorer" /v "NoRemoteDestinat
 bcdedit /set nx Optin
 
 @echo on
-
-:: cls 
-:: 
-:: %uacadmuser% %powshcmd% Set-ExecutionPolicy -ExecutionPolicy Bypass
-:: powershell Start-process powershell -Verb RunAS %cd%\winget-pkg.ps1
-:: %uacadmuser% %powshcmd% Set-ExecutionPolicy -ExecutionPolicy Restricted
-:: %uacadmuser% %powshcmd% add-appxpackage -Path "%usedir%\Microsoft.DesktopAppInstaller.msixbundle"
-
-echo git clone the latest AltanOS
- %gitget% clone -b main https://github.com/threader/AltanOS "%HOMEDRIVE%\AltanOS"
 
 echo Disablng WMP and IE, enable Hyper-V and WSL
  DISM /Online /Disable-Feature /FeatureName:WindowsMediaPlayer /norestart
