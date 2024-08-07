@@ -37,33 +37,19 @@ if exist %usedir% goto skipusedir
  mkdir %usedir%
 :skipusedir
 
-:: Flagged bt Defender
-if exist %usedir%\bin\Nsudo\%nsarchbit%\NSudoLG.exe goto skipnsudo
-:: %bitsadminget% https://github.com/M2Team/NSudo/releases/download/9.0-Preview1/NSudo_9.0_Preview1_9.0.2676.0.zip %usedir%\Nsudo.zip 
-:: %powscmd% "Invoke-WebRequest -uri  https://github.com/M2Team/NSudo/releases/download/9.0-Preview1/NSudo_9.0_Preview1_9.0.2676.0.zip --OutFile %usedir%\Nsudo.zip"
-:: %powshcmd% "Expand-Archive -Force '%usedir%\Nsudo.zip' '%usedir%\bin\Nsudo'"
-:skipnsudo
+:: Flagged by Defender
+:: if exist %usedir%\bin\Nsudo\%nsarchbit%\NSudoLG.exe goto skipnsudo
+:: %bitsadminget% https://github.com/... %usedir%\...
+:: %powscmd% "Invoke-WebRequest -uri  https://github.com/...--OutFile %usedir%\.."
+:: %powshcmd% "Expand-Archive -Force '%usedir%\...' '%usedir%\bin\...'"
+:: :skipnsudo
 
-if exist %usedir%\network-indicator%niarchbit%.zip goto skipdl
-:: %bitsadminget% https://github.com/PowerShell/PowerShell/releases/download/v7.3.2/PowerShell-7.3.2-win-x64.msi %usedir%\PowerShell-7.3.2-win-x64.msi 
- %powshcmd% "Invoke-WebRequest -uri https://tinywall.pados.hu/files/TinyWall-v3-Installer.msi -OutFile %usedir%\TinyWall-v3-Installer.msi" 
-# %bitsadminget% https://tinywall.pados.hu/files/TinyWall-v3-Installer.msi %usedir%\TinyWall-v3-Installer.msi 
- %powshcmd% "Invoke-WebRequest -uri https://privazer.com/en/PrivaZer.exe -OutFile %usedir%\bin\PrivaZer.exe"
-# %bitsadminget% https://privazer.com/en/PrivaZer.exe %usedir%\bin\PrivaZer.exe
- %powshcmd% "Invoke-WebRequest -uri http://www.itsamples.com/downloads/network-activity-indicator-setup%niarchbit%.zip -OutFile %usedir%\network-indicator%niarchbit%.zip"
-# %bitsadminget% http://www.itsamples.com/downloads/network-activity-indicator-setup%niarchbit%.zip %usedir%\network-indicator%niarchbit%.zip
- %powshcmd% "Expand-Archive -Force '%usedir%\network-indicator%niarchbit%.zip' '%usedir%\bin\network-indicator%niarchbit%'"
-:skipdl
- %powshcmd% "Set-ItemProperty -Path REGISTRY::HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System -Name ConsentPromptBehaviorAdmin -Value 0"
+
+:: %powshcmd% "Set-ItemProperty -Path REGISTRY::HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System -Name ConsentPromptBehaviorAdmin -Value 0"
 
 :: %msipkg% %usedir%\PowerShell-7.3.2-win-x64.msi
 :: pause
-:: make certain applications in request UAC
-:: although these applications may already request UAC, setting this compatibility flag ensures they are ran as administrator
- reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers" /v "%usedir%\bin\Nsudo\x64\NSudoLC.exe" /t REG_SZ /d "~ RUNASADMIN" /f
- reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers" /v "%usedir%\bin\Nsudo\x64\NSudoLG.exe" /t REG_SZ /d "~ RUNASADMIN" /f
- reg add "HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers" /v "%usedir%\bin\Nsudo\x64\NSudoLC.exe" /t REG_SZ /d "~ RUNASADMIN" /f
- reg add "HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers" /v "%usedir%\bin\Nsudo\x64\NSudoLG.exe" /t REG_SZ /d "~ RUNASADMIN" /f
+
 
 :: enable ASLR
  reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management" /v "MoveImages" /t REG_DWORD /d 1 /f

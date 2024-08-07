@@ -9,8 +9,9 @@ if (-not (Test-Path -Path $altanosinstdir)) {
 # $DesktopPath = [Environment]::GetFolderPath("Desktop")
 # Get-Location | Foreach-Object { $_.Path }
 
-Read-Host -Prompt "This will remove all removable Windows packages on the system, for all users.. Are you sure you know what you are doing? Press any key to continue."
-Write-Output "Removing non-essential packages and installing some bare minimums"
+# I think the "Are you shure" thingie is enough.
+# Read-Host -Prompt "This will remove all removable Windows packages on the system, for all users.. Are you sure you know what you are doing? Press any key to continue."
+Write-Output "Removing non-essential packages and installing some bare minimums."
 
 
  Get-AppPackage -AllUsers | Remove-AppPackage -AllUsers
