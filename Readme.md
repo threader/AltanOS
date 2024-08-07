@@ -57,7 +57,6 @@ Tested on Windows 10 and Windows 11.
 * Nlitesoft.NTLite
 * Malwarebytes.Malwarebytes
 * SaferNetworking.SpybotAntiBeacon
-* SomePythonThings.WingetUIStore
 
 # It will schedule tasks to be autorun: 
 * autorun-update.ps1                - Runs PSWindowsUpdate every thuesday at 17pm
@@ -68,12 +67,12 @@ Tested on Windows 10 and Windows 11.
 autorun-maintain.ps1 will also be run upon login, once, after a reboot(!!!).
 
 # TODO:
-* Bother to ask when to schedule.
-* Ask to either install MalwareBytes or run to AwdCleaner sometimes?
-* Add AwdCleaner and scan quickly before proceeding. 
+* Bother to ask when to schedule thing.
+* Ask to either install MalwareBytes or run to AwdCleaner sometimes? - Just shecule AwdCleaner to run anyway.
+* Add AwdCleaner and scan quickly before proceeding. - Added, but not set any arguments and requires user interaction.
 * Ask if you wish to install LibreOffice or Microsoft Office.
 * Dig around for more hardening or other things that make sense.
-* Better Readme and explenation, 2 days now i've layed down in bed to sleep then having a great idea what to write, then not when i wake up...
+* Better Readme and explenation, 2 days now i've layed down in bed to sleep then having a great idea what to write, then not when i wake up... - Done?
 * Try to preconfigure Sandboxie.
 
 v 0.0.1 - ish
