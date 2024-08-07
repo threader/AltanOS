@@ -68,7 +68,7 @@ autorun-maintain.ps1 will also be run upon login, once, after a reboot(!!!).
 
 # TODO:
 * Bother to ask when to schedule thing.
-* Ask to either install MalwareBytes or run to AwdCleaner sometimes? - Just shecule AwdCleaner to run anyway.
+* Ask to either install MalwareBytes or run to AwdCleaner sometimes? - Just schedule AwdCleaner to run anyway.
 * Add AwdCleaner and scan quickly before proceeding. - Added, but not set any arguments and requires user interaction.
 * Ask if you wish to install LibreOffice or Microsoft Office.
 * Dig around for more hardening or other things that make sense.
