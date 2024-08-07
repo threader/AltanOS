@@ -66,8 +66,15 @@ The folloiwng packages are grabbed by 'WinGet'
 * SaferNetworking.SpybotAntiBeacon
 * SomePythonThings.WingetUIStore
 
+It will schedule 3 tasks to be autorun: 
+* autorun-update.ps1				- Runs PSWindowsUpdate every thuesday at 18pm
+* autorun-maintain.ps1				- Runs sfc /scannow and DISM /Online /Cleanup-Image /StartComponentCleanup /ResetBase /RestoreHealth every 3 weeks at 18pm  
+* autorun-maintain-privazy.ps1		- Runs PrivaZer to delete residue in the NTFS journal, and write ZERO to the free disk space as well as remove temporary files everywhere.
+
+autorun-maintain.ps1 will be run upon login once after login, after a reboot(!!!).
 
 TODO:
+* Ask if you wish to install LibreOffice or Microsoft Office.
 * Dig around for more hardening or other things that make sense.
 * Better Readme and explenation, 2 days now i've layed down in bed to sleep then having a great idea what to write, then not when i wake up...
 * Try to preconfigure Sandboxie.
