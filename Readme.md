@@ -1,4 +1,4 @@
-# AltanOS - started it's life as a necessity after reading trough the scripts of from PC-Tuning and Atlas by 'amitvxv' and co. .
+# AltanOS - started it's life as an overdue todo item of severe necessity and randomly being inspired to persue after reading trough the scripts of from PC-Tuning and Atlas by 'amitvxv' and co. .
 
 This project is undergoing change, testing and has not settled. It might not run as expected, experience adviced. This will remove all removable Windows packages on the system.
 
