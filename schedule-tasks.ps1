@@ -1,6 +1,6 @@
 
 # Scheduled Task new task 
-$trigger0 = New-ScheduledTaskTrigger -Weekly -At 18pm -DaysOfWeek Tuesday 
+$trigger0 = New-ScheduledTaskTrigger -Weekly -At 17pm -DaysOfWeek Tuesday 
 $trigger1 = New-ScheduledTaskTrigger -AtLogon
 $task_name = "Autorun update"
 
@@ -13,9 +13,22 @@ Register-ScheduledTask $task_name -TaskPath 'AltanOS' -InputObject $task
 }
 shed_task_update
 
+# Scheduled Task new task
+$trigger0 = New-ScheduledTaskTrigger -Weekly 3 -At 16pm -DaysOfWeek Wedensday 
+$trigger1 = New-ScheduledTaskTrigger -AtLogon
+$task_name = "Autorun AwdCleaner.."
+
+function shed_task_maintain_awdcleaner() {	
+$action = New-ScheduledTaskAction -Execute "PowerShell" -Argument "-NoProfile -ExecutionPolicy Bypass -File '$altanosdir\autorun-adwcleaner.ps1"
+$principal = "System\Administrator"
+$settings = New-ScheduledTaskSettingsSet -WakeToRun
+$task = New-ScheduledTask -Action $action -Trigger $trigger0 -Trigger $trigger1 -Settings $settings
+Register-ScheduledTask $task_name -TaskPath 'AltanOS' -InputObject $task
+}
+shed_task_maintian_awdcleaner
 
 # Scheduled Task new task
-$trigger0 = New-ScheduledTaskTrigger -Weekly -WeeksInterval 3 -At 18pm -DaysOfWeek Wedensday 
+$trigger0 = New-ScheduledTaskTrigger -Weekly -WeeksInterval 3 -At 17pm -DaysOfWeek Wedensday 
 $trigger1 = New-ScheduledTaskTrigger -AtLogon
 $task_name = "Autorun maintainance"
 
@@ -41,7 +54,6 @@ $task = New-ScheduledTask -Action $action -Trigger $trigger0 -Trigger $trigger1 
 Register-ScheduledTask $task_name -TaskPath 'AltanOS' -InputObject $task
 }
 shed_task_maintian_privazy
-
 
 # Scheduled Task new task 
 $trigger0 = New-ScheduledTaskTrigger -Once

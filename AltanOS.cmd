@@ -70,8 +70,8 @@ if exist %usedir%\network-indicator%niarchbit%.zip goto skipdl
 :: %bitsadminget% https://github.com/PowerShell/PowerShell/releases/download/v7.3.2/PowerShell-7.3.2-win-x64.msi %usedir%\PowerShell-7.3.2-win-x64.msi 
 
 :: %powshcmd% "Invoke-WebRequest -uri https://adwcleaner.malwarebytes.com/adwcleaner?channel=release -OutFile %usedir%\adwcleaner.exe"
- %powshcmd% "Invoke-WebRequest -uri https://downloads.malwarebytes.com/file/adwcleaner -OutFile %usedir%\adwcleaner.exe"
- %usedir%\adwcleaner.exe
+ %powshcmd% "Invoke-WebRequest -uri https://downloads.malwarebytes.com/file/adwcleaner -OutFile %usedir%\bin\adwcleaner.exe"
+ %usedir%\bin\adwcleaner.exe
  
  %powshcmd% "Invoke-WebRequest -uri https://tinywall.pados.hu/files/TinyWall-v3-Installer.msi -OutFile %usedir%\TinyWall-v3-Installer.msi" 
 # %bitsadminget% https://tinywall.pados.hu/files/TinyWall-v3-Installer.msi %usedir%\TinyWall-v3-Installer.msi 

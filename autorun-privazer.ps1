@@ -4,7 +4,7 @@ $sysdrive =  ((Get-Location).Path.Split("\")).Get(0)
 $altanosdir = "$sysdrive\AltanOS"
 $altanosinstdir = "$sysdrive\AltanOS.inst"
 
-$altanosinstdir\PrivaZer.exe
+$altanosinstdir\bin\PrivaZer.exe
 
 
  Set-ExecutionPolicy -ExecutionPolicy Restricted
