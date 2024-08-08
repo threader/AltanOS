@@ -16,7 +16,7 @@ Write-Output "Removing non-essential packages and installing some bare minimums.
 
  Get-AppPackage -AllUsers | Remove-AppPackage -AllUsers
  # This will remove all user installed packages on the system.. 
- Get-AppxPackage -AllUsers | Remove-AppxPackage -AllUsers
+ Get-AppxPackage -AllUsers | Remove-AppPackage -AllUsers
  
  Get-AppxPackage -allusers Microsoft.VCLibs* | Foreach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
  Get-AppxPackage -allusers Microsoft.NET.CoreRuntime* | Foreach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
@@ -35,9 +35,12 @@ Write-Output "Removing non-essential packages and installing some bare minimums.
  Get-AppxPackage -allusers Microsoft.MicrosoftSolitaireCollection* | Foreach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
 
 if (-not (Test-Path "$altanosinstdir\Microsoft.DesktopAppInstaller.msixbundle")) {
-	write-output "Winget not found. Grab and install" 
+	write-output "Winget not found. Grab and install. No progress bar as there is a bug in PowerShell making the download increadibly slow... ( https://github.com/PowerShell/PowerShell/issues/2138 )" 
+	$ProgressPreference = 'SilentlyContinue'
 	Invoke-WebRequest -uri https://github.com/microsoft/winget-cli/releases/download/v1.8.1911/Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle -OutFile $altanosinstdir\Microsoft.DesktopAppInstaller.msixbundle
-	add-appxpackage -Path "$altanosinstdir\Microsoft.DesktopAppInstaller.msixbundle"
+	$ProgressPreference = 'Continue'
+	write-output "Installing winget, this might actually get stuck for some reason." 
+	start-process "powershell -Wait "add-appxpackage -Path "$altanosinstdir\Microsoft.DesktopAppInstaller.msixbundle" " "
 }
 
 # create .xml of this eventually when it settles
@@ -76,11 +79,12 @@ winget remove --id Microsoft.SkypeApp* --accept-source-agreements --disable-inte
 Write-Output "Updating all known exsisting applications."
 winget upgrade --accept-source-agreements --disable-interactivity --include-unknown -r
 
-Write-output "Installing and running PSWindowsUpdate."
+# This will reboot....
+#Write-output "Installing and running PSWindowsUpdate. - temp. Workaround: script continuing while previous operations not done."
 # Set-ExecutionPolicy -ExecutionPolicy Bypass
-Install-Module -Force PSWindowsUpdate
-Import-Module PSWindowsUpdate
-Get-WindowsUpdate -AcceptAll -Install
+#	start-process "powershell -Wait "Install-Module -Force PSWindowsUpdate" "
+#	start-process "powershell -Wait "Import-Module PSWindowsUpdate" "
+#	start-process "powershell -Wait "Get-WindowsUpdate -AcceptAll -Install""
 # Install-WindowsUpdate
 # Set-ExecutionPolicy -ExecutionPolicy Restricted
 
