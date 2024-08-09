@@ -79,6 +79,16 @@ Windows Registry Editor Version 5.00
 @="PhotoViewer.FileAssoc.Tiff"
 
 ; disable telemetry
-
 [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\DataCollection]
 "AllowTelemetry"=dword:00000000
+
+; Kernel mode stack protection 
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Kernel\] 
+"DisableStackProtection"==dword:00000000
+
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\DeviceGuard\Scenarios\HypervisorEnforcedCodeIntegrity]
+"Enabled"=dword:00000001
+
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\DeviceGuard\Scenarios\KernelShadowStacks]
+"Enabled"=dword:00000001
+"WasEnabledBy"=dword:00000002
