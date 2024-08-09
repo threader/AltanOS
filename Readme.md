@@ -14,6 +14,10 @@ N.B: Uninstalling TinyWall while configured to block an application or default s
 
 N.B: Malwarebytes and Spybot AntiBeacon. AntiBeacon modifies the host file and Malwarebytes believes this is host file hijacking.
 
+N.B: - The Intel HD 3000 driver will fail to load the kernel mode driver, 'Core isolation\Memory integrity' will have to be disabled on these systems.
+(On the pluss side I found a patched driver to allow OpenGL3.1 and a trick with using Mesa 20.2.0 that should allow OpenGL 3.3 on these devices)
+
+
 Tested on Windows 10 and Windows 11.
 
 
@@ -31,7 +35,8 @@ Tested on Windows 10 and Windows 11.
 * NET.Native.Framework.1.7
 * UI.Xaml* 
 * PackageManagement.NuGetProvider
-* UI.Xaml.2.7* 
+* UI.Xaml.2.7*
+* UI.Xaml.2.8* 
 * WindowsStore
 * StorePurchaseApp
 * ##MicrosoftOfficeHub
