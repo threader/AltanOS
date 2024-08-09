@@ -53,7 +53,7 @@ $settings = New-ScheduledTaskSettingsSet -WakeToRun
 $task = New-ScheduledTask -Action $action -Trigger $trigger0 -Trigger $trigger1 -Settings $settings
 Register-ScheduledTask $task_name -TaskPath '\AltanOS\' -InputObject $task
 }
-shed_task_maintian_privazy
+shed_task_maintain_privazy
 
 # Scheduled Task new task 
 $trigger8 = New-ScheduledTaskTrigger -Once

@@ -3,7 +3,7 @@ set "altanosdir=%cd%"
 set "shcmd="
 set "msipkpath="
 set "powshcmd=PowerShell -command"
-set "usedir=%HOMEDRIVE%\AltanOS.inst"
+set "usedir=%SystemDrive%\AltanOS.inst"
 set "bitsadminget=bitsadmin /transfer /Download /priority HIGH"
 set "webgetps=%powshcmd% Invoke-WebRequest -uri "%geturl%" -OutFile %geturlout% -v"
 set "powshadmcmd=%powshcmd% "start-process "powershell -Wait -Verb RunAS" %shcmd% ""
@@ -72,23 +72,27 @@ echo So you are sure. Okay, let's go ...
 
 if exist %usedir%\network-indicator%niarchbit%.zip goto skipdl
 echo "No progress bar as there is a bug in PowerShell making the download increadibly slow... ( https://github.com/PowerShell/PowerShell/issues/2138 )"
-	$ProgressPreference = 'SilentlyContinue'
+::	$ProgressPreference = 'SilentlyContinue' 
 :: %bitsadminget% https://github.com/PowerShell/PowerShell/releases/download/v7.3.2/PowerShell-7.3.2-win-x64.msi %usedir%\PowerShell-7.3.2-win-x64.msi 
 
 :: %powshcmd% "Invoke-WebRequest -uri https://adwcleaner.malwarebytes.com/adwcleaner?channel=release -OutFile %usedir%\adwcleaner.exe"
- %powshcmd% "Invoke-WebRequest -uri https://downloads.malwarebytes.com/file/adwcleaner -OutFile %usedir%\bin\adwcleaner.exe"
+ %powshcmd% "$ProgressPreference = 'SilentlyContinue'  ^
+ Invoke-WebRequest -uri https://downloads.malwarebytes.com/file/adwcleaner -OutFile %usedir%\bin\adwcleaner.exe"
+
+
  %usedir%\bin\adwcleaner.exe
  
  %powshcmd% "Invoke-WebRequest -uri https://tinywall.pados.hu/files/TinyWall-v3-Installer.msi -OutFile %usedir%\TinyWall-v3-Installer.msi" 
 :: %bitsadminget% https://tinywall.pados.hu/files/TinyWall-v3-Installer.msi %usedir%\TinyWall-v3-Installer.msi 
 
- %powshcmd% "Invoke-WebRequest -uri https://privazer.com/en/PrivaZer.exe -OutFile %usedir%\bin\PrivaZer.exe"
+ %powshcmd% "Invoke-Web% http://www.itsamples.com/downloads/network-activity-indicator-setup%niarchbit%.zip %usedir%\network-indicator%niarchbit%.zip
+::	$ProgressPRequest -uri https://privazer.com/en/PrivaZer.exe -OutFile %usedir%\bin\PrivaZer.exe"
 :: %bitsadminget% https://privazer.com/en/PrivaZer.exe %usedir%\bin\PrivaZer.exe
 
  %powshcmd% "Invoke-WebRequest -uri http://www.itsamples.com/downloads/network-activity-indicator-setup%niarchbit%.zip -OutFile %usedir%\network-indicator%niarchbit%.zip"
-:: %bitsadminget% http://www.itsamples.com/downloads/network-activity-indicator-setup%niarchbit%.zip %usedir%\network-indicator%niarchbit%.zip
-	$ProgressPreference = 'Continue'
- %powshcmd% "Expand-Archive -Force '%usedir%\network-indicator%niarchbit%.zip' '%usedir%\bin\network-indicator%niarchbit%'"
+:: %bitsadmingetreference = 'Continue'
+ %powshcmd% "$ProgressPreference = 'Continue'  ^
+ Expand-Archive -Force '%usedir%\network-indicator%niarchbit%.zip' '%usedir%\bin\network-indicator%niarchbit%'"
 :skipdl
 
 
