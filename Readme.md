@@ -31,7 +31,7 @@ It will copy itself to the system partition equivlent to C:\AltanOS and C:\Altan
 If it is the case that old drivers are missbehaving - Run and reboot:
 
 ```console
- reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\DeviceGuard" /t REG_DWORD /v "HypervisorEnforcedCodeIntegrity" /d "0" /f
+	reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\DeviceGuard" /t REG_DWORD /v "HypervisorEnforcedCodeIntegrity" /d "0" /f
 ```
 
 This will enable "fastboot/Hiberboot" if so desired:
@@ -42,9 +42,9 @@ This will enable "fastboot/Hiberboot" if so desired:
 This should solve TinyWall blockage: 
 
 ```console
-			:: clean up firewall rules
-			reg delete "HKLM\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\FirewallRules" /f
-			reg add "HKLM\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\FirewallRules" /f
+	:: clean up firewall rules
+	reg delete "HKLM\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\FirewallRules" /f
+	reg add "HKLM\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\FirewallRules" /f
 ```
 
 
@@ -59,8 +59,8 @@ Tested on Windows 10 and Windows 11.
 Maybe list some¿ Read the harden-* files? Read the entire script? 
 
 Added: 
-* [exploitguard] https://github.com/palantir/exploitguard/) - Added 
-* [Windows-Defender-Exploit-Guard-Configuration] (https://github.com/gunnarhaslinger/Windows-Defender-Exploit-Guard-Configuration) - Pondering
+* [exploitguard](https://github.com/palantir/exploitguard/) - Added 
+* [Windows-Defender-Exploit-Guard-Configuration](https://github.com/gunnarhaslinger/Windows-Defender-Exploit-Guard-Configuration) - Pondering
 
 Good reading: 
 * https://blog.palantir.com/assessing-the-effectiveness-of-a-new-security-data-source-windows-defender-exploit-guard-860b69db2ad2?gi=e48021ca0dde
