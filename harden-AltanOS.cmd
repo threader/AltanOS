@@ -89,6 +89,17 @@ for /f "delims=" %%b in ('reg query "HKLM\SYSTEM\CurrentControlSet\Services\NetB
 :: https://www.stigviewer.com/stig/windows_10/2021-03-10/finding/V-220930
  reg add "HKLM\SYSTEM\CurrentControlSet\Control\Lsa" /v "RestrictAnonymous" /t REG_DWORD /d "1" /f
 
+:: unhide power scheme attributes
+:: source: https://gist.github.com/Velocet/7ded4cd2f7e8c5fa475b8043b76561b5#file-unlock-powercfg-ps1
+%powshcmd% "$PowerCfg = (Get-ChildItem 'HKLM:\SYSTEM\CurrentControlSet\Control\Power\PowerSettings' -Recurse).Name -notmatch '\bDefaultPowerSchemeValues|(\\[0-9]|\b255)$';foreach ($item in $PowerCfg) { Set-ItemProperty -Path $item.Replace('HKEY_LOCAL_MACHINE','HKLM:') -Name 'Attributes' -Value 0 -Force}"
+if %ERRORLEVEL%==0 (echo %date% - %time% Enabled hidden power scheme attributes...>> %install_log%
+) ELSE (echo %date% - %time% Failed to enable hidden power scheme attributes! >> %install_log%):: disable smart multi-homed name resolution
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\Dnscache\Parameters" /v "DisableParallelAandAAAA " /t REG_DWORD /d "1" /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows NT\DNSClient" /v "DisableSmartNameResolution" /t REG_DWORD /d "1" /f
+
+:: disable startup delay of running apps
+reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Serialize" /v "StartupDelayInMSec" /t REG_DWORD /d "0" /f
+
 :: set strong cryptography on 64 bit and 32 bit .net framework (version 4 and above) to fix a scoop installation issue
 :: https://github.com/ScoopInstaller/Scoop/issues/2040#issuecomment-369686748
  reg add "HKLM\SOFTWARE\Microsoft\.NetFramework\v4.0.30319" /v "SchUseStrongCrypto" /t REG_DWORD /d "1" /f
@@ -148,6 +159,14 @@ for %%i in (tif tiff bmp dib gif jfif jpe jpeg jpg jxr png) do (
 :: disable PowerShell telemetry
 :: https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_telemetry?view=powershell-7.3
  setx POWERSHELL_TELEMETRY_OPTOUT 1
+
+:: Disable fastboot... Properly unmounts the filesystem and all...
+reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Power" /v "HiberbootEnabled" /t REG_DWORD /d "0" /f
+
+:: disable sleep study
+wevtutil set-log "Microsoft-Windows-SleepStudy/Diagnostic" /e:false
+wevtutil set-log "Microsoft-Windows-Kernel-Processor-Power/Diagnostic" /e:false
+wevtutil set-log "Microsoft-Windows-UserModePowerService/Diagnostic" /e:false
 
 :: do not allow pinning microsoft store app to taskbar
 :: reg add "HKCU\SOFTWARE\Policies\Microsoft\Windows\Explorer" /v "NoPinningStoreToTaskbar" /t REG_DWORD /d "1" /f
@@ -242,8 +261,12 @@ echo The spooler will not accept client connections nor allow users to share pri
  reg add "HKCR\CABFolder\Shell\RunAs\Command" /ve /t REG_SZ /d "cmd /k DISM /online /add-package /packagepath:\"%%1\"" /f
 
 :: enable dark mode and disable transparency
- reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize" /v "SystemUsesLightTheme" /t REG_DWORD /d "0" /f
+reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize" /v "SystemUsesLightTheme" /t REG_DWORD /d "0" /f
 reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize" /v "AppsUseLightTheme" /t REG_DWORD /d "0" /f
+reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize" /v "EnableTransparency" /t REG_DWORD /d "1" /f
+
+:: disable desktop wallpaper import quality reduction
+reg add "HKCU\Control Panel\Desktop" /v "JPEGImportQuality" /t REG_DWORD /d "100" /f
 
 :: disable speech model updates
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Speech" /v "AllowSpeechModelUpdate" /t REG_DWORD /d "0" /f

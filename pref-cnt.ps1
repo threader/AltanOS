@@ -1,6 +1,4 @@
- Read-Host -Prompt " yyy" 
 $sysdrive =  $Env:SystemDrive
- Read-Host -Prompt "This will remove all removable Windows packages on the system"
 cd $sysdrive
 cd $Env:windir\system32
 lodctr /r

@@ -30,9 +30,6 @@ set "programfiles_arch=%PROGRAMFILES(x86)%"
 ) ELSE (set nsarchbit=Win32
 set "programfiles_arch=%PROGRAMFILES%")
 
-:: Not needed.
-:: set "uacadmuser=%altanosinstdir%\bin\Nsudo\%nsarchbit%\NSudoLG.exe -Priority:AboveNormal -M:S -U:S -P:E --wait"
-
 :: NSudo Flagged by Defender, dotnet install script as user install noted.
 :: if exist %altanosinstdir%\bin\Nsudo\%nsarchbit%\.. goto skipnsudo
 :: %bitsadminget% https://dotnet.microsoft.com/download/dotnet/scripts/v1/dotnet-install.ps1 %altanosinstdir%\dotnet-install.ps1
@@ -112,9 +109,7 @@ pause
 
 :: rebuild performance counters
 :: https://learn.microsoft.com/en-us/troubleshoot/windows-server/performance/manually-rebuild-performance-counters
-
-:: The following operations can under some circumstances take a hellova lot of thime, i'm not really sure if this really is ideal.
-  Echo There will be packages that fail to remove here because they are core components, some red text to follow.
+echo Rebuild performance counters
  %powshadmcmd% "%altanosdir%\pref-cnt.ps1"
 
 echo Forces the clock to be backed by a platform source, no synthetic timers are allowed. Have not been able to prove the benifits of this, feel free to skip or test yourself:
@@ -122,6 +117,8 @@ echo Forces the clock to be backed by a platform source, no synthetic timers are
 
 cd %altanosdir%
 
+:: The following operations can under some circumstances take a hellova lot of thime, i'm not really sure if this really is ideal.
+  Echo There will be packages that fail to remove here because they are core components, some red text to follow.
  %powshadmcmd% "%altanosdir%\pkgs-prep.ps1"
  
  echo git clone the latest AltanOS
@@ -134,7 +131,7 @@ cd %altanosdir%
  :: harden.reg loads in harden-AltanOS.cmd for now
  %powshadmcmd% 'powshcmd% "reg import %altanosdir%\harden.reg"'
  
-:: %powshadmcmd% "%altanosdir%\schedule-tasks.ps1"
+ %powshadmcmd% "%altanosdir%\schedule-tasks.ps1"
 
 
 :: %uacadmuser% %powshcmd% "New-ItemProperty -Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Run" -Name "Update Windows and Applications" -Value "%altanosdir%\autorun-update.cmd"  -PropertyType "String""
@@ -154,11 +151,11 @@ msiexec.exe /a %altanosinstdir%\TinyWall-v3-Installer.msi /quiet /passive
 
 :: powershell -command "&{$var = 'Set-ExecutionPolicy -ExecutionPolicy Restricted'+\" Set-ItemProperty -Path REGISTRY::HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System -Name ConsentPromptBehaviorAdmin -Value 1' \"; echo $var}"
 
-
 :: %powshadmcmd% '%powshcmd% "Get-ProcessMitigation -RegistryConfigFilePath %altanosinstdir%\settings.xml ^
- %powshadmcmd% '%powshcmd% "Set-ItemProperty -Path REGISTRY::HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System -Name ConsentPromptBehaviorAdmin -Value 1"'
- %powshadmcmd% '%powshcmd% "Set-ExecutionPolicy -ExecutionPolicy Restricted"'
+:
 :: set the admin password prompt, a value of 1 on here and the admin account will require password to be entered. 2 is a prompt.
+%powshadmcmd% '%powshcmd% "Set-ItemProperty -Path REGISTRY::HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System -Name ConsentPromptBehaviorAdmin -Value 1"'
+%powshadmcmd% '%powshcmd% "Set-ExecutionPolicy -ExecutionPolicy Restricted"'
 
 :: Import Settings on a test or base machine
 :: Set-ProcessMitigation -PolicyFilePath settings.xml 

@@ -107,3 +107,16 @@ Windows Registry Editor Version 5.00
 
 [HKEY_CLASSES_ROOT\Directory\Background\shell\ConsoleCMD\command]
 @="cmd.exe /k cd /d \"%V\""
+
+; https://superuser.com/questions/952500/custom-color-for-windows-10-taskbar
+; [HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\DWM]
+; "Composition"=dword:00000001
+; "AccentColor"=dword:00c3b700
+; "ColorPrevalence"=dword:00000001
+; "ColorizationGlassAttribute"=dword:00000000
+; "ColorizationColor"=dword:c400b7c3
+; "ColorizationColorBalance"=dword:00000059
+; "ColorizationAfterglow"=dword:c400b7c3
+; "ColorizationAfterglowBalance"=dword:0000000a
+; "ColorizationBlurBalance"=dword:00000001
+; "EnableWindowColorization"=dword:0000000
