@@ -95,12 +95,18 @@ Expand-Archive -Force '%usedir%\network-indicator%niarchbit%.zip' '%usedir%\bin\
 :: https://learn.microsoft.com/en-us/troubleshoot/windows-server/performance/manually-rebuild-performance-counters
 
 %powshadmcmd% "
-cd %WinDir%\
+cd %WinDir%\system32
 lodctr /r ^
+cd %WinDir%\sysWOW64
 lodctr /r ^
 winmgmt /resyncperf ^
 Get-Service -Name "pla" | Restart-Service -Verbose ^
 Get-Service -Name "winmgmt" | Restart-Service -Force -Verbose"
+
+echo Forces the clock to be backed by a platform source, no synthetic timers are allowed. Have not been able to prove the benifits of this, feel free to skip or test yourself:
+bcdedit /set useplatformtick yes
+
+cd %altanosdir%
 
 :: The following operations can under some circumstances take a hellova lot of thime, i'm not really sure if this really is ideal.
   Echo There will be packages that fail to remove here because they are core components, some red text to follow.
