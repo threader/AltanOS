@@ -1,4 +1,4 @@
-# AltanOS - started it's life as an overdue todo item of severe necessity and randomly being inspired to persue after reading trough the scripts of from PC-Tuning and Atlas by 'amitvxv' and co.
+## AltanOS - started it's life as an overdue todo item of severe necessity and randomly being inspired to persue after reading trough the scripts of from PC-Tuning and Atlas by 'amitvxv' and co.
 
 This project is undergoing change, testing and has not settled. It might not run as expected, experience adviced. This will remove all removable Windows packages on the system.
 
@@ -12,7 +12,7 @@ It will copy itself to the system partition equivlent to C:\AltanOS and C:\Altan
 	
 	* Fastboot\Hiberboot is disabled, so Windows will properly shut down, unmount disks, unlock the NTFS journal and take some extra time to boot. To revert this:
 
-```bat
+```console
 	reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Power" /v "HiberbootEnabled" /t REG_DWORD /d "1" /f
 ```
 
@@ -39,32 +39,38 @@ It will copy itself to the system partition equivlent to C:\AltanOS and C:\Altan
 
 If it is the case that old drivers are missbehaving - Run and reboot:
 
-```bat
+```console
  reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\DeviceGuard" /t REG_DWORD /v "HypervisorEnforcedCodeIntegrity" /d "0" /f
 ```
 
 Tested on Windows 10 and Windows 11.
 
 
-# Hardening
+## Hardening
+
+Maybe list some¿ Read the harden-* files? Read the entire script? 
 
 Added: 
-* https://github.com/palantir/exploitguard/ - done 
-* https://github.com/gunnarhaslinger/Windows-Defender-Exploit-Guard-Configuration - testing
+* [exploitguard] https://github.com/palantir/exploitguard/) - Added 
+* [Windows-Defender-Exploit-Guard-Configuration] (https://github.com/gunnarhaslinger/Windows-Defender-Exploit-Guard-Configuration) - Pondering
 
-# Conveience 
+Good reading: 
+* https://blog.palantir.com/assessing-the-effectiveness-of-a-new-security-data-source-windows-defender-exploit-guard-860b69db2ad2?gi=e48021ca0dde
+
+
+## Conveience 
 
 Adeed:
 * Finally got around to adding "Open PowerShell/cmd in current directory".
-* https://github.com/gunnarhaslinger/Add-or-Remove-Application-To-Windows-10-Taskbar
+* https://github.com/gunnarhaslinger/Add-or-Remove-Application-To-Windows-10-Taskbar - Not yet tested
 
-# The following files can run standalone if needed:
+## The following files can run standalone if needed:
 * harden-AltanOS.cmd
 * harden.reg 				- ofc 
 * pkgs-prep.ps1
 * schedule-tasks.ps1
 
-# The following packages are installed:
+## The following packages are installed:
 * VCLibs
 * NET.CoreRuntime
 * NET.Native
@@ -83,7 +89,7 @@ Adeed:
 * MicrosoftSolitaireCollection
 * Windows Terminal
 
-# The folloiwng programs are grabbed by 'WinGet'
+## The folloiwng programs are grabbed by 'WinGet'
 * Sandboxie.Plus
 * SomePythonThings.WingetUIStore
 * Git.Git
@@ -102,7 +108,7 @@ Adeed:
 * Malwarebytes.Malwarebytes
 * SaferNetworking.SpybotAntiBeacon
 
-# It will schedule tasks to be autorun: 
+## It will schedule tasks to be autorun: 
 * autorun-update.ps1                - Runs PSWindowsUpdate every thuesday at 17pm
 * autorun-maintain.ps1              - Runs sfc /scannow and DISM /Online /Cleanup-Image /StartComponentCleanup /ResetBase /RestoreHealth every 3 weeks at 18pm  
 * autorun-privazer.ps1              - Runs PrivaZer to delete residue in the NTFS journal, and write ZERO to the free disk space as well as remove temporary files everywhere. Every 3 weeks Wedensday at 17pm
@@ -110,7 +116,7 @@ Adeed:
 
 autorun-maintain.ps1 will also be run upon login, once, after a reboot(!!!).
 
-# Look and feel: 
+## Look and feel: 
 
 * Mouse is set to (hopefully) jump to a prompt and land on the default answer, this saves time.
 * Revert8Plus install script is added but not initialized.
@@ -118,7 +124,7 @@ autorun-maintain.ps1 will also be run upon login, once, after a reboot(!!!).
 
 In harden.reg - ofc.. where else would you logically put the taskbar settings?
 These settings exsist that are turned off because they are untested.
-```bat
+```console
 ; https://superuser.com/questions/952500/custom-color-for-windows-10-taskbar
 ; This is supposed to be a Cyan taskbar - this is something to mess around with eventually
 ; [HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\DWM]
@@ -135,6 +141,7 @@ These settings exsist that are turned off because they are untested.
 ```
 
 # TODO:
+* Move scripts to own folder, it's getting messy.
 * Bother to ask when to schedule thing.
 * Ask to either install MalwareBytes or run to AwdCleaner sometimes? - Just schedule AwdCleaner to run anyway.
 * Add AwdCleaner and scan quickly before proceeding. - Added, but not set any arguments and requires user interaction.
@@ -145,7 +152,7 @@ These settings exsist that are turned off because they are untested.
 
 v 0.0.1 - ish
 
-* Fix the sheduled task and create one for sfc and dism every... two, maybe three weeks? - Maybe fixed
+* Fix the sheduled task and create one for sfc and dism every... two, maybe three weeks? - Not fixed...
 * Move AltanOS* to somewhere predictable. - Fixed
 * More testing. - Ongoing - Still.. ... Still...
 * Add a script to run once at first startup to resolve an iusse where we are already in need to reboot. - Maybe fixed
