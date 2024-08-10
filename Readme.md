@@ -10,9 +10,11 @@ It will copy itself to the system partition equivlent to C:\AltanOS and C:\Altan
 
 - Important notes:
 	* Remember to grab the submodules. 
-	```console git submodule update --init --recursive 
+	```console 
+	git submodule update --init --recursive 
 	:: pull submodules:
-	git submodule update --recursive```
+	git submodule update --recursive
+	```
 	
 	* Fastboot\Hiberboot is disabled, so Windows will properly shut down, unmount disks, unlock the NTFS journal and take some extra time to boot. To revert this:
 
@@ -132,7 +134,7 @@ autorun-maintain.ps1 will also be run upon login, once, after a reboot(!!!).
 
 * Mouse is set to (hopefully) jump to a prompt and land on the default answer, this saves time.
 * Revert8Plus install script is added but not initialized.
-* Black theme enabled in harden.reg 
+* Black theme enabled in harden.reg.
 
 In harden.reg - ofc.. where else would you logically put the taskbar settings?
 These settings exsist that are turned off because they are untested.
@@ -152,7 +154,7 @@ These settings exsist that are turned off because they are untested.
 ; "EnableWindowColorization"=dword:0000000
 ```
 
-# TODO:
+# TODID:
 * Move scripts to own folder, it's getting messy.
 * Bother to ask when to schedule thing.
 * Ask to either install MalwareBytes or run to AwdCleaner sometimes? - Just schedule AwdCleaner to run anyway.
