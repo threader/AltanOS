@@ -406,6 +406,9 @@ for %%a in (
 ) do (
    ftype %%a="%ProgramFiles%\Notepad++\Notepad++.exe" "%1"
 ) ) 
+
+%powshcmd% "%altanosdir%\harden.ps1"
+
 :: reset the admin password prompt, a value of 1 on here on the admin account will require password to be entered. 2 is a prompt.
  %powshcmd% Set-ItemProperty -Path REGISTRY::HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System -Name ConsentPromptBehaviorAdmin -Value 1
  echo All done, pausing for you to review what might have gone astray.

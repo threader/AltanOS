@@ -91,6 +91,16 @@ $ProgressPreference = 'Continue'  ^
 Expand-Archive -Force '%usedir%\network-indicator%niarchbit%.zip' '%usedir%\bin\network-indicator%niarchbit%'"
 :skipdl
 
+:: rebuild performance counters
+:: https://learn.microsoft.com/en-us/troubleshoot/windows-server/performance/manually-rebuild-performance-counters
+
+%powshadmcmd% "
+cd %WinDir%\
+lodctr /r ^
+lodctr /r ^
+winmgmt /resyncperf ^
+Get-Service -Name "pla" | Restart-Service -Verbose ^
+Get-Service -Name "winmgmt" | Restart-Service -Force -Verbose"
 
 :: The following operations can under some circumstances take a hellova lot of thime, i'm not really sure if this really is ideal.
   Echo There will be packages that fail to remove here because they are core components, some red text to follow.
