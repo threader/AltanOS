@@ -71,37 +71,33 @@ if errorlevel 2 exit /B
 echo So you are sure. Okay, let's go ...
 
 if exist %usedir%\network-indicator%niarchbit%.zip goto skipdl
+:: %powshcmd% "Invoke-WebRequest -uri https://adwcleaner.malwarebytes.com/adwcleaner?channel=release -OutFile %usedir%\adwcleaner.exe"
 echo "No progress bar as there is a bug in PowerShell making the download increadibly slow... ( https://github.com/PowerShell/PowerShell/issues/2138 )"
-::	$ProgressPreference = 'SilentlyContinue' 
+ %powshcmd% "$ProgressPreference = 'SilentlyContinue'  ^
+ Invoke-WebRequest -uri https://downloads.malwarebytes.com/file/adwcleaner -OutFile %usedir%\bin\adwcleaner.exe ^
+%usedir%\bin\adwcleaner.exe"
+
 :: %bitsadminget% https://github.com/PowerShell/PowerShell/releases/download/v7.3.2/PowerShell-7.3.2-win-x64.msi %usedir%\PowerShell-7.3.2-win-x64.msi 
 
-:: %powshcmd% "Invoke-WebRequest -uri https://adwcleaner.malwarebytes.com/adwcleaner?channel=release -OutFile %usedir%\adwcleaner.exe"
- %powshcmd% "$ProgressPreference = 'SilentlyContinue'  ^
- Invoke-WebRequest -uri https://downloads.malwarebytes.com/file/adwcleaner -OutFile %usedir%\bin\adwcleaner.exe"
-
-
- %usedir%\bin\adwcleaner.exe
+ :: %bitsadminget% https://tinywall.pados.hu/files/TinyWall-v3-Installer.msi %usedir%\TinyWall-v3-Installer.msi
+ :: %bitsadminget% https://privazer.com/en/PrivaZer.exe %usedir%\bin\PrivaZer.exe
  
- %powshcmd% "Invoke-WebRequest -uri https://tinywall.pados.hu/files/TinyWall-v3-Installer.msi -OutFile %usedir%\TinyWall-v3-Installer.msi" 
-:: %bitsadminget% https://tinywall.pados.hu/files/TinyWall-v3-Installer.msi %usedir%\TinyWall-v3-Installer.msi 
-
- %powshcmd% "Invoke-Web% http://www.itsamples.com/downloads/network-activity-indicator-setup%niarchbit%.zip %usedir%\network-indicator%niarchbit%.zip
-::	$ProgressPRequest -uri https://privazer.com/en/PrivaZer.exe -OutFile %usedir%\bin\PrivaZer.exe"
-:: %bitsadminget% https://privazer.com/en/PrivaZer.exe %usedir%\bin\PrivaZer.exe
-
- %powshcmd% "Invoke-WebRequest -uri http://www.itsamples.com/downloads/network-activity-indicator-setup%niarchbit%.zip -OutFile %usedir%\network-indicator%niarchbit%.zip"
-:: %bitsadmingetreference = 'Continue'
- %powshcmd% "$ProgressPreference = 'Continue'  ^
- Expand-Archive -Force '%usedir%\network-indicator%niarchbit%.zip' '%usedir%\bin\network-indicator%niarchbit%'"
+ %powshcmd% "Invoke-WebRequest -uri https://tinywall.pados.hu/files/TinyWall-v3-Installer.msi -OutFile %usedir%\TinyWall-v3-Installer.msi ^
+Invoke-Web -uri http://www.itsamples.com/downloads/network-activity-indicator-setup%niarchbit%.zip %usedir%\network-indicator%niarchbit%.zip ^
+Invoke-Web -uri https://privazer.com/en/PrivaZer.exe  %usedir%\bin\PrivaZer.exe  ^
+cp %usedir%\bin\PrivaZer.ini %altanosinstdir%/bin/ ^
+Invoke-WebRequest -uri http://www.itsamples.com/downloads/network-activity-indicator-setup%niarchbit%.zip -OutFile %usedir%\network-indicator%niarchbit%.zip ^
+$ProgressPreference = 'Continue'  ^
+Expand-Archive -Force '%usedir%\network-indicator%niarchbit%.zip' '%usedir%\bin\network-indicator%niarchbit%'"
 :skipdl
 
 
 :: The following operations can under some circumstances take a hellova lot of thime, i'm not really sure if this really is ideal.
- %powshadmcmd% '%powshcmd% "Set-ItemProperty -Path REGISTRY::HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System -Name ConsentPromptBehaviorAdmin -Value 0"'
- 
- %powshadmcmd% '%powshcmd% "Set-ExecutionPolicy -ExecutionPolicy Bypass"'
- Echo There will be packages that fail to remove here because they are core components, some red text to follow.
+  Echo There will be packages that fail to remove here because they are core components, some red text to follow.
  pause
+ %powshadmcmd% '%powshcmd% "Set-ItemProperty -Path REGISTRY::HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System -Name ConsentPromptBehaviorAdmin -Value 0" ^
+ Set-ExecutionPolicy -ExecutionPolicy Bypass"' '
+ 
  %powshadmcmd% "%altanosdir%\pkgs-prep.ps1"
  
  echo git clone the latest AltanOS
@@ -115,29 +111,20 @@ echo "No progress bar as there is a bug in PowerShell making the download increa
  :: %uacadmuser% %powshcmd% "New-ItemProperty -Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Run" -Name "Update Windows and Applications" -Value "%altanosdir%\autorun-update.cmd"  -PropertyType "String""
 
 
-
-
 :: powershell Start-process powershell -Verb RunAS %cd%\dotnet-install.ps1
 :: %admuser% dotnet add package Microsoft.UI.Xaml 
 
 
-
 :: Ask to install - Tinywall, Network activity indicator, (auto)/run PrivaZer, with config?.
-
 echo Remember to configure the TinyWall firewall, select 'Autolearn' if you have problems and use the 'Manage' dialog to tune the selection.
 if exist %ProgramFiles%%\Program Files (x86)\TinyWall\TinyWall.exe goto skipptw
 msiexec.exe /a %usedir%\TinyWall-v3-Installer.msi /quiet /passive
  "%usedir%"\bin\network-indicator"%niarchbit%"\NetworkIndicatorSetup.exe
 :skiptw
 
-
-
-
-
- %powshadmcmd% '%powshcmd% "Set-ExecutionPolicy -ExecutionPolicy Restricted"'
+ %powshadmcmd% '%powshcmd% "Set-ExecutionPolicy -ExecutionPolicy Restricted" ^
+Set-ItemProperty -Path REGISTRY::HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System -Name ConsentPromptBehaviorAdmin -Value 1' 
 :: set the admin password prompt, a value of 1 on here and the admin account will require password to be entered. 2 is a prompt.
- %powshadmcmd% '%powshcmd% "Set-ItemProperty -Path REGISTRY::HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System -Name ConsentPromptBehaviorAdmin -Value 1"'
-
 
 endlocal
 pause

@@ -95,6 +95,7 @@ Invoke-WebRequest -uri https://github.com/microsoft/winget-cli/releases/download
 
 Add-AppxPackage -Path "$altanosinstdir\Microsoft.UI.Xaml.2.8.x64.appx"
 
+# Enable progress bar
 	$ProgressPreference = 'Continue'
 	write-output "Installing winget, this might actually get stuck for some reason." 
 	start-process "powershell -Wait "add-appxpackage -Path "$altanosinstdir\Microsoft.DesktopAppInstaller.msixbundle" " "
@@ -127,6 +128,7 @@ winget install --exact --id SomePythonThings.WingetUIStore --source winget
 }
 winget_pkgs
 
+function winget_rm_pkgs() {
 Write-Output "Remove applications:"
 winget remove --id Microsoft.Edge* --accept-source-agreements --disable-interactivity
 # winget remove --id Microsoft Edge Update* --accept-source-agreements --disable-interactivity # uuh, is this needed for Microsoft.EdgeWebView2Runtime that one probably needs?
@@ -134,6 +136,8 @@ winget remove --id Microsoft.Office.OneNote* --accept-source-agreements --disabl
 winget remove --id Microsoft.ScreenSketch* --accept-source-agreements --disable-interactivity
 winget remove --id Microsoft.SkypeApp* --accept-source-agreements --disable-interactivity
 # winget remove --id Microsoft.OneDrive --accept-source-agreements --disable-interactivity
+}
+winget_rm_pkgs
 
 Write-Output "Updating all known exsisting applications."
 winget upgrade --accept-source-agreements --disable-interactivity --include-unknown -r
