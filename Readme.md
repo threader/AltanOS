@@ -21,7 +21,7 @@ It will copy itself to the system partition equivlent to C:\AltanOS and C:\Altan
 
 	* N.B: Malwarebytes and Spybot AntiBeacon. AntiBeacon modifies the host file and Malwarebytes believes this is host file hijacking.
 
-	* N.B: - The Intel HD 3000 driver will fail to load the kernel mode driver, 'Core isolation\Memory integrity' will have to be disabled on these systems.
+	* N.B: The Intel HD 3000 driver will fail to load the kernel mode driver, 'Core isolation\Memory integrity' will have to be disabled on these systems.
 
 (On the pluss side I found a patched driver to allow OpenGL3.1 and a trick with using Mesa 20.2.0 that should allow OpenGL 3.3 on these devices)
 
@@ -31,7 +31,7 @@ It will copy itself to the system partition equivlent to C:\AltanOS and C:\Altan
 
 	* https://www.reddit.com/r/lowendgaming/comments/1258usx/updated_win1011_drivers_for_intel_hd_3000/
 
-If it is the case that odl drivers are missbehaving - Run and reboot:
+If it is the case that old drivers are missbehaving - Run and reboot:
 
 ```bat
  reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\DeviceGuard" /t REG_DWORD /v "HypervisorEnforcedCodeIntegrity" /d "0" /f

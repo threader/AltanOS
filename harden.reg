@@ -109,6 +109,7 @@ Windows Registry Editor Version 5.00
 @="cmd.exe /k cd /d \"%V\""
 
 ; https://superuser.com/questions/952500/custom-color-for-windows-10-taskbar
+; This is supposed to be a Cyan taskbar - this is something to mess around with eventually
 ; [HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\DWM]
 ; "Composition"=dword:00000001
 ; "AccentColor"=dword:00c3b700
