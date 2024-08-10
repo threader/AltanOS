@@ -8,22 +8,29 @@ Run AltanOS.cmd from It's parent directory and the rest happens with some intera
 
 It will copy itself to the system partition equivlent to C:\AltanOS and C:\AltanOS.inst
 
-Mind the TinyWall firewall - select 'Autolearn' if you have problems and use the 'Manage' dialog to tune the selection. Hopefully a more elegant solution cand be found like importing the .tws file in AltanOS\bin
+- Important notes:
 
-N.B: Uninstalling TinyWall while configured to block an application or default settings will lead to connection blocking even after uninstall!
+	- Mind the TinyWall firewall - select 'Autolearn' if you have problems and use the 'Manage' dialog to tune the selection. Hopefully a more elegant solution cand be found like importing the .tws file in AltanOS\bin
 
-N.B: Malwarebytes and Spybot AntiBeacon. AntiBeacon modifies the host file and Malwarebytes believes this is host file hijacking.
+	- N.B: Uninstalling TinyWall while configured to block an application or default settings will lead to connection blocking even after uninstall!
 
-N.B: - The Intel HD 3000 driver will fail to load the kernel mode driver, 'Core isolation\Memory integrity' will have to be disabled on these systems.
+	- N.B: Malwarebytes and Spybot AntiBeacon. AntiBeacon modifies the host file and Malwarebytes believes this is host file hijacking.
+
+	- N.B: - The Intel HD 3000 driver will fail to load the kernel mode driver, 'Core isolation\Memory integrity' will have to be disabled on these systems.
 
 (On the pluss side I found a patched driver to allow OpenGL3.1 and a trick with using Mesa 20.2.0 that should allow OpenGL 3.3 on these devices)
 
-https://gist.github.com/rb-dahlb/26f316c5b6089807a139fc44ee69f0d1
+	- https://gist.github.com/rb-dahlb/26f316c5b6089807a139fc44ee69f0d1
 
-https://www.intel.com/content/www/us/en/support/articles/000091878/graphics.html#:~:text=Download%20Display%20Driver%20Uninstaller%20(DDU,in%20safe%20mode%20in%20Windows.)
+	- https://www.intel.com/content/www/us/en/support/articles/000091878/graphics.html#:~:text=Download%20Display%20Driver%20Uninstaller%20(DDU,in%20safe%20mode%20in%20Windows.)
 
-https://www.reddit.com/r/lowendgaming/comments/1258usx/updated_win1011_drivers_for_intel_hd_3000/
+	- https://www.reddit.com/r/lowendgaming/comments/1258usx/updated_win1011_drivers_for_intel_hd_3000/
 
+If it is the case that odl drivers are missbehaving - Run and reboot:
+
+```bat
+ reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\DeviceGuard" /t REG_DWORD /v "HypervisorEnforcedCodeIntegrity" /d "0" /f
+```
 
 Tested on Windows 10 and Windows 11.
 
