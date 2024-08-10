@@ -20,6 +20,19 @@ https://gist.github.com/rb-dahlb/26f316c5b6089807a139fc44ee69f0d1
 https://www.intel.com/content/www/us/en/support/articles/000091878/graphics.html#:~:text=Download%20Display%20Driver%20Uninstaller%20(DDU,in%20safe%20mode%20in%20Windows.)
 https://www.reddit.com/r/lowendgaming/comments/1258usx/updated_win1011_drivers_for_intel_hd_3000/
 
+# Hardening
+
+Added: 
+* https://github.com/palantir/exploitguard/ - done 
+* https://github.com/gunnarhaslinger/Windows-Defender-Exploit-Guard-Configuration - testing
+
+# Conveience 
+
+Adeed:
+* Finally got around to adding "Open PowerShell/cmd in current directory".
+* https://github.com/gunnarhaslinger/Add-or-Remove-Application-To-Windows-10-Taskbar
+
+
 Tested on Windows 10 and Windows 11.
 
 
@@ -46,8 +59,9 @@ Tested on Windows 10 and Windows 11.
 * WindowsCalculator
 * MSPaint
 * MicrosoftSolitaireCollection
+* Windows Terminal
 
-# The folloiwng packages are grabbed by 'WinGet'
+# The folloiwng programs are grabbed by 'WinGet'
 * Sandboxie.Plus
 * SomePythonThings.WingetUIStore
 * Git.Git
@@ -87,7 +101,7 @@ v 0.0.1 - ish
 
 * Fix the sheduled task and create one for sfc and dism every... two, maybe three weeks? - Maybe fixed
 * Move AltanOS* to somewhere predictable. - Fixed
-* More testing. - Ongoing - Still.. 
+* More testing. - Ongoing - Still.. ... Still...
 * Add a script to run once at first startup to resolve an iusse where we are already in need to reboot. - Maybe fixed
 * Try to stop loosing work when hibernating linux and not properly shutting down windows (holding left ctrl while selecting power off), linux isnt grabbing the new journal state of the NTFS drive file states after resuming from hibernation, this results in data loss and corruption if you then proceed ot unmount the volume in linux, a chkdsk from windows _can_ fix this, or a hard reset of linux if you've got nothing to loose....   - I almost lost all this again instead ...
 

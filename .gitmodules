@@ -1,3 +1,6 @@
 [submodule "wdegc"]
 	path = wdegc
 	url = https://github.com/gunnarhaslinger/Windows-Defender-Exploit-Guard-Configuration.git
+[submodule "pttb"]
+	path = pttb
+	url = https://github.com/gunnarhaslinger/Add-or-Remove-Application-To-Windows-10-Taskbar
