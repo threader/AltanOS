@@ -17,7 +17,7 @@ It will copy itself to the system partition equivlent to C:\AltanOS and C:\Altan
 	git submodule update --recursive
 	```
 	
-	* Fastboot\Hiberboot is disabled, so Windows will properly shut down, unmount disks, unlock the NTFS journal and take some extra time to boot. To revert this:
+	* Fastboot/Hiberboot is disabled, so Windows will properly shut down, unmount disks, unlock the NTFS journal and take some extra time to boot. To revert this:
 
 	* Mind the TinyWall firewall - select 'Autolearn' if you have problems and use the 'Manage' dialog to tune the selection. Hopefully a more elegant solution cand be found like importing the .tws file in AltanOS\bin
 
@@ -82,7 +82,7 @@ Adeed:
 * harden-AltanOS.cmd
 * harden.reg 				- ofc 
 * pkgs-prep.ps1
-* schedule-tasks.ps1
+* schedule-tasks.ps1        - Still not working 
 
 ## The following packages are installed:
 * VCLibs
@@ -122,7 +122,7 @@ Adeed:
 * Malwarebytes.Malwarebytes
 * SaferNetworking.SpybotAntiBeacon
 
-## It will schedule tasks to be autorun: 
+## It will schedule tasks to be autorun - N.B! Not yet working, scheduling script is bonkers: 
 * autorun-update.ps1                - Runs PSWindowsUpdate every thuesday at 17pm
 * autorun-maintain.ps1              - Runs sfc /scannow and DISM /Online /Cleanup-Image /StartComponentCleanup /ResetBase /RestoreHealth every 3 weeks at 18pm  
 * autorun-privazer.ps1              - Runs PrivaZer to delete residue in the NTFS journal, and write ZERO to the free disk space as well as remove temporary files everywhere. Every 3 weeks Wedensday at 17pm
