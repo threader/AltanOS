@@ -1,9 +1,9 @@
-$sysdrive =  ((Get-Location).Path.Split("\")).Get(0)
+$sysdrive =  $Env:SystemDrive
 $altanosdir = "$sysdrive\AltanOS"
 $altanosinstdir = "$sysdrive\AltanOS.inst"
 
 if (-not (Test-Path -Path $altanosinstdir)) {
-	mkdir $altanosinstdir
+	mkdir -p $altanosinstdir\bin
 }
 
 # $DesktopPath = [Environment]::GetFolderPath("Desktop")
