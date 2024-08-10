@@ -9,6 +9,12 @@ Run AltanOS.cmd from It's parent directory and the rest happens with some intera
 It will copy itself to the system partition equivlent to C:\AltanOS and C:\AltanOS.inst
 
 - Important notes:
+	
+	* Fastboot\Hiberboot is disabled, so Windows will properly shut down, unmount disks, unlock the NTFS journal and take some extra time to boot. To revert this:
+
+```bat
+	reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Power" /v "HiberbootEnabled" /t REG_DWORD /d "1" /f
+```
 
 	* Mind the TinyWall firewall - select 'Autolearn' if you have problems and use the 'Manage' dialog to tune the selection. Hopefully a more elegant solution cand be found like importing the .tws file in AltanOS\bin
 
