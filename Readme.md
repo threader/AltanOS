@@ -12,11 +12,6 @@ It will copy itself to the system partition equivlent to C:\AltanOS and C:\Altan
 	
 	* Fastboot\Hiberboot is disabled, so Windows will properly shut down, unmount disks, unlock the NTFS journal and take some extra time to boot. To revert this:
 
-```console
-	reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Power" /v "HiberbootEnabled" /t REG_DWORD /d "1" /f
-```
-
-
 	* Mind the TinyWall firewall - select 'Autolearn' if you have problems and use the 'Manage' dialog to tune the selection. Hopefully a more elegant solution cand be found like importing the .tws file in AltanOS\bin
 
 	* N.B: Uninstalling TinyWall while configured to block an application or default settings will lead to connection blocking even after uninstall!
@@ -38,14 +33,23 @@ If it is the case that old drivers are missbehaving - Run and reboot:
 ```console
  reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\DeviceGuard" /t REG_DWORD /v "HypervisorEnforcedCodeIntegrity" /d "0" /f
 ```
-This should solve TinyWall - Move because of formatting, I will actually have to read about .md formatting...
-		
+
+This will enable "fastboot/Hiberboot" if so desired:
+```console
+	reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Power" /v "HiberbootEnabled" /t REG_DWORD /d "1" /f
+```
+
+This should solve TinyWall blockage: 
+
 ```console
 			:: clean up firewall rules
 			reg delete "HKLM\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\FirewallRules" /f
 			reg add "HKLM\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\FirewallRules" /f
 ```
 
+
+Solutions moved because of formatting, I will actually have to read about .md formatting...
+		
 
 Tested on Windows 10 and Windows 11.
 
