@@ -9,6 +9,10 @@ Run AltanOS.cmd from It's parent directory and the rest happens with some intera
 It will copy itself to the system partition equivlent to C:\AltanOS and C:\AltanOS.inst
 
 - Important notes:
+	* Remember to grab the submodules. 
+	```console git submodule update --init --recursive 
+	:: pull submodules:
+	git submodule update --recursive```
 	
 	* Fastboot\Hiberboot is disabled, so Windows will properly shut down, unmount disks, unlock the NTFS journal and take some extra time to boot. To revert this:
 
@@ -60,7 +64,7 @@ Maybe list some¿ Read the harden-* files? Read the entire script?
 
 Added: 
 * [exploitguard](https://github.com/palantir/exploitguard/) - Added 
-* [Windows-Defender-Exploit-Guard-Configuration](https://github.com/gunnarhaslinger/Windows-Defender-Exploit-Guard-Configuration) - Pondering
+* [Windows-Defender-Exploit-Guard-Configuration](https://github.com/gunnarhaslinger/Windows-Defender-Exploit-Guard-Configuration) - Runs AltanOS/wdegc/Windows10_ExploitGuard-Config.ps1
 
 Good reading: 
 * https://blog.palantir.com/assessing-the-effectiveness-of-a-new-security-data-source-windows-defender-exploit-guard-860b69db2ad2?gi=e48021ca0dde
