@@ -93,3 +93,17 @@ Windows Registry Editor Version 5.00
 [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\DeviceGuard\Scenarios\KernelShadowStacks]
 "Enabled"=dword:00000001
 "WasEnabledBy"=dword:00000002
+
+[HKEY_CLASSES_ROOT\Directory\Background\shell\ConsolePS]
+@="Open PowerShell in current directory."
+"Icon"="powershell.exe"
+
+[HKEY_CLASSES_ROOT\Directory\Background\shell\ConsolePS\command]
+@="powershell.exe -noexit -command Set-Location '%V'"
+
+[HKEY_CLASSES_ROOT\Directory\Background\shell\ConsoleCMD]
+@="Open CMD in current directory."
+"Icon"="cmd.exe"
+
+[HKEY_CLASSES_ROOT\Directory\Background\shell\ConsoleCMD\command]
+@="cmd.exe /k cd /d \"%V\""

@@ -84,13 +84,13 @@ if (-not (Test-Path "$altanosinstdir\Microsoft.DesktopAppInstaller.msixbundle"))
 		Invoke-WebRequest -Uri "https://github.com/microsoft/microsoft-ui-xaml/releases/download/v2.8.6/Microsoft.UI.Xaml.2.8.x64.appx" -OutFile "$altanosinstdir\Microsoft.UI.Xaml.2.8.x64.appx"
 		Add-AppxPackage -Path "$altanosinstdir\Microsoft.UI.Xaml.2.8.x64.appx"
 	      }
-     
+	      
 #Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force
 #Register-PackageSource -provider NuGet -name nugetRepository -location https://www.nuget.org/api/v2
 #Install-Package Microsoft.UI.Xaml --version 2.8.6 -Force
 
 	Invoke-WebRequest -uri https://github.com/microsoft/winget-cli/releases/download/v1.8.1911/Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle -OutFile $altanosinstdir\Microsoft.DesktopAppInstaller.msixbundle
-
+	Invoke-WebRequest -uri https://github.com/microsoft/terminal/releases/download/v1.21.1772.0/Microsoft.WindowsTerminalPreview_1.21.1772.0_8wekyb3d8bbwe.msixbundle -OutFile $altanosdir\Microsoft.DesktopAppInstaller.msixbundle
 	}
 	grab_winget_deps
 
@@ -99,6 +99,7 @@ if (-not (Test-Path "$altanosinstdir\Microsoft.DesktopAppInstaller.msixbundle"))
 	$ProgressPreference = 'Continue'
 	write-output "Installing winget, this might actually get stuck for some reason." 
 	start-process "powershell -Wait "add-appxpackage -Path "$altanosinstdir\Microsoft.DesktopAppInstaller.msixbundle" " "
+	add-appxpackage -Path "$altanosinstdir\Microsoft.DesktopAppInstaller.msixbundle"
 }
 
 # create .xml of this eventually when it settles
