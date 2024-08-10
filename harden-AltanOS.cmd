@@ -387,7 +387,7 @@ echo Disablng WMP and IE, enable Hyper-V and WSL
  DISM /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
  DISM /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
 :: %powshcmd% Enable-WindowsOptionalFeature applicaonalFeature -Online -FeatureName VirtualMachinePlatform -NoRestart
-%powshcmd% wsl --set-default-version 2
+:: %powshcmd% wsl --set-default-version 2
 
 :: enable system devices
 ::  DevManView.exe /enable "Microsoft Hyper-V NT Kernel Integration VSP"
@@ -431,9 +431,10 @@ for %%a in (
 ) ) 
 
 %powshcmd% "%altanosdir%\harden.ps1"
+%powshcmd% "%altanosdir%\wdegc\Windows10_ExploitGuard-Config.ps1"
 
 :: reset the admin password prompt, a value of 1 on here on the admin account will require password to be entered. 2 is a prompt.
- %powshcmd% Set-ItemProperty -Path REGISTRY::HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System -Name ConsentPromptBehaviorAdmin -Value 1
+:: %powshcmd% Set-ItemProperty -Path REGISTRY::HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System -Name ConsentPromptBehaviorAdmin -Value 1
  echo All done, pausing for you to review what might have gone astray.
 
 pause
