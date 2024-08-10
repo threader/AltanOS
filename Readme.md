@@ -21,16 +21,6 @@ It will copy itself to the system partition equivlent to C:\AltanOS and C:\Altan
 
 	* N.B: Uninstalling TinyWall while configured to block an application or default settings will lead to connection blocking even after uninstall!
 
-		(This should solve that)
-		
-```console
-			:: clean up firewall rules
-			reg delete "HKLM\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\FirewallRules" /f
-			reg add "HKLM\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\FirewallRules" /f
-```
-
-
-
 	* N.B: Malwarebytes and Spybot AntiBeacon. AntiBeacon modifies the host file and Malwarebytes believes this is host file hijacking.
 
 	* N.B: The Intel HD 3000 driver will fail to load the kernel mode driver, 'Core isolation\Memory integrity' will have to be disabled on these systems.
@@ -48,6 +38,14 @@ If it is the case that old drivers are missbehaving - Run and reboot:
 ```console
  reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\DeviceGuard" /t REG_DWORD /v "HypervisorEnforcedCodeIntegrity" /d "0" /f
 ```
+This should solve TinyWall - Move because of formatting, I will actually have to read about .md formatting...
+		
+```console
+			:: clean up firewall rules
+			reg delete "HKLM\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\FirewallRules" /f
+			reg add "HKLM\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\FirewallRules" /f
+```
+
 
 Tested on Windows 10 and Windows 11.
 
