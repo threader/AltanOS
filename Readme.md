@@ -110,20 +110,35 @@ autorun-maintain.ps1 will also be run upon login, once, after a reboot(!!!).
 * Revert8Plus install script is added but not initialized.
 * Black theme enabled in harden.reg 
 
+
 In harden.reg - ofc.. where else would you logically put the taskbar settings?
-there are these settings that are turned off because they arent tested.
+
+There exsist these settings that are turned off because they are untested.
+
 ; https://superuser.com/questions/952500/custom-color-for-windows-10-taskbar
+
 ; This is supposed to be a Cyan taskbar - this is something to mess around with eventually
+
 ; [HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\DWM]
+
 ; "Composition"=dword:00000001
+
 ; "AccentColor"=dword:00c3b700
+
 ; "ColorPrevalence"=dword:00000001
+
 ; "ColorizationGlassAttribute"=dword:00000000
+
 ; "ColorizationColor"=dword:c400b7c3
+
 ; "ColorizationColorBalance"=dword:00000059
+
 ; "ColorizationAfterglow"=dword:c400b7c3
+
 ; "ColorizationAfterglowBalance"=dword:0000000a
+
 ; "ColorizationBlurBalance"=dword:00000001
+
 ; "EnableWindowColorization"=dword:0000000
 
 
