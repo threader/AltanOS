@@ -16,7 +16,9 @@ N.B: Malwarebytes and Spybot AntiBeacon. AntiBeacon modifies the host file and M
 
 N.B: - The Intel HD 3000 driver will fail to load the kernel mode driver, 'Core isolation\Memory integrity' will have to be disabled on these systems.
 (On the pluss side I found a patched driver to allow OpenGL3.1 and a trick with using Mesa 20.2.0 that should allow OpenGL 3.3 on these devices)
-
+https://gist.github.com/rb-dahlb/26f316c5b6089807a139fc44ee69f0d1
+https://www.intel.com/content/www/us/en/support/articles/000091878/graphics.html#:~:text=Download%20Display%20Driver%20Uninstaller%20(DDU,in%20safe%20mode%20in%20Windows.)
+https://www.reddit.com/r/lowendgaming/comments/1258usx/updated_win1011_drivers_for_intel_hd_3000/
 
 Tested on Windows 10 and Windows 11.
 
@@ -35,6 +37,7 @@ Tested on Windows 10 and Windows 11.
 * NET.Native.Framework.1.7
 * UI.Xaml* 
 * PackageManagement.NuGetProvider
+* PSWindowsUpdate
 * UI.Xaml.2.7*
 * UI.Xaml.2.8* 
 * WindowsStore
@@ -78,7 +81,7 @@ autorun-maintain.ps1 will also be run upon login, once, after a reboot(!!!).
 * Ask if you wish to install LibreOffice or Microsoft Office.
 * Dig around for more hardening or other things that make sense.
 * Better Readme and explenation, 2 days now i've layed down in bed to sleep then having a great idea what to write, then not when i wake up... - Done?
-* Try to preconfigure Sandboxie.
+* Try to preconfigure Sandboxie. -Naaah
 
 v 0.0.1 - ish
 
