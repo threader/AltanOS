@@ -132,9 +132,14 @@ msiexec.exe /a %usedir%\TinyWall-v3-Installer.msi /quiet /passive
  "%usedir%"\bin\network-indicator"%niarchbit%"\NetworkIndicatorSetup.exe
 :skiptw
 
- %powshadmcmd% '%powshcmd% "Set-ExecutionPolicy -ExecutionPolicy Restricted" ^
+ %powshadmcmd% '%powshcmd% "Get-ProcessMitigation -RegistryConfigFilePath %usedir%\settings.xml ^
+Set-ExecutionPolicy -ExecutionPolicy Restricted ^
 Set-ItemProperty -Path REGISTRY::HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System -Name ConsentPromptBehaviorAdmin -Value 1' 
 :: set the admin password prompt, a value of 1 on here and the admin account will require password to be entered. 2 is a prompt.
+
+
+:: Import Settings on a test or base machine
+:: Set-ProcessMitigation -PolicyFilePath settings.xml 
 
 endlocal
 pause

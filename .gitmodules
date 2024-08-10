@@ -1,0 +1,3 @@
+[submodule "wdegc"]
+	path = wdegc
+	url = https://github.com/gunnarhaslinger/Windows-Defender-Exploit-Guard-Configuration.git
