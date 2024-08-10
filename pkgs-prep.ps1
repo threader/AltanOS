@@ -67,33 +67,33 @@ function enable_win_packages() {
 }
 enable_win_packages
 
-
-#Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force
-#Register-PackageSource -provider NuGet -name nugetRepository -location https://www.nuget.org/api/v2
-#Install-Package Microsoft.UI.Xaml --version 2.8.6 -Force
-
-
 if (-not (Test-Path "$altanosinstdir\Microsoft.DesktopAppInstaller.msixbundle")) {
 	write-output "Winget not found. Grab and install. No progress bar as there is a bug in PowerShell making the download increadibly slow... ( https://github.com/PowerShell/PowerShell/issues/2138 )" 
 	$ProgressPreference = 'SilentlyContinue'
 
-function grab_winget_deps() {
+	function grab_winget_deps() {
 
-    if(-not ( Get-Machine-Architecture -eq "AMD64")) {
-    Write-Output "Assume x86"
-       Invoke-WebRequest -Uri "https://aka.ms/Microsoft.VCLibs.x86.14.00.Desktop.appx" -OutFile "$altanosinstdir\Microsoft.VCLibs.x64.14.00.Desktop.appx"
-        } else  {
-     Write-Output "Assume x64"
-      Invoke-WebRequest -Uri "https://aka.ms/Microsoft.VCLibs.x64.14.00.Desktop.appx" -OutFile "$altanosinstdir\Microsoft.VCLibs.x86.14.00.Desktop.appx"
-        }
+	    if(-not ( Get-Machine-Architecture -eq "AMD64")) {
+	    Write-Output "Assume x86"
+		Invoke-WebRequest -Uri "https://aka.ms/Microsoft.VCLibs.x86.14.00.Desktop.appx" -OutFile "$altanosinstdir\Microsoft.VCLibs.x86.14.00.Desktop.appx"
+		Invoke-WebRequest -Uri "https://github.com/microsoft/microsoft-ui-xaml/releases/download/v2.8.6/Microsoft.UI.Xaml.2.8.x86.appx" -OutFile "$altanosinstdir\Microsoft.UI.Xaml.2.8.x86.appx" 
+		Add-AppxPackage -Path "$altanosinstdir\Microsoft.UI.Xaml.2.8.x86.appx"
+	      } else  {
+	     Write-Output "Assume x64"
+		Invoke-WebRequest -Uri "https://aka.ms/Microsoft.VCLibs.x64.14.00.Desktop.appx" -OutFile "$altanosinstdir\Microsoft.VCLibs.x86.14.00.Desktop.appx"
+		Invoke-WebRequest -Uri "https://github.com/microsoft/microsoft-ui-xaml/releases/download/v2.8.6/Microsoft.UI.Xaml.2.8.x64.appx" -OutFile "$altanosinstdir\Microsoft.UI.Xaml.2.8.x64.appx"
+		Add-AppxPackage -Path "$altanosinstdir\Microsoft.UI.Xaml.2.8.x64.appx"
+	      }
      
-     Invoke-WebRequest -Uri "https://github.com/microsoft/microsoft-ui-xaml/releases/download/v2.8.6/Microsoft.UI.Xaml.2.8.x64.appx" -OutFile "$altanosinstdir\Microsoft.UI.Xaml.2.8.x64.appx"
-}
-grab_winget_deps
+#Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force
+#Register-PackageSource -provider NuGet -name nugetRepository -location https://www.nuget.org/api/v2
+#Install-Package Microsoft.UI.Xaml --version 2.8.6 -Force
 
-Invoke-WebRequest -uri https://github.com/microsoft/winget-cli/releases/download/v1.8.1911/Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle -OutFile $altanosinstdir\Microsoft.DesktopAppInstaller.msixbundle
+	Invoke-WebRequest -uri https://github.com/microsoft/winget-cli/releases/download/v1.8.1911/Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle -OutFile $altanosinstdir\Microsoft.DesktopAppInstaller.msixbundle
 
-Add-AppxPackage -Path "$altanosinstdir\Microsoft.UI.Xaml.2.8.x64.appx"
+	}
+	grab_winget_deps
+
 
 # Enable progress bar
 	$ProgressPreference = 'Continue'
@@ -102,10 +102,12 @@ Add-AppxPackage -Path "$altanosinstdir\Microsoft.UI.Xaml.2.8.x64.appx"
 }
 
 # create .xml of this eventually when it settles
-Write-Output "Install applications:"
+#
 # This should not really be needed
 # winget install --disable-interactivity --accept-source-agreements --id abbodi1406.vcredist --source winget
+#
 function winget_pkgs() {
+Write-Output "Install applications:"
 winget install --disable-interactivity --accept-source-agreements --id Sandboxie.Plus --source winget
 winget install --disable-interactivity --accept-source-agreements --id SomePythonThings.WingetUIStore --source winget
 winget install --disable-interactivity --accept-source-agreements --id Git.Git --source winget
