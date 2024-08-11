@@ -127,3 +127,8 @@ Windows Registry Editor Version 5.00
 ; Windows 11 - Verbose mode            
 [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System]
 "verbosestatus"=dword:00000001
+
+; Turn off snapping windows (11)...
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced]
+"EnableSnapBar"=dword:00000000
+"SnapAssist"=dword:00000000
