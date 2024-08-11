@@ -35,14 +35,15 @@ It will copy itself to the system partition equivlent to C:\AltanOS and C:\Altan
 
 	* https://www.reddit.com/r/lowendgaming/comments/1258usx/updated_win1011_drivers_for_intel_hd_3000/
 
-	* Crap, one of the recently added mitigations/hardening killed the driver again.
-	
 If it is the case that old drivers are missbehaving - Run and reboot:
 
 ```console
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\DeviceGuard" /t REG_DWORD /v "HypervisorEnforcedCodeIntegrity" /d "0" /f
 ```
-
+Upon further reading - https://learn.microsoft.com/en-us/windows/security/hardware-security/enable-virtualization-based-protection-of-code-integrity there are two ways to enable this, without efi (locked), the command done above,, set to 1 and with, method bellow ... 
+```console
+::reg add "HKLM\SYSTEM\CurrentControlSet\Control\DeviceGuard\Scenarios\HypervisorEnforcedCodeIntegrity" /v "Locked" /t REG_DWORD /d 1 /f 
+``
 This will enable "fastboot/Hiberboot" if so desired:
 ```console
 reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Power" /v "HiberbootEnabled" /t REG_DWORD /d "1" /f
@@ -55,6 +56,7 @@ This should solve TinyWall blockage:
 reg delete "HKLM\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\FirewallRules" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\FirewallRules" /f
 ```
+`
 
 Solutions moved because of formatting issues, I will actually have to read about .md formatting...
 		
