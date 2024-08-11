@@ -56,7 +56,7 @@ This should solve TinyWall blockage:
 reg delete "HKLM\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\FirewallRules" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\FirewallRules" /f
 ```
-`
+
 
 Solutions moved because of formatting issues, I will actually have to read about .md formatting...
 		
