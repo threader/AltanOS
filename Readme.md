@@ -17,7 +17,7 @@ It will copy itself to the system partition equivlent to C:\AltanOS and C:\Altan
 	git submodule update --recursive
 	```
 	
-	* Fastboot/Hiberboot is disabled, so Windows will properly shut down, unmount disks, unlock the NTFS journal and take some extra time to boot. To revert this:
+	* Fastboot/Hiberboot is disabled, so Windows will properly shut down, unmount disks, unlock the NTFS journal and take some extra time to boot.
 
 	* Mind the TinyWall firewall - select 'Autolearn' if you have problems and use the 'Manage' dialog to tune the selection. Hopefully a more elegant solution cand be found like importing the .tws file in AltanOS\bin
 
@@ -35,6 +35,8 @@ It will copy itself to the system partition equivlent to C:\AltanOS and C:\Altan
 
 	* https://www.reddit.com/r/lowendgaming/comments/1258usx/updated_win1011_drivers_for_intel_hd_3000/
 
+	* Crap, one of the recently added mitigations/hardening killed the driver again.
+	
 If it is the case that old drivers are missbehaving - Run and reboot:
 
 ```console
@@ -57,12 +59,12 @@ reg add "HKLM\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\Firewall
 Solutions moved because of formatting issues, I will actually have to read about .md formatting...
 		
 
-Tested on Windows 10 and Windows 11.
+Tested on Windows 10 and Windows 11. 
 
 
 ## Hardening
 
-Maybe list some¿ Read the harden-* files? Read the entire script? 
+Maybe list some¿ Read the harden-* files? Read the scripts? 
 
 Added: 
 * [exploitguard](https://github.com/palantir/exploitguard/) - Added 
@@ -77,6 +79,16 @@ Good reading:
 Adeed:
 * Finally got around to adding "Open PowerShell/cmd in current directory".
 * https://github.com/gunnarhaslinger/Add-or-Remove-Application-To-Windows-10-Taskbar - Not yet tested
+
+
+## Look and feel: 
+
+* Mouse is set to (hopefully) jump to a prompt and land on the default answer, this saves time.
+* Revert8Plus (turns windows 10/11 into Windows7) install script is added but not initialized.
+* Black theme enabled in harden.reg. - Might bother to split this 
+
+In harden.reg - ofc.. where else would you logically put the taskbar settings?
+These settings exsist that are turned off because they are untested.
 
 ## The following files can run standalone if needed:
 * harden-AltanOS.cmd
@@ -128,16 +140,8 @@ Adeed:
 * autorun-privazer.ps1              - Runs PrivaZer to delete residue in the NTFS journal, and write ZERO to the free disk space as well as remove temporary files everywhere. Every 3 weeks Wedensday at 17pm
 * autorun-awdcleaner.ps1            - Runs AwdClenaer every Wedensday at 16pm.
 
-autorun-maintain.ps1 will also be run upon login, once, after a reboot(!!!).
+autorun-maintain.ps1 will (once i fix this....) also be run upon login, once, after a reboot(!!!).
 
-## Look and feel: 
-
-* Mouse is set to (hopefully) jump to a prompt and land on the default answer, this saves time.
-* Revert8Plus install script is added but not initialized.
-* Black theme enabled in harden.reg.
-
-In harden.reg - ofc.. where else would you logically put the taskbar settings?
-These settings exsist that are turned off because they are untested.
 ```console
 ; https://superuser.com/questions/952500/custom-color-for-windows-10-taskbar
 ; This is supposed to be a Cyan taskbar - this is something to mess around with eventually
