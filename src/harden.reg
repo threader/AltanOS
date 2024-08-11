@@ -121,3 +121,9 @@ Windows Registry Editor Version 5.00
 ; "ColorizationAfterglowBalance"=dword:0000000a
 ; "ColorizationBlurBalance"=dword:00000001
 ; "EnableWindowColorization"=dword:0000000
+
+; "Old" context menu - windows 11
+
+; Windows 11 - Verbose mode            
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System]
+"verbosestatus"=dword:00000001

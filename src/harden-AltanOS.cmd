@@ -20,15 +20,9 @@ set "dismpkg=DISM /online /add-package"
 set "msipkg=msiexec.exe /quiet /norestart /passive /package"
 set "gitget=%ProgramFiles%\Git\bin\git.exe"
 
-reg import %altanosdir%\harden.reg
+reg import %altanosdir%\src\harden.reg
 
 echo Will need net for this 
-
-:: display details about the connection
-:: ping -n 6 8.8.8.8
-
-:: Flushdns Fixed winget InternetOpenUrl() failed.
- ipconfig /flushdns
 
 :: if 'someone' is testing and just runs this file...
 if exist %usedir% goto skipusedir
@@ -403,6 +397,9 @@ echo Disablng WMP and IE, enable Hyper-V and WSL
  :: echo Remember to configure the TinyWall firewall, select autolearn from the menu for a while for instance to allo traffic
  :: %msipkg% %usedir%\TinyWall-v3-Installer.msi
 
+ :: Enable full context menu - Windows 11
+ reg add "HKCU\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32" /f /ve
+
 :: - open scripts in notepad++ to preview instead of executing when clicking
 if exist "%ProgramFiles%\Notepad++\Notepad++.exe" (
 for %%a in (
@@ -430,7 +427,7 @@ for %%a in (
    ftype %%a="%ProgramFiles%\Notepad++\Notepad++.exe" "%1"
 ) ) 
 
-%powshcmd% "%altanosdir%\harden.ps1"
+%powshcmd% "%altanosdir%\src\harden.ps1"
 %powshcmd% "%altanosdir%\wdegc\Windows10_ExploitGuard-Config.ps1"
 
 :: reset the admin password prompt, a value of 1 on here on the admin account will require password to be entered. 2 is a prompt.

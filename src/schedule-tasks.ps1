@@ -5,7 +5,7 @@ $trigger1 = New-ScheduledTaskTrigger -AtLogon
 $task_name = "Autorun update"
 
 function shed_task_update() {	
-$action = New-ScheduledTaskAction -Execute "PowerShell" -Argument "-NoProfile -ExecutionPolicy Bypass -File '$altanosdir\autorun-update.ps1"
+$action = New-ScheduledTaskAction -Execute "PowerShell" -Argument "-NoProfile -ExecutionPolicy Bypass -File '$altanosdir\src\autorun-update.ps1"
 $principal = "System\Administrator"
 $settings = New-ScheduledTaskSettingsSet -WakeToRun
 $task = New-ScheduledTask -Action $action -Trigger $trigger0 -Trigger $trigger1 -Settings $settings
@@ -19,7 +19,7 @@ $trigger3 = New-ScheduledTaskTrigger -AtLogon
 $task_name = "Autorun AwdCleaner.."
 
 function shed_task_maintain_awdcleaner() {	
-$action = New-ScheduledTaskAction -Execute "PowerShell" -Argument "-NoProfile -ExecutionPolicy Bypass -File '$altanosdir\autorun-awdcleaner.ps1"
+$action = New-ScheduledTaskAction -Execute "PowerShell" -Argument "-NoProfile -ExecutionPolicy Bypass -File '$altanosdir\src\autorun-awdcleaner.ps1"
 $principal = "System\Administrator"
 $settings = New-ScheduledTaskSettingsSet -WakeToRun
 $task = New-ScheduledTask -Action $action -Trigger $trigger0 -Trigger $trigger1 -Settings $settings
@@ -33,7 +33,7 @@ $trigger5 = New-ScheduledTaskTrigger -AtLogon
 $task_name = "Autorun maintainance"
 
 function shed_task_maintain() {	
-$action = New-ScheduledTaskAction -Execute "PowerShell" -Argument "-NoProfile -ExecutionPolicy Bypass -File '$altanosdir\autorun-maintain.ps1"
+$action = New-ScheduledTaskAction -Execute "PowerShell" -Argument "-NoProfile -ExecutionPolicy Bypass -File '$altanosdir\src\autorun-maintain.ps1"
 $principal = "System\Administrator"
 $settings = New-ScheduledTaskSettingsSet -WakeToRun
 $task = New-ScheduledTask -Action $action -Trigger $trigger0 -Trigger $trigger1 -Settings $settings
@@ -47,7 +47,7 @@ $trigger7 = New-ScheduledTaskTrigger -AtLogon
 $task_name = "Autorun privacy and temporary file mesures."
 
 function shed_task_maintain_privazy() {	
-$action = New-ScheduledTaskAction -Execute "PowerShell" -Argument "-NoProfile -ExecutionPolicy Bypass -File '$altanosdir\autorun-privazer.ps1"
+$action = New-ScheduledTaskAction -Execute "PowerShell" -Argument "-NoProfile -ExecutionPolicy Bypass -File '$altanosdir\src\autorun-privazer.ps1"
 $principal = "System\Administrator"
 $settings = New-ScheduledTaskSettingsSet -WakeToRun
 $task = New-ScheduledTask -Action $action -Trigger $trigger0 -Trigger $trigger1 -Settings $settings
@@ -61,7 +61,7 @@ $trigger9 = New-ScheduledTaskTrigger -AtLogon
 $task_name = "Autorun maintainance first boot"
 
 function shed_task_once_maintain() {	
-$action = New-ScheduledTaskAction -Execute "PowerShell" -Argument "-NoProfile -ExecutionPolicy Bypass -File '$altanosdir\autorun-maintain.ps1"
+$action = New-ScheduledTaskAction -Execute "PowerShell" -Argument "-NoProfile -ExecutionPolicy Bypass -File '$altanosdir\src\autorun-maintain.ps1"
 $principal = "System\Administrator"
 $settings = New-ScheduledTaskSettingsSet -WakeToRun
 $task = New-ScheduledTask -Action $action -Trigger $trigger0 -Trigger $trigger1 -Settings $settings
@@ -76,7 +76,7 @@ $trigger9 = New-ScheduledTaskTrigger -AtLogon
 $task_name = "Autorun update first boot"
 
 function shed_task_once_update() {	
-$action = New-ScheduledTaskAction -Execute "PowerShell" -Argument "-NoProfile -ExecutionPolicy Bypass -File '$altanosdir\autorun-update.ps1"
+$action = New-ScheduledTaskAction -Execute "PowerShell" -Argument "-NoProfile -ExecutionPolicy Bypass -File '$altanosdir\src\autorun-update.ps1"
 $principal = "System\Administrator"
 $settings = New-ScheduledTaskSettingsSet -WakeToRun
 $task = New-ScheduledTask -Action $action -Trigger $trigger0 -Trigger $trigger1 -Settings $settings
@@ -93,7 +93,7 @@ shed_task_once_update
 #New-ScheduledTaskTrigger -AtLogon
 #)
 # The following will probably not work and include cd% in the path instead of the actual path
-#$taskAction = New-ScheduledTaskAction -Execute "PowerShell" -Argument "-NoProfile -ExecutionPolicy Bypass -File '$altanosdir\autorun-update.cmd' -Output 'HTML'" -WorkingDirectory '$altanosdir'
+#$taskAction = New-ScheduledTaskAction -Execute "PowerShell" -Argument "-NoProfile -ExecutionPolicy Bypass -File '$altanosdir\src\autorun-update.cmd' -Output 'HTML'" -WorkingDirectory '$altanosdir'
 # Register-ScheduledTask 'Update Windows and Applications' -TaskPath '\AltanOS\' -Action $taskAction -Trigger $taskTrigger
 # Get-ScheduledTask -TaskPath \AltanOS\
 

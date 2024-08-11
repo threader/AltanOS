@@ -4,6 +4,8 @@ $sysdrive =  ((Get-Location).Path.Split("\")).Get(0)
 $altanosdir = "$sysdrive\AltanOS"
 $altanosinstdir = "$sysdrive\AltanOS.inst"
 
+ Invoke-WebRequest -uri https://privazer.com/en/PrivaZer.exe -OutFile $altanosinstdir\bin\PrivaZer.exe
+ 
 $altanosinstdir\bin\PrivaZer.exe
 
 
