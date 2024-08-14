@@ -37,7 +37,7 @@ function Get-Machine-Architecture() {
 }
 
 # I think the "Are you shure" thingie is enough.
-# Read-Host -Prompt "This will remove all removable Windows packages on the system, for all users.. Are you sure you know what you are doing? Press any key to continue."
+# cl remove all removable Windows packages on the system, for all users.. Are you sure you know what you are doing? Press any key to continue."
 Write-Output "Removing non-essential packages and installing some bare minimums."
 
 function disable_win_packages()  {

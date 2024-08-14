@@ -45,15 +45,15 @@ function Get-Machine-Architecture() {
 	    	 Invoke-WebRequest -Uri "https://github.com/radareorg/radare2/releases/download/5.9.4/radare2-5.9.4-w32.zip" -OutFile "$altanosinstdir\radare2-5.9.4-w64.zip"
 			
 			 Expand-Archive -Force $altanosinstdir\adare2-5.9.4-w32.zip $altanosinstdir\bin\radare2-5.9.4-w32
-		$niarchbit = ""
+		$niarchbit = $null
 		 } else  {
-		 $niarchbit = "-64"
+		 $niarchbit = "64"
 		
 			Invoke-WebRequest -Uri "https://malcat.fr/latest/malcat_win64_lite.zip" -OutFile "$altanosinstdir\malcat_win64_lite.zip"
 			Invoke-WebRequest -Uri "https://github.com/radareorg/radare2/releases/download/5.9.4/radare2-5.9.4-w32.zip" -OutFile "$altanosinstdir\radare2-5.9.4-w64.zip"
 			
 			 Expand-Archive -Force "$altanosinstdir\alcat_win64_lite.zip" "$altanosinstdir\bin\malcat_win64_lite"
-			 Expand-Archive -Force "$altanosinstdir\adare2-5.9.4-w64.zip" "$altanosinstdir\bin\radare2-5.9.4-w64"
+			 Expand-Archive -Force "$altanosinstdir\radare2-5.9.4-w64.zip" "$altanosinstdir\bin\radare2-5.9.4-w64"
 		 }
 	# get dev tools
  Invoke-WebRequest -uri "https://github.com/NationalSecurityAgency/ghidra/releases/download/Ghidra_11.1.2_build/ghidra_11.1.2_PUBLIC_20240709.zip" -OutFile "$altanosinstdir\ghidra_11.1.2_PUBLIC_20240709.zip"
@@ -66,13 +66,13 @@ s Invoke-WebRequest -uri "https://downloads.malwarebytes.com/file/adwcleaner" -O
 
  Invoke-WebRequest -uri "https://tinywall.pados.hu/files/TinyWall-v3-Installer.msi" -OutFile "$altanosinstdir\TinyWall-v3-Installer.msi"
 
- Invoke-WebRequest -uri "http://www.itsamples.com/downloads/network-activity-indicator-setup$niarchbit.zip" -OutFile "$altanosinstdir\network-indicator$niarchbit.zip"
+ Invoke-WebRequest -uri "http://www.itsamples.com/downloads/network-activity-indicator-setup-$niarchbit.zip" -OutFile "$altanosinstdir\network-indicator-setup-$niarchbit.zip"
 
  Invoke-WebRequest -uri "https://privazer.com/en/PrivaZer.exe" -OutFile "$altanosinstdir\bin\PrivaZer.exe"
 
  cp $altanosdir\bin\PrivaZer.ini $altanosinstdir\bin\
 
- Expand-Archive -Force "$altanosinstdir\network-indicator$niarchbit.zip" "$altanosinstdir\bin\network-indicator$niarchbit"
+ Expand-Archive -Force "$altanosinstdir\network-indicator-setup-$niarchbit.zip" "$altanosinstdir\bin\network-indicator-$niarchbit"
 }
 get_utils
 
