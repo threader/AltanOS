@@ -1,6 +1,9 @@
 $sysdrive =  $Env:SystemDrive
 $altanosdir = "$sysdrive\AltanOS"
 $altanosinstdir = "$sysdrive\AltanOS.inst"
+# Put som paths and url's here eventually
+
+
 
 if (-not (Test-Path -Path $altanosinstdir)) {
 	mkdir -p $altanosinstdir\bin
@@ -37,9 +40,19 @@ function Get-Machine-Architecture() {
 
 	    if(-not ( Get-Machine-Architecture -eq "AMD64")) {
 	    Write-Output "Assume x86"
+	    	 Invoke-WebRequest -Uri "https://github.com/radareorg/radare2/releases/download/5.9.4/radare2-5.9.4-w32.zip" -OutFile "$altanosinstdir\radare2-5.9.4-w64.zip"
+			
+			 Expand-Archive -Force $altanosinstdir\adare2-5.9.4-w32.zip $altanosinstdir\bin\radare2-5.9.4-w32 
+			 Expand-Archive -Force $altanosinstdir\adare2-5.9.4-w32.zip $altanosinstdir\bin\radare2-5.9.4-w32
 		$niarchbit = ""
 		 } else  {
 		 $niarchbit = "-64"
+		
+			Invoke-WebRequest -Uri "https://malcat.fr/latest/malcat_win64_lite.zip" -OutFile "$altanosinstdir\malcat_win64_lite.zip"
+			Invoke-WebRequest -Uri "https://github.com/radareorg/radare2/releases/download/5.9.4/radare2-5.9.4-w32.zip " -OutFile "$altanosinstdir\radare2-5.9.4-w64.zip"
+			
+			 Expand-Archive -Force $altanosinstdir\alcat_win64_lite.zip $altanosinstdir\bin\malcat_win64_lite
+			 Expand-Archive -Force $altanosinstdir\adare2-5.9.4-w64.zip $altanosinstdir\bin\radare2-5.9.4-w64
 		 }
 
 function get_utils() {
@@ -56,8 +69,12 @@ function get_utils() {
 
  # cp $altanosdir\bin\PrivaZer.ini $altanosinstdir/bin/ 
 
- $ProgressPreference = 'Continue' 
+	# get dev tools
+ Invoke-WebRequest -uri https://github.com/NationalSecurityAgency/ghidra/releases/download/Ghidra_11.1.2_build/ghidra_11.1.2_PUBLIC_20240709.zip -OutDir $altanosinstdir\ghidra_11.1.2_PUBLIC_20240709.zip
+$ProgressPreference = 'Continue' 
 
  Expand-Archive -Force $altanosinstdir\network-indicator$niarchbit.zip $altanosinstdir\bin\network-indicator$niarchbit
+ Expand-Archive -Force $altanosinstdir\ghidra_11.1.2_PUBLIC_20240709.zip $altanosinstdir\bin\ghidra_11.1.2_PUBLIC_20240709
+ Expand-Archive -Force $altanosinstdir\alcat_win64_lite.zip $altanosinstdir\bin\malcat_win64_lite
 }
 get_utils

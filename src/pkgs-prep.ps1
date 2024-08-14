@@ -94,7 +94,6 @@ if (-not (Test-Path "$altanosinstdir\Microsoft.DesktopAppInstaller.msixbundle"))
 	}
 	grab_winget_deps
 
-
 # Enable progress bar
 	$ProgressPreference = 'Continue'
 	write-output "Installing winget, this might actually get stuck for some reason." 
@@ -128,6 +127,19 @@ winget install --disable-interactivity --accept-source-agreements --id Nlitesoft
 winget install --disable-interactivity --accept-source-agreements --id Malwarebytes.Malwarebytes --source winget
 winget install --disable-interactivity --accept-source-agreements --id SaferNetworking.SpybotAntiBeacon --source winget
 winget install --exact --id SomePythonThings.WingetUIStore --source winget
+
+# dev tools
+
+winget install --disable-interactivity --accept-source-agreements --id Cygwin.Cygwin.Cygwin --source winget
+coco install -y mingw
+winget install --disable-interactivity --accept-source-agreements --id Meld.Meld.Meld --soure winget
+winget install --disable-interactivity --accept-source-agreements --id KDE.KDiff3 --source winget
+winget install --disable-interactivity --accept-source-agreements --id WinMgerge.WinMerge--source winget
+winget install --disable-interactivity --accept-source-agreements --id Rizin.Cutter --source winget
+# ask
+winget install --disable-interactivity --accept-source-agreements --id VSCodium.VSCodium--source winget
+winget install --disable-interactivity --accept-source-agreements --id Microsoft.VisualStudioCode --source winget
+
 }
 winget_pkgs
 
