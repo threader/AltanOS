@@ -31,3 +31,14 @@ Set-ProcessMitigation -Name wmplayer.exe -Enable DEP,BottomUp,CFG,AuditRemoteIma
 }
 harden_processes
 
+# List the optional features in the running Operating System:
+#    PS C:\> Get-WindowsOptionalFeature –Online
+
+Disable-WindowsOptionalFeature -NoRestart -Online -FeatureName SMB1Protocol
+Disable-WindowsOptionalFeature -NoRestart -Online -FeatureName SMB1Protocol-client
+Disable-WindowsOptionalFeature -NoRestart -Online -FeatureName Microsoft-RemoteDesktopConnection
+Disable-WindowsOptionalFeature -NoRestart -Online -FeatureName WorkFolders-Client
+Disable-WindowsOptionalFeature -NoRestart -Online -FeatureName Printing-Foundation-Internetprinting-Client
+Disable-WindowsOptionalFeature -NoRestart -Online -FeatureName Microsoft-RemoteDesktopConnection
+Disable-WindowsOptionalFeature -NoRestart -Online -FeatureName MSRDC-Infrastructure
+
