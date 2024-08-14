@@ -136,6 +136,19 @@ These settings exsist that are turned off because they are untested.
 * Malwarebytes.Malwarebytes
 * SaferNetworking.SpybotAntiBeacon
 
+## * Dev tools
+* Cygwin
+* Ghidra
+* Cutter
+* Malcat 
+* Rizin
+* Meld - Eventully get the far superior GTK2.x version
+* KDiff3
+* WinMerge - Where is WinMerge2011
+* VSCodium
+* VisualStudioCode
+* MiniGW
+
 ## It will schedule tasks to be autorun - N.B! Not yet working, scheduling script is bonkers: 
 * autorun-update.ps1                - Runs PSWindowsUpdate every thuesday at 17pm
 * autorun-maintain.ps1              - Runs sfc /scannow and DISM /Online /Cleanup-Image /StartComponentCleanup /ResetBase /RestoreHealth every 3 weeks at 18pm  
