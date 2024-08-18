@@ -33,7 +33,7 @@ harden_processes
 
 # List the optional features in the running Operating System:
 #    PS C:\> Get-WindowsOptionalFeature –Online
-
+function disable_win_feature() {
 Disable-WindowsOptionalFeature -NoRestart -Online -FeatureName SMB1Protocol
 Disable-WindowsOptionalFeature -NoRestart -Online -FeatureName SMB1Protocol-client
 Disable-WindowsOptionalFeature -NoRestart -Online -FeatureName Microsoft-RemoteDesktopConnection
@@ -41,9 +41,11 @@ Disable-WindowsOptionalFeature -NoRestart -Online -FeatureName WorkFolders-Clien
 Disable-WindowsOptionalFeature -NoRestart -Online -FeatureName Printing-Foundation-Internetprinting-Client
 Disable-WindowsOptionalFeature -NoRestart -Online -FeatureName Microsoft-RemoteDesktopConnection
 Disable-WindowsOptionalFeature -NoRestart -Online -FeatureName MSRDC-Infrastructure
+}
+disable_win_feature
 
 # todo: detect if the running windows meets the requirements
 # https://learn.microsoft.com/en-us/windows/security/application-security/application-isolation/windows-sandbox/windows-sandbox-overview
-Set-VMProcessor -VMName VM0-ExposeVirtualizationExtensions $true
-Update-VMVersion -VMName VM0
+Set-VMProcessor -VMName VM-Sandbox -ExposeVirtualizationExtensions $true
+Update-VMVersion -VMName VM-Sandbox
 Enable-WindowsOptionalFeature -FeatureName "Containers-DisposableClientVM" -All -Online
