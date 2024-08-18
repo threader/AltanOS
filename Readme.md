@@ -61,7 +61,7 @@ reg add "HKLM\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\Firewall
 Solutions moved because of formatting issues, I will actually have to read about .md formatting...
 		
 
-Tested on Windows 10 and Windows 11. 
+Tested on Windows 10 and Windows 11.
 
 
 ## Hardening
@@ -94,8 +94,10 @@ These settings exsist that are turned off because they are untested.
 
 ## The following files can run standalone if needed:
 * harden-AltanOS.cmd
+* harden.ps1
 * harden.reg 				- ofc 
 * pkgs-prep.ps1
+* pref-cnt.ps1
 * schedule-tasks.ps1        - Still not working 
 
 ## The following packages are installed:
@@ -140,6 +142,7 @@ These settings exsist that are turned off because they are untested.
 * Cygwin
 * Ghidra
 * Cutter
+* Radare2
 * Malcat 
 * Rizin
 * Meld - Eventully get the far superior GTK2.x version
