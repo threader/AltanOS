@@ -37,21 +37,29 @@ function Get-Machine-Architecture() {
 
     return $ENV:PROCESSOR_ARCHITECTURE
 }
+	# get dev tools
+
+		 
 
 function get_utils() {
-
+	    if(-not ( Get-Machine-Architecture -eq "AMD64")) {
+	    Write-Output "Assume x86"
+		$niarchbit = $null
+		 } else  {
+		 $niarchbit = "-64"
+		 }
 s Invoke-WebRequest -uri "https://downloads.malwarebytes.com/file/adwcleaner" -OutFile "$altanosinstdir\bin\adwcleaner.exe"
  "$altanosinstdir"\bin\adwcleaner.exe
 
  Invoke-WebRequest -uri "https://tinywall.pados.hu/files/TinyWall-v3-Installer.msi" -OutFile "$altanosinstdir\TinyWall-v3-Installer.msi"
 
- Invoke-WebRequest -uri "http://www.itsamples.com/downloads/network-activity-indicator-setup-$niarchbit.zip" -OutFile "$altanosinstdir\network-indicator-setup-$niarchbit.zip"
+ Invoke-WebRequest -uri "http://www.itsamples.com/downloads/network-activity-indicator-setup$niarchbit.zip" -OutFile "$altanosinstdir\bin\network-indicator-setup$niarchbit.zip"
 
  Invoke-WebRequest -uri "https://privazer.com/en/PrivaZer.exe" -OutFile "$altanosinstdir\bin\PrivaZer.exe"
 
  cp $altanosdir\bin\PrivaZer.ini $altanosinstdir\bin\
 
- Expand-Archive -Force "$altanosinstdir\network-indicator-setup-$niarchbit.zip" "$altanosinstdir\bin\network-indicator-$niarchbit"
+ Expand-Archive -Force "$altanosinstdir\network-indicator-setup$niarchbit.zip" "$altanosinstdir\bin\network-indicator$niarchbit"
 }
 get_utils
 
@@ -149,9 +157,8 @@ winget install --disable-interactivity --accept-source-agreements --id SaferNetw
 winget install --exact --id SomePythonThings.WingetUIStore --source winget
 
 # dev tools
-
 winget install --disable-interactivity --accept-source-agreements --id Cygwin.Cygwin.Cygwin --source winget
-coco install -y mingw
+coco install mingw -y --params "ALLUSERS=1"
 winget install --disable-interactivity --accept-source-agreements --id Meld.Meld.Meld --soure winget
 winget install --disable-interactivity --accept-source-agreements --id KDE.KDiff3 --source winget
 winget install --disable-interactivity --accept-source-agreements --id WinMgerge.WinMerge--source winget
@@ -187,10 +194,8 @@ winget upgrade --accept-source-agreements --disable-interactivity --include-unkn
 	    Write-Output "Assume x86"
 	    	 Invoke-WebRequest -Uri "httmps://github.com/radareorg/radare2/releases/download/5.9.4/radare2-5.9.4-w32.zip" -OutFile "$altanosinstdir\radare2-5.9.4-w64.zip"
 			
-			 Expand-Archive -Force $altanosinstdir\adare2-5.9.4-w32.zip $altanosinstdir\bin\radare2-5.9.4-w32
-		$niarchbit = $null
+			 Expand-Archive -Force "$altanosinstdir\adare2-5.9.4-w32.zip" "$altanosinstdir\bin\radare2-5.9.4-w32"
 		 } else  {
-		 $niarchbit = "64"
 		
 			Invoke-WebRequest -Uri "https://malcat.fr/latest/malcat_win64_lite.zip" -OutFile "$altanosinstdir\malcat_win64_lite.zip"
 			Invoke-WebRequest -Uri "https://github.com/radareorg/radare2/releases/download/5.9.4/radare2-5.9.4-w32.zip" -OutFile "$altanosinstdir\radare2-5.9.4-w64.zip"
