@@ -162,10 +162,10 @@ Adeed:
 
 * Mouse is set to (hopefully) jump to a prompt and land on the default answer, this saves time.
 * Revert8Plus (turns windows 10/11 into Windows7) install script is added but not initialized.
-* Black theme enabled in harden.reg. - Might bother to split this 
+* Black theme enabled in harden.reg. - Might bother to split this - there migt be a bug here leading to black text on dark windows, before first reboot?
 
-In harden.reg - ofc.. where else would you logically put the taskbar settings?
-These settings exsist that are turned off because they are untested.
+In harden.reg (- ofc.. where else would you logically put the taskbar colour settings?)
+The following settings live there, that are turned off because they are untested.
 
 ```console
 ; https://superuser.com/questions/952500/custom-color-for-windows-10-taskbar
