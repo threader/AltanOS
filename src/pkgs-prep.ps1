@@ -37,9 +37,6 @@ function Get-Machine-Architecture() {
 
     return $ENV:PROCESSOR_ARCHITECTURE
 }
-	# get dev tools
-
-		 
 
 function get_utils() {
 	    if(-not ( Get-Machine-Architecture -eq "AMD64")) {
@@ -186,7 +183,6 @@ winget_rm_pkgs
 Write-Output "Updating all known exsisting applications."
 winget upgrade --accept-source-agreements --disable-interactivity --include-unknown -r
 
-
  $ProgressPreference = 'SilentlyContinue'
  
 	# get dev tools
@@ -212,7 +208,7 @@ $ProgressPreference = 'Continue'
 (New-Object -ComObject shell.application).toggleDesktop()
 
 
-# This will reboot....
+# This will need to reboot....
 #Write-output "Installing and running PSWindowsUpdate. - temp. Workaround: script continuing while previous operations not done."
 # Set-ExecutionPolicy -ExecutionPolicy Bypass
 #	start-process "powershell -Wait "Install-Module -Force PSWindowsUpdate" "

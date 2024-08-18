@@ -125,12 +125,10 @@ cd %altanosdir%
  else
  "%gitget%" clone -b main https://github.com/threader/AltanOS "%altanosdir%"
  
- xcopy %altanosdir%\bin\PrivaZer.ini %altanosinstdir%/bin/ 
-
  %powshadmcmd% "%altanosdir%\harden-AltanOS.cmd"
  
  :: harden.reg loads in harden-AltanOS.cmd for now
- %powshadmcmd% 'powshcmd% "reg import %altanosdir%\harden.reg"'
+ :: %powshadmcmd% 'powshcmd% "reg import %altanosdir%\harden.reg"'
  
  %powshadmcmd% "%altanosdir%\schedule-tasks.ps1"
 
@@ -150,10 +148,12 @@ msiexec.exe /a %altanosinstdir%\TinyWall-v3-Installer.msi /quiet /passive
 :: "%altanosinstdir%"\bin\network-indicator"%niarchbit%"\NetworkIndicatorSetup.exe
 :: :skiptw
 
+ %powshadmcmd% "%altanosdir%\mouse-config.ps1"
+
 :: powershell -command "&{$var = 'Set-ExecutionPolicy -ExecutionPolicy Restricted'+\" Set-ItemProperty -Path REGISTRY::HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System -Name ConsentPromptBehaviorAdmin -Value 1' \"; echo $var}"
 
 :: %powshadmcmd% '%powshcmd% "Get-ProcessMitigation -RegistryConfigFilePath %altanosinstdir%\settings.xml ^
-:
+
 :: set the admin password prompt, a value of 1 on here and the admin account will require password to be entered. 2 is a prompt.
 %powshadmcmd% '%powshcmd% "Set-ItemProperty -Path REGISTRY::HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System -Name ConsentPromptBehaviorAdmin -Value 1"'
 %powshadmcmd% '%powshcmd% "Set-ExecutionPolicy -ExecutionPolicy Restricted"'
