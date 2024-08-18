@@ -98,7 +98,9 @@ These settings exsist that are turned off because they are untested.
 * harden.reg 				- ofc 
 * pkgs-prep.ps1
 * pref-cnt.ps1
-* schedule-tasks.ps1        - Still not working 
+* schedule-tasks.ps1        - Not yet working.
+* wsl-2-debian.ps1			- Not at all asked if executed yet-
+* mouse-config.ps1 			- There is just one item that is enabled atm. 
 
 ## The following packages are installed:
 * VCLibs
@@ -137,6 +139,15 @@ These settings exsist that are turned off because they are untested.
 * Nlitesoft.NTLite
 * Malwarebytes.Malwarebytes
 * SaferNetworking.SpybotAntiBeacon
+* Microsoft.VisualStudioCode
+* VSCodium.VSCodium
+* Oracle.JDK.17 
+* Python.Python.3.12 
+* Rizin.Cutter
+* WinMgerge.WinMerge
+* KDE.KDiff3
+* Meld
+* Cygwin
 
 ## * Dev tools
 * Cygwin
