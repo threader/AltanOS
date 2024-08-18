@@ -1,6 +1,6 @@
-## AltanOS - started it's life as an overdue todo item of severe necessity, randomly being inspired to persue after reading trough the scripts of from PC-Tuning and Atlas by 'amitvxv' and co. and having a handfull of recrent tricks worth looking into
+## AltanOS - started it's life as an overdue todo item of severe necessity, randomly being inspired to persue after reading trough the scripts of PC-Tuning and Atlas by 'amitvxv' and co. and having a handfull of recrent tricks worth looking into.
 
-This project is undergoing change, testing and has not settled. It might not run as expected, experience adviced. This will remove all removable Windows packages on the system.
+This project is undergoing change, testing and has not settled. It might not run as expected, experience adviced. This will remove all removable Windows packages for all users on the system.
 
 The goal of this project is to optimize/minimize and harden Windows systems, making the deployed system more maintainable with tools like winget and UniGetUI and the 3rd party module 'PSWindowsUpdate'.
 
@@ -40,9 +40,9 @@ If it is the case that old drivers are missbehaving - Run and reboot:
 ```console
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\DeviceGuard" /t REG_DWORD /v "HypervisorEnforcedCodeIntegrity" /d "0" /f
 ```
-Upon further reading - https://learn.microsoft.com/en-us/windows/security/hardware-security/enable-virtualization-based-protection-of-code-integrity there are two ways to enable this, without efi (locked), the command done above,, set to 1 and with, method bellow ... 
+Upon further reading - https://learn.microsoft.com/en-us/windows/security/hardware-security/enable-virtualization-based-protection-of-code-integrity there are two ways to enable/disable this, without efi (locked), the command done above and this method bellow ...  - Bah read more here.... 
 ```console
-::reg add "HKLM\SYSTEM\CurrentControlSet\Control\DeviceGuard\Scenarios\HypervisorEnforcedCodeIntegrity" /v "Locked" /t REG_DWORD /d 1 /f 
+::reg add "HKLM\SYSTEM\CurrentControlSet\Control\DeviceGuard\Scenarios\HypervisorEnforcedCodeIntegrity" /v "Locked" /t REG_DWORD /d "0" /f 
 ``
 This will enable "fastboot/Hiberboot" if so desired:
 ```console
@@ -80,7 +80,7 @@ Good reading:
 * pkgs-prep.ps1
 * pref-cnt.ps1
 * schedule-tasks.ps1        - Not yet working.
-* wsl-2-debian.ps1			- Not at all asked if executed yet-
+* wsl-2-debian.ps1			- Not at all asked even if to be executed yet.
 * mouse-config.ps1 			- There is just one item that is enabled atm. 
 
 ## The following packages are installed:
@@ -130,7 +130,7 @@ Good reading:
 * Meld
 * Cygwin
 
-## * Dev tools
+## Dev tools
 * Cygwin
 * Ghidra
 * Cutter
