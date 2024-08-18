@@ -139,7 +139,9 @@ winget install --disable-interactivity --accept-source-agreements --id Rizin.Cut
 # ask
 winget install --disable-interactivity --accept-source-agreements --id VSCodium.VSCodium--source winget
 winget install --disable-interactivity --accept-source-agreements --id Microsoft.VisualStudioCode --source winget
-
+# for ghidra
+winget install --disable-interactivity --accept-source-agreements --id Oracle.JDK.17 --source winget
+winget install --disable-interactivity --accept-source-agreements --id Python.Python.3.12 --source winget
 }
 winget_pkgs
 

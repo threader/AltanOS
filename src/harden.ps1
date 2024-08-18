@@ -42,3 +42,8 @@ Disable-WindowsOptionalFeature -NoRestart -Online -FeatureName Printing-Foundati
 Disable-WindowsOptionalFeature -NoRestart -Online -FeatureName Microsoft-RemoteDesktopConnection
 Disable-WindowsOptionalFeature -NoRestart -Online -FeatureName MSRDC-Infrastructure
 
+# todo: detect if the running windows meets the requirements
+# https://learn.microsoft.com/en-us/windows/security/application-security/application-isolation/windows-sandbox/windows-sandbox-overview
+Set-VMProcessor -VMName VM0-ExposeVirtualizationExtensions $true
+Update-VMVersion -VMName VM0
+Enable-WindowsOptionalFeature -FeatureName "Containers-DisposableClientVM" -All -Online
