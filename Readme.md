@@ -1,4 +1,4 @@
-## AltanOS - started it's life as an overdue todo item of severe necessity and randomly being inspired to persue after reading trough the scripts of from PC-Tuning and Atlas by 'amitvxv' and co.
+## AltanOS - started it's life as an overdue todo item of severe necessity, randomly being inspired to persue after reading trough the scripts of from PC-Tuning and Atlas by 'amitvxv' and co. and having a handfull of recrent tricks worth looking into
 
 This project is undergoing change, testing and has not settled. It might not run as expected, experience adviced. This will remove all removable Windows packages on the system.
 
@@ -6,7 +6,7 @@ The goal of this project is to optimize/minimize and harden Windows systems, mak
 
 Run AltanOS.cmd from It's parent directory and the rest happens with some interaction. There are some pauses for input and information text, uninstalling Edge needs a mouse button click, 'PSWindowsUpdate' also require NuGet that requires confirmation.
 
-It will copy itself to the system partition equivlent to C:\AltanOS and C:\AltanOS.inst
+This project will copy itself to the system partition equivlent to C:\AltanOS and C:\AltanOS.inst
 
 - Important notes:
 	* Remember to grab the submodules. 
@@ -61,36 +61,17 @@ reg add "HKLM\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\Firewall
 Solutions moved because of formatting issues, I will actually have to read about .md formatting...
 		
 
-Tested on Windows 10 and Windows 11.
-
+Tested on Windows 10 and Windows 11. Some applications are x86 only, arm could easily be added but I wont bother for now.
 
 ## Hardening
 
 Maybe list some¿ Read the harden-* files? Read the scripts? 
 
-Added: 
 * [exploitguard](https://github.com/palantir/exploitguard/) - Added 
 * [Windows-Defender-Exploit-Guard-Configuration](https://github.com/gunnarhaslinger/Windows-Defender-Exploit-Guard-Configuration) - Runs AltanOS/wdegc/Windows10_ExploitGuard-Config.ps1
 
 Good reading: 
 * https://blog.palantir.com/assessing-the-effectiveness-of-a-new-security-data-source-windows-defender-exploit-guard-860b69db2ad2?gi=e48021ca0dde
-
-
-## Conveience 
-
-Adeed:
-* Finally got around to adding "Open PowerShell/cmd in current directory".
-* https://github.com/gunnarhaslinger/Add-or-Remove-Application-To-Windows-10-Taskbar - Not yet tested
-
-
-## Look and feel: 
-
-* Mouse is set to (hopefully) jump to a prompt and land on the default answer, this saves time.
-* Revert8Plus (turns windows 10/11 into Windows7) install script is added but not initialized.
-* Black theme enabled in harden.reg. - Might bother to split this 
-
-In harden.reg - ofc.. where else would you logically put the taskbar settings?
-These settings exsist that are turned off because they are untested.
 
 ## The following files can run standalone if needed:
 * harden-AltanOS.cmd
@@ -171,6 +152,21 @@ These settings exsist that are turned off because they are untested.
 
 autorun-maintain.ps1 will (once i fix this....) also be run upon login, once, after a reboot(!!!).
 
+## Conveience 
+
+Adeed:
+* Finally got around to adding "Open PowerShell/cmd in current directory".
+* https://github.com/gunnarhaslinger/Add-or-Remove-Application-To-Windows-10-Taskbar - Not yet tested
+
+## Look and feel: 
+
+* Mouse is set to (hopefully) jump to a prompt and land on the default answer, this saves time.
+* Revert8Plus (turns windows 10/11 into Windows7) install script is added but not initialized.
+* Black theme enabled in harden.reg. - Might bother to split this 
+
+In harden.reg - ofc.. where else would you logically put the taskbar settings?
+These settings exsist that are turned off because they are untested.
+
 ```console
 ; https://superuser.com/questions/952500/custom-color-for-windows-10-taskbar
 ; This is supposed to be a Cyan taskbar - this is something to mess around with eventually
@@ -188,11 +184,11 @@ autorun-maintain.ps1 will (once i fix this....) also be run upon login, once, af
 ```
 
 # TODID:
-* Move scripts to own folder, it's getting messy.
+* Move scripts to own folder, it's getting messy. - done
 * Bother to ask when to schedule thing.
 * Ask to either install MalwareBytes or run to AwdCleaner sometimes? - Just schedule AwdCleaner to run anyway.
 * Add AwdCleaner and scan quickly before proceeding. - Added, but not set any arguments and requires user interaction.
-* Ask if you wish to install LibreOffice or Microsoft Office.
+* Ask if you wish to install LibreOffice or Microsoft Office, VSCodium or VisualStudioCode
 * Dig around for more hardening or other things that make sense.
 * Better Readme and explenation, 2 days now i've layed down in bed to sleep then having a great idea what to write, then not when i wake up... - Done?
 * Try to preconfigure Sandboxie. -Naaah
