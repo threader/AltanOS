@@ -77,6 +77,7 @@ if exist "%altanosinstdir%\network-indicator%niarchbit%.zip" goto skipdl
 echo "No progress bar as there is a bug in PowerShell making the download increadibly slow... ( https://github.com/PowerShell/PowerShell/issues/2138 )"
 
  %powshadmcmd% pkgs-utils.ps1
+ %altanosinstdir%\bin\adwcleaner.exe
 
 :: %powshcmd% $ProgressPreference = 'SilentlyContinue'
 :: %powshcmd% Invoke-WebRequest -uri https://downloads.malwarebytes.com/file/adwcleaner -OutFile %altanosinstdir%\bin\adwcleaner.exe 
@@ -96,6 +97,7 @@ echo "No progress bar as there is a bug in PowerShell making the download increa
 
 
 :skipdl 
+pause 
 
 :: and so i read and learn that it could indeed have been done using something like this: 
 :: %powshcmd% -Argument "-NoProfile -ExecutionPolicy Bypass"  ^
@@ -125,6 +127,8 @@ cd %altanosdir%
  else
  "%gitget%" clone -b main https://github.com/threader/AltanOS "%altanosdir%"
  
+ xcopy %altanosdir%\bin\PrivaZer.ini %altanosinstdir%/bin/ 
+
  %powshadmcmd% "%altanosdir%\harden-AltanOS.cmd"
  
  :: harden.reg loads in harden-AltanOS.cmd for now

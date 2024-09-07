@@ -4,7 +4,8 @@ $altanosinstdir = "$sysdrive\AltanOS.inst"
 # Put som paths and url's here eventually
 
 if (-not (Test-Path -Path $altanosinstdir)) {
-	mkdir -p $altanosinstdir\bin
+	mkdir -p "$altanosinstdir\bin"
+	mkdir -p "$altanosinstdir\games"
 }
 Set-Location $altanosdir
 
@@ -166,6 +167,17 @@ winget install --disable-interactivity --accept-source-agreements --id Microsoft
 # for ghidra
 winget install --disable-interactivity --accept-source-agreements --id Oracle.JDK.17 --source winget
 winget install --disable-interactivity --accept-source-agreements --id Python.Python.3.12 --source winget
+
+# ask
+# games 
+# Heroes 3
+winget install --disable-interactivity --accept-source-agreements --id vcmi.vdmi --source winget
+# Xmoto - surely replaces minesweaper 
+winget install --disable-interactivity --accept-source-agreements --id XMoto.XMoto --source winget
+# Voodoo Glide Wrapper
+winget install --disable-interactivity --accept-source-agreements --id ZeusSoftware.nGlide --source winget
+# DOS
+winget install --disable-interactivity --accept-source-agreements --id DOSBox.DOSBox.DOSBoxStaging --source winget
 }
 winget_pkgs
 
@@ -201,6 +213,19 @@ winget upgrade --accept-source-agreements --disable-interactivity --include-unkn
 		 }
  Invoke-WebRequest -uri "https://github.com/NationalSecurityAgency/ghidra/releases/download/Ghidra_11.1.2_build/ghidra_11.1.2_PUBLIC_20240709.zip" -OutFile "$altanosinstdir\ghidra_11.1.2_PUBLIC_20240709.zip"
  Expand-Archive -Force "$altanosinstdir\ghidra_11.1.2_PUBLIC_20240709.zip" "$altanosinstdir\bin\ghidra_11.1.2_PUBLIC_20240709"
+
+## Games:
+ Invoke-WebRequest -uri "https://archive.org/download/commandos_202403/Commandos.bin" --OutFile "$altanosinstdir/games/Commandos.bin" 
+
+# Invoke-WebRequest -uri "https://archive.org/download/Commandos_Beyond_The_Call_Of_Duty_-_Windows95_EidosEng/CBTCOD.B6I" --OutFile "$altanosinstdir/games/"
+# Invoke-WebRequest -uri "https://archive.org/download/setup_commandos_-_beyond_the_call_of_duty_1.1_23150/Commandos%20BCD%20Ultimate%20Fix.rar" --OutFile "$altanosinstdir/games/Commandos CD Ultimate Fix.rar"
+# Invoke-WebRequest -uri "https://archive.org/download/setup_commandos_-_beyond_the_call_of_duty_1.1_23150/setup_commandos_-_beyond_the_call_of_duty_1.1_%2823150%29.exe" --OutFile "$altanosinstdir/games/setup_commandos_-_beyond_the_call_of_duty_1.1_2315029.exe" 
+
+ Invoke-WebRequest -uri "https://github.com/bsnesemulator/SNES-ROMS/raw/main/Super%20Mario%20All-Stars%20(USA).zip" --OutFile "Super Mario All-Stars (USA).zip"
+ Invoke-WebRequest -uri "https://archive.org/download/1986-super-mario-bros.-2-the-lost-levels-japan/1986 Super Mario Bros.2 B The Lost Levels Japan.nes" --OutFile "$altanosinstdir/games/1986 Super Mario Bros.2 B The Lost Levels Japan.nes"
+
+ Invoke-WebRequest -uri "https://archive.org/download/carmageddon2/carmageddon2.iso" --OutFile "$altanosinstdir/games/carmageddon2.iso"
+##
 
 $ProgressPreference = 'Continue' 
 
