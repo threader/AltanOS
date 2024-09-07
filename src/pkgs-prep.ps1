@@ -103,12 +103,18 @@ if (-not (Test-Path "$altanosinstdir\Microsoft.DesktopAppInstaller.msixbundle"))
 		Invoke-WebRequest -Uri "https://aka.ms/Microsoft.VCLibs.x86.14.00.Desktop.appx" -OutFile "$altanosinstdir\Microsoft.VCLibs.x86.14.00.Desktop.appx"
 		Invoke-WebRequest -Uri "https://github.com/microsoft/microsoft-ui-xaml/releases/download/v2.8.6/Microsoft.UI.Xaml.2.8.x86.appx" -OutFile "$altanosinstdir\Microsoft.UI.Xaml.2.8.x86.appx" 
 		Add-AppxPackage -Path "$altanosinstdir\Microsoft.UI.Xaml.2.8.x86.appx"
+# ask
+		Invoke-WebRequest -Uri "https://github.com/TASEmulators/fceux/releases/download/interim-build/fceux-win64.zip" --OutFile "$altanosinstdir\fceux-win64.zip"
+		Expand-Archive -Force "$altanosinstdir\fceux-win32.zip" "$altanosinstdir\fceux-win32"
 	      } else  {
 	     Write-Output "Assume x64"
 		Invoke-WebRequest -Uri "https://aka.ms/Microsoft.VCLibs.x64.14.00.Desktop.appx" -OutFile "$altanosinstdir\Microsoft.VCLibs.x86.14.00.Desktop.appx"
 		Invoke-WebRequest -Uri "https://github.com/microsoft/microsoft-ui-xaml/releases/download/v2.8.6/Microsoft.UI.Xaml.2.8.x64.appx" -OutFile "$altanosinstdir\Microsoft.UI.Xaml.2.8.x64.appx"
 		Add-AppxPackage -Path "$altanosinstdir\Microsoft.UI.Xaml.2.8.x64.appx"
-	      }
+#
+		Invoke-WebRequest -Uri "https://github.com/TASEmulators/fceux/releases/download/interim-build/fceux-win64.zip" --OutFile "$altanosinstdir\fceux-win64.zip"
+		Expand-Archive -Force "$altanosinstdir\fceux-win64.zip" "$altanosinstdir\fceux-win64"
+}
 	      
 #Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force
 #Register-PackageSource -provider NuGet -name nugetRepository -location https://www.nuget.org/api/v2
@@ -214,17 +220,36 @@ winget upgrade --accept-source-agreements --disable-interactivity --include-unkn
  Invoke-WebRequest -uri "https://github.com/NationalSecurityAgency/ghidra/releases/download/Ghidra_11.1.2_build/ghidra_11.1.2_PUBLIC_20240709.zip" -OutFile "$altanosinstdir\ghidra_11.1.2_PUBLIC_20240709.zip"
  Expand-Archive -Force "$altanosinstdir\ghidra_11.1.2_PUBLIC_20240709.zip" "$altanosinstdir\bin\ghidra_11.1.2_PUBLIC_20240709"
 
+#ask
 ## Games:
  Invoke-WebRequest -uri "https://archive.org/download/commandos_202403/Commandos.bin" --OutFile "$altanosinstdir/games/Commandos.bin" 
 
-# Invoke-WebRequest -uri "https://archive.org/download/Commandos_Beyond_The_Call_Of_Duty_-_Windows95_EidosEng/CBTCOD.B6I" --OutFile "$altanosinstdir/games/"
-# Invoke-WebRequest -uri "https://archive.org/download/setup_commandos_-_beyond_the_call_of_duty_1.1_23150/Commandos%20BCD%20Ultimate%20Fix.rar" --OutFile "$altanosinstdir/games/Commandos CD Ultimate Fix.rar"
-# Invoke-WebRequest -uri "https://archive.org/download/setup_commandos_-_beyond_the_call_of_duty_1.1_23150/setup_commandos_-_beyond_the_call_of_duty_1.1_%2823150%29.exe" --OutFile "$altanosinstdir/games/setup_commandos_-_beyond_the_call_of_duty_1.1_2315029.exe" 
+ Invoke-WebRequest -uri "https://archive.org/download/Commandos_Beyond_The_Call_Of_Duty_-_Windows95_EidosEng/CBTCOD.B6I" --OutFile "$altanosinstdir/games/"
+ Invoke-WebRequest -uri "https://archive.org/download/setup_commandos_-_beyond_the_call_of_duty_1.1_23150/Commandos%20BCD%20Ultimate%20Fix.rar" --OutFile "$altanosinstdir/games/Commandos CD Ultimate Fix.rar"
+ Invoke-WebRequest -uri "https://archive.org/download/setup_commandos_-_beyond_the_call_of_duty_1.1_23150/setup_commandos_-_beyond_the_call_of_duty_1.1_%2823150%29.exe" --OutFile "$altanosinstdir/games/setup_commandos_-_beyond_the_call_of_duty_1.1_2315029.exe" 
 
  Invoke-WebRequest -uri "https://github.com/bsnesemulator/SNES-ROMS/raw/main/Super%20Mario%20All-Stars%20(USA).zip" --OutFile "Super Mario All-Stars (USA).zip"
  Invoke-WebRequest -uri "https://archive.org/download/1986-super-mario-bros.-2-the-lost-levels-japan/1986 Super Mario Bros.2 B The Lost Levels Japan.nes" --OutFile "$altanosinstdir/games/1986 Super Mario Bros.2 B The Lost Levels Japan.nes"
 
  Invoke-WebRequest -uri "https://archive.org/download/carmageddon2/carmageddon2.iso" --OutFile "$altanosinstdir/games/carmageddon2.iso"
+
+ Invoke-WebRequest -uri "https://archive.org/download/GTA1MAX/GTA1-MAX.ZIP" --OutFile "$altanosinstdir\GTA1-MAX.ZIP"
+ Expand-Archive -Force "$altanosinstdir\GTA1-MAX.ZIP" "$altanosinstdir/GTA1-MAX"
+
+ Invoke-WebRequest -uri "https://archive.org/download/gta2_20200403/GTA2.exe" --OutFile "$altanosinstdir\GTA2.exe"
+ Invoke-WebRequest -uri "https://archive.org/download/BloodIITheChosenUSA/Blood%20II%20-%20The%20Chosen%20%28USA%29.zip" --OutFile "$altanosinstdir\Blood II - The Chosen (USA).zip"
+
+ Expand-Archive -Force "$altanosinstdir\Blood II - The Chosen (USA).zip" "$altanosinstdir\Blood II - The Chosen"
+ Invoke-WebRequest -uri "https://sjc4.dl.dbolical.com/dl/2015/09/14/B2P_224b.zip?st=DW3S6XZDygKXPvhqeHTRnA==&e=1725685936" --OutFile "$altonsinstdir\B2P_224b.zip"
+#https://fmt2.dl.dbolical.com/dl/2015/09/14/B2P_224b.zip?st=w43H86DLtKH_0b4Zi7wYtQ==&e=1725687286
+#https://www.moddb.com/downloads/start/90285/all?referer=https%3A%2F%2Fwww.pcgamingwiki.com%2F
+ Invoke-WebRequest -uri "https://fmt4.dl.dbolical.com/dl/2015/07/21/B2P_021.exe?st=Z0KzuJDE6RQ01a73MoV6UA==&e=1725686044" --OutFile "$altonsinstdir\B2P_021.exe"
+#https://fmt4.dl.dbolical.com/dl/2015/07/21/B2P_021.exe?st=3rsOI-cYPaiepZke9nUm5A==&e=1725687320
+#https://www.moddb.com/downloads/start/90285/all?referer=https%3A%2F%2Fwww.pcgamingwiki.com%2F
+
+ Expand-Archive -Force "$altonsinstdir\B2P_224b.zip"  "$altonsinstdir\B2P_224b"
+# 7zip blood 2 exe?
+
 ##
 
 $ProgressPreference = 'Continue' 
