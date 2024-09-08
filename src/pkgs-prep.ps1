@@ -139,7 +139,8 @@ if (-not (Test-Path "$altanosinstdir\Microsoft.DesktopAppInstaller.msixbundle"))
 #
 function winget_pkgs() {
 Write-Output "Install applications:"
-winget install --disable-interactivity --accept-source-agreements --id Microsoft.AppInstaller --source winget
+winget install --disable-interactivity --accept-source-agreements --id Microsoft.AppInstaller --source winget # winget winget 
+winget install --exact --id SomePythonThings.WingetUIStore --source winget # WingetUI
 winget install --disable-interactivity --accept-source-agreements --id Sandboxie.Plus --source winget
 winget install --disable-interactivity --accept-source-agreements --id SomePythonThings.WingetUIStore --source winget
 winget install --disable-interactivity --accept-source-agreements --id Git.Git --source winget
@@ -158,7 +159,7 @@ winget install --disable-interactivity --accept-source-agreements --id Notepad++
 winget install --disable-interactivity --accept-source-agreements --id Nlitesoft.NTLite --source winget
 winget install --disable-interactivity --accept-source-agreements --id Malwarebytes.Malwarebytes --source winget
 winget install --disable-interactivity --accept-source-agreements --id SaferNetworking.SpybotAntiBeacon --source winget
-winget install --exact --id SomePythonThings.WingetUIStore --source winget
+
 
 # dev tools
 winget install --disable-interactivity --accept-source-agreements --id Cygwin.Cygwin.Cygwin --source winget
