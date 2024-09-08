@@ -1,6 +1,6 @@
 ## AltanOS - started it's life as an overdue todo item of severe necessity, randomly being inspired to persue after reading trough the scripts of PC-Tuning and Atlas by 'amitvxv' and co. and having a handfull of recrent tricks worth looking into.
 
-This project is undergoing change, testing and has not settled. It might not run as expected, experience adviced. This will remove all removable Windows packages for all users on the system.
+This project is undergoing change, testing and has not settled. It might not run as expected, experience adviced, so is a fresh install. Be prepared to step trough the script with PowerShell ISE. This will remove all removable Windows packages for all users on the system.
 
 The goal of this project is to optimize/minimize and harden Windows systems, making the deployed system more maintainable with tools like winget and UniGetUI and the 3rd party module 'PSWindowsUpdate'.
 
