@@ -371,6 +371,12 @@ reg add "HKCU\SOFTWARE\Policies\Microsoft\Windows\Explorer" /v "NoRemoteDestinat
 :: %powshcmd% "Set-ProcessMitigation -System -Enable DEP, EmulateAtlThunks"
 :: After reading and learning that fonts can have executable code....
 ::						Data Execution Prevention (DEP)
+::
+:: notes - https://learn.microsoft.com/en-us/powershell/module/processmitigations/set-processmitigation?view=windowsserver2022-ps: 
+:: Set-ProcessMitigation -Disable '...'
+:: Set-ProcessMitigation -System -Reset
+:: Reset Mitigation at the system level.
+
  %powshcmd% "Set-ProcessMitigation -System -Enable DEP, BottomUp, EmulateAtlThunks, AuditMicrosoftSigned, AuditStoreSigned, DisableNonSystemFonts, AuditFont"
 bcdedit /set nx Optin
 
