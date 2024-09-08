@@ -132,3 +132,8 @@ Windows Registry Editor Version 5.00
 [HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced]
 "EnableSnapBar"=dword:00000000
 "SnapAssist"=dword:00000000
+
+; turn-off-windows-welcome-experience
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager]
+"SubscribedContent-310093Enabled"=dword:00000000
+
