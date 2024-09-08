@@ -240,7 +240,13 @@ winget upgrade --accept-source-agreements --disable-interactivity --include-unkn
  Invoke-WebRequest -uri "https://archive.org/download/gta2_20200403/GTA2.exe" --OutFile "$altanosinstdir\GTA2.exe"
  Invoke-WebRequest -uri "https://archive.org/download/BloodIITheChosenUSA/Blood%20II%20-%20The%20Chosen%20%28USA%29.zip" --OutFile "$altanosinstdir\Blood II - The Chosen (USA).zip"
 
+# note https://github.com/elishacloud/dxwrapper
+ Invoke-WebRequest -uri "https://github.com/elishacloud/dxwrapper/releases/download/v1.1.6900.22/dxwrapper.zip" --OutFile "$altanosinstdir\dxwrapper.zip"
+ Expand-Archive -Force "$altanosinstdir\dxwrapper.zip" "$altanosinstdir\dxwrapper" 
+# https://github.com/elishacloud/dxwrapper/wiki/Blood-II-The-Chosen
+ Invoke-WebRequest -uri "https://github.com/elishacloud/wiki-attachments/raw/master/dxwrapper/Games/Blood%20II%20The%20Chosen/blood2-fix.zip" --OutFile "$altanosinstdir\blood2-fix-git\"
  Expand-Archive -Force "$altanosinstdir\Blood II - The Chosen (USA).zip" "$altanosinstdir\Blood II - The Chosen"
+ 
  Invoke-WebRequest -uri "https://sjc4.dl.dbolical.com/dl/2015/09/14/B2P_224b.zip?st=DW3S6XZDygKXPvhqeHTRnA==&e=1725685936" --OutFile "$altonsinstdir\B2P_224b.zip"
 #https://fmt2.dl.dbolical.com/dl/2015/09/14/B2P_224b.zip?st=w43H86DLtKH_0b4Zi7wYtQ==&e=1725687286
 #https://www.moddb.com/downloads/start/90285/all?referer=https%3A%2F%2Fwww.pcgamingwiki.com%2F
@@ -249,6 +255,7 @@ winget upgrade --accept-source-agreements --disable-interactivity --include-unkn
 #https://www.moddb.com/downloads/start/90285/all?referer=https%3A%2F%2Fwww.pcgamingwiki.com%2F
 
  Expand-Archive -Force "$altonsinstdir\B2P_224b.zip"  "$altonsinstdir\B2P_224b"
+
 # 7zip blood 2 exe?
 
 ##
