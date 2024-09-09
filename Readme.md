@@ -87,6 +87,16 @@ Set-ProcessMitigation -System -Enable DEP, EmulateAtlThunks, RequireInfo, Bottom
 * [exploitguard](https://github.com/palantir/exploitguard/) - Added in AltanOS/src/harden.ps1 
 * [Windows-Defender-Exploit-Guard-Configuration](https://github.com/gunnarhaslinger/Windows-Defender-Exploit-Guard-Configuration) - Runs AltanOS/wdegc/Windows10_ExploitGuard-Config.ps1
 
+Disabled: 
+ * SMB1
+ * RemoteDesktopConnection
+ * WorkFolders
+ * Internetprinting
+ * MSRDC
+
+On Windows 10 and 11 _PRO_ and above enable: 
+ * Containers-DisposableClientVM ( https://learn.microsoft.com/en-us/windows/security/application-security/application-isolation/windows-sandbox/windows-sandbox-overview )
+
 Good reading: 
 * https://blog.palantir.com/assessing-the-effectiveness-of-a-new-security-data-source-windows-defender-exploit-guard-860b69db2ad2?gi=e48021ca0dde
 
@@ -178,7 +188,6 @@ autorun-maintain.ps1 will (once i fix this....) also be run upon login, once, af
 
 ## Conveience 
 
-Adeed:
 * Removed "Windows Welcome Experience" after update.
 * Finally got around to adding "Open PowerShell/cmd in current directory".
 * https://github.com/gunnarhaslinger/Add-or-Remove-Application-To-Windows-10-Taskbar - Not yet tested
@@ -186,8 +195,8 @@ Adeed:
 ## Look and feel: 
 
 * Mouse is set to (hopefully) jump to a prompt and land on the default answer, this saves time.
-* Revert8Plus (turns windows 10/11 into Windows7) install script is added but not initialized.
-* Black theme enabled in harden.reg. - Might bother to split this - there migt be a bug here leading to black text on dark windows, before first reboot?
+* Revert8Plus (turns windows 10/11 into Windows7) install script is downloaded but not initialized.
+* Black theme enabled in harden.reg. - Must bother to split this soon - there migt be a bug here leading to black text on dark windows, before first reboot?
 
 In harden.reg (- ofc.. where else would you logically put the taskbar colour settings?)
 The following settings live there, that are turned off because they are untested.
