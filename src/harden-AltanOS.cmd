@@ -9,7 +9,7 @@ echo Setting up and hardening Windows.
 IF "%PROCESSOR_ARCHITECTURE%"=="AMD64" (set niarchbit=-64)
 IF "%PROCESSOR_ARCHITECTURE%"=="AMD64" (set nsarchbit=x64
 ) ELSE (set nsarchbit=Win32)
-set "altanosdir=%cd%..\"
+set "altanosdir=%cd%"
 set "usedir=%SystemDrive%\AltanOS.inst" 
 set "wingetinstdcmd=winget install --disable-interactivity --accept-source-agreements"
 set "powshcmd=PowerShell -Command"
@@ -20,7 +20,7 @@ set "dismpkg=DISM /online /add-package"
 set "msipkg=msiexec.exe /quiet /norestart /passive /package"
 set "gitget=%ProgramFiles%\Git\bin\git.exe"
 
-reg import ".\harden.reg"
+reg import "%altanosdir%\src\harden.reg"
 
 echo Will need net for this 
 
@@ -83,11 +83,13 @@ for /f "delims=" %%b in ('reg query "HKLM\SYSTEM\CurrentControlSet\Services\NetB
 :: https://www.stigviewer.com/stig/windows_10/2021-03-10/finding/V-220930
  reg add "HKLM\SYSTEM\CurrentControlSet\Control\Lsa" /v "RestrictAnonymous" /t REG_DWORD /d "1" /f
 
+:: problems here
 :: unhide power scheme attributes
 :: source: https://gist.github.com/Velocet/7ded4cd2f7e8c5fa475b8043b76561b5#file-unlock-powercfg-ps1
-%powshcmd% "$PowerCfg = (Get-ChildItem 'HKLM:\SYSTEM\CurrentControlSet\Control\Power\PowerSettings' -Recurse).Name -notmatch '\bDefaultPowerSchemeValues|(\\[0-9]|\b255)$';foreach ($item in $PowerCfg) { Set-ItemProperty -Path $item.Replace('HKEY_LOCAL_MACHINE','HKLM:') -Name 'Attributes' -Value 0 -Force}"
-if %ERRORLEVEL%==0 (echo %date% - %time% Enabled hidden power scheme attributes...>> %install_log%
-) ELSE (echo %date% - %time% Failed to enable hidden power scheme attributes! >> %install_log%):: disable smart multi-homed name resolution
+:: %powshcmd% "$PowerCfg = (Get-ChildItem 'HKLM:\SYSTEM\CurrentControlSet\Control\Power\PowerSettings' -Recurse).Name -notmatch '\bDefaultPowerSchemeValues|(\\[0-9]|\b255)$';foreach ($item in $PowerCfg) { Set-ItemProperty -Path $item.Replace('HKEY_LOCAL_MACHINE','HKLM:') -Name 'Attributes' -Value 0 -Force}"
+:: if %ERRORLEVEL%==0 (echo %date% - %time% Enabled hidden power scheme attributes...>> %install_log%
+:: ) ELSE (echo %date% - %time% Failed to enable hidden power scheme attributes! >> %install_log%):: disable smart multi-homed name resolution
+
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\Dnscache\Parameters" /v "DisableParallelAandAAAA " /t REG_DWORD /d "1" /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows NT\DNSClient" /v "DisableSmartNameResolution" /t REG_DWORD /d "1" /f
 
