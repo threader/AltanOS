@@ -3,13 +3,17 @@ cls
 set "altanosdir=%cd%"
 set "shcmd="
 set "msipkpath="
+
 set "powsh=PowerShell"
 set "powshcmd=PowerShell -command"
+set "powshadmcmd=%powshcmd% "start-process "powershell -Wait -Verb RunAS" %shcmd% ""
+:: set "powshadmcmd=%powshcmd% "start-process "powershell -ArgumentList ' ' -Verb RunAS" %shcmd% ""
+set "cmdshadmcmd=%powshcmd% "start-process "cmd -Wait -Verb RunAS" ""
+
 set "altanosinstdir=%SystemDrive%\AltanOS.inst"
 set "bitsadminget=bitsadmin /transfer /Download /priority HIGH"
 set "webgetps=%powshcmd% Invoke-WebRequest -uri "%geturl%" -OutFile %geturlout% -v"
-set "powshadmcmd=%powshcmd% "start-process "powershell -Wait -Verb RunAS" %shcmd% ""
-:: set "powshadmcmd=%powshcmd% "start-process "powershell -ArgumentList ' ' -Verb RunAS" %shcmd% ""
+
 set "msipkg=msiexec.exe/a %msipkpath% /quiet /norestart /passive /package"
 set "gitget=%ProgramFiles%\Git\bin\git.exe"
  :: [Environment]::CurrentDirectory = $ExecutionContext.SessionState.Path.CurrentFileSystemLocation.ProviderPath
@@ -76,7 +80,7 @@ if exist "%altanosinstdir%\network-indicator%niarchbit%.zip" goto skipdl
 :: %powshcmd% "Invoke-WebRequest -uri https://adwcleaner.malwarebytes.com/adwcleaner?channel=release -OutFile %altanosinstdir%\adwcleaner.exe"
 echo "No progress bar as there is a bug in PowerShell making the download increadibly slow... ( https://github.com/PowerShell/PowerShell/issues/2138 )"
 
- %powshadmcmd% pkgs-utils.ps1
+ %powshadmcmd% "%altanosdir%\src\pkgs-utils.ps1"
  %altanosinstdir%\bin\adwcleaner.exe
 
 :: %powshcmd% $ProgressPreference = 'SilentlyContinue'
@@ -110,7 +114,7 @@ pause
 :: rebuild performance counters
 :: https://learn.microsoft.com/en-us/troubleshoot/windows-server/performance/manually-rebuild-performance-counters
 echo Rebuild performance counters
- %powshadmcmd% "%altanosdir%\pref-cnt.ps1"
+ %powshadmcmd% "%altanosdir%\src\pref-cnt.ps1"
 
 echo Forces the clock to be backed by a platform source, no synthetic timers are allowed. Have not been able to prove the benifits of this, feel free to skip or test yourself:
  bcdedit /set useplatformtick yes
@@ -119,7 +123,7 @@ cd %altanosdir%
 
 :: The following operations can under some circumstances take a hellova lot of thime, i'm not really sure if this really is ideal.
   Echo There will be packages that fail to remove here because they are core components, some red text to follow.
- %powshadmcmd% "%altanosdir%\pkgs-prep.ps1"
+ %powshadmcmd% "%altanosdir%\src\pkgs-prep.ps1"
  
  echo git clone the latest AltanOS
  if exist %altanosdir%
@@ -129,12 +133,12 @@ cd %altanosdir%
  
  xcopy %altanosdir%\bin\PrivaZer.ini %altanosinstdir%/bin/ 
 
- %powshadmcmd% "%altanosdir%\harden-AltanOS.cmd"
+ %cmdshadmcmd% "%altanosdir%\src\harden-AltanOS.cmd"
  
  :: harden.reg loads in harden-AltanOS.cmd for now
  :: %powshadmcmd% 'powshcmd% "reg import %altanosdir%\harden.reg"'
  
- %powshadmcmd% "%altanosdir%\schedule-tasks.ps1"
+ %powshadmcmd% "%altanosdir%\src\schedule-tasks.ps1"
 
 
 :: %uacadmuser% %powshcmd% "New-ItemProperty -Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Run" -Name "Update Windows and Applications" -Value "%altanosdir%\autorun-update.cmd"  -PropertyType "String""
@@ -152,7 +156,7 @@ msiexec.exe /a %altanosinstdir%\TinyWall-v3-Installer.msi /quiet /passive
 :: "%altanosinstdir%"\bin\network-indicator"%niarchbit%"\NetworkIndicatorSetup.exe
 :: :skiptw
 
- %powshadmcmd% "%altanosdir%\mouse-config.ps1"
+ %powshadmcmd% "%altanosdir%\src\mouse-config.ps1"
 
 :: powershell -command "&{$var = 'Set-ExecutionPolicy -ExecutionPolicy Restricted'+\" Set-ItemProperty -Path REGISTRY::HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System -Name ConsentPromptBehaviorAdmin -Value 1' \"; echo $var}"
 
