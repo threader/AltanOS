@@ -179,7 +179,7 @@ winget install --disable-interactivity --accept-source-agreements --id Python.Py
 # ask
 # games 
 # Heroes 3
-winget install --disable-interactivity --accept-source-agreements --id vcmi.vdmi --source winget
+winget install --disable-interactivity --accept-source-agreements --id vcmi.vcmi --source winget
 # Xmoto - surely replaces minesweaper 
 winget install --disable-interactivity --accept-source-agreements --id XMoto.XMoto --source winget
 # Voodoo Glide Wrapper
