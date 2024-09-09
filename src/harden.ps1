@@ -39,7 +39,6 @@ Disable-WindowsOptionalFeature -NoRestart -Online -FeatureName SMB1Protocol-clie
 Disable-WindowsOptionalFeature -NoRestart -Online -FeatureName Microsoft-RemoteDesktopConnection
 Disable-WindowsOptionalFeature -NoRestart -Online -FeatureName WorkFolders-Client
 Disable-WindowsOptionalFeature -NoRestart -Online -FeatureName Printing-Foundation-Internetprinting-Client
-Disable-WindowsOptionalFeature -NoRestart -Online -FeatureName Microsoft-RemoteDesktopConnection
 Disable-WindowsOptionalFeature -NoRestart -Online -FeatureName MSRDC-Infrastructure
 }
 disable_win_feature
