@@ -100,6 +100,34 @@ echo "No progress bar as there is a bug in PowerShell making the download increa
  %powshadmcmd% "%altanosdir%\src\pkgs-prep.ps1"
  %altanosinstdir%\bin\adwcleaner.exe
 
+:: - open scripts in notepad++ to preview instead of executing when clicking
+if exist "%ProgramFiles%\Notepad++\Notepad++.exe" (
+:: move this here for now 
+for %%a in (
+    "batfile"
+    "chmfile"
+    "cmdfile"
+    "htafile"
+    "jsefile"
+    "jsfile"
+	"jsonfile"
+    "regfile"
+    "sctfile"
+    "shfile"
+    "inifile"
+    "pyfile"
+    "urlfile"
+    "vbefile"
+    "vbsfile"
+    "wscfile"
+    "wsffile"
+    "wsfile"
+    "wshfile"
+    "xmlfile"
+) do (
+   ftype %%a="%ProgramFiles%\Notepad++\Notepad++.exe" "%1"
+) ) 
+
 :skipdl 
 pause 
 
@@ -137,60 +165,24 @@ cd %altanosdir%
  :: pull latest submodules changes:
  git submodule update --recursive
  
- cd %altanosdir
- 
- xcopy %altanosdir%\bin\PrivaZer.ini %altanosinstdir%/bin/ 
+ cd %altanosdir%
 
+:: im sure this happened elsewhere 
+ xcopy %altanosdir%\bin\PrivaZer.ini %altanosinstdir%/bin/ 
 
 :: There are problems here, 
  %powshadmcmd% "%altanosdir%\src\harden-AltanOS.cmd"
  
-:: - open scripts in notepad++ to preview instead of executing when clicking
-if exist "%ProgramFiles%\Notepad++\Notepad++.exe" (
-:: move this here for now 
-for %%a in (
-    "batfile"
-    "chmfile"
-    "cmdfile"
-    "htafile"
-    "jsefile"
-    "jsfile"
-	"jsonfile"
-    "regfile"
-    "sctfile"
-    "shfile"
-    "inifile"
-    "pyfile"
-    "urlfile"
-    "vbefile"
-    "vbsfile"
-    "wscfile"
-    "wsffile"
-    "wsfile"
-    "wshfile"
-    "xmlfile"
-) do (
-   ftype %%a="%ProgramFiles%\Notepad++\Notepad++.exe" "%1"
-) ) 
-
-%powshadmcmd% "%altanosdir%\src\harden.ps1"
-%powshadmcmd% "%altanosdir%\wdegc\Windows10_ExploitGuard-Config.ps1"
-::
- 
- 
- 
  :: harden.reg loads in harden-AltanOS.cmd for now
  :: %powshadmcmd% 'powshcmd% "reg import %altanosdir%\harden.reg"'
  
+:: fix
  %powshadmcmd% "%altanosdir%\src\schedule-tasks.ps1"
-
 
 :: %uacadmuser% %powshcmd% "New-ItemProperty -Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Run" -Name "Update Windows and Applications" -Value "%altanosdir%\autorun-update.cmd"  -PropertyType "String""
 
-
 :: powershell Start-process powershell -Verb RunAS %cd%\dotnet-install.ps1
 :: %admuser% dotnet add package Microsoft.UI.Xaml 
-
 
 :: Ask to install - Tinywall, Network activity indicator, (auto)/run PrivaZer, with config?.
 echo Remember to configure the TinyWall firewall, select 'Autolearn' if you have problems and use the 'Manage' dialog to tune the selection.

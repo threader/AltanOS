@@ -418,7 +418,9 @@ echo Disablng WMP and IE, enable Hyper-V and WSL
  :: Enable full context menu - Windows 11
  reg add "HKCU\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32" /f /ve
 
-
+%powshadmcmd% "%altanosdir%\src\harden.ps1"
+%powshadmcmd% "%altanosdir%\wdegc\Windows10_ExploitGuard-Config.ps1"
+::
 :: reset the admin password prompt, a value of 1 on here on the admin account will require password to be entered. 2 is a prompt.
 :: %powshcmd% Set-ItemProperty -Path REGISTRY::HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System -Name ConsentPromptBehaviorAdmin -Value 1
  echo All done, pausing for you to review what might have gone astray.
