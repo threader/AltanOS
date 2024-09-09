@@ -126,10 +126,18 @@ cd %altanosdir%
 :: %powshadmcmd% "%altanosdir%\src\pkgs-prep.ps1"
  
  echo git clone the latest AltanOS
- if exist %altanosdir%
- "%gitget%" pull -b main https://github.com/threader/AltanOS "%altanosdir%"
+ if exist %altanoinstsdir%
+ "%gitget%" pull -b main https://github.com/threader/AltanOS "%altanosinstdir%"
  else
- "%gitget%" clone -b main https://github.com/threader/AltanOS "%altanosdir%"
+ "%gitget%" clone -b main https://github.com/threader/AltanOS "%altanosinstdir%"
+ cd %altanosdir%\AltanOS
+ 
+  :: After first git clone: 
+ git submodule update --init --recursive 
+ :: pull latest submodules changes:
+ git submodule update --recursive
+ 
+ cd %altanosdir
  
  xcopy %altanosdir%\bin\PrivaZer.ini %altanosinstdir%/bin/ 
 
