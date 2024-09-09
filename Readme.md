@@ -75,7 +75,7 @@ Tested on Windows 10 and Windows 11. Some applications are x86 only, arm could e
 
 Too many to list, read the harden-* files? Read all the scripts? 
 
-Sets the following Process Mitigations. There is room for improvement and granular tuning here - 
+Set's the following Process Mitigations. There is room for improvement and granular tuning here - 
 https://learn.microsoft.com/en-us/defender-endpoint/enable-exploit-protection 
 
 https://learn.microsoft.com/en-us/powershell/module/processmitigations/set-processmitigation?view=windowsserver2022-ps 
@@ -85,13 +85,13 @@ Set-ProcessMitigation -System -Enable DEP, EmulateAtlThunks, RequireInfo, Bottom
 ```
 
 * [exploitguard](https://github.com/palantir/exploitguard/) - Added in AltanOS/src/harden.ps1 
-* [Windows-Defender-Exploit-Guard-Configuration](https://github.com/gunnarhaslinger/Windows-Defender-Exploit-Guard-Configuration) - Runs AltanOS\wdegc/Windows10_ExploitGuard-Config.ps1
+* [Windows-Defender-Exploit-Guard-Configuration](https://github.com/gunnarhaslinger/Windows-Defender-Exploit-Guard-Configuration) - Runs AltanOS/wdegc/Windows10_ExploitGuard-Config.ps1
 
 Good reading: 
 * https://blog.palantir.com/assessing-the-effectiveness-of-a-new-security-data-source-windows-defender-exploit-guard-860b69db2ad2?gi=e48021ca0dde
 
 ## The following files can run standalone if needed:
-* harden-AltanOS.cmd		- Runs script in submodules so it cant really run standalone anymore.
+* harden-AltanOS.cmd		- Now runs script in submodules so it can't _really_ be said to run standalone anymore.
 * harden.ps1
 * harden.reg 				- ofc 
 * pkgs-prep.ps1
