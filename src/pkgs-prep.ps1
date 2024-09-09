@@ -160,7 +160,6 @@ winget install --disable-interactivity --accept-source-agreements --id Nlitesoft
 winget install --disable-interactivity --accept-source-agreements --id Malwarebytes.Malwarebytes --source winget
 winget install --disable-interactivity --accept-source-agreements --id SaferNetworking.SpybotAntiBeacon --source winget
 
-
 # dev tools
 winget install --disable-interactivity --accept-source-agreements --id Cygwin.Cygwin.Cygwin --source winget
 coco install mingw -y --params "ALLUSERS=1"
@@ -168,9 +167,11 @@ winget install --disable-interactivity --accept-source-agreements --id Meld.Meld
 winget install --disable-interactivity --accept-source-agreements --id KDE.KDiff3 --source winget
 winget install --disable-interactivity --accept-source-agreements --id WinMgerge.WinMerge--source winget
 winget install --disable-interactivity --accept-source-agreements --id Rizin.Cutter --source winget
+
 # ask
 winget install --disable-interactivity --accept-source-agreements --id VSCodium.VSCodium--source winget
-winget install --disable-interactivity --accept-source-agreements --id Microsoft.VisualStudioCode --source winget
+# winget install --disable-interactivity --accept-source-agreements --id Microsoft.VisualStudioCode --source winget
+
 # for ghidra
 winget install --disable-interactivity --accept-source-agreements --id Oracle.JDK.17 --source winget
 winget install --disable-interactivity --accept-source-agreements --id Python.Python.3.12 --source winget
