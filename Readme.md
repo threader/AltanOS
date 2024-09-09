@@ -136,8 +136,8 @@ Good reading:
 * Nlitesoft.NTLite
 * Malwarebytes.Malwarebytes
 * SaferNetworking.SpybotAntiBeacon
-* Microsoft.VisualStudioCode
-* VSCodium.VSCodium
+* # Microsoft.VisualStudioCode
+* VSCodium.VSCodium - Refuses to install without accepting the license, so this fails to automatically install.
 * Oracle.JDK.17 
 * Python.Python.3.12 
 * Rizin.Cutter
@@ -145,6 +145,12 @@ Good reading:
 * KDE.KDiff3
 * Meld
 * Cygwin
+To be made optional:
+* VCMI - Heroes 3 launcher.
+* XMoto
+* nGlide - Voodoo 3dfx wrappers. tbd.
+* DOSBox
+* A small collection of old strategy games.
 
 ## Dev tools
 * Cygwin
@@ -171,6 +177,7 @@ autorun-maintain.ps1 will (once i fix this....) also be run upon login, once, af
 ## Conveience 
 
 Adeed:
+* Removed "Windows Welcome Experience" after update.
 * Finally got around to adding "Open PowerShell/cmd in current directory".
 * https://github.com/gunnarhaslinger/Add-or-Remove-Application-To-Windows-10-Taskbar - Not yet tested
 
@@ -213,7 +220,7 @@ v 0.0.1 - ish
 
 * Fix the sheduled task and create one for sfc and dism every... two, maybe three weeks? - Not fixed...
 * Move AltanOS* to somewhere predictable. - Fixed
-* More testing. - Ongoing - Still.. ... Still...
+* More testing. - Ongoing - Still.. ... Still... still... 
 * Add a script to run once at first startup to resolve an iusse where we are already in need to reboot. - Maybe fixed
 * Try to stop loosing work when hibernating linux and not properly shutting down windows (holding left ctrl while selecting power off), linux isnt grabbing the new journal state of the NTFS drive file states after resuming from hibernation, this results in data loss and corruption if you then proceed ot unmount the volume in linux, a chkdsk from windows _can_ fix this, or a hard reset of linux if you've got nothing to loose....   - I almost lost all this again instead ...
 
