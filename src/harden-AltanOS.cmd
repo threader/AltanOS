@@ -87,8 +87,8 @@ for /f "delims=" %%b in ('reg query "HKLM\SYSTEM\CurrentControlSet\Services\NetB
 :: unhide power scheme attributes
 :: source: https://gist.github.com/Velocet/7ded4cd2f7e8c5fa475b8043b76561b5#file-unlock-powercfg-ps1
 :: %powshcmd% "$PowerCfg = (Get-ChildItem 'HKLM:\SYSTEM\CurrentControlSet\Control\Power\PowerSettings' -Recurse).Name -notmatch '\bDefaultPowerSchemeValues|(\\[0-9]|\b255)$';foreach ($item in $PowerCfg) { Set-ItemProperty -Path $item.Replace('HKEY_LOCAL_MACHINE','HKLM:') -Name 'Attributes' -Value 0 -Force}"
-:: if %ERRORLEVEL%==0 (echo %date% - %time% Enabled hidden power scheme attributes...>> %install_log%
-:: ) ELSE (echo %date% - %time% Failed to enable hidden power scheme attributes! >> %install_log%):: disable smart multi-homed name resolution
+:: if %ERRORLEVEL%==0 (echo %date% - %time% Enabled hidden power scheme attributes...
+:: ) ELSE (echo %date% - %time% Failed to enable hidden power scheme attributes! ):: disable smart multi-homed name resolution
 
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\Dnscache\Parameters" /v "DisableParallelAandAAAA " /t REG_DWORD /d "1" /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows NT\DNSClient" /v "DisableSmartNameResolution" /t REG_DWORD /d "1" /f
@@ -419,7 +419,7 @@ echo Disablng WMP and IE, enable Hyper-V and WSL
  reg add "HKCU\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32" /f /ve
 
 %powshadmcmd% "%altanosdir%\src\harden.ps1"
-%powshadmcmd% "%altanosdir%\wdegc\Windows10_ExploitGuard-Config.ps1"
+%powshadmcmd% "%altanosdir%\wdegc\Enable-ExploitGuard-AttackSurfaceReduction.ps1"
 ::
 :: reset the admin password prompt, a value of 1 on here on the admin account will require password to be entered. 2 is a prompt.
 :: %powshcmd% Set-ItemProperty -Path REGISTRY::HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System -Name ConsentPromptBehaviorAdmin -Value 1
