@@ -113,7 +113,7 @@ Good reading:
 * UI.Xaml.2.8* 
 * WindowsStore
 * StorePurchaseApp
-* ##MicrosoftOfficeHub
+* #MicrosoftOfficeHub - To be made optional and not installed. 
 * WindowsCalculator
 * MSPaint
 * MicrosoftSolitaireCollection
@@ -137,7 +137,7 @@ Good reading:
 * Nlitesoft.NTLite
 * Malwarebytes.Malwarebytes
 * SaferNetworking.SpybotAntiBeacon
-* #Microsoft.VisualStudioCode
+* #Microsoft.VisualStudioCode - This is to be made optional and not installed. 
 * VSCodium.VSCodium - Refuses to install without accepting the license, so this fails to automatically install.
 * Oracle.JDK.17 
 * Python.Python.3.12 
