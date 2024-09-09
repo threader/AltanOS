@@ -77,6 +77,7 @@ Too many to list, read the harden-* files? Read all the scripts?
 
 Sets the following Process Mitigations. There is room for improvement and granular tuning here - 
 https://learn.microsoft.com/en-us/defender-endpoint/enable-exploit-protection 
+
 https://learn.microsoft.com/en-us/powershell/module/processmitigations/set-processmitigation?view=windowsserver2022-ps 
 
 ```console
@@ -136,7 +137,7 @@ Good reading:
 * Nlitesoft.NTLite
 * Malwarebytes.Malwarebytes
 * SaferNetworking.SpybotAntiBeacon
-* # Microsoft.VisualStudioCode
+* ## Microsoft.VisualStudioCode
 * VSCodium.VSCodium - Refuses to install without accepting the license, so this fails to automatically install.
 * Oracle.JDK.17 
 * Python.Python.3.12 
