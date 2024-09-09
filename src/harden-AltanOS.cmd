@@ -382,6 +382,7 @@ reg add "HKCU\SOFTWARE\Policies\Microsoft\Windows\Explorer" /v "NoRemoteDestinat
 :: Reset Mitigation at the system level.
 
 :: %powshcmd% "Set-ProcessMitigation -System -Enable DEP, BottomUp, EmulateAtlThunks, AuditMicrosoftSigned, AuditStoreSigned, DisableNonSystemFonts, AuditFont"
+:: more notes - https://learn.microsoft.com/en-us/defender-endpoint/enable-exploit-protection :
 :: The following might work without being too strict
  %powshcmd% "Set-ProcessMitigation -System -Enable DEP, EmulateAtlThunks, RequireInfo, BottomUp, HighEntropy, StrictHandle, SuppressExports, SEHOP, AuditSEHOP, SEHOPTelemetry, AuditMicrosoftSigned, AuditStoreSigned, EnforceModuleDependencySigning, DisableNonSystemFonts, AuditFont"
 
