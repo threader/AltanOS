@@ -416,35 +416,6 @@ echo Disablng WMP and IE, enable Hyper-V and WSL
  :: Enable full context menu - Windows 11
  reg add "HKCU\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32" /f /ve
 
-:: - open scripts in notepad++ to preview instead of executing when clicking
-if exist "%ProgramFiles%\Notepad++\Notepad++.exe" (
-for %%a in (
-    "batfile"
-    "chmfile"
-    "cmdfile"
-    "htafile"
-    "jsefile"
-    "jsfile"
-	"jsonfile"
-    "regfile"
-    "sctfile"
-    "shfile"
-    "inifile"
-    "pyfile"
-    "urlfile"
-    "vbefile"
-    "vbsfile"
-    "wscfile"
-    "wsffile"
-    "wsfile"
-    "wshfile"
-    "xmlfile"
-) do (
-   ftype %%a="%ProgramFiles%\Notepad++\Notepad++.exe" "%1"
-) ) 
-
-%powshcmd% "%altanosdir%\src\harden.ps1"
-%powshcmd% "%altanosdir%\wdegc\Windows10_ExploitGuard-Config.ps1"
 
 :: reset the admin password prompt, a value of 1 on here on the admin account will require password to be entered. 2 is a prompt.
 :: %powshcmd% Set-ItemProperty -Path REGISTRY::HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System -Name ConsentPromptBehaviorAdmin -Value 1

@@ -6,15 +6,15 @@ set "msipkpath="
 
 set "powsh=PowerShell"
 set "powshcmd=PowerShell -command"
-set "powshadmcmd=%powshcmd% "start-process "powershell -Wait -Verb RunAS" %shcmd% ""
+set "powshadmcmd=%powshcmd% "start-process "%powsh% -Wait -Verb RunAS" %shcmd% ""
 :: set "powshadmcmd=%powshcmd% "start-process "powershell -ArgumentList ' ' -Verb RunAS" %shcmd% ""
-set "cmdshadmcmd=%powshcmd% "start-process "cmd -Wait -Verb RunAS" ""
+:: set "cmdshadmcmd=%powshcmd% "start-process "cmd -Wait -Verb RunAS" ""
 
 set "altanosinstdir=%SystemDrive%\AltanOS.inst"
 set "bitsadminget=bitsadmin /transfer /Download /priority HIGH"
 set "webgetps=%powshcmd% Invoke-WebRequest -uri "%geturl%" -OutFile %geturlout% -v"
 
-set "msipkg=msiexec.exe/a %msipkpath% /quiet /norestart /passive /package"
+set "msipkg=msiexec.exe /a %msipkpath% /quiet /norestart /passive /package"
 set "gitget=%ProgramFiles%\Git\bin\git.exe"
  :: [Environment]::CurrentDirectory = $ExecutionContext.SessionState.Path.CurrentFileSystemLocation.ProviderPath
 
@@ -80,9 +80,6 @@ if exist "%altanosinstdir%\network-indicator%niarchbit%.zip" goto skipdl
 :: %powshcmd% "Invoke-WebRequest -uri https://adwcleaner.malwarebytes.com/adwcleaner?channel=release -OutFile %altanosinstdir%\adwcleaner.exe"
 echo "No progress bar as there is a bug in PowerShell making the download increadibly slow... ( https://github.com/PowerShell/PowerShell/issues/2138 )"
 
- %powshadmcmd% "%altanosdir%\src\pkgs-utils.ps1"
- %altanosinstdir%\bin\adwcleaner.exe
-
 :: %powshcmd% $ProgressPreference = 'SilentlyContinue'
 :: %powshcmd% Invoke-WebRequest -uri https://downloads.malwarebytes.com/file/adwcleaner -OutFile %altanosinstdir%\bin\adwcleaner.exe 
 ::  %altanosinstdir%\bin\adwcleaner.exe"
@@ -99,6 +96,9 @@ echo "No progress bar as there is a bug in PowerShell making the download increa
 
  :: %powshcmd% Expand-Archive -Force '%altanosinstdir%\network-indicator%niarchbit%.zip' '%altanosinstdir%\bin\network-indicator%niarchbit%'
 
+
+ %powshadmcmd% "%altanosdir%\src\pkgs-prep.ps1"
+ %altanosinstdir%\bin\adwcleaner.exe
 
 :skipdl 
 pause 
@@ -123,7 +123,7 @@ cd %altanosdir%
 
 :: The following operations can under some circumstances take a hellova lot of thime, i'm not really sure if this really is ideal.
   Echo There will be packages that fail to remove here because they are core components, some red text to follow.
- %powshadmcmd% "%altanosdir%\src\pkgs-prep.ps1"
+:: %powshadmcmd% "%altanosdir%\src\pkgs-prep.ps1"
  
  echo git clone the latest AltanOS
  if exist %altanosdir%
@@ -133,7 +133,43 @@ cd %altanosdir%
  
  xcopy %altanosdir%\bin\PrivaZer.ini %altanosinstdir%/bin/ 
 
- %cmdshadmcmd% "%altanosdir%\src\harden-AltanOS.cmd"
+
+:: There are problems here, 
+ %powshadmcmd% "%altanosdir%\src\harden-AltanOS.cmd"
+ 
+:: - open scripts in notepad++ to preview instead of executing when clicking
+if exist "%ProgramFiles%\Notepad++\Notepad++.exe" (
+:: move this here for now 
+for %%a in (
+    "batfile"
+    "chmfile"
+    "cmdfile"
+    "htafile"
+    "jsefile"
+    "jsfile"
+	"jsonfile"
+    "regfile"
+    "sctfile"
+    "shfile"
+    "inifile"
+    "pyfile"
+    "urlfile"
+    "vbefile"
+    "vbsfile"
+    "wscfile"
+    "wsffile"
+    "wsfile"
+    "wshfile"
+    "xmlfile"
+) do (
+   ftype %%a="%ProgramFiles%\Notepad++\Notepad++.exe" "%1"
+) ) 
+
+%powshadmcmd% "%altanosdir%\src\harden.ps1"
+%powshadmcmd% "%altanosdir%\wdegc\Windows10_ExploitGuard-Config.ps1"
+::
+ 
+ 
  
  :: harden.reg loads in harden-AltanOS.cmd for now
  :: %powshadmcmd% 'powshcmd% "reg import %altanosdir%\harden.reg"'
