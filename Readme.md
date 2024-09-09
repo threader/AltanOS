@@ -43,8 +43,10 @@ reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\DeviceGuard" /t REG_DWORD /v "
 Upon further reading - https://learn.microsoft.com/en-us/windows/security/hardware-security/enable-virtualization-based-protection-of-code-integrity there are two ways to enable/disable this, without efi (locked), the command done above and this method bellow ...  - Bah read more here.... 
 ```console
 ::reg add "HKLM\SYSTEM\CurrentControlSet\Control\DeviceGuard\Scenarios\HypervisorEnforcedCodeIntegrity" /v "Locked" /t REG_DWORD /d "0" /f 
-``
+```
+
 This will enable "fastboot/Hiberboot" if so desired:
+
 ```console
 reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Power" /v "HiberbootEnabled" /t REG_DWORD /d "1" /f
 ```
@@ -74,7 +76,7 @@ Good reading:
 * https://blog.palantir.com/assessing-the-effectiveness-of-a-new-security-data-source-windows-defender-exploit-guard-860b69db2ad2?gi=e48021ca0dde
 
 ## The following files can run standalone if needed:
-* harden-AltanOS.cmd
+* harden-AltanOS.cmd		- Runs script in submodules so it cant really run standalone anymore.
 * harden.ps1
 * harden.reg 				- ofc 
 * pkgs-prep.ps1
