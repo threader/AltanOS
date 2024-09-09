@@ -401,6 +401,22 @@ echo Disablng WMP and IE, enable Hyper-V and WSL
 :: %powshcmd% Enable-WindowsOptionalFeature applicaonalFeature -Online -FeatureName VirtualMachinePlatform -NoRestart
 :: %powshcmd% wsl --set-default-version 2
 
+ :: Enable full context menu - Windows 11
+ reg add "HKCU\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32" /f /ve
+
+%powshadmcmd% "%altanosdir%\src\harden.ps1"
+%powshadmcmd% "%altanosdir%\wdegc\Enable-ExploitGuard-AttackSurfaceReduction.ps1"
+
+ :: echo info: cleaning the winsxs folder - bah this needs to be done after a reboot 
+ :: DISM /Online /Cleanup-Image /StartComponentCleanup /ResetBase /RestoreHealth
+
+ sfc /SCANNOW
+
+ :: echo Remember to configure the TinyWall firewall, select autolearn from the menu for a while for instance to allo traffic
+ :: %msipkg% %usedir%\TinyWall-v3-Installer.msi
+
+::
+
 :: enable system devices
 ::  DevManView.exe /enable "Microsoft Hyper-V NT Kernel Integration VSP"
 ::  DevManView.exe /enable "Microsoft Hyper-V PCI Server"
@@ -408,19 +424,7 @@ echo Disablng WMP and IE, enable Hyper-V and WSL
 ::  DevManView.exe /enable "Microsoft Hyper-V Virtual Machine Bus Provider"
 ::  DevManView.exe /enable "Microsoft Hyper-V Virtualization Infrastructure Driver"
 
- :: echo info: cleaning the winsxs folder - bah this needs to be done after a reboot 
- :: sfc /SCANNOW
- :: DISM /Online /Cleanup-Image /StartComponentCleanup /ResetBase /RestoreHealth
 
- :: echo Remember to configure the TinyWall firewall, select autolearn from the menu for a while for instance to allo traffic
- :: %msipkg% %usedir%\TinyWall-v3-Installer.msi
-
- :: Enable full context menu - Windows 11
- reg add "HKCU\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32" /f /ve
-
-%powshadmcmd% "%altanosdir%\src\harden.ps1"
-%powshadmcmd% "%altanosdir%\wdegc\Enable-ExploitGuard-AttackSurfaceReduction.ps1"
-::
 :: reset the admin password prompt, a value of 1 on here on the admin account will require password to be entered. 2 is a prompt.
 :: %powshcmd% Set-ItemProperty -Path REGISTRY::HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System -Name ConsentPromptBehaviorAdmin -Value 1
  echo All done, pausing for you to review what might have gone astray.
