@@ -75,10 +75,10 @@ Tested on Windows 10 and Windows 11. Some applications are x86 only, arm could e
 
 Too many to list, read the harden-* files? Read all the scripts? 
 
-Set's the following Process Mitigations. There is room for improvement and granular tuning here - 
-https://learn.microsoft.com/en-us/defender-endpoint/enable-exploit-protection 
+There is room for improvement and granular tuning of the set process mitigations:
+* https://learn.microsoft.com/en-us/defender-endpoint/enable-exploit-protection 
 
-https://learn.microsoft.com/en-us/powershell/module/processmitigations/set-processmitigation?view=windowsserver2022-ps 
+* https://learn.microsoft.com/en-us/powershell/module/processmitigations/set-processmitigation?view=windowsserver2022-ps 
 
 ```console
 Set-ProcessMitigation -System -Enable DEP, EmulateAtlThunks, RequireInfo, BottomUp, HighEntropy, StrictHandle, SuppressExports, SEHOP, AuditSEHOP, SEHOPTelemetry, AuditMicrosoftSigned, AuditStoreSigned, EnforceModuleDependencySigning, DisableNonSystemFonts, AuditFont
@@ -137,7 +137,7 @@ Good reading:
 * Nlitesoft.NTLite
 * Malwarebytes.Malwarebytes
 * SaferNetworking.SpybotAntiBeacon
-* ## Microsoft.VisualStudioCode
+* #Microsoft.VisualStudioCode
 * VSCodium.VSCodium - Refuses to install without accepting the license, so this fails to automatically install.
 * Oracle.JDK.17 
 * Python.Python.3.12 
@@ -146,6 +146,7 @@ Good reading:
 * KDE.KDiff3
 * Meld
 * Cygwin
+
 To be made optional:
 * VCMI - Heroes 3 launcher.
 * XMoto
