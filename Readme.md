@@ -147,6 +147,7 @@ Good reading:
 * Nlitesoft.NTLite
 * Malwarebytes.Malwarebytes
 * SaferNetworking.SpybotAntiBeacon
+* Microsoft PowerToys - https://learn.microsoft.com/en-us/windows/powertoys/
 * #Microsoft.VisualStudioCode - This is to be made optional and not installed. 
 * VSCodium.VSCodium - Refuses to install without accepting the license, so this fails to automatically install.
 * Oracle.JDK.17 
