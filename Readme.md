@@ -195,6 +195,8 @@ autorun-maintain.ps1 will (once i fix this....) also be run upon login, once, af
 
 ## Look and feel: 
 
+* Remove the 'Window snapping' 'feature' on Windows 11 to avoid an aneurisme. 
+* Revert to 'Old context menu' on Windows 11, again to avoid an aneurisme.
 * Mouse is set to (hopefully) jump to a prompt and land on the default answer, this saves time.
 * Revert8Plus (turns windows 10/11 into Windows7) install script is downloaded but not initialized.
 * Black theme enabled in harden.reg. - Must bother to split this soon - there migt be a bug here leading to black text on dark windows, before first reboot?
@@ -219,6 +221,10 @@ The following settings live there, that are turned off because they are untested
 ```
 
 # TODID:
+* Read more on this
+ - https://github.com/Ccmexec/PowerShell/tree/master/Customize%20TaskBar%20and%20Start%20Windows% 201 1
+ - https://ccmexec.com/2022/10/customizing-taskbar-and-start-in-windows-11-22h2-with-powershell/
+ - most certainly run this with '-StartMoreRecommendations -StartMorePins -RemoveChat -RunForExistingUsers'
 * Move scripts to own folder, it's getting messy. - done
 * Bother to ask when to schedule thing.
 * Ask to either install MalwareBytes or run to AwdCleaner sometimes? - Just schedule AwdCleaner to run anyway.
