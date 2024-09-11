@@ -40,6 +40,11 @@ Disable-WindowsOptionalFeature -NoRestart -Online -FeatureName Microsoft-RemoteD
 Disable-WindowsOptionalFeature -NoRestart -Online -FeatureName WorkFolders-Client
 Disable-WindowsOptionalFeature -NoRestart -Online -FeatureName Printing-Foundation-Internetprinting-Client
 Disable-WindowsOptionalFeature -NoRestart -Online -FeatureName MSRDC-Infrastructure
+# im not even on a pc or remotely close to home but read about this, more reading to follow i guess.
+# it may be possible to run something like the get-appxpackage | remove-appxpackage
+# https://learn.microsoft.com/en-us/powershell/module/dism/get-windowscapability?view=windowsserver2022-ps
+# https://learn.microsoft.com/en-us/powershell/module/dism/remove-windowscapability?view=windowsserver2022-ps
+Get-WindowsCapability -online | Where-Object { $_.Name -like '*VBSCRIPT*' } | Remove-WindowsCapability -online
 }
 disable_win_feature
 
