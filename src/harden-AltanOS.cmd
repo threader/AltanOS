@@ -358,7 +358,7 @@ reg add "HKCU\SOFTWARE\Policies\Microsoft\Windows\Explorer" /v "NoRemoteDestinat
 
 :: Figure out why these fail at some point 
 
- disable audio excludive mode on all devices
+:: disable audio excludive mode on all devices
  for /f "delims=" %%a in ('reg query "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\MMDevices\Audio\Capture"') do (
     reg add "%%a\Properties" /v "{b3f8fa53-0004-438e-9003-51a46e139bfc},3" /t REG_DWORD /d "0" /f
     reg add "%%a\Properties" /v "{b3f8fa53-0004-438e-9003-51a46e139bfc},4" /t REG_DWORD /d "0" /f
@@ -412,7 +412,7 @@ echo Disablng WMP and IE, enable Hyper-V and WSL
  :: DISM /Online /Cleanup-Image /StartComponentCleanup /ResetBase /RestoreHealth
 
  sfc /SCANNOW
-
+ :: ask and make user aware this will trash connectivity...
  :: echo Remember to configure the TinyWall firewall, select autolearn from the menu for a while for instance to allo traffic
  :: %msipkg% %usedir%\TinyWall-v3-Installer.msi
 
