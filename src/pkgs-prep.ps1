@@ -164,6 +164,8 @@ winget install --disable-interactivity --accept-source-agreements --id Notepad++
 winget install --disable-interactivity --accept-source-agreements --id Nlitesoft.NTLite --source winget
 winget install --disable-interactivity --accept-source-agreements --id Malwarebytes.Malwarebytes --source winget
 winget install --disable-interactivity --accept-source-agreements --id SaferNetworking.SpybotAntiBeacon --source winget
+# https://learn.microsoft.com/en-us/windows/powertoys/
+winget install --disable-interactivity --accept-source-agreements --id Microsoft.PowerToys --source winget
 
 # dev tools - ask
 winget install --disable-interactivity --accept-source-agreements --id Cygwin.Cygwin.Cygwin --source winget
