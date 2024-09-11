@@ -222,7 +222,7 @@ The following settings live there, that are turned off because they are untested
 
 # TODID:
 * Read more on this
- - https://github.com/Ccmexec/PowerShell/tree/master/Customize%20TaskBar%20and%20Start%20Windows% 201 1
+ - https://github.com/Ccmexec/PowerShell/blob/master/Customize%20TaskBar%20and%20Start%20Windows%2011/CustomizeTaskbar%20v1.1.ps1
  - https://ccmexec.com/2022/10/customizing-taskbar-and-start-in-windows-11-22h2-with-powershell/
  - most certainly run this with '-StartMoreRecommendations -StartMorePins -RemoveChat -RunForExistingUsers'
 * Move scripts to own folder, it's getting messy. - done
