@@ -66,9 +66,14 @@ get_utils
 Write-Output "Removing non-essential packages and installing some bare minimums."
 
 function disable_win_packages()  {
+# Will need to check the version we are using, eventually, im sure i read get-apppackage is not available in newer ps
+# so this will at least get the version:
+# (Get-ItemProperty -Path HKLM:\SOFTWARE\Microsoft\PowerShell\3\PowerShellEngine -Name 'PowerShellVersion').PowerShellVersion
+# (Get-Host).Version and Get-Host should work.
  Get-AppPackage -AllUsers | Remove-AppPackage -AllUsers
  # This will remove all user installed packages on the system.. 
- Get-AppxPackage -AllUsers | Remove-AppPackage -AllUsers
+ # this is for newer PowerShell versions.
+ # Get-AppxPackage -AllUsers | Remove-AppPackage -AllUsers
  }
 disable_win_packages
 
