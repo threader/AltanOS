@@ -76,16 +76,16 @@ Tested on Windows 10 and Windows 11. Some applications are x86 only, arm could e
 Too many to list, read the harden-* files? Read all the scripts? 
 
 There is room for improvement and granular tuning of the set process mitigations:
-* https://learn.microsoft.com/en-us/defender-endpoint/enable-exploit-protection 
-
-* https://learn.microsoft.com/en-us/powershell/module/processmitigations/set-processmitigation?view=windowsserver2022-ps 
-
+I'm currently evaluating and running this:
 ```console
 Set-ProcessMitigation -System -Enable DEP, EmulateAtlThunks, RequireInfo, BottomUp, HighEntropy, StrictHandle, SuppressExports, SEHOP, AuditSEHOP, SEHOPTelemetry, AuditMicrosoftSigned, AuditStoreSigned, EnforceModuleDependencySigning, DisableNonSystemFonts, AuditFont
 ```
+There are certainly other options that could be enabled.
+- https://learn.microsoft.com/en-us/defender-endpoint/enable-exploit-protection 
+- https://learn.microsoft.com/en-us/powershell/module/processmitigations/set-processmitigation?view=windowsserver2022-ps
 
-* [exploitguard](https://github.com/palantir/exploitguard/) - Added in AltanOS/src/harden.ps1 
-* [Windows-Defender-Exploit-Guard-Configuration](https://github.com/gunnarhaslinger/Windows-Defender-Exploit-Guard-Configuration) - Runs AltanOS/wdegc/Windows10_ExploitGuard-Config.ps1
+* [exploitguard](https://github.com/palantir/exploitguard/) - Added to AltanOS/src/harden.ps1 
+* [Windows-Defender-Exploit-Guard-Configuration](https://github.com/gunnarhaslinger/Windows-Defender-Exploit-Guard-Configuration) - Runs AltanOS/wdegc/Windows10_ExploitGuard-Config.ps1 (this needs more investigation)
 
 Disabled: 
  * SMB1
@@ -94,7 +94,7 @@ Disabled:
  * Internetprinting
  * MSRDC
 
-On Windows 10 and 11 _PRO_ and above enable: 
+On Windows 10 and 11 _pro_ and above enabled: 
  * Containers-DisposableClientVM ( https://learn.microsoft.com/en-us/windows/security/application-security/application-isolation/windows-sandbox/windows-sandbox-overview )
 
 Good reading: 
@@ -135,6 +135,7 @@ Good reading:
 * Git.Git
 * Microsoft.Sysinternals.ProcessMonitor
 * Microsoft.Sysinternals.ProcessExplorer
+* Microsoft.PowerToys - https://learn.microsoft.com/en-us/windows/powertoys/
 * #Microsoft.Powershell
 * Google.Chrome 
 * Mozilla.Firefox
@@ -147,7 +148,6 @@ Good reading:
 * Nlitesoft.NTLite
 * Malwarebytes.Malwarebytes
 * SaferNetworking.SpybotAntiBeacon
-* Microsoft PowerToys - https://learn.microsoft.com/en-us/windows/powertoys/
 * #Microsoft.VisualStudioCode - This is to be made optional and not installed. 
 * VSCodium.VSCodium - Refuses to install without accepting the license, so this fails to automatically install.
 * Oracle.JDK.17 
