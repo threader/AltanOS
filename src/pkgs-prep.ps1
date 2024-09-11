@@ -165,7 +165,7 @@ winget install --disable-interactivity --accept-source-agreements --id Nlitesoft
 winget install --disable-interactivity --accept-source-agreements --id Malwarebytes.Malwarebytes --source winget
 winget install --disable-interactivity --accept-source-agreements --id SaferNetworking.SpybotAntiBeacon --source winget
 
-# dev tools
+# dev tools - ask
 winget install --disable-interactivity --accept-source-agreements --id Cygwin.Cygwin.Cygwin --source winget
 coco install mingw -y --params "ALLUSERS=1"
 winget install --disable-interactivity --accept-source-agreements --id Meld.Meld.Meld --soure winget
