@@ -45,6 +45,23 @@ Disable-WindowsOptionalFeature -NoRestart -Online -FeatureName MSRDC-Infrastruct
 # https://learn.microsoft.com/en-us/powershell/module/dism/get-windowscapability?view=windowsserver2022-ps
 # https://learn.microsoft.com/en-us/powershell/module/dism/remove-windowscapability?view=windowsserver2022-ps
 Get-WindowsCapability -online | Where-Object { $_.Name -like '*VBSCRIPT*' } | Remove-WindowsCapability -online
+
+$PKG_RM = @("Media.WindowsMediaPlayer*","Media.Windows.WordPad*", "Language.Speech*", "Language.TextToSpeech*","Hello.Face.18967*", " Hello.Face.Migration.18967*", "Browser.InternetExplorer*", "App.Support.QuickAssist*", "App.StepRecorder*")
+#  "MathRecognize*",
+For ($i=0; $i -lt $PKG_RM.Length; $i++) {
+Get-WindowsCapability -online | Where-Object { $_.Name -like '$i' } | Remove-WindowsCapability -online
+}
+
+# Media.WindowsMediaPlayer
+# Media.Windows.WordPad
+# MathRecognize
+# Language.Speech
+# Language.TextToSpeech
+# Hello.Face.18967
+# Hello.Face.Migration.18967
+# Browser.InternetExplorer
+# App.Support.QuickAssist
+# App.StepRecorder
 }
 disable_win_feature
 
@@ -92,7 +109,8 @@ disable_win_feature
 # '@ -Name "NativeMethods" -Namespace "PInvoke" -PassThru
 
 # $SwapButtons::SwapMouseButton(!([System.Windows.Forms.SystemInformation]::MouseButtonsSwapped))
-
+#
+# EOF SwapMouse.ps1
 #
 Set-VMProcessor -VMName VM-Sandbox -ExposeVirtualizationExtensions $true
 Update-VMVersion -VMName VM-Sandbox
