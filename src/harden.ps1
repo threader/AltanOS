@@ -44,31 +44,53 @@ Disable-WindowsOptionalFeature -NoRestart -Online -FeatureName MSRDC-Infrastruct
 # it may be possible to run something like the get-appxpackage | remove-appxpackage
 # https://learn.microsoft.com/en-us/powershell/module/dism/get-windowscapability?view=windowsserver2022-ps
 # https://learn.microsoft.com/en-us/powershell/module/dism/remove-windowscapability?view=windowsserver2022-ps
-Get-WindowsCapability -online | Where-Object { $_.Name -like '*VBSCRIPT*' } | Remove-WindowsCapability -online
+# Get-WindowsCapability -online | Where-Object { $_.Name -like '*VBSCRIPT*' } | Remove-WindowsCapability -online
 
-$PKG_RM = @("Media.WindowsMediaPlayer*","Media.Windows.WordPad*", "Language.Speech*", "Language.TextToSpeech*","Hello.Face.18967*", " Hello.Face.Migration.18967*", "Browser.InternetExplorer*", "App.Support.QuickAssist*", "App.StepRecorder*")
-#  "MathRecognize*",
-For ($i=0; $i -lt $PKG_RM.Length; $i++) {
-Get-WindowsCapability -online | Where-Object { $_.Name -like '$i' } | Remove-WindowsCapability -online
-}
+Get-WindowsCapability -online | Where-Object { ($_.Name) -and ($_.State -like 'Installed') -and ($_.Name -notlike "Language.Basic*") -and ($_.Name -notlike "Language.Handwriting*") -and ($_.Name -notlike "Windows.Client.ShellComponents*") -and ($_.Name -notlike "OpenSSH.Client*") -and ($_.Name -notlike "Microsoft.Windows.Powershell.ISE*") -and ($_.Name -notlike "Microsoft.Windows.Notepad*") -and ($_.Name -notlike "Microsoft.Windows.MSPaint") -and ($_.Name -notlike "MathRecognizer*") -and ($_.Name -notlike "Print.Fax.Scan") | Remove-WindowsCapability -online }
 
-# Media.WindowsMediaPlayer
-# Media.Windows.WordPad
-# MathRecognize
-# Language.Speech
-# Language.TextToSpeech
-# Hello.Face.18967
-# Hello.Face.Migration.18967
-# Browser.InternetExplorer
-# App.Support.QuickAssist
-# App.StepRecorder
+# to check installed:
+# Get-WindowsCapability -online | Where-Object { ($_.Name) -and ($_.State -like 'Installed') }
+#
+# These are the packages that _were_ left on the system prior to the commands above: 
+#  add-windowscapability -online -Name "MathRecognizer~~~~0.0.1.0"
+#  add-windowscapability -online -Name "Microsoft.Windows.MSPaint~~~~0.0.1.0"
+#  add-windowscapability -online -Name "Microsoft.Windows.Notepad~~~~0.0.1.0"
+#  add-windowscapability -online -Name "Microsoft.Windows.PowerShell.ISE~~~~0.0.1.0" # Not reinstallable
+#  add-windowscapability -online -Name "Windows.Client.ShellComponents~~~~0.0.1.0" # Not reinstallable
+#  add-windowscapability -online -Name "OpenSSH.Client~~~~0.0.1.0" # Not reinstallable
+#  add-windowscapability -online -Name "Language.Basic~~~en-GB~0.0.1.0"
+#  add-windowscapability -online -Name Language.Handwriting~~~en-GB~0.0.1.0
+#  add-windowscapability -online -Name Language.OCR~~~en-GB~0.0.1.0
+#  add-windowscapability -online -Name Language.Speech~~~en-GB~0.0.1.0
+#  add-windowscapability -online -Name Language.TextToSpeech~~~en-GB~0.0.1.0
+#  add-windowscapability -online -Name Microsoft.Windows.WordPad~~~~0.0.1.0
+#  add-windowscapability -online -Name OneCoreUAP.OneSync~~~~0.0.1.0
+#  add-windowscapability -online -Name Print.Fax.Scan~~~~0.0.1.0 # this could probably be handy? - Not reinstallable
 }
 disable_win_feature
+
+# To replace the command in harden-*.cmd 
+Repair-WindowsImage -CheckHealth -ScanHealth -RestoreHealth -StartComponentCleanup -ResetBase -NoRestart -Online
+
+# note: https://learn.microsoft.com/en-us/powershell/module/dism/?view=windowsserver2022-ps 
+# Get-NonRemovableAppsPolicy -Online  # or -Path ".\wim\image.wim"
+# Set-NonRemovableAppsPolicy -Online -PackageFamilyName Application1_1.0.0.0+x64__ms7gsqeatfeb6 -NonRemovable 0
+# Get-AppxProvisionedPackage -Online 
+# Remove-AppxProvisionedPackage -PackageName MyAppxPkg -AllUsers -Online <package_name>
+# Remove-WindowsDriver -Path "c:\offline" -Driver "OEM1.inf"
+# Optimize-AppXProvisionedPackages -Online 
+# Optimize-WindowsImage -Path "c:\" -OptimizationTarget "WIMBoot" 
+# https://learn.microsoft.com/en-us/powershell/module/dism/new-windowsimage?view=windowsserver2022-ps :
+# New-WindowsImage -ImagePath "c:\imagestore\custom.wim" -CapturePath "d:\" -Name "Drive D"
+# https://learn.microsoft.com/en-us/powershell/module/dism/export-windowsimage?view=windowsserver2022-ps
+# Export-WindowsImage -SourceImagePath C:\imagestore\custom.wim -SourceIndex 1 -DestinationImagePath c:\imagestore\export.wim -DestinationName "Exported Image"
+# Export-WindowsImage -CheckIntegrity -SourceImagePath C:\imagestore\custom.wim -SourceIndex 1 -DestinationImagePath c:\imagestore\export.wim -DestinationName "Exported Image" -Setbootable -WIMBoot
 
 # todo: detect if the running windows meets the requirements
 # https://learn.microsoft.com/en-us/windows/security/application-security/application-isolation/windows-sandbox/windows-sandbox-overview
 # https://learn.microsoft.com/en-us/windows/security/application-security/application-isolation/windows-sandbox/windows-sandbox-configure-using-wsb-file
-# VM_Config.wsb
+# VM_Config.wsb :
+#
 # <Configuration>
 #   <MappedFolders>
 #    <MappedFolder>
@@ -79,12 +101,17 @@ disable_win_feature
 #  </MappedFolders>
 # <AudioInput>Disable</AudioInput>
 # <VideoInput>Disable</VideoInput>
+#
+# https://learn.microsoft.com/en-us/windows/win32/secauthz/appcontainer-isolation
 # AppContainer Isolation provides Credential, Device, File, Network, Process, and Window isolation.
 # <ProtectedClient>Enable</ProtectedClient>
+#
 # Printer sharing is disabled by default
 # <PrinterRedirection>Enable</PrinterRedirection> 
+#
 # Clipboard sharing is enabled by default 
 # <ClipboardRedirection>Disable</ClipboardRedirection>
+#
 # <MemoryInMB>value</MemoryInMB>
 #
 #   <LogonCommand>
@@ -97,6 +124,7 @@ disable_win_feature
 #
 # 
 # </Configuration>
+# EOF VM_Config.wsb
 #
 #  to swap the primary mouse button for left-handed users:
 # https://learn.microsoft.com/en-us/windows/security/application-security/application-isolation/windows-sandbox/windows-sandbox-configure-using-wsb-file#swapmousewsb
