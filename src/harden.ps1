@@ -53,3 +53,27 @@ disable_win_feature
 Set-VMProcessor -VMName VM-Sandbox -ExposeVirtualizationExtensions $true
 Update-VMVersion -VMName VM-Sandbox
 Enable-WindowsOptionalFeature -FeatureName "Containers-DisposableClientVM" -All -Online
+
+# Make this a choice
+# Docs: 
+# https://learn.microsoft.com/en-us/windows/win32/secprov/getencryptionmethod-win32-encryptablevolume
+# https://learn.microsoft.com/en-us/windows/security/operating-system-security/data-protection/bitlocker/operations-guide?tabs=powershell#bitlocker-powershell-module 
+# https://learn.microsoft.com/en-us/powershell/module/bitlocker/add-bitlockerkeyprotector?view=windowsserver2022-ps
+# https://learn.microsoft.com/en-us/powershell/module/bitlocker/enable-bitlocker?view=windowsserver2022-ps
+# 
+# "BitLocker automatically encrypts internal drives during the out-of-box experience (OOBE) "
+
+# Disable for devices in need of performance over security 
+# Disable-Bitlocker
+
+# $sysdrive =  $Env:SystemDrive
+#
+# Rip from MS docs - note "Allow BitLocker without a compatible TPM " is set in harden.reg
+# $pw = Read-Host -AsSecureString
+# Add-BitLockerKeyProtector E: -PasswordProtector -Password $pw
+
+# Add-BitLockerKeyProtector -MountPoint C -RecoveryPasswordProtector
+# $SecureString = ConvertTo-SecureString "123456" -AsPlainText -Force
+# Enable-BitLocker $sysdrive -StartupKeyProtector -EncryptionMethod XtsAes256 -Pin $SecureString # -TPMandPinProtector # -TpmProtector
+
+
