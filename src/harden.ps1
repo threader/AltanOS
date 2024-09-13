@@ -40,8 +40,7 @@ Disable-WindowsOptionalFeature -NoRestart -Online -FeatureName Microsoft-RemoteD
 Disable-WindowsOptionalFeature -NoRestart -Online -FeatureName WorkFolders-Client
 Disable-WindowsOptionalFeature -NoRestart -Online -FeatureName Printing-Foundation-Internetprinting-Client
 Disable-WindowsOptionalFeature -NoRestart -Online -FeatureName MSRDC-Infrastructure
-# im not even on a pc or remotely close to home but read about this, more reading to follow i guess.
-# it may be possible to run something like the get-appxpackage | remove-appxpackage
+ 
 # https://learn.microsoft.com/en-us/powershell/module/dism/get-windowscapability?view=windowsserver2022-ps
 # https://learn.microsoft.com/en-us/powershell/module/dism/remove-windowscapability?view=windowsserver2022-ps
 # Get-WindowsCapability -online | Where-Object { $_.Name -like '*VBSCRIPT*' } | Remove-WindowsCapability -online
@@ -66,6 +65,10 @@ Get-WindowsCapability -online | Where-Object { ($_.Name) -and ($_.State -like 'I
 #  add-windowscapability -online -Name Microsoft.Windows.WordPad~~~~0.0.1.0
 #  add-windowscapability -online -Name OneCoreUAP.OneSync~~~~0.0.1.0
 #  add-windowscapability -online -Name Print.Fax.Scan~~~~0.0.1.0 # this could probably be handy? - Not reinstallable
+
+# 
+# Get-AppXProvisionedPackage -online | Where-Object { ($_.PackageName) -and ($_.PackageName -notlike "Microsoft.DesktopAppInstaller*") -and ($_.PackageName -notlike "Microsoft.HEIFImageExtension*") -and ($_.PackageName -notlike "Microsoft.MicrosoftSolitarireCollection**") -and ($_.PackageName -notlike "Mictosoft.MSPaint*") -and ($_.PackageName -notlike "Micosoft.StorePurchaseApp*") -and ($_.PackageName -notlike "Microsoft.VCLibs*") -and ($_.PackageName -notlike "Microsoft.VP9VideoEstensions*") -and ($_.PackageName -notlike "Microsoft.Web*Extension*") -and ($_.PackageName -notlike "Microsoft.Wallet*") -and ($_.PackageName -notlike "Microsoft.Windows.DevHome*") -and ($_.PackageName -notlike "Microsoft.WindowsAlarms*") -and ($_.PackageName -notlike "Microsoft.WindowsCalculator*") | Remove-AppxProvisionedPackage -AllUsers -Online -PackageName  }
+
 }
 disable_win_feature
 
