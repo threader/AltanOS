@@ -50,6 +50,50 @@ disable_win_feature
 
 # todo: detect if the running windows meets the requirements
 # https://learn.microsoft.com/en-us/windows/security/application-security/application-isolation/windows-sandbox/windows-sandbox-overview
+# https://learn.microsoft.com/en-us/windows/security/application-security/application-isolation/windows-sandbox/windows-sandbox-configure-using-wsb-file
+# VM_Config.wsb
+# <Configuration>
+#   <MappedFolders>
+#    <MappedFolder>
+#     <HostFolder>C:\Users\Public\Downloads</HostFolder>
+#     <SandboxFolder>C:\Users\WDAGUtilityAccount\Downloads</SandboxFolder>
+#     <ReadOnly>Enable</ReadOnly>
+#    </MappedFolder>
+#  </MappedFolders>
+# <AudioInput>Disable</AudioInput>
+# <VideoInput>Disable</VideoInput>
+# AppContainer Isolation provides Credential, Device, File, Network, Process, and Window isolation.
+# <ProtectedClient>Enable</ProtectedClient>
+# Printer sharing is disabled by default
+# <PrinterRedirection>Enable</PrinterRedirection> 
+# Clipboard sharing is enabled by default 
+# <ClipboardRedirection>Disable</ClipboardRedirection>
+# <MemoryInMB>value</MemoryInMB>
+#
+#   <LogonCommand>
+#    <Command>explorer.exe C:\users\WDAGUtilityAccount\Downloads</Command>
+#  </LogonCommand>
+#
+#  <LogonCommand>
+#    <Command>powershell.exe -ExecutionPolicy Bypass -File C:\sandbox\SwapMouse.ps1</Command>
+#  </LogonCommand>
+#
+# 
+# </Configuration>
+#
+#  to swap the primary mouse button for left-handed users:
+# https://learn.microsoft.com/en-us/windows/security/application-security/application-isolation/windows-sandbox/windows-sandbox-configure-using-wsb-file#swapmousewsb
+# SwapMouse.ps1:
+# [Reflection.Assembly]::LoadWithPartialName("System.Windows.Forms") | Out-Null
+#
+# $SwapButtons = Add-Type -MemberDefinition @'
+# [DllImport("user32.dll")]
+# public static extern bool SwapMouseButton(bool swap);
+# '@ -Name "NativeMethods" -Namespace "PInvoke" -PassThru
+
+# $SwapButtons::SwapMouseButton(!([System.Windows.Forms.SystemInformation]::MouseButtonsSwapped))
+
+#
 Set-VMProcessor -VMName VM-Sandbox -ExposeVirtualizationExtensions $true
 Update-VMVersion -VMName VM-Sandbox
 Enable-WindowsOptionalFeature -FeatureName "Containers-DisposableClientVM" -All -Online
@@ -72,8 +116,12 @@ Enable-WindowsOptionalFeature -FeatureName "Containers-DisposableClientVM" -All 
 # $pw = Read-Host -AsSecureString
 # Add-BitLockerKeyProtector E: -PasswordProtector -Password $pw
 
-# Add-BitLockerKeyProtector -MountPoint C -RecoveryPasswordProtector
+# Add-BitLockerKeyProtector -MountPoint $sysdrive -RecoveryPasswordProtector
 # $SecureString = ConvertTo-SecureString "123456" -AsPlainText -Force
 # Enable-BitLocker $sysdrive -StartupKeyProtector -EncryptionMethod XtsAes256 -Pin $SecureString # -TPMandPinProtector # -TpmProtector
+#
+# Obtain the ID of the new recovery password:
+# (Get-BitLockerVolume -mountpoint $env:SystemDrive).KeyProtector | where-object {$_.KeyProtectorType -eq 'RecoveryPassword'} | ft KeyProtectorId,RecoveryPassword
+
 
 
