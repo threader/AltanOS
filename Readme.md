@@ -85,7 +85,7 @@ There are certainly other options that could be enabled.
 - https://learn.microsoft.com/en-us/powershell/module/processmitigations/set-processmitigation?view=windowsserver2022-ps
 
 * [exploitguard](https://github.com/palantir/exploitguard/) - Added to AltanOS/src/harden.ps1 
-* [Windows-Defender-Exploit-Guard-Configuration](https://github.com/gunnarhaslinger/Windows-Defender-Exploit-Guard-Configuration) - Runs AltanOS/wdegc/Windows10_ExploitGuard-Config.ps1 (this needs more investigation)
+* [Windows-Defender-Exploit-Guard-Configuration](https://github.com/threader/Windows-Defender-Exploit-Guard-Configuration) - Runs AltanOS/wdegc/Enable-ExploitGuard-AttackSurfaceReduction.ps1 originally by [Gunnar Haslinger](https://github.com/gunnarhaslinger/).
 
 Disabled: 
  * SMB1
