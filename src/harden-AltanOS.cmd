@@ -9,6 +9,7 @@ echo Setting up and hardening Windows.
 IF "%PROCESSOR_ARCHITECTURE%"=="AMD64" (set niarchbit=-64)
 IF "%PROCESSOR_ARCHITECTURE%"=="AMD64" (set nsarchbit=x64
 ) ELSE (set nsarchbit=Win32)
+
 set "altanosdir=%cd%"
 set "usedir=%SystemDrive%\AltanOS.inst" 
 set "wingetinstdcmd=winget install --disable-interactivity --accept-source-agreements"
@@ -406,6 +407,7 @@ echo Disablng WMP and IE, enable Hyper-V and WSL
  reg add "HKCU\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32" /f /ve
 
 %powshadmcmd% "%altanosdir%\src\harden.ps1"
+:: https://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference
 %powshadmcmd% "%altanosdir%\wdegc\Enable-ExploitGuard-AttackSurfaceReduction.ps1"
 
  :: echo info: cleaning the winsxs folder - bah this needs to be done after a reboot 
