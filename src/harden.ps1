@@ -67,20 +67,31 @@ Get-WindowsCapability -online | Where-Object { ($_.Name) -and ($_.State -like 'I
 #  add-windowscapability -online -Name Print.Fax.Scan~~~~0.0.1.0 # this could probably be handy? - Not reinstallable
 
 # 
+ $GET_APPXPPACKAGE_ALL = Get-AppXProvisionedPackage -online | Where-Object { ($_.PackageName) }
  $GET_APPXPPACKAGE = Get-AppXProvisionedPackage -online | Where-Object { ($_.PackageName) -and ($_.PackageName -notlike "Microsoft.DesktopAppInstaller*") -and ($_.PackageName -notlike "Microsoft.HEIFImageExtension*") -and ($_.PackageName -notlike "Microsoft.MicrosoftSolitaireCollection*") -and ($_.PackageName -notlike "Microsoft.MSPaint*") -and ($_.PackageName -notlike "Microsoft.MicrosoftStickyNotes") -and ($_.PackageName -notlike "Microsoft.Windows.Photos*") -and ($_.PackageName -notlike "Microsoft.MicrosoftEdge*") -and ($_.PackageName -notlike "Microsoft.StorePurchaseApp*") -and ($_.PackageName -notlike "Microsoft.VP9*") -and ($_.PackageName -notlike "Microsoft.VP9VideoExtensions*") -and ($_.PackageName -notlike "Microsoft.Web*Extension*") -and ($_.PackageName -notlike "Microsoft.Wallet*") -and ($_.PackageName -notlike "Microsoft.Windows.DevHome*") -and ($_.PackageName -notlike "Microsoft.WindowsStore*") -and ($_.PackageName -notlike "Microsoft.WindowsMaps*")  -and ($_.PackageName -notlike "Microsoft.WindowsSoundRecorder*") -and ($_.PackageName -notlike "Microsoft.VCLibs*") -and ($_.PackageName -notlike "Microsoft.VP9VideoEstension*") -and ($_.PackageName -notlike "Microsoft.Web*Extension*") -and ($_.PackageName -notlike "Microsoft.Wallet*") -and ($_.PackageName -notlike "Microsoft.Windows.DevHome*") -and ($_.PackageName -notlike "Microsoft.WindowsAlarms*") -and ($_.PackageName -notlike "Microsoft.WindowsCalculator*") }
  $GET_APPXPPACKAGE_NAME = Write-Output $GET_APPXPPACKAGE.PackageName
-  # Write-Output $GET_APPXPPACKAGE_NAME
- 
+ $GET_APPXPPACKAGE_NAME = Write-Output $GET_APPXPPACKAGE_ALL.PackageName
+  # Write-Output $GET_APPXPPACKAGE_NAME_ALL
+        
  ForEach ($_ in $GET_APPXPPACKAGE_NAME) {
-   Write-Output $_
+   Write-Output "---------------------------------------------" 
+   Write-Output "Packages list prior:"
+   Write-Output $GET_APPXPPACKAGE_NAME_ALL
+   Write-Output "---------------------------------------------" 
+   Write-Output "Packages to be removed: $_"
    Remove-AppxProvisionedPackage -AllUsers -Online -PackageName $_
+   Write-Output "---------------------------------------------" 
+   Write-Output "Packages list after:"
+   Write-Output $GET_APPXPPACKAGE_NAME_ALL
  }
 
 }
 disable_win_feature
 
-# To replace the command in harden-*.cmd 
-Repair-WindowsImage -CheckHealth -ScanHealth -RestoreHealth -StartComponentCleanup -ResetBase -NoRestart -Online
+$sysdrive =  $Env:SystemDrive
+# To replace the command in harden-*.cmd - https://learn.microsoft.com/en-us/powershell/module/dism/repair-windowsimage?view=windowsserver2022-ps
+ Repair-WindowsImage -Online -RestoreHealth -Source "Ssysdrive\Windows\WinSxS" 
+# Repair-WindowsImage -CheckHealth -ScanHealth -RestoreHealth -StartComponentCleanup -ResetBase -NoRestart -Online
 
 # note: https://learn.microsoft.com/en-us/powershell/module/dism/?view=windowsserver2022-ps 
 # Get-NonRemovableAppsPolicy -Online  # or -Path ".\wim\image.wim"
