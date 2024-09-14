@@ -26,5 +26,5 @@ enable_win_packages
  $GET_APPXPPACKAGE_NAME = Write-Output $GET_APPXPPACKAGE.PackageName
 
  ForEach ($_ in $GET_APPXPPACKAGE_NAME) {
-   Remove-AppxProvisionedPackage -AllUsers -Online -PackageName $GET_APPXPPACKAGE_NAME
+   Remove-AppxProvisionedPackage -AllUsers -Online -PackageName $_ # crap i cant remember what was correct anymore...
 }
