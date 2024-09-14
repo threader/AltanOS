@@ -44,8 +44,15 @@ Disable-WindowsOptionalFeature -NoRestart -Online -FeatureName MSRDC-Infrastruct
 # https://learn.microsoft.com/en-us/powershell/module/dism/get-windowscapability?view=windowsserver2022-ps
 # https://learn.microsoft.com/en-us/powershell/module/dism/remove-windowscapability?view=windowsserver2022-ps
 # Get-WindowsCapability -online | Where-Object { $_.Name -like '*VBSCRIPT*' } | Remove-WindowsCapability -online
-
+   Write-Output "---------------------------------------------" 
+   Write-Output "WindowsCapability list prior:"         
+Get-WindowsCapability -online | Where-Object { ($_.Name) -and ($_.State -like 'Installed') }
+   Write-Output "---------------------------------------------" 
 Get-WindowsCapability -online | Where-Object { ($_.Name) -and ($_.State -like 'Installed') -and ($_.Name -notlike "Language.Basic*") -and ($_.Name -notlike "Language.Handwriting*") -and ($_.Name -notlike "Windows.Client.ShellComponents*") -and ($_.Name -notlike "OpenSSH.Client*") -and ($_.Name -notlike "Microsoft.Windows.Powershell.ISE*") -and ($_.Name -notlike "Microsoft.Windows.Notepad*") -and ($_.Name -notlike "Microsoft.Windows.MSPaint") -and ($_.Name -notlike "MathRecognizer*") -and ($_.Name -notlike "Print.Fax.Scan") | Remove-WindowsCapability -online }
+   Write-Output "---------------------------------------------" 
+   Write-Output "WindowsCapability list after:" 
+Get-WindowsCapability -online | Where-Object { ($_.Name) -and ($_.State -like 'Installed') }
+   Write-Output "---------------------------------------------" 
 
 # to check installed:
 # Get-WindowsCapability -online | Where-Object { ($_.Name) -and ($_.State -like 'Installed') }
