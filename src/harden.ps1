@@ -114,6 +114,7 @@ $sysdrive =  $Env:SystemDrive
 # Export-WindowsImage -SourceImagePath C:\imagestore\custom.wim -SourceIndex 1 -DestinationImagePath c:\imagestore\export.wim -DestinationName "Exported Image"
 # Export-WindowsImage -CheckIntegrity -SourceImagePath C:\imagestore\custom.wim -SourceIndex 1 -DestinationImagePath c:\imagestore\export.wim -DestinationName "Exported Image" -Setbootable -WIMBoot
 
+# Quick note: maybe export the resulting image to a https://github.com/threader/Create-BitLocker-Encrypted-VHDX-Virtual-Disk-Containerfile and drop into that if not on win pro?
 # todo: detect if the running windows meets the requirements
 # https://learn.microsoft.com/en-us/windows/security/application-security/application-isolation/windows-sandbox/windows-sandbox-overview
 # https://learn.microsoft.com/en-us/windows/security/application-security/application-isolation/windows-sandbox/windows-sandbox-configure-using-wsb-file
