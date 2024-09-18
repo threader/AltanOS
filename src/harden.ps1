@@ -127,7 +127,16 @@ $sysdrive =  $Env:SystemDrive
 # https://archive.org/details/windows-2000-kb-935839-v-30e-x-86-extendedkernel-enu
 # https://w2k.phreaknet.org/guide 
 # https://www.reddit.com/r/windows2000/comments/10jbglp/windows_2000_in_2023_and_more/ 
-# Right, this could be fun :D 
+# Right, this could be fun :D --- huhm, i believe win2k could be stripped rather hard in it self, does OneFileLinux have a companion?
+# hmm. continuing that trail of thought, maybe get something around win7(x86/x64) or so, see how far that can be stripped, use that 
+# as something of a recovery for windows stuff, have win2k handy for booting in something like an .efi or load fron grub/2/wingrub/ whatever 
+# in either case, i also wonder if it's possible to somehow chainload upwards in some fasion, create all sorts of imaginable recovery
+# options and see what floats what. having win2k booted in ram sounds rather cool either way so i think i'll start there slowly.
+# I guess the next reasonable version is win2003 etc, maybe research the server releases here as this isnt to be used at bastille and
+# for recovery and research anyway. huhm, that wound mean if onefilelinux incudeed qemu... there are chances of recovery there. 
+# as like fixing ntfs volumes requires a proper ntfs.dll version etc , not to mention this bitlocker madnsess... in the end 
+# i fully expect to be stuffing things trough an early version as possible bitlocker to if i so must shoehorn something in
+# win7-x64 or whatever the earliest can be made to decrypt win10/11 etc. bitlocker encrypted volumes?
 
 
 # Maybe have an encrypted WMI or whatever that you boot from, mabye encrypt the windows folder 
