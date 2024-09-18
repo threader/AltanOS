@@ -102,7 +102,18 @@ $sysdrive =  $Env:SystemDrive
 
 # https://mspoweruser.com/how-to-use-staging-tool/
 # https://www.theverge.com/2023/8/3/23818363/microsoft-windows-11-stagingtool-leak-secret-features
-# https://rentry.co/build-win2k3 is always on option. a version with EFI would be nice though. could be fun research some time though. maybe seg up these windows scripts to bulld thay windows might be a bit fun, its an historic relic anyway.
+# https://rentry.co/build-win2k3 is always on option. a version with EFI would be nice though.
+# could be fun research some time though. maybe seg up these windows scripts to bulld thay windows might be a bit fun, its an historic relic anyway.
+# https://archive.org/download/microsoftSrcLeakCollection/misc/ebooks/Undocumented%20Windows%202000%20Secrets%20-%20The%20Programmers%20Cookbook.7z
+# https://archive.org/download/ws03_ntdev/How%20to%20compile%20Windows%20Server%202003.mp4
+# https://archive.org/download/microsoftSrcLeakCollection/windows_research_kernel/Windows%20Kernel%20Source%20Code%20like.7z
+# wassat? https://archive.org/download/microsoftSrcLeakCollection/misc/OpenNT_final_build.7z
+# https://archive.org/download/microsoftSrcLeakCollection/nt5src.7z 
+# https://archive.org/download/microsoftSrcLeakCollection/windows_2000_source_code.7z
+# https://archive.org/download/microsoftSrcLeakCollection/windows_nt_4_source_code.7z 
+# https://archive.org/download/microsoftSrcLeakCollection/windows_nt_3_5_source_code.7z
+# https://archive.org/download/microsoftSrcLeakCollection/ms_dos_6_0_source_code.7z
+
 # note :
 # It is my opinion that encrypting the entire HDD is a complete waste of read/write cycles, 
 # using something like a bellow encrypted throw away disposable VM image or really something makes more sense. 
