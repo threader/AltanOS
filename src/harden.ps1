@@ -114,6 +114,21 @@ $sysdrive =  $Env:SystemDrive
 # be running on "'win2k'" with all those whacky backports that was floating around.  
 # Since i'm a sucker for backwards and fowards compabilbity, at least try to make notes of breakge and possible w/a
 
+# hmm, win2k... hmmm thats been a while, might be handy to have a bootable image to boot from usb, no?
+# this is for research and i hope some verified valied sources can be found so this too can be handled 
+# from the ground up, "easily", i'm sure this will be real quick, i mean, how much fuss can win2k 
+# and all the patched until extended EOL support or whatever and finding some sort of 
+# verified link to the 2bn patches for that really be, anyway? and what about crawiling up the windowses 
+# to have them all handy on one bootable usb drive for support, reaserch etc? 
+
+# Where to begin. ... 
+# https://archive.org/details/win2kproiso
+# https://archive.org/details/Windows2000_en-us 
+# https://archive.org/details/windows-2000-kb-935839-v-30e-x-86-extendedkernel-enu
+# https://w2k.phreaknet.org/guide 
+# https://www.reddit.com/r/windows2000/comments/10jbglp/windows_2000_in_2023_and_more/ 
+# Right, this could be fun :D 
+
 
 # Maybe have an encrypted WMI or whatever that you boot from, mabye encrypt the windows folder 
 # maybe encrypt the /Users/<user> foler or maybe just documents or pictures or something. ,
