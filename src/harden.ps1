@@ -184,13 +184,18 @@ $sysdrive =  $Env:SystemDrive
 # ESP/EFI Partition: 512mb fat16
 #  * One File Linux w/GRUB and Win2kX .wmi
 # BOOT
-# BOOT encypted (kexex vmlinux from here and have grub decrypt the volume in OFL? for "other-os",.efi etc? and rest of available .wim files)
+# BOOT encypted (kexex vmlinux from here and have grub decrypt the volume in OFL? for "other-os",.efi etc? and rest of available .wim .iso .img and whatever GRUB supports.)
 # RECOVERY_BASIC 
 # * (Win2008 or the first basic common denomenator that supports the generation laptop and the requierd versions
+# * Windows-*.iso or something that can be sha256 compared and verified or someting
 # something with bitlocker compatible with win 10/11 say) 
 # * (a debian stable to chroot to from One File Linux or something)
+# * Debian Stable-netinst or something - updated trough som0e process regularly
 # RECOVERY_ENCRYPTED_OR_WHATEVER(if needed for increased security or maybe use this as the backup partition)
+# * Windows-*.iso or something that can be sha256 compared and verified or someting
 # * Encrypted volume or image files of some sort
+# * (a debian stable to chroot to from One File Linux or something)
+# * Debian Stable-netinst or something - updated trough some process regularly
 # SYSTEM (NTFS)
 # * Win 10/11 ( user ) *image 
 # * Win 2016/2025 * Images 
