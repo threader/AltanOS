@@ -102,10 +102,14 @@ $sysdrive =  $Env:SystemDrive
 
 
 # note :
-# It is my opinion that encrypting the entire HDD is a complete waste of writecycles, 
-# using something like a bellow encrypted throw away disposable VM or something makes more sense.
+# It is my opinion that encrypting the entire HDD is a complete waste of read/write cycles, 
+# using something like a bellow encrypted throw away disposable VM image or really something makes more sense. nb. maintainability and backup in case of emergency ?
 # Maybe have an encrypted WMI or whatever that you boot from, mabye encrypt the windows folder 
-# maybe encrypt the /Users/<user> foler or maybe just documents or pictures or something. 
+# maybe encrypt the /Users/<user> foler or maybe just documents or pictures or something. ,
+# Reasonably, id say create an encrypted 'stable' windows image and store somewhere as a backup anyway, 
+# and copy this and use it as the regular 'day to day' boot image. create another encrypted image
+# and store /users/ in , and this can be on something like d:  
+
 # Make this a choice
 # Docs: 
 # https://learn.microsoft.com/en-us/windows/win32/secprov/getencryptionmethod-win32-encryptablevolume
