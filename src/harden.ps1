@@ -136,7 +136,7 @@ $sysdrive =  $Env:SystemDrive
 # for recovery and research anyway. huhm, that wound mean if onefilelinux incudeed qemu... there are chances of recovery there. 
 # as like fixing ntfs volumes requires a proper ntfs.dll version etc , not to mention this bitlocker madnsess... in the end 
 # i fully expect to be stuffing things trough an early version as possible bitlocker to if i so must shoehorn something in
-# win7-x64 or whatever the earliest can be made to decrypt win10/11 etc. bitlocker encrypted volumes?
+# win7-x64 or whatever the earliest can be made to decrypt win10/11 etc. bitlocker encrypted volumes? hrmf, ReactOS or.. something...?
 
 
 # Maybe have an encrypted WMI or whatever that you boot from, mabye encrypt the windows folder 
