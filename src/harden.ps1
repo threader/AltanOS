@@ -179,6 +179,11 @@ $sysdrive =  $Env:SystemDrive
 # win2k/03/08 compatible unencrypted ntfs c:\ with encerypted %Documents% %programfiles% etc.. etc.. it's really just a matter 
 # of exporting the .reg for programs to run across platforms anwyay so you could have a sit. where you have a drive r: with .reg
 # and other config files and just boot any random WinNT version and rock on... hmmm  
+
+# might as well start takinnh all the notes on how to properly export microsoft .efi files, bootrect and sll that etc. thank god i already did s bit of thst again already 
+ # https://learn.microsoft.com/en-us/windows-hardware/manufacture/desktop/windows-setup-installing-using-the-mbr-or-gpt-partition-style?view=windows-11
+
+
  
 # Mkay my draft proposal of the layout for this I would like to be something like: 
 # ESP/EFI Partition: 512mb fat16
