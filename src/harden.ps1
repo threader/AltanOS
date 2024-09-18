@@ -128,6 +128,7 @@ $sysdrive =  $Env:SystemDrive
 # https://w2k.phreaknet.org/guide 
 # https://www.reddit.com/r/windows2000/comments/10jbglp/windows_2000_in_2023_and_more/ 
 # could i get away with grabbing SP4 and the extended kernel and replacing it with win 10 maybe?
+# there was a time when wine happily chewed windows .dll's, those old versions could come in handy developing the win2kX images.
 # Right, this could be fun :D --- huhm, i believe win2k could be stripped rather hard in it self, does OneFileLinux have a companion?
 # hmm. continuing that trail of thought, maybe get something around win7(x86/x64) or so, see how far that can be stripped, use that 
 # as something of a recovery for windows stuff, have win2k handy for booting in something like an .efi or load fron grub/2/wingrub/ whatever 
