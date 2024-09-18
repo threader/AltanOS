@@ -103,7 +103,18 @@ $sysdrive =  $Env:SystemDrive
 
 # note :
 # It is my opinion that encrypting the entire HDD is a complete waste of read/write cycles, 
-# using something like a bellow encrypted throw away disposable VM image or really something makes more sense. nb. maintainability and backup in case of emergency ? it is afer all a lot easier to ask the user 'do you happen to remember your users/ passwo, your windows/system password or %programfiles% or Documents password than do you remember your password and 'oh yeah have you maybe seen that 128 digit hex decimal or whatever hash that flew by that one time you'r computer crashed' 
+# using something like a bellow encrypted throw away disposable VM image or really something makes more sense. 
+# nb. maintainability and backup in case of emergency ? it is afer all a lot easier to ask the user 'do you happen to remember 
+# your users/ passwo, your windows/system password or %programfiles% or Documents password than do you remember your password and 
+#'oh yeah have you maybe seen that 128 digit hex decimal or whatever hash that flew by that one time you'r computer crashed'. 
+
+# while im noting notes, keep the VM encryption script in .bat or .cmd or so, these scripts are with 
+# probably little to no modification compatible as far back as powershell goes? and even then the .ps1 
+# scripts can simply be dropped and you have a reasonable result, or what do i know, powershell might 
+# be running on "'win2k'" with all those whacky backports that was floating around.  
+# Since i'm a sucker for backwards and fowards compabilbity, at least try to make notes of breakge and possible w/a
+
+
 # Maybe have an encrypted WMI or whatever that you boot from, mabye encrypt the windows folder 
 # maybe encrypt the /Users/<user> foler or maybe just documents or pictures or something. ,
 # Reasonably, id say create an encrypted 'stable' windows image and store somewhere as a backup anyway, 
