@@ -144,6 +144,27 @@ $sysdrive =  $Env:SystemDrive
 # win2k/03/08 compatible unencrypted ntfs c:\ with encerypted %Documents% %programfiles% etc.. etc.. it's really just a matter 
 # of exporting the .reg for programs to run across platforms anwyay so you could have a sit. where you have a drive r: with .reg
 # and other config files and just boot any random WinNT version and rock on... hmmm  
+ 
+# Mkay my draft proposal of the layout for this I would like to be something like: 
+# ESP/EFI Partition: 512mb fat16
+#  * One File Linux w/GRUB and Win2kX .wmi
+# RECOVERY_BASIC 
+# * (Win2008 or the first basic common denomenator that supports the generation laptop and the requierd versions
+# something with bitlocker compatible with win 10/11 say) 
+# * (a debian stable to chroot to from One File Linux or something)
+# RECOVERY_ENCRYPTED_OR_WHATEVER(if needed for increased security or maybe use this as the backup partition)
+# * Encrypted volume or image files of some sort
+# SYSTEM (NTFS)
+# * Win 10/11 ( user ) *image 
+# * Win 2016/2025 * Images 
+# * Win 2008/2012??? * Images 
+# SYSTEM ( EXT 4 )
+# u know what to do
+# BACKUP
+# Then comes what to do, or how to handle things so that we can have users/ %programfiles% (most interesting right now since there 
+# will be some switching between the early winnt versions as a startingpoint here etc. on a different "HDD" alltogether etc and have 
+# this work like mount -o loop etc. 
+
 
 
 # Maybe have an encrypted WMI or whatever that you boot from, mabye encrypt the windows folder 
