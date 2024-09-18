@@ -175,6 +175,8 @@ $sysdrive =  $Env:SystemDrive
 # Mkay my draft proposal of the layout for this I would like to be something like: 
 # ESP/EFI Partition: 512mb fat16
 #  * One File Linux w/GRUB and Win2kX .wmi
+# BOOT
+# BOOT encypted (kexex vmlinux from here and have grub decrypt the volume in OFL? for "other-os",.efi etc? and rest of available .wim files)
 # RECOVERY_BASIC 
 # * (Win2008 or the first basic common denomenator that supports the generation laptop and the requierd versions
 # something with bitlocker compatible with win 10/11 say) 
