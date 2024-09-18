@@ -137,6 +137,12 @@ $sysdrive =  $Env:SystemDrive
 # as like fixing ntfs volumes requires a proper ntfs.dll version etc , not to mention this bitlocker madnsess... in the end 
 # i fully expect to be stuffing things trough an early version as possible bitlocker to if i so must shoehorn something in
 # win7-x64 or whatever the earliest can be made to decrypt win10/11 etc. bitlocker encrypted volumes? hrmf, ReactOS or.. something...?
+# christ , what is this, my theisis is OS design; what about making everything configurable, creating all the above mentioned versions
+# and why not include everything from some DOS to some franken Win9x/ME thing or something. I'm pretty sure you could just run GRUB from
+# OFL.efi already so it would be just a matter of mounting the .img/.iso/.wmi or something. so then the design would be something like:
+# win2k/03/08 compatible unencrypted ntfs c:\ with encerypted %Documents% %programfiles% etc.. etc.. it's really just a matter 
+# of exporting the .reg for programs to run across platforms anwyay so you could have a sit. where you have a drive r: with .reg
+# and other config files and just boot any random WinNT version and rock on... hmmm  
 
 
 # Maybe have an encrypted WMI or whatever that you boot from, mabye encrypt the windows folder 
