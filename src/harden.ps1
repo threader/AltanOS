@@ -141,6 +141,14 @@ $sysdrive =  $Env:SystemDrive
 # https://w2k.phreaknet.org/guide 
 # https://www.reddit.com/r/windows2000/comments/10jbglp/windows_2000_in_2023_and_more/ 
 
+# this should be interesting enough 
+# https://github.com/threader/WinNT4
+# https://github.com/threader/win2k
+# https://github.com/threader/nt5src
+# https://github.com/threader/Windows-Server-2003
+# https://github.com/threader/ntoskrnl
+# https://github.com/threader/NTOSKRNL_Emu
+# https://github.com/threader/Easy-Build-2k
 
 # niice https://archive.org/details/windows-nt-4_202102
 # Nt 4 note:
