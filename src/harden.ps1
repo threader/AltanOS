@@ -100,7 +100,9 @@ $sysdrive =  $Env:SystemDrive
  Repair-WindowsImage -Online -RestoreHealth -Source "Ssysdrive\Windows\WinSxS" 
 # Repair-WindowsImage -CheckHealth -ScanHealth -RestoreHealth -StartComponentCleanup -ResetBase -NoRestart -Online
 
-
+# https://mspoweruser.com/how-to-use-staging-tool/
+# https://www.theverge.com/2023/8/3/23818363/microsoft-windows-11-stagingtool-leak-secret-features
+# https://rentry.co/build-win2k3 is always on option. a version with EFI would be nice though. could be fun research some time though. maybe seg up these windows scripts to bulld thay windows might be a bit fun, its an historic relic anyway.
 # note :
 # It is my opinion that encrypting the entire HDD is a complete waste of read/write cycles, 
 # using something like a bellow encrypted throw away disposable VM image or really something makes more sense. 
