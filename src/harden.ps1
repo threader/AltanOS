@@ -143,6 +143,7 @@ $sysdrive =  $Env:SystemDrive
 
 # this should be interesting enough 
 # https://github.com/threader/WinNT4
+# * this actually opens the door for rapid development and twsting of say a 64 bit NT4? with AHCI SATA drivers and a newer ntfs.dll and whatever
 # https://github.com/threader/win2k
 # https://github.com/threader/nt5src
 # https://github.com/threader/Windows-Server-2003
