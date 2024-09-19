@@ -216,7 +216,10 @@ $sysdrive =  $Env:SystemDrive
 #
 # and implement check_image_integ.ps1 / check_image_integ.sh or whatever will be the case 
 #
-
+# remember KfreeBSD, Hurd, Darwin/OSX and Coreptcher or what it was for osx, maybe see if a recovery image for OSX86 
+# can be grabbed from apple.com , modify and boot to that. Packages are installable, well, were at least, by components
+# and i did that on a multibooting osx86 12 years ago and force installed to a MBR, believe this was 10.7.11 or somehing
+# 
 # Maybe have an encrypted WMI or whatever that you boot from, mabye encrypt the windows folder 
 # maybe encrypt the /Users/<user> foler or maybe just documents or pictures or something. ,
 # Reasonably, id say create an encrypted 'stable' windows image and store somewhere as a backup anyway, 
