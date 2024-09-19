@@ -189,7 +189,9 @@ $sysdrive =  $Env:SystemDrive
 # ESP/EFI Partition: 512mb fat16
 #  * One File Linux w/GRUB and Win2kX .wmi
 # BOOT
+# * Somehow veryfy the MD5/SHA256/512 of the core booting image. etc 
 # BOOT encypted (kexex vmlinux from here and have grub decrypt the volume in OFL? for "other-os",.efi etc? and rest of available .wim .iso .img and whatever GRUB supports.)
+# * Somehow veryfy the MD5/SHA256/512 of the core booting image. etc 
 # RECOVERY_BASIC 
 # * (Win2008 or the first basic common denomenator that supports the generation laptop and the requierd versions
 # * Windows-*.iso or something that can be sha256 compared and verified or someting
@@ -211,8 +213,9 @@ $sysdrive =  $Env:SystemDrive
 # Then comes what to do, or how to handle things so that we can have users/ %programfiles% (most interesting right now since there 
 # will be some switching between the early winnt versions as a startingpoint here etc. on a different "HDD" alltogether etc and have 
 # this work like mount -o loop etc. 
-
-
+#
+# and implement check_image_integ.ps1 / check_image_integ.sh or whatever will be the case 
+#
 
 # Maybe have an encrypted WMI or whatever that you boot from, mabye encrypt the windows folder 
 # maybe encrypt the /Users/<user> foler or maybe just documents or pictures or something. ,
@@ -244,8 +247,6 @@ $sysdrive =  $Env:SystemDrive
 #
 # Obtain the ID of the new recovery password:
 # (Get-BitLockerVolume -mountpoint $env:SystemDrive).KeyProtector | where-object {$_.KeyProtectorType -eq 'RecoveryPassword'} | ft KeyProtectorId,RecoveryPassword
-
-
 
 
 # note: https://learn.microsoft.com/en-us/powershell/module/dism/?view=windowsserver2022-ps 
@@ -320,5 +321,3 @@ $sysdrive =  $Env:SystemDrive
 Set-VMProcessor -VMName VM-Sandbox -ExposeVirtualizationExtensions $true
 Update-VMVersion -VMName VM-Sandbox
 Enable-WindowsOptionalFeature -FeatureName "Containers-DisposableClientVM" -All -Online
-
-
