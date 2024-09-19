@@ -1,0 +1,62 @@
+     Boot an Open Firmware 3 system, with netbsd installed on partition ``a'':
+
+     0 > boot hd:,ofwboot.xcf
+
+     Boot into single user mode:
+
+     0 > boot hd:,ofwboot.xcf netbsd -s
+
+     Boot from bootable CDROM with Open Firmware 3 or higher:
+
+     0 > boot cd:,\ofwboot.xcf netbsd.macppc
+
+     Boot from bootable CDROM (internal SCSI, id=3) of NetBSD 1.5 release with
+     Open Firmware versions prior to 3:
+
+     0 > boot scsi/sd@3:0,OFWBOOT.XCF NETBSD.MACPPC
+
+     Boot from floppy disk:
+
+     0 > boot fd:0
+
+     Boot from network, with bootps, bootptab(5), tftpd(8), and nfsd(8) server
+     available:
+
+     0 > boot enet:0
+
+     Boot from network, but use internal root partition of second drive:
+
+     0 > boot enet:0 ultra1:0
+
+     Boot MacOS, looking for the first available bootable disk:
+
+     0 > boot hd:,\\:tbxi
+
+     Boot MacOS X residing on partition 10:
+
+     0 > boot hd:10,\\:tbxi
+
+ERRORS
+     DEFAULT CATCH!, code=FF00300 at %SRR0: FF80AD38 %SRR1: 00001070
+     Could be ``device not found'' or I/O errors on the device.  The numbers
+     are just for example.
+
+     Can't LOAD from this device
+     Open Firmware found the device, but it is not supported by load.
+
+     0 > boot yy:0/netbsd
+     RESETing to change Configuration!
+     yy:0 doesn't exist, so Open Firmware ignores the string and uses the
+     default parameters to boot MacOS; the MacOS boot routine then clears some
+     of the Open Firmware variables.
+
+     0 > boot ata/ata-disk@0:9 specified partition is not bootable
+      ok
+     As it says.
+
+     0 > boot ata/ata-disk@0:0
+     >> NetBSD/macppc OpenFirmware Boot, Revision 1.3
+     >> (root@nazuha, Fri Jun  8 22:21:55 JST 2001)
+     no active package3337696/
+     and hangs: See the real-base part in the FAQ.
+

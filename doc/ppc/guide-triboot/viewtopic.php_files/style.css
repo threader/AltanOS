@@ -1,0 +1,58 @@
+.xoopscode {
+        border-style : dashed;
+        border-width : 1px;
+        padding : 5px 5px 5px 5px;
+        direction : ltr;
+        text-decoration : left;
+}
+.xoopsQuote {
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0.05);
+    border: 1px dashed rgba(255, 255, 255, 0.5);
+    border-radius: 5px 5px 5px 5px;
+    font-size: 100%;
+    overflow-x: auto;
+    padding: 0 10px 15px;
+}
+.errhandler {
+        border-style : dashed;
+        border-width : 1px;
+        padding : 0px 5px 0px 5px;
+        background-color: #F8F8FF;
+        color: Gray;
+}
+body { unicode-bidi : embed;}
+
+/* fast hack to secure menu if using old e-xoops theme */
+#hmenu a {
+        display: block;
+        margin: 0;
+        text-indent: 5px;
+        font : bold 10px Verdana, Arial, Helvetica, sans-serif;
+        text-decoration : none;
+   border-bottom: 1px solid #777777;
+        border-left: 1px solid #cccccc;
+        border-right: 1px solid #777777;
+        border-top: 1px solid #cccccc;
+   width: 100%;
+        padding: 3px;
+}
+
+#hmenu2 a {
+        display: block;
+        margin: 0;
+        text-indent: 25px;
+        font : bold 10px Verdana, Arial, Helvetica, sans-serif;
+        text-decoration : none;
+   border-bottom: 1px solid #777777;
+        border-left: 3px solid #990000;
+        border-right: 1px solid #777777;
+        border-top: 1px solid #cccccc;
+   width: 100%;
+        padding: 3px;
+}
+
+.imgfade{filter:alpha(opacity=50); -moz-opacity:0.5;margin-left:3px}
+.imgfull{filter:alpha(opacity=100); -moz-opacity:1;margin-left:3px}
+.center{text-align:center !important}
+.rc_img_pointer {vertical-align:middle;border:0px;margin-right:5px}
+.rc_smile {width:18px;height:18px}

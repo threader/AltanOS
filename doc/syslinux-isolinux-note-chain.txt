@@ -1,0 +1,287 @@
+Comboot/chain.c32
+Jump to: navigation, search
+
+chain.c32 is a COM32 module for Syslinux. It can chainload MBRs, partition boot sectors, Windows bootloaders (ntldr, setupldr.bin and bootmgr), MS-DOS and PC-DOS io.sys, Freedos kernel.sys, isolinux.bin (only from ISOLINUX), grldr of grub4dos or a bootsector saved to a file. It can also swap BIOS drive numbers or hide partitions.
+
+All options as available in chain.c32 of Syslinux 3.85 (with some updates introduced in later versions):
+
+Usage:
+
+chain.c32 hd<disk#> [<partition>] [options]
+chain.c32 fd<disk#> [options]
+chain.c32 mbr:<id> [<partition>] [options]
+chain.c32 boot [<partition>] [options]
+chain.c32 fs [options]
+chain.c32 label=<label> [options]
+chain.c32 guid=<label> [options]
+
+chain.c32 options:
+file=<loader> 	load file, instead of boot sector
+isolinux=<loader> 	load another version of ISOLINUX
+ntldr=<loader> 	load Windows' NTLDR, SETUPLDR.BIN or BOOTMGR, or GRLDR
+grldr=<loader> 	load GRUB4DOS' grldr
+cmldr=<loader> 	load Recovery Console of Windows NT/2K/XP
+freedos=<loader> 	load FreeDOS kernel.sys
+msdos=<loader> 	load MS-DOS (2.xx to 6.xx) io.sys
+msdos7=<loader> 	load MS-DOS 7+ io.sys
+pcdos=<loader> 	load PC-DOS ibmbio.com
+drmk=<loader> 	load DRMK dellbio.bin
+reactos=<loader> 	load ReactOS freeldr
+grub=<loader>  [grubcfg=<config>] 	load grub legacy stage2
+seg=<segment> 	jump to <seg>:0000 instead of 0000:7C00
+swap 	swap drive numbers, if bootdisk is not fd0/hd0
+hide 	hide primary partitions, except selected partition
+sethidden 	set the FAT/NTFS hidden sectors field
+
+See doc/chain for more options.
+Contents
+
+    1 Numbering of Drives and Partitions
+        1.1 Drive numbering
+        1.2 Partition numbering
+        1.3 Examples
+    2 mbr:
+    3 Options
+    4 UEFI
+    5 See Also
+
+Numbering of Drives and Partitions
+Drive numbering
+
+Hard drive numbering starts at 0:
+
+    hd0 : first hard drive (as seen by the BIOS)
+    hd1 : second hard drive
+    hd2 : third hard drive
+    ... 
+
+Floppy drive numbering starts at 0:
+
+    fd0 : first floppy drive
+    fd1 : second floppy drive 
+
+The drive from which Syslinux is booted can be referred to with the parameter:
+
+    boot 
+
+The drive and partition from which Syslinux is booted can be referred to with the parameter:
+
+    fs 
+
+Find partition by uuid or label in all GPT partitions on all available drives:
+
+    label=label
+    guid=guid 
+
+Note that label and guid work only on GPT partition tables, it is not filesystem but partition label and uuid.
+
+
+Partition numbering
+
+The physical devices are counted starting at zero. The partitions are counted starting at one.
+
+In a GPT scheme, there are only "primary" partitions. Usually up to a maximum of 128 primary partitions can be created in one GPT device (the specification allows for more; it requires appropriate conditions).
+
+In a "DOS" (aka. "traditional" or "legacy" or "MBR") partition table scheme, a maximum of 4 "primary" partitions can be created, or alternatively up to 3 "primary" partitions and one "extended" partition, the latter containing "logical" partitions.
+
+Please note that for devices with a traditional MBR ("DOS") partition table scheme, "chain.c32" counts the "logical" partitions starting from "five", even if not all "primary" slots are in used.
+
+GPT partitions are simply counted in order, starting at one.
+
+
+Partition numbers (short):
+
+    0 : MBR (default.) 
+
+        1-4 : primary partitions 
+
+            5 and higher : logical partitions 
+
+
+Partition numbers (long):
+
+    0 : MBR (default) 
+
+        1 : first primary partition
+        2 : second primary partition
+        3 : third primary partition
+        4 : fourth primary partition 
+
+            5 : first logical partition
+            6 : second logical partition
+            7 : third logical partition
+            8 : fourth logical partition
+            9 : fifth logical partition
+            10 : sixth logical partition
+            11 : seventh logical partition
+            12 : eighth logical partition
+            ... 
+
+Partition Numbering: First disk
+as seen by BIOS 	PRIMARY 	LOGICAL 	Numbering
+hd0 			0 	(MBR)
+hd0 1 	First 			1 	
+hd0 2 	Second 			2 	
+hd0 3 	Third 			3 	
+hd0 4 	Fourth 			4 	
+hd0 5 		First 			5
+hd0 6 		Second 			6
+hd0 7 		Third 			7
+hd0 8 		Fourth 			8
+hd0 9 		Fifth 			9
+hd0 10 		Sixth 			10
+hd0 ... 		... 			...
+Examples
+
+UI menu.c32
+
+LABEL boot_hd0
+MENU LABEL Boot from first hard drive
+COM32 chain.c32
+APPEND hd0
+
+LABEL boot_hd1
+MENU LABEL Boot from second hard drive
+COM32 chain.c32
+APPEND hd1
+
+LABEL boot_fd0
+MENU LABEL Boot from first floppy drive
+COM32 chain.c32
+APPEND fd0
+
+LABEL boot_syslinux_drive
+MENU LABEL Boot the drive from which Syslinux is booted (hard drive or floppy drive)
+COM32 chain.c32
+APPEND boot
+
+LABEL boot_syslinux_filesystem
+MENU LABEL Boot the filesystem from which Syslinux is booted (partition in hard drive or floppy drive)
+COM32 chain.c32
+APPEND fs
+
+LABEL boot_hd2_2
+MENU LABEL Boot second primary partition from third hard drive
+COM32 chain.c32
+APPEND hd2 2
+
+LABEL boot_hd1_5
+MENU LABEL Boot first logical partition from second hard drive
+COM32 chain.c32
+APPEND hd1 5
+
+LABEL boot_hd3_0
+MENU LABEL Boot MBR of fourth hard drive (same as "APPEND hd3")
+COM32 chain.c32
+APPEND hd3 0
+
+LABEL boot_part_win7fs
+MENU LABEL Boot ntldr from GPT partition labelled "win7fs"
+COM32 chain.c32
+APPEND label=win7fs ntldr=/bootmgr
+
+mbr:
+
+The mbr: syntax means search all the hard disks until one with a specific MBR serial number (bytes 440-443) is found.
+
+You can get the MBR serial number, by running the following command (change /dev/sda to the correct device):
+
+$ hexdump -s 440 -n 4 -e '"0x%08x\n"' /dev/sda
+0x0ec8694c
+
+Or by running:
+
+$ fdisk -l /dev/sda
+...
+Disk identifier: 0x0ec8694c
+
+Example:
+
+LABEL mbr_serial
+COM32 chain.c32
+APPEND mbr:0x0ec8694c
+
+
+Options
+
+The following are some popular options available for chain.c32. See doc/chain for more options.
+
+file=<loader>
+
+    loads the file <loader> **from the SYSLINUX filesystem** instead of loading the boot sector. 
+
+seg=<segment>
+
+    loads at and jumps to <seg>:0000 instead of 0000:7C00. 
+
+isolinux=<loader>
+
+    Chainload another version/build of the ISOLINUX bootloader and patch the loader with appropriate parameters in memory. This avoids the need for the -eltorito-alt-boot parameter of mkisofs, when you want more than one ISOLINUX per CD/DVD. 
+
+ntldr=<loader>
+
+    equivalent to seg=0x2000 file=<loader> sethidden, used with WinNT's loaders
+
+        Example loaders: NTLDR (XP, 2003), BOOTMGR (Vista, 2008, 7), GRLDR (Grub4DOS). 
+        See: HowTos & Linux and Windows deployment 
+
+grldr=<loader>
+
+    Chainload GRUB4DOS grldr, performing additional corrections on the file in memory. 
+
+cmldr=<loader>
+
+    used with Recovery Console of Windows NT/2K/XP. same as ntldr=<loader> & "cmdcons\0" written to the system name field in the bootsector. 
+
+freedos=<loader>
+
+    equivalent to seg=0x60 file=<loader> sethidden, used with FreeDOS kernel.sys. 
+
+msdos=<loader>
+
+    equivalent to seg=0x70 file=<loader> sethidden, used with MS-DOS (v.2.xx to 6.xx)' io.sys. 
+
+msdos7=<loader>
+
+    equivalent to seg=0x70::0x200 file=<loader> sethidden, used with MS-DOS v.7+' io.sys. 
+
+pcdos=<loader>
+
+    equivalent to seg=0x70 file=<loader> sethidden, used with PC-DOS' ibmbio.com. 
+
+drmk=<loader>
+
+    equivalent to seg=0x70 sect=0x2000:0:0 file=<loader> sethidden, used with DRMK' dellbio.bin. 
+
+reactos=<loader>
+
+    equivalent to seg=0:0x8000:0x8100 file=<loader> setbpb nohand, used with ReactOS' freeldr. Add 'save' option so to store corrected BPB values. Supported since Syslinux v.4.05. 
+
+grub=<loader> [grubcfg=<config>]
+
+    equivalent to seg=0x800::0x200 file=<loader> nohand nosect grub, used with grub legacy's stage2, performing additional corrections on the file in memory. Optionally, an alternative config file can be specified through the 'grubcfg=' option. Supported since Syslinux v.4.02. 
+
+swap
+
+    if the disk is not fd0/hd0, install a BIOS stub which swaps the drive numbers. 
+
+hide
+
+    change type of primary partitions with IDs 01, 04, 06, 07, 0b, 0c, or 0e to 1x, except for the selected partition, which is converted the other way. 
+
+sethidden
+
+    update the "hidden sectors" (partition offset) field in a FAT/NTFS boot sector. 
+
+UEFI
+
+In UEFI, the boot process is slightly different than in BIOS. For booting the system, UEFI does not use traditional boot records, but rather efi-compatible files/images.
+
+When using UEFI mode, there are no such things as chaining to a traditional MBR/VBR or loading a file that is not efi-compatible.
+
+As of version 6.03, chain.c32 cannot chainload efi-compatible files, so there is no practical use of it in UEFI mode.
+
+When using CSM mode (aka "legacy" or "BIOS" mode) in a UEFI system, chain.c32 should work as in a traditional BIOS-based hardware, provided that the adequate binary is being used (from the "BIOS" firmware architecture, not from "EFI") and that the firmware correctly and fully supports CSM mode.
+
+
+

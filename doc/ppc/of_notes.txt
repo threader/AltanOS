@@ -1,0 +1,26 @@
+
+Devalias
+
+
+Example:
+------
+the devalias cd command needed to include not only the stuff from devalias usb1 but also the /disk@1 part from dev / ls appended
+
+so its like:
+
+devalias cd /pci@f2000000/usb@1b/disk@1
+
+------
+nvalias - store devalias in nvram
+
+Configuring Boot Devices
+
+ok> printenv boot-device
+boot-device =           disk net
+
+We can change this easily enough if it is incorrect.  For example if we wanted to add a cdrom, but after the disk.
+
+ok> setenv boot-device disk cdrom net
+
+ok> printenv boot-device
+boot-device =           disk cdrom net

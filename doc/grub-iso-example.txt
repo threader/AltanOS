@@ -1,0 +1,277 @@
+sper/vmlinuz file=$isofile/preseed/ubuntu.seed boot=casper iso-scan/filename=$isofile quiet splash --
+  initrd (loop)/casper/initr               
+#    i created a backup here: http://piratepad.net/h67jDPnI8f 07/06/10 14:30
+#    or if somebody breaks it, go to file -> revision history
+
+#    this is a grub.cfg file for grub2
+#    to be able to use this file...     
+#    apt-get install grub2 (in debian/ubuntu/...)
+#    $ grub-install --no-floppy --root-directory=/media/USB /dev/sdb
+#    where "/media/USB" is the partition (ex: "/dev/sdb5") mount point
+#    and "/dev/sdb" is the usb device you want to install grub2
+#    then copy this file "grub.cfg" in "/media/USB/boot/grub/"
+ 
+# configure your video output
+# you can also use: if loadfon /boot/grub/unicode.pf2 ; then 
+if loadfont /boot/grub/font.pf2 ; thens 
+  set gfxmode=auto
+  insmod efi_gop0-+
+  insmod efi_uga 
+  insmod gfxterm
+  insmod vbe
+  insmod vga
+  terminal_output gfxterm 
+  if terminal_output gfxterm; then true ; elseopen
+    terminal gfxterm
+  fi
+fi**ppp
+
+ 
+#    Please list things alphabetically to make it easier for people to find the appropriate listing.
+# use Acronis to build a image from your Windows box
+menuentry "Acronis" {
+  set root=(hd0,1)
+  set gfxpayload=keep
+  set isofile="$ISOPATH/acronis.iso"
+  loopback loop $isofile
+  linux (loop)/Recovery\ Manager/kernel.dat quiet
+  initrd (loop)/Recovery\ Manager/ramdisk.dat
+
+} 
+
+#BackTrack 4 Pre Release, also works with BT 4 Final Release
+#Note that currently the casper directory from the iso needs to be extracted into the root of the drive
+menuentry "BackTrack 4 Pre Release" {
+    linux /boot/bt4/boot/vmlinuz BOOT=casper boot=casper nopersistent rw vga=0x317 --
+    initrd /boot/bt4/boot/initrd.gz 
+}
+#Boot from HDD (Make sure you have grub 1.98 or later!!!)
+menuentry "Boot from Hard Drive" {
+    set root=(hd1)
+    drivemap -s hd0 hd1
+    chainloader +1
+}
+#DBAN (Darik's Boot and Nuke)**   
+menuentry "DBAN (Darik's Boot and Nuke)" {
+    loopback loop /boot/iso/dban-2.2.6_i586.iso
+    linux (loop)/ISOLINUX/DBAN.BZI nuke="dwip e" nofloppy silent
+}
+
+#Clonezilla Live i486
+menuentry "Clonezilla Live i486" { 
+    set isofile="/boot/clonezilla-live-1.2.3-27.iso"
+    loopback loop $isofile
+    linux (loop)/live/vmlinuz boot=live union=aufs noswap nolocales noprompt vga=791 ip=frommedia toram=filesystem.squashfs ocs_live_run="ocs-live-general" ocs_live_extra_param="" ocs_live_keymap="" ocs_live_batch="no" ocs_lang="" findiso=$isofile
+    initrd (loop)/live/initrd.img
+}
+#Clonezilla Live i686
+menuentry "Clonezilla Live i686" { 
+    set isofile="/boot/clonezilla-live-1.2.3-27.iso"
+    loopback loop $isofile
+    linux (loop)/live/vmlinuz boot=live union=aufs noswap nolocales noprompt vga=791 ip=frommedia toram=filesystem.squashfs ocs_live_run="ocs-live-general" ocs_live_extra_param="" ocs_live_keymap="" ocs_live_batch="no" ocs_lang="" findiso=$isofile
+    initrd (loop)/live/initrd.img
+}
+#Clonezilla Live 64-Bit
+menuentry "Clonezilla Live 64-Bit" { 
+    set isofile="/boot/clonezilla-live-1.2.3-27.iso"
+    loopback loop $isofile
+    linux (loop)/live/vmlinuz boot=live union=aufs noswap nolocales noprompt vga=791 ip=frommedia toram=filesystem.squashfs ocs_live_run="ocs-live-general" ocs_live_extra_param="" ocs_live_keymap="" ocs_live_batch="no" ocs_lang="" findiso=$isofile
+    initrd (loop)/live/initrd.img
+}
+#Clonezilla Maverick.
+# replace $ISOPATH with the path to your ISO file
+menuentry "clonezilla live maverick" { 
+  set root=(hd0,1)
+  set gfxpayload=keep
+  set isofile="$ISOPATH/clonezilla-live-20101106-maverick.iso"
+  loopback loop $isofile
+  linux (loop)/live/vmlinuz1 boot=live hostname=maverick live-config quiet noswap nolocales edd=on nomodeset noprompt ocs_live_run="ocs-live-general" ocs_live_extra_param="" ocs_live_keymap="" ocs_live_batch="no" ocs_lang="" ip=frommedia  nosplash findiso=$isofile
+  initrd (loop)/live/initrd1.img
+}
+
+#Debian Installer x64
+menuentry "debian-installer-amd64.iso" {
+    loopback loop /boot/iso/debian-installer-amd64.iso --
+    linux (loop)/linux vga=normal --
+    initrd (loop)/initrd.gz
+}
+# FreeBSD
+menuentry "FreeBSD ad4, direct" {
+  insmod ufs2
+  set root=(hd0,1,a)
+  search --no-floppy --fs-uuid --set 4b22f90 ($isofile)
+}
+90565ab77
+  freebsd                 /boot/kernel/kernel
+  freebsd_loadenv         /boot/device.hints
+  set FreeBSD.vfs.root.mountfrom=ufs:/dev/ad4s1a
+  set append.vfs.root.mountfrom.options=rw
+} 
+#Gparted Live
+menuentry "gparted live" {
+    set isofile="/boot//gparted-live-0.5.1-1.iso"
+    loopback loop $isofile
+    linux (loop)/live/vmlinuz boot=live union=aufs noswap noprompt vga=788 ip=frommedia toram=filesystem.squashfs findiso=$isofile
+    initrd (loop)/live/initrd.img
+}
+
+#GRML 2009.10
+menuentry "GRML 2009.10 Hello-Wien" {
+    loopback loop /boot/iso/grml_2009.10.iso
+    linux (loop)/boot/grml/linux26 findiso=/boot/iso/grml_2009.10.iso apm=power-off lang=us vga=791 boot=live nomce noeject noprompt --
+    initrd (loop)/boot/grml/initrd.gz
+}
+ 
+#Konboot (Grab the memdisk file from /usr/lib/syslinux on a working linux installation)
+menuentry "Konboot" { 
+    linux16 /boot/grub/memdisk 
+    initrd16 /boot/img/konboot.img 
+    set root=(hd1) 
+    drivemap -s hd0 hd1 
+}
+
+#Linux Mint 7 Live
+menuentry "Linux Mint 7" {
+    loopback loop /boot/iso/LinuxMint-7.iso
+    linux (loop)/casper/vmlinuz boot=casper iso-scan/filename=/boot/iso/LinuxMint-7.iso splash noeject noprompt --
+    initrd (loop)/casper/initrd.gz
+}
+
+#Memtest86+ (use pre-compiled bootable binary from memtest.org)
+menuentry "Memtest86+" {
+    linux16 /boot/iso/memtest86+-4.10.bin
+}
+#Memtest from your Ubuntu ISO 
+menuentry "MemTest Ubuntu 10.10 32bit" { 
+  set root=(hd0,1)
+  set gfxpayload=keep
+  set isofile="$ISOPATH/ubuntu-10.10-desktop-i386.iso"
+  loopback loop $isofile
+  linux16 (loop)/install/mt86plus
+}
+ 
+#Netinstall 32 preseed
+menuentry "Netinstall 32 preseed" {
+    loopback loop /boot/iso/mini.iso
+    linux (loop)/linux auto url=http://www.panticz.de/pxe/preseed/preseed.seed locale=en_US console-setup/layoutcode=de netcfg/choose_interface=eth0 debconf/priority=critical --
+    initrd (loop)/initrd.gz
+}
+
+#Ophcrack 2.3.1 Vista
+menuentry "Ophcrack 2.3.1 Vista" {
+    loopback loop /boot/iso/ophcrack-vista-livecd-2.3.1.iso
+    linux (loop)/boot/bzImage
+    iso-scan/filename=/boot/iso/ophcrack-vista-livecd-2.3.1.iso --
+    initrd (loop)/boot/rootfs.gz
+}
+
+#Ophcrack 2.3.1 XP
+menuentry "Ophcrack 2.3.1 XP" {
+    loopback loop /boot/iso/ophcrack-xp-livecd-2.3.1.iso
+    linux (loop)/boot/bzImage
+    iso-scan/filename=/boot/iso/ophcrack-xp-livecd-2.3.1.iso --
+    initrd (loop)/boot/rootfs.gz
+}
+
+#Parted Magic
+menuentry "Parted Magic" {
+    set isofile="/boot/iso/pmagic.iso"
+    loopback loop $isofile 
+    linux (loop)/pmagic/bzImage iso_filename=$isofile edd=off noapic load_ramdisk=1 prompt_ramdisk=0 rwnomce sleep=10 loglevel=0
+    initrd (loop)/pmagic/initramfs/
+}
+
+#PcLinuxOS2010
+menuentry "PcLinuxOS2010G.iso" {
+    search --set -f "/PcLinuxOS2010G.iso"
+    loopback loop "/PcLinuxOS2010G.iso"
+    linux (loop)/isolinux/vmlinuz fromusb root=UUID=C685-D9C2 bootfromiso=/PcLinuxOS2010G.iso livecd=livecd apci=on splash=silent fstab=rw,noauto unionfs
+    initrd (loop)/isolinux/initrd.gz
+}
+
+#Slitaz Cooking (http://www.slitaz.org/en/get/)
+menuentry "Slitaz Cooking" {
+    loopback loop /boot/iso/slitaz-cooking.iso
+    linux (loop)/boot/bzImage root=/dev/null
+    initrd (loop)/boot/rootfs.gz
+}
+
+#Spirit e6
+menuentry "SpinRite6" {
+    linux16 /boot/grub/memdisk
+    initrd16 /boot/SpinRite.img
+}
+
+#SystemRescueCD
+menuentry "SystemRescueCD 1.3.4" {
+    loopback loop /boot/iso/systemrescuecd-x86-1.3.4.iso
+    linux (loop)/isolinux/rescuecd isoloop=/boot/iso/systemrescuecd-x86-1.3.4.iso rdinit=/linuxrc2 setkmap=us --
+    initrd (loop)/isolinux/initram.igz
+}
+
+#SystemRescueCD 1.5.1
+menuentry "SystemRescueCD 1.5.1" {
+    set root=(hd0,1)
+    loopback loop /boot/iso/systemrescuecd-x86-1.5.1.iso
+    echo Loading systemrescuecd-x86-1.5.1 ...
+    linux (loop)/isolinux/rescuecd isoloop=/boot/iso/systemrescuecd-x86-1.5.1.iso setkmap=us
+    echo Loading initial ramdisk ...
+    initrd (loop)/isolinux/initram.igz
+}
+
+#TinyCore 
+menuentry "Tinycore 2.7" {
+    loopback loop /boot/iso/tinycore_2.7.iso
+    linux (loop)/boot/bzImage --
+    initrd (loop)/boot/tinycore.gz
+}
+
+#TrixBox 
+menuentry "trixbox" {
+    loopback loop /boot/iso/trixbox.iso
+    linux (loop)/isolinux/vmlinuz scandelay=1 isoloop=/boot/iso/trixbox.iso noeject noprompt --
+    initrd (loop)/isolinux/initrd.img
+}
+   
+#Ubuntu 9.10 i386
+menuentry "Ubuntu Live 9.10 32bit" {
+    loopback loop /boot/iso/ubuntu-9.10-desktop-i386.iso
+    linux (loop)/ca sper/vmlinuz boot=casper iso-scan/filename=/boot/iso/ubuntu-9.10-desktop-i386.iso quiet splash noeject noprompt --
+    initrd (loop)/casper/initrd.lz
+}
+
+#Ubuntu 9.10 64bit
+menuentry "Ubuntu Live 9.10 64bit" {
+    loopback loop /boot/iso/ubuntu-9.10-desktop-amd64.iso
+    linux (loop)/casper/vmlinuz boot=casper iso-scan/filename=/boot/iso/ubuntu-9.10-desktop-amd64.iso noeject noprompt --
+    initrd (loop)/casper/initrd.lz
+}
+
+#Ubuntu 10.10 64bit
+menuentry "ubuntu maverick (10.10) 64-bit" {
+  set root=(hd0,1)
+  set gfxpayload=keep
+  set isofile="$ISOPATH/ubuntu-10.10-desktop-amd64.iso"
+  loopback loop $isofile
+  linux (loop)/cad.lz
+}
+#Slax with 2.6.35 kernel ! very fast see also cheatcodes! to change the way you want ..by dma !
+menuentry "Slax REMIX" {
+root=(hd0,6)
+linux /boot/remix/vmlinuz  ramdisk_size=8888 root=/dev/ram0 rw autoexec=startx from=/boot/iso/slax-remix-v08.iso
+initrd /boot/remix/initrd.lz
+}
+
+## Are we doing Grub Legacy??
+##  --Why would you ever want to use legacy??
+
+
+sgd2.img
+title Bitdefender Rescue CD (Virus Scanner)
+kernel /boot/isolinux/linux ramdisk_size=100000 init=/etc/init lang=us apm=power-off vga=791 initrd=minirt.gz nomce quiet BOOT_IMAGE=knoppix knoppix_dir=KNOPPIX
+initrd /boot/isolinux/minirt.gz boot
+
+
+
+
+

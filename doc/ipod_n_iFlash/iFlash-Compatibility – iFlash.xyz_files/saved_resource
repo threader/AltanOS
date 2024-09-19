@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<!--[if IE 7]>
+<html class="ie ie7"  xmlns="http://www.w3.org/1999/xhtml" prefix="" lang="en-US">
+<![endif]-->
+<!--[if IE 8]>
+<html class="ie ie8"  xmlns="http://www.w3.org/1999/xhtml" prefix="" lang="en-US">
+<![endif]-->
+<!--[if !(IE 7) | !(IE 8) ]><!-->
+<html  xmlns="http://www.w3.org/1999/xhtml" prefix="" lang="en-US">
+<!--<![endif]-->
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<link rel="profile" href="http://gmpg.org/xfn/11" />
+<link rel="pingback" href="https://www.iflash.xyz/xmlrpc.php" />
+<!--[if lt IE 9]>
+	<script src="https://www.iflash.xyz/wp-content/themes/interface/js/html5.js"></script>
+	<![endif]-->
+
+<meta name="author" content="RTS Ltd." />
+<meta name="copyright" content="Copyright (c)2016 RTS Ltd. All Rights Reserved." />
+<meta name="description" content="iFlash.xyz Store Page" />
+<meta name="keywords" content="iflash, sd-cf adapter, ipod, sdxc, compact flash adapter, diymod, iflash-dual, iflash-sata, iflash-bundle, iflash-cf, msata, opening tools, metal spudger, flexible pry tool" />
+
+<title>iFlash.xyz &#8211; Welcome to the home of the iFlash Adapter</title>
+<link rel="alternate" type="application/rss+xml" title="iFlash.xyz &raquo; Feed" href="https://www.iflash.xyz/feed/" />
+<link rel="alternate" type="application/rss+xml" title="iFlash.xyz &raquo; Comments Feed" href="https://www.iflash.xyz/comments/feed/" />
+<link rel="alternate" type="application/rss+xml" title="iFlash.xyz &raquo; Products Feed" href="https://www.iflash.xyz/store/feed/" />
+		<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/72x72\/","ext":".png","source":{"concatemoji":"https:\/\/www.iflash.xyz\/wp-includes\/js\/wp-emoji-release.min.js"}};
+			!function(a,b,c){function d(a){var c,d,e,f=b.createElement("canvas"),g=f.getContext&&f.getContext("2d"),h=String.fromCharCode;if(!g||!g.fillText)return!1;switch(g.textBaseline="top",g.font="600 32px Arial",a){case"flag":return g.fillText(h(55356,56806,55356,56826),0,0),f.toDataURL().length>3e3;case"diversity":return g.fillText(h(55356,57221),0,0),c=g.getImageData(16,16,1,1).data,d=c[0]+","+c[1]+","+c[2]+","+c[3],g.fillText(h(55356,57221,55356,57343),0,0),c=g.getImageData(16,16,1,1).data,e=c[0]+","+c[1]+","+c[2]+","+c[3],d!==e;case"simple":return g.fillText(h(55357,56835),0,0),0!==g.getImageData(16,16,1,1).data[0];case"unicode8":return g.fillText(h(55356,57135),0,0),0!==g.getImageData(16,16,1,1).data[0]}return!1}function e(a){var c=b.createElement("script");c.src=a,c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var f,g,h,i;for(i=Array("simple","flag","unicode8","diversity"),c.supports={everything:!0,everythingExceptFlag:!0},h=0;h<i.length;h++)c.supports[i[h]]=d(i[h]),c.supports.everything=c.supports.everything&&c.supports[i[h]],"flag"!==i[h]&&(c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&c.supports[i[h]]);c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&!c.supports.flag,c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.everything||(g=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",g,!1),a.addEventListener("load",g,!1)):(a.attachEvent("onload",g),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),f=c.source||{},f.concatemoji?e(f.concatemoji):f.wpemoji&&f.twemoji&&(e(f.twemoji),e(f.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+<link rel='stylesheet' id='cptch_stylesheet-css'  href='https://www.iflash.xyz/wp-content/plugins/captcha/css/style.css' type='text/css' media='all' />
+<link rel='stylesheet' id='dashicons-css'  href='https://www.iflash.xyz/wp-includes/css/dashicons.min.css' type='text/css' media='all' />
+<link rel='stylesheet' id='cptch_desktop_style-css'  href='https://www.iflash.xyz/wp-content/plugins/captcha/css/desktop_style.css' type='text/css' media='all' />
+<link rel='stylesheet' id='contact-form-7-css'  href='https://www.iflash.xyz/wp-content/plugins/contact-form-7/includes/css/styles.css' type='text/css' media='all' />
+<link rel='stylesheet' id='cookielawinfo-style-css'  href='https://www.iflash.xyz/wp-content/plugins/cookie-law-info/css/cli-style.css' type='text/css' media='all' />
+<link rel='stylesheet' id='paypal-ipnpublic-css'  href='https://www.iflash.xyz/wp-content/plugins/paypal-ipn/public/css/paypal-ipn-for-wordpress-public.css' type='text/css' media='all' />
+<link rel='stylesheet' id='paypal-ipnpublicDataTablecss-css'  href='//cdn.datatables.net/1.10.7/css/jquery.dataTables.css' type='text/css' media='all' />
+<link rel='stylesheet' id='paypal-ipnpublicDataTable-css'  href='//cdn.datatables.net/responsive/1.0.6/css/dataTables.responsive.css' type='text/css' media='all' />
+<link rel='stylesheet' id='woocommerce-layout-css'  href='//www.iflash.xyz/wp-content/plugins/woocommerce/assets/css/woocommerce-layout.css' type='text/css' media='all' />
+<link rel='stylesheet' id='woocommerce-smallscreen-css'  href='//www.iflash.xyz/wp-content/plugins/woocommerce/assets/css/woocommerce-smallscreen.css' type='text/css' media='only screen and (max-width: 768px)' />
+<link rel='stylesheet' id='woocommerce-general-css'  href='//www.iflash.xyz/wp-content/plugins/woocommerce/assets/css/woocommerce.css' type='text/css' media='all' />
+<link rel='stylesheet' id='parent-style-css'  href='https://www.iflash.xyz/wp-content/themes/interface/style.css' type='text/css' media='all' />
+<link rel='stylesheet' id='interface_style-css'  href='https://www.iflash.xyz/wp-content/themes/interface-child/style.css' type='text/css' media='all' />
+<link rel='stylesheet' id='interface-responsive-css'  href='https://www.iflash.xyz/wp-content/themes/interface/css/responsive.css' type='text/css' media='all' />
+<link rel='stylesheet' id='google_fonts-css'  href='/' type='text/css' media='all' />
+<link rel='stylesheet' id='jetpack_css-css'  href='https://www.iflash.xyz/wp-content/plugins/jetpack/css/jetpack.css' type='text/css' media='all' />
+<link rel='stylesheet' id='jquery.lightbox.min.css-css'  href='https://www.iflash.xyz/wp-content/plugins/wp-jquery-lightbox/styles/lightbox.min.css' type='text/css' media='all' />
+<script type='text/javascript' src='https://www.iflash.xyz/wp-includes/js/jquery/jquery.js'></script>
+<script type='text/javascript' src='https://www.iflash.xyz/wp-includes/js/jquery/jquery-migrate.min.js'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var the_ajax_script = {"ajaxurl":"https:\/\/www.iflash.xyz\/wp-admin\/admin-ajax.php"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://www.iflash.xyz/wp-content/plugins/iFlashCodes/ajax.js'></script>
+<script type='text/javascript' src='https://www.iflash.xyz/wp-content/plugins/cookie-law-info/js/cookielawinfo.js'></script>
+<script type='text/javascript' src='https://www.iflash.xyz/wp-content/plugins/paypal-ipn/admin/js/paypal-ipn-for-wordpress.js'></script>
+<script type='text/javascript' src='//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js'></script>
+<script type='text/javascript' src='//cdn.datatables.net/responsive/1.0.6/js/dataTables.responsive.js'></script>
+<script type='text/javascript' src='https://www.iflash.xyz/wp-content/plugins/paypal-ipn/public/js/paypal-ipn-for-wordpress-public.js'></script>
+<script type='text/javascript' src='https://www.iflash.xyz/wp-content/themes/interface/js/backtotop.js'></script>
+<script type='text/javascript' src='https://www.iflash.xyz/wp-content/themes/interface/js/scripts.js'></script>
+<link rel='https://api.w.org/' href='https://www.iflash.xyz/wp-json/' />
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://www.iflash.xyz/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://www.iflash.xyz/wp-includes/wlwmanifest.xml" /> 
+<meta name="generator" content="WordPress 4.5.3" />
+<meta name="generator" content="WooCommerce 2.5.5" />
+<link rel='shortlink' href='https://wp.me/6ZZee' />
+<link rel="alternate" type="application/rss+xml"  title="New products" href="https://www.iflash.xyz/store/feed/" /><script type="text/javascript">
+	window._wp_rp_static_base_url = 'https://wprp.zemanta.com/static/';
+	window._wp_rp_wp_ajax_url = "https://www.iflash.xyz/wp-admin/admin-ajax.php";
+	window._wp_rp_plugin_version = '3.6';
+	window._wp_rp_post_id = '3462';
+	window._wp_rp_num_rel_posts = '6';
+	window._wp_rp_thumbnails = false;
+	window._wp_rp_post_title = 'iFlash-Quad';
+	window._wp_rp_post_tags = [];
+	window._wp_rp_promoted_content = true;
+</script>
+<script type="text/javascript" src="https://wprp.zemanta.com/static/js/loader.js?version=3.6" async></script>
+<style type="text/css">
+.related_post_title {
+}
+ul.related_post {
+}
+ul.related_post li {
+}
+ul.related_post li a {
+}
+ul.related_post li img {
+}</style>
+
+<link rel='dns-prefetch' href='//v0.wordpress.com'>
+		<style type="text/css">.recentcomments a{display:inline !important;padding:0 !important;margin:0 !important;}</style>
+		
+<style type="text/css"></style>
+
+<style type="text/css">
+.synved-social-resolution-single {
+display: inline-block;
+}
+.synved-social-resolution-normal {
+display: inline-block;
+}
+.synved-social-resolution-hidef {
+display: none;
+}
+
+@media only screen and (min--moz-device-pixel-ratio: 2),
+only screen and (-o-min-device-pixel-ratio: 2/1),
+only screen and (-webkit-min-device-pixel-ratio: 2),
+only screen and (min-device-pixel-ratio: 2),
+only screen and (min-resolution: 2dppx),
+only screen and (min-resolution: 192dpi) {
+	.synved-social-resolution-normal {
+	display: none;
+	}
+	.synved-social-resolution-hidef {
+	display: inline-block;
+	}
+}
+</style>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-1532505-3', 'auto');
+  ga('send', 'pageview');
+
+</script></head>
+
+<body class="home archive post-type-archive post-type-archive-product has_paypal_express_checkout woocommerce woocommerce-page ">
+
+<div class="wrapper">
+<header id="branding" >
+  <div class="hgroup-wrap">
+  <div class="container clearfix">
+    <section id="site-logo" class="clearfix">
+      							      <h2 id="site-title"> <a href="https://www.iflash.xyz/" title="iFlash.xyz" rel="home"> <img src="https://www.iflash.xyz/wp-content/uploads/2015/11/Logo.png" alt="iFlash.xyz"> </a> </h2>
+          </section>
+    <!-- #site-logo -->
+    <button class="menu-toggle">Responsive Menu</button>
+    <section class="hgroup-right">
+      <nav id="access" class="clearfix"><ul class="nav-menu"><li id="menu-item-913" class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-home menu-item-913"><a href="//www.iflash.xyz">Home</a></li>
+<li id="menu-item-1302" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1302"><a href="/category/guides/">Guides</a></li>
+<li id="menu-item-1623" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1623"><a href="/store/">Store</a></li>
+<li id="menu-item-5275" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-5275"><a href="https://www.iflash.xyz/shipping-information/">Shipping</a></li>
+<li id="menu-item-822" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-822"><a href="https://www.iflash.xyz/contact/">Contact</a></li>
+<li><a href="/wp-login.php">Log In</a></li></ul></nav><!-- #access -->      <div class="search-toggle"></div>
+      <!-- .search-toggle -->
+      <div id="search-box" class="hide">
+        
+<form action="https://www.iflash.xyz/" method="get" class="searchform clearfix">
+  <label class="assistive-text">
+    Search  </label>
+  <input type="search" placeholder="Search" class="s field" name="s">
+  <input type="submit" value="Search" class="search-submit">
+</form>
+<!-- .search-form -->
+        <span class="arrow"></span> </div>
+      <!-- #search-box --> 
+    </section>
+    <!-- .hgroup-right --> 
+  </div>
+  <!-- .container --> 
+</div>
+<!-- .hgroup-wrap -->
+
+</header>
+<div id="main">
+<div class="container clearfix">
+
+
+	<div id="primary" class="no-margin-left">
+		<div class="page-description"><p><strong>The iFlash iPod Adapters</strong></p>
+<p>The adaptors will work in the following iPod Videos and iPod Classics :-</p>
+<ul>
+<li>5g and 5.5g (30gb, 60gb, and 80gb)</li>
+<li>6g Classic (80gb Thin) <strong>** Maximum 128Gb for iTunes</strong></li>
+<li>6.5g Classic (160gb Thick) <strong>** Maximum 128Gb for iTunes</strong></li>
+<li>7g (120gb Thin) <strong>** Maximum 128Gb for iTunes</strong></li>
+<li>7.5g (160gb Thin)</li>
+</ul>
+<p>Please read the <strong><a href="/store/iflash-compatibility/">full compatibility chart</a></strong> for exact model information and other limitations.</p>
+<p>&nbsp;</p>
+</div>
+
+<style type="text/css">
+.rdFadeBoxList { height:30px; padding-bottom: 40px; list-style: outside none none; }
+
+.rdFadeBoxList ul {
+margin:2px;
+position:relative;
+display: inline-block;
+}
+
+#currency_banner {font-size: 16px; background-color: #FFF; padding-right: 30px; float: left; line-height: 26px;}
+
+.rdFadeBoxList ul li {
+display: inline-block;
+background-color:#eee;
+}
+
+
+
+        #rdFadeBoxList1 { background-color:#ccc;}
+
+
+.rdFadeBoxListInner {
+margin:0px; padding:0px;
+cursor:pointer;
+font-size:16px;
+position:relative;
+width:80px;  line-height:26px;
+text-align:center;
+border:#999 solid; border-width:1px;
+}
+
+</style>
+
+<div class="rdFadeBoxList">
+<div id="currency_banner">Store Currency : </div><ul>
+<li><div id="rdFadeBoxList1" class="rdFadeBoxListInner"><a href="?wmcs_set_currency=USD">USD ($)</a></div></li>
+<li><div id="rdFadeBoxList2" class="rdFadeBoxListInner"><a href="?wmcs_set_currency=EUR">EUR (&euro;)</a></div></li>
+<li><div id="rdFadeBoxList3" class="rdFadeBoxListInner"><a href="?wmcs_set_currency=GBP">GBP (&pound;)</a></div></li>
+</ul></div><!-- end #rdFadeBoxList -->
+
+
+
+		
+			
+			<ul class="products">
+
+				
+				
+					<li class="first post-3462 product type-product status-publish has-post-thumbnail product_cat-adapters product_tag-iflash-quad product_tag-ipod product_tag-micro-sd product_tag-sd-cards product_tag-sdxc product_tag-tarkan-adapter product_tag-uhs-i product_shipping_class-freequalify shipping-taxable purchasable product-type-simple product-cat-adapters product-tag-iflash-quad product-tag-ipod product-tag-micro-sd product-tag-sd-cards product-tag-sdxc product-tag-tarkan-adapter product-tag-uhs-i instock">
+
+	<a href="https://www.iflash.xyz/store/iflash-quad/"><img width="250" height="250" src="https://www.iflash.xyz/wp-content/uploads/2016/03/iFlash-Quad_500-250x250.jpg" class="attachment-shop_catalog size-shop_catalog wp-post-image" alt="iFlash-Quad" srcset="https://www.iflash.xyz/wp-content/uploads/2016/03/iFlash-Quad_500-250x250.jpg 250w, https://www.iflash.xyz/wp-content/uploads/2016/03/iFlash-Quad_500-150x150.jpg 150w, https://www.iflash.xyz/wp-content/uploads/2016/03/iFlash-Quad_500-300x300.jpg 300w, https://www.iflash.xyz/wp-content/uploads/2016/03/iFlash-Quad_500.jpg 500w, https://www.iflash.xyz/wp-content/uploads/2016/03/iFlash-Quad_500-100x100.jpg 100w" sizes="(max-width: 250px) 100vw, 250px" /><h3>iFlash-Quad</h3>
+	<span class="price"><span class="amount">&#36;42</span></span>
+<span class="excerpt" style="font-size: 12px"><p>Quad MicroSD Adapter<br />
+<strong style="color: #f00; display: block;">[ Ships within 1 to 3 days ]</strong></p>
+</span></a><a rel="nofollow" href="/?add-to-cart=3462" data-quantity="1" data-product_id="3462" data-product_sku="QUAD" class="button product_type_simple add_to_cart_button ajax_add_to_cart">Add to cart</a>
+</li>
+
+				
+					<li class="post-1413 product type-product status-publish has-post-thumbnail product_cat-adapters product_tag-iflash-dual product_tag-ipod product_tag-sd-cards product_tag-sdxc product_tag-tarkan-adapter product_shipping_class-freequalify shipping-taxable purchasable product-type-simple product-cat-adapters product-tag-iflash-dual product-tag-ipod product-tag-sd-cards product-tag-sdxc product-tag-tarkan-adapter instock">
+
+	<a href="https://www.iflash.xyz/store/iflash-dual/"><img width="250" height="250" src="https://www.iflash.xyz/wp-content/uploads/2015/09/iFlash-Dual_Front_500.jpg" class="attachment-shop_catalog size-shop_catalog wp-post-image" alt="iFlash-Dual_Front_500" srcset="https://www.iflash.xyz/wp-content/uploads/2015/09/iFlash-Dual_Front_500.jpg 500w, https://www.iflash.xyz/wp-content/uploads/2015/09/iFlash-Dual_Front_500-150x150.jpg 150w, https://www.iflash.xyz/wp-content/uploads/2015/09/iFlash-Dual_Front_500-300x300.jpg 300w, https://www.iflash.xyz/wp-content/uploads/2015/09/iFlash-Dual_Front_500-100x100.jpg 100w" sizes="(max-width: 250px) 100vw, 250px" /><h3>iFlash-Dual</h3>
+	<span class="price"><span class="amount">&#36;40</span></span>
+<span class="excerpt" style="font-size: 12px"><p>Dual SD Adapter<br />
+<strong style="color: #f00; display: block;">[ Ships within 1 to 3 days ]</strong></p>
+</span></a><a rel="nofollow" href="/?add-to-cart=1413" data-quantity="1" data-product_id="1413" data-product_sku="DUAL" class="button product_type_simple add_to_cart_button ajax_add_to_cart">Add to cart</a>
+</li>
+
+				
+					<li class="post-3616 product type-product status-publish has-post-thumbnail product_cat-adapters product_tag-iflash-solo product_tag-ipod product_tag-sd-card product_tag-sdxc product_tag-tarkan-adapter product_shipping_class-freequalify shipping-taxable purchasable product-type-simple product-cat-adapters product-tag-iflash-solo product-tag-ipod product-tag-sd-card product-tag-sdxc product-tag-tarkan-adapter instock">
+
+	<a href="https://www.iflash.xyz/store/iflash-solo/"><img width="250" height="250" src="https://www.iflash.xyz/wp-content/uploads/2016/03/iFlash-Solo_500-250x250.jpg" class="attachment-shop_catalog size-shop_catalog wp-post-image" alt="iFlash-Solo" srcset="https://www.iflash.xyz/wp-content/uploads/2016/03/iFlash-Solo_500-250x250.jpg 250w, https://www.iflash.xyz/wp-content/uploads/2016/03/iFlash-Solo_500-150x150.jpg 150w, https://www.iflash.xyz/wp-content/uploads/2016/03/iFlash-Solo_500-300x300.jpg 300w, https://www.iflash.xyz/wp-content/uploads/2016/03/iFlash-Solo_500.jpg 500w, https://www.iflash.xyz/wp-content/uploads/2016/03/iFlash-Solo_500-100x100.jpg 100w" sizes="(max-width: 250px) 100vw, 250px" /><h3>iFlash-Solo</h3>
+	<span class="price"><span class="amount">&#36;33</span></span>
+<span class="excerpt" style="font-size: 12px"><p>iFlash iPod SD Adapter<br />
+<strong style="color: #f00; display: block;">[ Ships within 1 to 3 days ]</strong></p>
+</span></a><a rel="nofollow" href="/?add-to-cart=3616" data-quantity="1" data-product_id="3616" data-product_sku="SOLO" class="button product_type_simple add_to_cart_button ajax_add_to_cart">Add to cart</a>
+</li>
+
+				
+					<li class="last post-1417 product type-product status-publish has-post-thumbnail product_cat-adapters product_tag-iflash-sata product_tag-ipod product_tag-msata product_tag-tarkan-adapter product_shipping_class-freequalify shipping-taxable purchasable product-type-simple product-cat-adapters product-tag-iflash-sata product-tag-ipod product-tag-msata product-tag-tarkan-adapter instock">
+
+	<a href="https://www.iflash.xyz/store/iflash-sata/"><img width="250" height="250" src="https://www.iflash.xyz/wp-content/uploads/2016/01/iFlash-Sata_500-250x250.jpg" class="attachment-shop_catalog size-shop_catalog wp-post-image" alt="iFlash-Sata_500" srcset="https://www.iflash.xyz/wp-content/uploads/2016/01/iFlash-Sata_500-250x250.jpg 250w, https://www.iflash.xyz/wp-content/uploads/2016/01/iFlash-Sata_500-150x150.jpg 150w, https://www.iflash.xyz/wp-content/uploads/2016/01/iFlash-Sata_500-300x300.jpg 300w, https://www.iflash.xyz/wp-content/uploads/2016/01/iFlash-Sata_500.jpg 500w, https://www.iflash.xyz/wp-content/uploads/2016/01/iFlash-Sata_500-100x100.jpg 100w" sizes="(max-width: 250px) 100vw, 250px" /><h3>iFlash-Sata</h3>
+	<span class="price"><span class="amount">&#36;40</span></span>
+<span class="excerpt" style="font-size: 12px"><p>iFlash-SATA (mSata) Adapter<br />
+<strong style="color: #f00; display: block;">[ Ships within 1 to 3 days ]</strong></p>
+</span></a><a rel="nofollow" href="/?add-to-cart=1417" data-quantity="1" data-product_id="1417" data-product_sku="mSATA" class="button product_type_simple add_to_cart_button ajax_add_to_cart">Add to cart</a>
+</li>
+
+				
+					<li class="first post-1420 product type-product status-publish has-post-thumbnail product_cat-adapters product_tag-cf-card product_tag-iflash-cf product_tag-ipod product_tag-tarkan-adapter product_shipping_class-freequalify shipping-taxable purchasable product-type-simple product-cat-adapters product-tag-cf-card product-tag-iflash-cf product-tag-ipod product-tag-tarkan-adapter instock">
+
+	<a href="https://www.iflash.xyz/store/iflash-cf/"><img width="250" height="250" src="https://www.iflash.xyz/wp-content/uploads/2015/02/iFlash_top.jpg" class="attachment-shop_catalog size-shop_catalog wp-post-image" alt="iFlash-CF Top View" srcset="https://www.iflash.xyz/wp-content/uploads/2015/02/iFlash_top.jpg 500w, https://www.iflash.xyz/wp-content/uploads/2015/02/iFlash_top-150x150.jpg 150w, https://www.iflash.xyz/wp-content/uploads/2015/02/iFlash_top-300x300.jpg 300w" sizes="(max-width: 250px) 100vw, 250px" /><h3>iFlash-CF</h3>
+	<span class="price"><span class="amount">&#36;18</span></span>
+<span class="excerpt" style="font-size: 12px"><p>iFlash iPod CF Adapter<br />
+<strong style="color: #f00; display: block;">[ Ships within 1 to 3 days ]</strong></p>
+</span></a><a rel="nofollow" href="/?add-to-cart=1420" data-quantity="1" data-product_id="1420" data-product_sku="iFlashCF" class="button product_type_simple add_to_cart_button ajax_add_to_cart">Add to cart</a>
+</li>
+
+				
+					<li class="post-1427 product type-product status-publish has-post-thumbnail product_cat-accessories product_tag-3mm product_tag-sd-cf-adapter product_tag-sdcf-adapter product_tag-type-i shipping-taxable purchasable product-type-simple product-cat-accessories product-tag-3mm product-tag-sd-cf-adapter product-tag-sdcf-adapter product-tag-type-i instock">
+
+	<a href="https://www.iflash.xyz/store/sdcf-adapter/"><img width="250" height="250" src="https://www.iflash.xyz/wp-content/uploads/2016/02/SD-CF_Adapter_500-250x250.jpg" class="attachment-shop_catalog size-shop_catalog wp-post-image" alt="SD-CF Adapter" srcset="https://www.iflash.xyz/wp-content/uploads/2016/02/SD-CF_Adapter_500-250x250.jpg 250w, https://www.iflash.xyz/wp-content/uploads/2016/02/SD-CF_Adapter_500-150x150.jpg 150w, https://www.iflash.xyz/wp-content/uploads/2016/02/SD-CF_Adapter_500-300x300.jpg 300w, https://www.iflash.xyz/wp-content/uploads/2016/02/SD-CF_Adapter_500.jpg 500w, https://www.iflash.xyz/wp-content/uploads/2016/02/SD-CF_Adapter_500-100x100.jpg 100w" sizes="(max-width: 250px) 100vw, 250px" /><h3>SD-CF Adapter</h3>
+	<span class="price"><span class="amount">&#36;18</span></span>
+<span class="excerpt" style="font-size: 12px"><p>Designed for the iFlash &amp; iPod<br />
+<strong style="color: #f00; display: block;">[ Ships within 1 to 3 days ]</strong></p>
+</span></a><a rel="nofollow" href="/?add-to-cart=1427" data-quantity="1" data-product_id="1427" data-product_sku="SDCF" class="button product_type_simple add_to_cart_button ajax_add_to_cart">Add to cart</a>
+</li>
+
+				
+					<li class="post-1429 product type-product status-publish has-post-thumbnail product_cat-tools product_tag-flexible-pry-tool product_tag-metal-flexible product_tag-spudger shipping-taxable purchasable product-type-simple product-cat-tools product-tag-flexible-pry-tool product-tag-metal-flexible product-tag-spudger instock">
+
+	<a href="https://www.iflash.xyz/store/flexible-pry-tool/"><img width="250" height="250" src="https://www.iflash.xyz/wp-content/uploads/2015/02/PryTool_300.jpg" class="attachment-shop_catalog size-shop_catalog wp-post-image" alt="Flexible Steel Pry Bar" srcset="https://www.iflash.xyz/wp-content/uploads/2015/02/PryTool_300.jpg 300w, https://www.iflash.xyz/wp-content/uploads/2015/02/PryTool_300-150x150.jpg 150w" sizes="(max-width: 250px) 100vw, 250px" /><h3>Flexible Pry Tool</h3>
+	<span class="price"><span class="amount">&#36;2.50</span></span>
+<span class="excerpt" style="font-size: 12px"><p>Highly recommended opener for all iPods (** Use with CARE! **)</p>
+</span></a><a rel="nofollow" href="/?add-to-cart=1429" data-quantity="1" data-product_id="1429" data-product_sku="PRYTOOL" class="button product_type_simple add_to_cart_button ajax_add_to_cart">Add to cart</a>
+</li>
+
+				
+					<li class="last post-1431 product type-product status-publish has-post-thumbnail product_cat-tools product_tag-metal product_tag-pry-tool product_tag-spudger shipping-taxable purchasable product-type-simple product-cat-tools product-tag-metal product-tag-pry-tool product-tag-spudger instock">
+
+	<a href="https://www.iflash.xyz/store/metal-spudger/"><img width="250" height="250" src="https://www.iflash.xyz/wp-content/uploads/2015/02/MetalSpudger_l.jpg" class="attachment-shop_catalog size-shop_catalog wp-post-image" alt="Metal Spudger Tool" srcset="https://www.iflash.xyz/wp-content/uploads/2015/02/MetalSpudger_l.jpg 500w, https://www.iflash.xyz/wp-content/uploads/2015/02/MetalSpudger_l-150x150.jpg 150w, https://www.iflash.xyz/wp-content/uploads/2015/02/MetalSpudger_l-300x300.jpg 300w" sizes="(max-width: 250px) 100vw, 250px" /><h3>Metal Spudger</h3>
+	<span class="price"><span class="amount">&#36;2</span></span>
+<span class="excerpt" style="font-size: 12px"><p>General purpose metal spudger (** Use with CARE! **)</p>
+</span></a><a rel="nofollow" href="/?add-to-cart=1431" data-quantity="1" data-product_id="1431" data-product_sku="SPUDGER" class="button product_type_simple add_to_cart_button ajax_add_to_cart">Add to cart</a>
+</li>
+
+				
+					<li class="first post-1433 product type-product status-publish has-post-thumbnail product_cat-tools product_tag-guitar-pick product_tag-opening-toolkit product_tag-plastic-opening-tools product_tag-pry-tools shipping-taxable purchasable product-type-simple product-cat-tools product-tag-guitar-pick product-tag-opening-toolkit product-tag-plastic-opening-tools product-tag-pry-tools instock">
+
+	<a href="https://www.iflash.xyz/store/4pcs-opening-toolkit/"><img width="250" height="250" src="https://www.iflash.xyz/wp-content/uploads/2015/02/toolkit_l.jpg" class="attachment-shop_catalog size-shop_catalog wp-post-image" alt="4pcs Plastic Toolkit" srcset="https://www.iflash.xyz/wp-content/uploads/2015/02/toolkit_l.jpg 500w, https://www.iflash.xyz/wp-content/uploads/2015/02/toolkit_l-150x150.jpg 150w, https://www.iflash.xyz/wp-content/uploads/2015/02/toolkit_l-300x300.jpg 300w" sizes="(max-width: 250px) 100vw, 250px" /><h3>4pcs Opening Toolkit</h3>
+	<span class="price"><span class="amount">&#36;2.30</span></span>
+<span class="excerpt" style="font-size: 12px"><p>4pcs Soft Plastic iPod Opening Toolkit ideal for iPod Video&#8217;s</p>
+</span></a><a rel="nofollow" href="/?add-to-cart=1433" data-quantity="1" data-product_id="1433" data-product_sku="TOOLS" class="button product_type_simple add_to_cart_button ajax_add_to_cart">Add to cart</a>
+</li>
+
+				
+					<li class="post-1435 product type-product status-publish has-post-thumbnail product_cat-accessories product_tag-632-0337 product_tag-821-0386 product_tag-821-0728 product_tag-hdd product_tag-ipod-ribbon product_tag-ribbon shipping-taxable purchasable product-type-simple product-cat-accessories product-tag-632-0337 product-tag-821-0386 product-tag-821-0728 product-tag-hdd product-tag-ipod-ribbon product-tag-ribbon instock">
+
+	<a href="https://www.iflash.xyz/store/hdd-ribbon/"><img width="250" height="250" src="https://www.iflash.xyz/wp-content/uploads/2015/02/ribbon_l.jpg" class="attachment-shop_catalog size-shop_catalog wp-post-image" alt="iPod Hard Drive Ribbon" srcset="https://www.iflash.xyz/wp-content/uploads/2015/02/ribbon_l.jpg 500w, https://www.iflash.xyz/wp-content/uploads/2015/02/ribbon_l-150x150.jpg 150w, https://www.iflash.xyz/wp-content/uploads/2015/02/ribbon_l-300x300.jpg 300w" sizes="(max-width: 250px) 100vw, 250px" /><h3>HDD Ribbon</h3>
+	<span class="price"><span class="amount">&#36;2.70</span></span>
+<span class="excerpt" style="font-size: 12px"><p>iPod HDD Ribbon (Required for Classic 6.5g 160Gb (thick) iPod)</p>
+</span></a><a rel="nofollow" href="/?add-to-cart=1435" data-quantity="1" data-product_id="1435" data-product_sku="RIBBON" class="button product_type_simple add_to_cart_button ajax_add_to_cart">Add to cart</a>
+</li>
+
+				
+					<li class="post-1437 product type-product status-publish has-post-thumbnail product_cat-accessories product_tag-capacitors product_tag-diymod product_tag-elna product_tag-silmic product_tag-wolfson shipping-taxable purchasable product-type-simple product-cat-accessories product-tag-capacitors product-tag-diymod product-tag-elna product-tag-silmic product-tag-wolfson instock">
+
+	<a href="https://www.iflash.xyz/store/audio-capacitor-bypass-kit/"><img width="250" height="250" src="https://www.iflash.xyz/wp-content/uploads/2015/12/ElnaCaps_500px.jpg" class="attachment-shop_catalog size-shop_catalog wp-post-image" alt="ElnaCaps_500px" srcset="https://www.iflash.xyz/wp-content/uploads/2015/12/ElnaCaps_500px.jpg 500w, https://www.iflash.xyz/wp-content/uploads/2015/12/ElnaCaps_500px-150x150.jpg 150w, https://www.iflash.xyz/wp-content/uploads/2015/12/ElnaCaps_500px-300x300.jpg 300w, https://www.iflash.xyz/wp-content/uploads/2015/12/ElnaCaps_500px-100x100.jpg 100w" sizes="(max-width: 250px) 100vw, 250px" /><h3>Audio Capacitor Bypass Kit</h3>
+	<span class="price"><span class="amount">&#36;7</span></span>
+<span class="excerpt" style="font-size: 12px"><p>iPod Audio Capacitor Bypass Mod Kit *Soldering needed to perform mod!</p>
+</span></a><a rel="nofollow" href="/?add-to-cart=1437" data-quantity="1" data-product_id="1437" data-product_sku="AUDIOMOD" class="button product_type_simple add_to_cart_button ajax_add_to_cart">Add to cart</a>
+</li>
+
+				
+					<li class="last post-3686 product type-product status-publish has-post-thumbnail product_cat-adapters product_tag-44-pin product_tag-4th-gen product_tag-a1099 product_tag-ide product_tag-ipod-color product_tag-ipod-photo product_tag-m9585ll product_tag-m9586ll product_tag-m9830ll product_tag-ma079ll product_tag-toshiba shipping-taxable purchasable product-type-simple product-cat-adapters product-tag-44-pin product-tag-4th-gen product-tag-a1099 product-tag-ide product-tag-ipod-color product-tag-ipod-photo product-tag-m9585ll product-tag-m9586ll product-tag-m9830ll product-tag-ma079ll product-tag-toshiba instock">
+
+	<a href="https://www.iflash.xyz/store/4th-gen-converter/"><img width="250" height="250" src="https://www.iflash.xyz/wp-content/uploads/2016/03/4thGenToiFlashConvertor_500px-250x250.jpg" class="attachment-shop_catalog size-shop_catalog wp-post-image" alt="4th Gen iFlash Converter" srcset="https://www.iflash.xyz/wp-content/uploads/2016/03/4thGenToiFlashConvertor_500px-250x250.jpg 250w, https://www.iflash.xyz/wp-content/uploads/2016/03/4thGenToiFlashConvertor_500px-150x150.jpg 150w, https://www.iflash.xyz/wp-content/uploads/2016/03/4thGenToiFlashConvertor_500px-300x300.jpg 300w, https://www.iflash.xyz/wp-content/uploads/2016/03/4thGenToiFlashConvertor_500px.jpg 500w, https://www.iflash.xyz/wp-content/uploads/2016/03/4thGenToiFlashConvertor_500px-100x100.jpg 100w" sizes="(max-width: 250px) 100vw, 250px" /><h3>4th Gen iPod to iFlash Converter</h3>
+	<span class="price"><span class="amount">&#36;4.50</span></span>
+<span class="excerpt" style="font-size: 12px"><p>Use this to install iFlash boards in to 4th Gen iPods</p>
+</span></a><a rel="nofollow" href="/?add-to-cart=3686" data-quantity="1" data-product_id="3686" data-product_sku="4G_Converter" class="button product_type_simple add_to_cart_button ajax_add_to_cart">Add to cart</a>
+</li>
+
+				
+			</ul>
+
+			
+		
+	</div>
+	
+<div id="secondary">
+  <aside id="woocommercemyaccountwidget-2" class="widget WooCommerceMyAccountWidget"></aside><aside id="woocommerce_widget_cart-2" class="widget woocommerce widget_shopping_cart"><h2 class="widget-title">Cart</h2><div class="hide_cart_widget_if_empty"><div class="widget_shopping_cart_content"></div></div></aside><aside id="synved_social_share-3" class="widget widget_synved_social_share"><div><a class="synved-social-button synved-social-button-share synved-social-size-32 synved-social-resolution-normal synved-social-provider-facebook nolightbox" data-provider="facebook" target="_blank" rel="nofollow" title="Share on Facebook" href="http://www.facebook.com/sharer.php?u=https%3A%2F%2Fwww.iflash.xyz&#038;t=4th%20Gen%20iPod%20to%20iFlash%20Converter&#038;s=100&#038;p&#091;url&#093;=https%3A%2F%2Fwww.iflash.xyz&#038;p&#091;images&#093;&#091;0&#093;=https%3A%2F%2Fwww.iflash.xyz%2Fwp-content%2Fuploads%2F2016%2F03%2F4thGenToiFlashConvertor_500px.jpg&#038;p&#091;title&#093;=4th%20Gen%20iPod%20to%20iFlash%20Converter" style="font-size: 0px; width:32px;height:32px;margin:0;margin-bottom:5px;margin-right:5px;"><img alt="Facebook" title="Share on Facebook" class="synved-share-image synved-social-image synved-social-image-share" width="32" height="32" style="display: inline; width:32px;height:32px; margin: 0; padding: 0; border: none; box-shadow: none;" src="https://www.iflash.xyz/wp-content/plugins/social-media-feather/synved-social/image/social/regular/32x32/facebook.png" /></a><a class="synved-social-button synved-social-button-share synved-social-size-32 synved-social-resolution-normal synved-social-provider-twitter nolightbox" data-provider="twitter" target="_blank" rel="nofollow" title="Share on Twitter" href="http://twitter.com/share?url=https%3A%2F%2Fwww.iflash.xyz&#038;text=Hey%20check%20this%20out" style="font-size: 0px; width:32px;height:32px;margin:0;margin-bottom:5px;margin-right:5px;"><img alt="twitter" title="Share on Twitter" class="synved-share-image synved-social-image synved-social-image-share" width="32" height="32" style="display: inline; width:32px;height:32px; margin: 0; padding: 0; border: none; box-shadow: none;" src="https://www.iflash.xyz/wp-content/plugins/social-media-feather/synved-social/image/social/regular/32x32/twitter.png" /></a><a class="synved-social-button synved-social-button-share synved-social-size-32 synved-social-resolution-normal synved-social-provider-google_plus nolightbox" data-provider="google_plus" target="_blank" rel="nofollow" title="Share on Google+" href="https://plus.google.com/share?url=https%3A%2F%2Fwww.iflash.xyz" style="font-size: 0px; width:32px;height:32px;margin:0;margin-bottom:5px;margin-right:5px;"><img alt="google_plus" title="Share on Google+" class="synved-share-image synved-social-image synved-social-image-share" width="32" height="32" style="display: inline; width:32px;height:32px; margin: 0; padding: 0; border: none; box-shadow: none;" src="https://www.iflash.xyz/wp-content/plugins/social-media-feather/synved-social/image/social/regular/32x32/google_plus.png" /></a><a class="synved-social-button synved-social-button-share synved-social-size-32 synved-social-resolution-normal synved-social-provider-reddit nolightbox" data-provider="reddit" target="_blank" rel="nofollow" title="Share on Reddit" href="http://www.reddit.com/submit?url=https%3A%2F%2Fwww.iflash.xyz&#038;title=4th%20Gen%20iPod%20to%20iFlash%20Converter" style="font-size: 0px; width:32px;height:32px;margin:0;margin-bottom:5px;margin-right:5px;"><img alt="reddit" title="Share on Reddit" class="synved-share-image synved-social-image synved-social-image-share" width="32" height="32" style="display: inline; width:32px;height:32px; margin: 0; padding: 0; border: none; box-shadow: none;" src="https://www.iflash.xyz/wp-content/plugins/social-media-feather/synved-social/image/social/regular/32x32/reddit.png" /></a><a class="synved-social-button synved-social-button-share synved-social-size-32 synved-social-resolution-normal synved-social-provider-pinterest nolightbox" data-provider="pinterest" target="_blank" rel="nofollow" title="Pin it with Pinterest" href="http://pinterest.com/pin/create/button/?url=https%3A%2F%2Fwww.iflash.xyz&#038;media=https%3A%2F%2Fwww.iflash.xyz%2Fwp-content%2Fuploads%2F2016%2F03%2F4thGenToiFlashConvertor_500px.jpg&#038;description=4th%20Gen%20iPod%20to%20iFlash%20Converter" style="font-size: 0px; width:32px;height:32px;margin:0;margin-bottom:5px;margin-right:5px;"><img alt="pinterest" title="Pin it with Pinterest" class="synved-share-image synved-social-image synved-social-image-share" width="32" height="32" style="display: inline; width:32px;height:32px; margin: 0; padding: 0; border: none; box-shadow: none;" src="https://www.iflash.xyz/wp-content/plugins/social-media-feather/synved-social/image/social/regular/32x32/pinterest.png" /></a><a class="synved-social-button synved-social-button-share synved-social-size-32 synved-social-resolution-normal synved-social-provider-linkedin nolightbox" data-provider="linkedin" target="_blank" rel="nofollow" title="Share on Linkedin" href="http://www.linkedin.com/shareArticle?mini=true&#038;url=https%3A%2F%2Fwww.iflash.xyz&#038;title=4th%20Gen%20iPod%20to%20iFlash%20Converter" style="font-size: 0px; width:32px;height:32px;margin:0;margin-bottom:5px;margin-right:5px;"><img alt="linkedin" title="Share on Linkedin" class="synved-share-image synved-social-image synved-social-image-share" width="32" height="32" style="display: inline; width:32px;height:32px; margin: 0; padding: 0; border: none; box-shadow: none;" src="https://www.iflash.xyz/wp-content/plugins/social-media-feather/synved-social/image/social/regular/32x32/linkedin.png" /></a><a class="synved-social-button synved-social-button-share synved-social-size-32 synved-social-resolution-normal synved-social-provider-tumblr nolightbox" data-provider="tumblr" target="_blank" rel="nofollow" title="Share on tumblr" href="http://tumblr.com/share?s=&#038;v=3&#038;t=4th%20Gen%20iPod%20to%20iFlash%20Converter&#038;u=https%3A%2F%2Fwww.iflash.xyz" style="font-size: 0px; width:32px;height:32px;margin:0;margin-bottom:5px;margin-right:5px;"><img alt="tumblr" title="Share on tumblr" class="synved-share-image synved-social-image synved-social-image-share" width="32" height="32" style="display: inline; width:32px;height:32px; margin: 0; padding: 0; border: none; box-shadow: none;" src="https://www.iflash.xyz/wp-content/plugins/social-media-feather/synved-social/image/social/regular/32x32/tumblr.png" /></a><a class="synved-social-button synved-social-button-share synved-social-size-32 synved-social-resolution-normal synved-social-provider-mail nolightbox" data-provider="mail" rel="nofollow" title="Share by email" href="mailto:?subject=4th%20Gen%20iPod%20to%20iFlash%20Converter&#038;body=Hey%20check%20this%20out:%20https%3A%2F%2Fwww.iflash.xyz" style="font-size: 0px; width:32px;height:32px;margin:0;margin-bottom:5px;"><img alt="mail" title="Share by email" class="synved-share-image synved-social-image synved-social-image-share" width="32" height="32" style="display: inline; width:32px;height:32px; margin: 0; padding: 0; border: none; box-shadow: none;" src="https://www.iflash.xyz/wp-content/plugins/social-media-feather/synved-social/image/social/regular/32x32/mail.png" /></a><a class="synved-social-button synved-social-button-share synved-social-size-32 synved-social-resolution-hidef synved-social-provider-facebook nolightbox" data-provider="facebook" target="_blank" rel="nofollow" title="Share on Facebook" href="http://www.facebook.com/sharer.php?u=https%3A%2F%2Fwww.iflash.xyz&#038;t=4th%20Gen%20iPod%20to%20iFlash%20Converter&#038;s=100&#038;p&#091;url&#093;=https%3A%2F%2Fwww.iflash.xyz&#038;p&#091;images&#093;&#091;0&#093;=https%3A%2F%2Fwww.iflash.xyz%2Fwp-content%2Fuploads%2F2016%2F03%2F4thGenToiFlashConvertor_500px.jpg&#038;p&#091;title&#093;=4th%20Gen%20iPod%20to%20iFlash%20Converter" style="font-size: 0px; width:32px;height:32px;margin:0;margin-bottom:5px;margin-right:5px;"><img alt="Facebook" title="Share on Facebook" class="synved-share-image synved-social-image synved-social-image-share" width="32" height="32" style="display: inline; width:32px;height:32px; margin: 0; padding: 0; border: none; box-shadow: none;" src="https://www.iflash.xyz/wp-content/plugins/social-media-feather/synved-social/image/social/regular/64x64/facebook.png" /></a><a class="synved-social-button synved-social-button-share synved-social-size-32 synved-social-resolution-hidef synved-social-provider-twitter nolightbox" data-provider="twitter" target="_blank" rel="nofollow" title="Share on Twitter" href="http://twitter.com/share?url=https%3A%2F%2Fwww.iflash.xyz&#038;text=Hey%20check%20this%20out" style="font-size: 0px; width:32px;height:32px;margin:0;margin-bottom:5px;margin-right:5px;"><img alt="twitter" title="Share on Twitter" class="synved-share-image synved-social-image synved-social-image-share" width="32" height="32" style="display: inline; width:32px;height:32px; margin: 0; padding: 0; border: none; box-shadow: none;" src="https://www.iflash.xyz/wp-content/plugins/social-media-feather/synved-social/image/social/regular/64x64/twitter.png" /></a><a class="synved-social-button synved-social-button-share synved-social-size-32 synved-social-resolution-hidef synved-social-provider-google_plus nolightbox" data-provider="google_plus" target="_blank" rel="nofollow" title="Share on Google+" href="https://plus.google.com/share?url=https%3A%2F%2Fwww.iflash.xyz" style="font-size: 0px; width:32px;height:32px;margin:0;margin-bottom:5px;margin-right:5px;"><img alt="google_plus" title="Share on Google+" class="synved-share-image synved-social-image synved-social-image-share" width="32" height="32" style="display: inline; width:32px;height:32px; margin: 0; padding: 0; border: none; box-shadow: none;" src="https://www.iflash.xyz/wp-content/plugins/social-media-feather/synved-social/image/social/regular/64x64/google_plus.png" /></a><a class="synved-social-button synved-social-button-share synved-social-size-32 synved-social-resolution-hidef synved-social-provider-reddit nolightbox" data-provider="reddit" target="_blank" rel="nofollow" title="Share on Reddit" href="http://www.reddit.com/submit?url=https%3A%2F%2Fwww.iflash.xyz&#038;title=4th%20Gen%20iPod%20to%20iFlash%20Converter" style="font-size: 0px; width:32px;height:32px;margin:0;margin-bottom:5px;margin-right:5px;"><img alt="reddit" title="Share on Reddit" class="synved-share-image synved-social-image synved-social-image-share" width="32" height="32" style="display: inline; width:32px;height:32px; margin: 0; padding: 0; border: none; box-shadow: none;" src="https://www.iflash.xyz/wp-content/plugins/social-media-feather/synved-social/image/social/regular/64x64/reddit.png" /></a><a class="synved-social-button synved-social-button-share synved-social-size-32 synved-social-resolution-hidef synved-social-provider-pinterest nolightbox" data-provider="pinterest" target="_blank" rel="nofollow" title="Pin it with Pinterest" href="http://pinterest.com/pin/create/button/?url=https%3A%2F%2Fwww.iflash.xyz&#038;media=https%3A%2F%2Fwww.iflash.xyz%2Fwp-content%2Fuploads%2F2016%2F03%2F4thGenToiFlashConvertor_500px.jpg&#038;description=4th%20Gen%20iPod%20to%20iFlash%20Converter" style="font-size: 0px; width:32px;height:32px;margin:0;margin-bottom:5px;margin-right:5px;"><img alt="pinterest" title="Pin it with Pinterest" class="synved-share-image synved-social-image synved-social-image-share" width="32" height="32" style="display: inline; width:32px;height:32px; margin: 0; padding: 0; border: none; box-shadow: none;" src="https://www.iflash.xyz/wp-content/plugins/social-media-feather/synved-social/image/social/regular/64x64/pinterest.png" /></a><a class="synved-social-button synved-social-button-share synved-social-size-32 synved-social-resolution-hidef synved-social-provider-linkedin nolightbox" data-provider="linkedin" target="_blank" rel="nofollow" title="Share on Linkedin" href="http://www.linkedin.com/shareArticle?mini=true&#038;url=https%3A%2F%2Fwww.iflash.xyz&#038;title=4th%20Gen%20iPod%20to%20iFlash%20Converter" style="font-size: 0px; width:32px;height:32px;margin:0;margin-bottom:5px;margin-right:5px;"><img alt="linkedin" title="Share on Linkedin" class="synved-share-image synved-social-image synved-social-image-share" width="32" height="32" style="display: inline; width:32px;height:32px; margin: 0; padding: 0; border: none; box-shadow: none;" src="https://www.iflash.xyz/wp-content/plugins/social-media-feather/synved-social/image/social/regular/64x64/linkedin.png" /></a><a class="synved-social-button synved-social-button-share synved-social-size-32 synved-social-resolution-hidef synved-social-provider-tumblr nolightbox" data-provider="tumblr" target="_blank" rel="nofollow" title="Share on tumblr" href="http://tumblr.com/share?s=&#038;v=3&#038;t=4th%20Gen%20iPod%20to%20iFlash%20Converter&#038;u=https%3A%2F%2Fwww.iflash.xyz" style="font-size: 0px; width:32px;height:32px;margin:0;margin-bottom:5px;margin-right:5px;"><img alt="tumblr" title="Share on tumblr" class="synved-share-image synved-social-image synved-social-image-share" width="32" height="32" style="display: inline; width:32px;height:32px; margin: 0; padding: 0; border: none; box-shadow: none;" src="https://www.iflash.xyz/wp-content/plugins/social-media-feather/synved-social/image/social/regular/64x64/tumblr.png" /></a><a class="synved-social-button synved-social-button-share synved-social-size-32 synved-social-resolution-hidef synved-social-provider-mail nolightbox" data-provider="mail" rel="nofollow" title="Share by email" href="mailto:?subject=4th%20Gen%20iPod%20to%20iFlash%20Converter&#038;body=Hey%20check%20this%20out:%20https%3A%2F%2Fwww.iflash.xyz" style="font-size: 0px; width:32px;height:32px;margin:0;margin-bottom:5px;"><img alt="mail" title="Share by email" class="synved-share-image synved-social-image synved-social-image-share" width="32" height="32" style="display: inline; width:32px;height:32px; margin: 0; padding: 0; border: none; box-shadow: none;" src="https://www.iflash.xyz/wp-content/plugins/social-media-feather/synved-social/image/social/regular/64x64/mail.png" /></a></div></aside><aside id="wmp_widget-3" class="widget widget_wmp_widget"><h2 class="widget-title">Popular posts</h2><ul class="wp-most-popular">
+			<li class="post-255posttype-poststatus-publishformat-standardhentrycategory-guidestag-128gbtag-256gbtag-64gbtag-iflashtag-ipodtag-lexartag-pnytag-sd-cardstag-sd-cf-adaptortag-sd-to-cftag-sdhctag-sdxc">
+				<a href="https://www.iflash.xyz/ipod-and-sdhc-sdxc-cards/" title="iPOD and SDHC &#8211; SDXC cards">
+					iPOD and SDHC &#8211; SDXC cards
+				</a>
+			</li>
+		
+			<li class="post-650posttype-poststatus-publishformat-standardhentrycategory-guidestag-7gtag-emcoretag-ipod-6gtag-ipod-classictag-rockbox">
+				<a href="https://www.iflash.xyz/howto-install-rockbox-on-the-ipod-classics/" title="HowTo: Install Rockbox on the iPod Classics">
+					HowTo: Install Rockbox on the iPod Classics
+				</a>
+			</li>
+		
+			<li class="post-96posttype-poststatus-publishformat-standardhentrycategory-guidestag-32gbtag-5gtag-audiophiletag-black-gatetag-capacitorstag-compact-flashtag-diymodtag-iflashtag-ipod">
+				<a href="https://www.iflash.xyz/modding-audiophile-meets-ipod-diymod/" title="Modding: Audiophile meets iPod (diyMod)">
+					Modding: Audiophile meets iPod (diyMod)
+				</a>
+			</li>
+		
+			<li class="post-786posttype-poststatus-publishformat-standardhentrycategory-guidestag-1-tbtag-840evotag-firewiretag-ipod-classictag-itunes">
+				<a href="https://www.iflash.xyz/1tb-ipod-classic-restore-sync-video/" title="1Tb 7g iPod Classic &#8211; Restore &#038; Sync Video">
+					1Tb 7g iPod Classic &#8211; Restore &#038; Sync Video
+				</a>
+			</li>
+		
+			<li class="post-569posttype-poststatus-publishformat-standardhentrycategory-guidestag-128gbtag-64gbtag-exfattag-fat32tag-itunestag-kingstontag-mbrtag-sdxctag-slow-transfertag-song-skippingtag-sync-errors">
+				<a href="https://www.iflash.xyz/prepare-sdxc-exfat-for-use-with-the-ipod/" title="Prepare SDXC (ExFat) for use with the iPod">
+					Prepare SDXC (ExFat) for use with the iPod
+				</a>
+			</li>
+		</ul></aside>		<aside id="recent-posts-4" class="widget widget_recent_entries">		<h2 class="widget-title">Recent Posts</h2>		<ul>
+					<li>
+				<a href="https://www.iflash.xyz/3rd-party-extended-battery-guide/">3rd party extended Battery  guide</a>
+						</li>
+					<li>
+				<a href="https://www.iflash.xyz/iflash-dual-uploaded-some-videos/">iFlash-Dual &#8211; uploaded some videos&#8230;</a>
+						</li>
+					<li>
+				<a href="https://www.iflash.xyz/runtime-shootout-dual-sdxc-msata-sdxc-and-original-hard-drive/">Runtime shootout :  Dual SDXC, mSata, SDXC and Original Hard Drive</a>
+						</li>
+					<li>
+				<a href="https://www.iflash.xyz/launched-iflash-dual-the-ipod-dual-sd-adapter/">Launched: iFlash-Dual &#8211; The iPod dual SD adapter</a>
+						</li>
+					<li>
+				<a href="https://www.iflash.xyz/iflash-serial-numbers/">iFlash Serial Numbers</a>
+						</li>
+				</ul>
+		</aside>		<aside id="recent-comments-4" class="widget widget_recent_comments"><h2 class="widget-title">Recent Comments</h2><ul id="recentcomments"><li class="recentcomments"><span class="comment-author-link">Anton</span> on <a href="https://www.iflash.xyz/1tb-ipod-classic-restore-sync-video/comment-page-3/#comment-2126541">1Tb 7g iPod Classic &#8211; Restore &#038; Sync Video</a></li><li class="recentcomments"><span class="comment-author-link">Mark</span> on <a href="https://www.iflash.xyz/1tb-ipod-classic-restore-sync-video/comment-page-3/#comment-2126540">1Tb 7g iPod Classic &#8211; Restore &#038; Sync Video</a></li><li class="recentcomments"><span class="comment-author-link">plasreconsurg</span> on <a href="https://www.iflash.xyz/1tb-ipod-classic-restore-sync-video/comment-page-3/#comment-2126533">1Tb 7g iPod Classic &#8211; Restore &#038; Sync Video</a></li><li class="recentcomments"><span class="comment-author-link">Anton</span> on <a href="https://www.iflash.xyz/1tb-ipod-classic-restore-sync-video/comment-page-3/#comment-2126532">1Tb 7g iPod Classic &#8211; Restore &#038; Sync Video</a></li><li class="recentcomments"><span class="comment-author-link">Anton</span> on <a href="https://www.iflash.xyz/runtime-shootout-dual-sdxc-msata-sdxc-and-original-hard-drive/comment-page-1/#comment-2126471">Runtime shootout :  Dual SDXC, mSata, SDXC and Original Hard Drive</a></li></ul></aside></div>
+<!-- #secondary -->
+
+
+
+</div>
+<!-- .container -->
+</div>
+<!-- #main -->
+
+
+<footer id="colophon" class="clearfix">
+  
+	<div id="site-generator">
+				<div class="container clearfix"><div class="social-profiles clearfix">
+					<ul>
+				</ul>
+				</div><!-- .social-profiles --><div class="copyright">Copyright &copy;2016 <a href="https://www.iflash.xyz/" title="iFlash.xyz" ><span>iFlash.xyz</span></a> &emsp; &emsp;  | &emsp; <a href="https://www.iflash.xyz/serialcheck/">iFlash Code Checker</a> &emsp; | &emsp; <a href="/privacy-policy/">Privacy Policy</a> &emsp; | &emsp; <a href="/terms-conditions/">Terms & Conditions</a> &emsp; | &emsp; <a href="/returns-policy/">Returns Policy</a>
+		<br/>Content and Images are copyright of Radio Technical Solutions Ltd. All Rights are Reserved 
+		<br/>Trademarks, product names, company names or logos used on this site are the property of their respective owners.</div><!-- .copyright --></div><!-- .container -->	
+			</div><!-- #site-generator --><div class="back-to-top"><a href="#branding"> </a></div></footer>
+
+</div>
+<!-- .wrapper -->
+
+
+
+
+<div id="cookie-law-info-bar"><span>This website uses cookies to improve your experience. We'll assume you're ok with this, but you can block them in your browser settings if you wish. <a href="#" id="cookie_action_close_header"  class="medium cli-plugin-button cli-plugin-main-button" >Accept</a> <a href="/privacy-policy/" id="CONSTANT_OPEN_URL" target="_blank"  class="medium cli-plugin-button cli-plugin-main-link" >Privacy Policy</a></span></div>		
+		<script type="text/javascript">
+			//<![CDATA[
+			jQuery(document).ready(function() {
+				cli_show_cookiebar({
+					settings: '{"animate_speed_hide":"500","animate_speed_show":"500","background":"#1e73be","border":"#444","border_on":true,"button_1_button_colour":"#000","button_1_button_hover":"#000000","button_1_link_colour":"#fff","button_1_as_button":true,"button_2_button_colour":"#333","button_2_button_hover":"#292929","button_2_link_colour":"#afafaf","button_2_as_button":true,"font_family":"inherit","header_fix":true,"notify_animate_hide":true,"notify_animate_show":false,"notify_div_id":"#cookie-law-info-bar","notify_position_horizontal":"right","notify_position_vertical":"top","scroll_close":false,"scroll_close_reload":false,"showagain_tab":false,"showagain_background":"#fff","showagain_border":"#000","showagain_div_id":"#cookie-law-info-again","showagain_x_position":"100px","text":"#ffffff","show_once_yn":true,"show_once":"10000"}'
+				});
+			});
+			//]]>
+		</script>
+		
+			<div style="display:none">
+	</div>
+<script type='text/javascript' src='https://www.iflash.xyz/wp-content/plugins/contact-form-7/includes/js/jquery.form.min.js'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var _wpcf7 = {"loaderUrl":"https:\/\/www.iflash.xyz\/wp-content\/plugins\/contact-form-7\/images\/ajax-loader.gif","recaptchaEmpty":"Please verify that you are not a robot.","sending":"Sending ..."};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://www.iflash.xyz/wp-content/plugins/contact-form-7/includes/js/scripts.js'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var wc_add_to_cart_params = {"ajax_url":"\/wp-admin\/admin-ajax.php","wc_ajax_url":"\/?wc-ajax=%%endpoint%%","i18n_view_cart":"View Cart","cart_url":"https:\/\/www.iflash.xyz\/cart\/","is_cart":"","cart_redirect_after_add":"no"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='//www.iflash.xyz/wp-content/plugins/woocommerce/assets/js/frontend/add-to-cart.min.js'></script>
+<script type='text/javascript' src='//www.iflash.xyz/wp-content/plugins/woocommerce/assets/js/jquery-blockui/jquery.blockUI.min.js'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var woocommerce_params = {"ajax_url":"\/wp-admin\/admin-ajax.php","wc_ajax_url":"\/?wc-ajax=%%endpoint%%"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='//www.iflash.xyz/wp-content/plugins/woocommerce/assets/js/frontend/woocommerce.min.js'></script>
+<script type='text/javascript' src='//www.iflash.xyz/wp-content/plugins/woocommerce/assets/js/jquery-cookie/jquery.cookie.min.js'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var wc_cart_fragments_params = {"ajax_url":"\/wp-admin\/admin-ajax.php","wc_ajax_url":"\/?wc-ajax=%%endpoint%%","fragment_name":"wc_fragments"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='//www.iflash.xyz/wp-content/plugins/woocommerce/assets/js/frontend/cart-fragments.min.js'></script>
+<script type='text/javascript' src='https://s0.wp.com/wp-content/js/devicepx-jetpack.js'></script>
+<script type='text/javascript' src='https://secure.gravatar.com/js/gprofiles.js'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var WPGroHo = {"my_hash":""};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://www.iflash.xyz/wp-content/plugins/jetpack/modules/wpgroho.js'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var angelleye_frontend = {"is_product":"no","is_cart":"no","is_checkout":"no","three_digits":"3 digits usually found on the signature strip.","four_digits":"4 digits usually found on the front of the card."};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://www.iflash.xyz/wp-content/plugins/paypal-for-woocommerce/assets/js/angelleye-frontend.js'></script>
+<script type='text/javascript' src='https://www.iflash.xyz/wp-content/plugins/wp-jquery-lightbox/jquery.touchwipe.min.js'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var JQLBSettings = {"showTitle":"1","showCaption":"1","showNumbers":"1","fitToScreen":"1","resizeSpeed":"400","showDownload":"0","navbarOnTop":"0","marginSize":"0","slideshowSpeed":"4000","prevLinkTitle":"previous image","nextLinkTitle":"next image","closeTitle":"close image gallery","image":"Image ","of":" of ","download":"Download","pause":"(pause slideshow)","play":"(play slideshow)"};
+var JQLBSettings = {"showTitle":"1","showCaption":"1","showNumbers":"1","fitToScreen":"1","resizeSpeed":"400","showDownload":"0","navbarOnTop":"0","marginSize":"0","slideshowSpeed":"4000","prevLinkTitle":"previous image","nextLinkTitle":"next image","closeTitle":"close image gallery","image":"Image ","of":" of ","download":"Download","pause":"(pause slideshow)","play":"(play slideshow)"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://www.iflash.xyz/wp-content/plugins/wp-jquery-lightbox/jquery.lightbox.min.js'></script>
+<script type='text/javascript' src='https://www.iflash.xyz/wp-includes/js/wp-embed.min.js'></script>
+<script type='text/javascript' src='https://stats.wp.com/e-201628.js' async defer></script>
+<script type='text/javascript'>
+	_stq = window._stq || [];
+	_stq.push([ 'view', {v:'ext',j:'1:4.1.1',blog:'103431390',post:'0',tz:'0',srv:'www.iflash.xyz'} ]);
+	_stq.push([ 'clickTrackerInit', '103431390', '0' ]);
+</script>
+</body></html>

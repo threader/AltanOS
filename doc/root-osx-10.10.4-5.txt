@@ -1,0 +1,26 @@
+Here's the titchy root-level privilege-escalation exploit, devised yesterday by Redditor Numinit:
+
+echo 'echo "$(whoami) ALL=(ALL) NOPASSWD:ALL" >&3' | DYLD_PRINT_TO_FILE=/etc/sudoers newgrp; sudo -s # via reddit: numinit (shorter)
+
+— Stefan Esser (@i0n1c) July 22, 2015
+
+It's all possible thanks to an environment variable called DYLD_PRINT_TO_FILE that was added in Yosemite. It specifies where in the file system a component of the operating system called the dynamic linker can log error messages.
+
+If the environment variable is abused with a privileged program, an attacker can modify arbitrary files owned by the powerful user account root – files like the one that lists user accounts that are allowed administrator privileges.
+
+Here's the titchy root-level privilege-escalation exploit, devised yesterday by Redditor Numinit:
+
+echo 'echo "$(whoami) ALL=(ALL) NOPASSWD:ALL" >&3' | DYLD_PRINT_TO_FILE=/etc/sudoers newgrp; sudo -s # via reddit: numinit (shorter)
+
+— Stefan Esser (@i0n1c) July 22, 2015
+
+These shell commands run whoami to output your username (eg: vulture) and then tacks "ALL=(ALL) NOPASSWD:ALL" on the end to form a line like:
+
+vulture ALL=(ALL) NOPASSWD:ALL
+It then outputs that line to the file specified by DYLD_PRINT_TO_FILE, which in this case is the list of users who can gain root-level privileges: /etc/sudoers. That line tells OS X that your user account is allowed to gain root privileges without a password.
+
+A privileged program – the root-owned set-uid executable newgrp – is run to provide the root-level access to the sudoers file. Finally, sudo -s is executed to open an interactive command-line shell, which will have root-level privileges for your user account thanks to the update to the sudoers file. From there you can do anything you like; modify documents, install malware, create new users, and so on.
+
+This flaw is present in the latest version of Yosemite, OS X 10.10.4, and the beta, version 10.10.5. If you upgrade to the El Capitan beta (OS X 10.11), you'll be free from the vulnerability as Apple has already fixed it in that preview beta. Once again, if you keep up with Cupertino and install (or buy) the very latest stuff, you'll be rewarded.
+
+Failing that, you can install Esser's SUIDGuard to protect your Mac. "Apple ships fixes for security in beta versions of future products, but does not fix current versions," Esser noted. ®

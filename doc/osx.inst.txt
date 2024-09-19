@@ -1,0 +1,11 @@
+
+
+If for some reason you need to manually install osx, this is apparently the way to do it. 
+Forcefully install to usb-stick, minimalistic install is a few examples i can think of.
+
+Usage: inst.osx.sh /Volumes/Install-location /Volumes/Install-source minimal|small|normal|full
+Minimal is the base system, and safari, you would be lucky if this works. 
+Small has just the things that are probably required to have a functional "Minimal". 
+Normal consists of every package you would expect, iChat iTunes Automator, mediafiles etc. 
+Full is Normal with the x11 package. 
+
