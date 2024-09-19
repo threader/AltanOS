@@ -1,0 +1,120 @@
+How do I configure yaboot.conf?
+
+If you've had to skip installing the bootloader then see this troubleshooting question for how to boot the system. In 12.04 (see bug), this will cause the live/desktop installer to crash and not complete properly. You will have to re-install using the alternate/mini ISOs (unless you patch the yaboot-installer file on the live ISO). Once you've edited yaboot.conf to fix the problem (typically you need to add an ofboot line), use the mkofboot command (instead of ybin) to setup the bootloader partition.
+
+The file /etc/yaboot.conf can be edited to change the booting behavior of your PowerPC Linux machine.
+
+You can edit the file with root privileges:
+
+sudo nano /etc/yaboot.conf
+
+After editing and saving the file, you must run this to write changes to the boot partition:
+
+sudo ybin -v
+
+To have more boot menu options include these lines in your yaboot.conf:
+
+enablecdboot
+enableofboot
+enablenetboot
+
+To have yaboot default to booting to OS X include this line in your yaboot.conf:
+
+defaultos=macosx
+
+More information about using yaboot on a dual boot system can be found here.
+
+To change the colors of the yaboot screen include these lines below. Alter as desired. These settings below create a color screen similar to the OS X open firmware colors.
+
+fgcolor=black
+bgcolor=white
+
+A typical yaboot.conf taken from a linux only natty installation is here.
+
+On some installations (e.g. onto a usb drive or with the new ata controller drivers in 11.10?) you may have to use the ofboot argument to specify the openfirmware path to the boot partition. Gentoo have an excellent quick guide to manually editing the yaboot.conf file. It contains advice on the ofboot argument, as well as, adding a root delay.
+
+You can also look at the yaboot.conf manual by typing the command
+
+man yaboot.conf
+
+The more wordy Debian guide is here. This gives instructions on how to boot the system from openfirmware. See also the troubleshooting section below for how to use a Ubuntu CD to boot your installed system or manuallly edit your yaboot.conf.
+
+The ybin program creates a file ofboot.b on the bootstrap partition. This is a simple script that controls the first stage boot menu. If you require additional options (for example to add a boot USB feature), then it is possible to alter the script. This is beyond the scope of this FAQ, but it is very easy for anybody with programming experience. Use the ofboot.b file on the bootstrap partition as a starting point (rather than the more complex script at /usr/lib/yaboot/ofboot). In your yaboot.conf file set the magicboot value to your altered ofboot.b location and re-run ybin to copy it across with the correct hfs attributes.
+
+Configure graphics
+
+Shouldn't it just work out the box nowadays?
+
+In an ideal world, yes, of course. For many machines it does.
+
+However, if you get a blank screen on boot, your boot time is excessively long, or if your picture is not displayed correctly then you will have to make some adjustments. You may also like to experiment with your graphics setup to increase performance or enable a certain feature.
+
+Unfortunately, there are quite a few problems with essentially the same symptom - a blank or corrupted screen. So it is often a case of trial and error to see what works (see this troubleshooting question first). There are broadly two approaches to solving graphics problems: adding a yaboot parameter and setting up an xorg.conf file.
+
+The yaboot parameter could be seen as the "quick fix" approach, good to get something at least on the screen (e.g. a command line login or a simple graphics setup), but often you may need to make it permanent too. An xorg.conf file gives greater control of your graphics setup and is used, for example, to adjust a bad resolution or when you can't get beyond a command line login. Increasingly, an xorg.conf file is not needed in new versions of Ubuntu with many machines.
+
+Note, Ubuntu evolves with every new release and yaboot parameters you may need for one release may not be required for the next release. To take advantage of improvements you should retest your graphics setup after an upgrade.
+
+What yaboot parameters should I use for graphics problems?
+
+To solve graphics problems it helps to know what sort of video card you have. If you don't know what you have, you can look up your computer at Apple or Everymac. Though typing lspci at the terminal prompt should give you the information you need.
+
+Historically, the yaboot parameter that has been recommended to try is video=ofonly (disable all legacy framebuffers apart from the openfirmware framebuffer - offb). Parameters beginning video= are used to control the framebuffer. Framebuffers are used to display things like the text console and splash screen, but they are also crucial in determining if suspend or brightness keys work. Offb is a basic framebuffer with typically a very limited palette and no suspend.
+
+You add a yaboot parameter (also known as a boot or kernel parameter) after whatever you normally type at the yaboot prompt. If you normally type Linux (note, with a live CD you typically type live) then you would type at the yaboot prompt:
+
+Linux video=ofonly 
+
+However, due to how recent Ubuntu kernels are setup it is now unlikey that video=ofonly will make any improvement for the majority of users. It is probably only radeon users who will benefit from this parameter...more on this below....
+
+Modern open-source radeon and nouveau (nVidia cards) video drivers rely on Kernel Mode Setting (KMS). KMS supposedly provides an improved graphical boot with less flickering, a built-in framebuffer console, seamless switching from the console to Xorg, and other features. To achieve this, KMS moves some of the responsibility for selecting and setting up the graphics mode from the Xorg to the kernel. KMS can be problematic so if you have one of these cards then one of the first things you should try is turning off KMS.
+
+For nVidia cards use the yaboot parameter nouveau.modeset=0 to disable KMS. This will disable both the nouveau xorg driver and the nouveaufb framebuffer (as KMS and nouveaufb are also inseparable) and you will fallback to the fbdev/offb driver. Note the openfirmware framebuffer has a limited colour depth - hence the 'psychedelic' colours you will see. You can increase the colour depth with fbdev by using a different framebuffer (such as nouveaufb or the legacy framebuffers nvidiafb or rivafb) and creating an xorg.conf that specifies fbdev, but if you can't get KMS fully working then the better solution is to use the nv driver in your xorg.conf.
+
+For radeon cards use radeon.modeset=0 . Radeon users before 12.04 may prefer to disable KMS to gain more stable 3D graphics acceleration. Non-KMS support was removed entirely from the radeon xorg driver in 12.10, so if you disable KMS then you will now fallback to the fbdev driver.
+
+The boot parameter 'nomodeset' can be used instead of radeon.modeset=0/nouveau.modeset=0 in some versions of Ubuntu (it does exactly the same thing).
+
+To find out what other parameters are available at boot time with the radeon/nouveau modules use the modinfo command.
+
+To force a nouveau framebuffer mode (e.g. to enable a dvi connector and disable a non-existent tv out) see the bottom of this link. This has been known to solve problems with some nVidia cards and nouveau. GeForce 6600 or FX5200 owners should use the video=TV-1:d parameter whilst GeForce 6800 users are recommended to try video=TV-1:d video=TV-2:d as these are confirmed workarounds for the phantom port issue for these GPUs on Power Macs. Gentoo have more on phantom outputs with nouveau (and other suggestions for you to try), see here.
+
+You can force the mode of framebuffers aty128fb (ATI Rage 128 cards) and atyfb (Mach 64 and Rage cards), for example: video=aty128fb:1024x768-16@75 . See the bottom of this link for an explanation. The official guide suggests a different way, see the bottom of this page. I struggled to find information on vmodes/cmodes, so I'm not sure if that is old fashioned (something to do with MacOS?), but there is quite a good guide here. Note, you will have to perform extra steps to use these framebuffer in some versions of Ubuntu as they are not always built in to the kernel - see below.
+
+It is possible to combine yaboot parameters. For example:
+
+Linux radeon.modeset=0 video=radeonfb:1024x768-32@60
+
+will turn off KMS and set the radeonfb framebuffer mode. Forcing a mode may fix some splash problems?
+
+KMS conflicts with legacy framebuffer drivers (such as, radeonfb, nvidiafb, rivafb), so you should disable these if you want to try KMS. nvidiafb and rivafb which are the old framebuffers for nvidia cards are not 'built in' to recent ubuntu kernels (and their modules are blacklisted) so they shouldn't cause a problem. radeonfb is, however, 'built in' to some kernels. radeonfb will stop radeon KMS working fully (3D hardware acceleration will be impaired) so you can disable radeonfb with the yaboot parameters video=ofonly or video=radeonfb:off. If you have freezing problems with radeon KMS then try reducing the AGP mode. The yaboot parameter radeon.agpmode=-1 will force PCI mode (the Fedora 16 PPC page lists this as a necessary workaround).
+
+To check if a framebuffer is built in look at the config files in the boot directory. For example, to check the status of the radeon framebuffer use the command
+
+grep RADEON /boot/config-$(uname -r) 
+
+If you get CONFIG_FB_RADEON=y then the framebuffer is built in. If it =m then it is built as a module and you will have to manually load the kernel module before you can use it.
+
+Another yaboot parameter that can be needed is video=offb:off. This will disable the openfirmware framebuffer and is used when offb conflicts with another framebuffer (see log files syslog/dmesg in directory /var/log/). If no other framebuffer is available at boot time then you may get a frozen or blank screen until the Xorg server starts.
+
+For background information on framebuffers see here, but you'll have to filter out any details relating to grub as PowerPC does not use this. It also gives some information about the command fbset. This allows you to show or change framebuffer settings from the console.
+
+You can check if a framebuffer is working by booting into single user mode.
+
+A boot parameter that you'll find reading forums is nosplash (probably a throw back from when the splash screen was done with usplash rather than plymouth). This *may* disable on *some* computers the Ubuntu splash screen i.e. the word Ubuntu with the four dots. However, if you want to disable the splash screen it is better to use one of the nosplash options on the CD if you can. Press TAB at the yaboot prompt to find these. The only reliable way to disable the splash screen on an installed PowerPC system is to remove the word 'splash' from the yaboot.conf file.
+
+It is also worth opening the yaboot.conf file to see if the installer has added any graphics parameters.
+
+Note, yaboot parameters don't always work with the live cds, but you will still be able to install using the alternate or mini cds. If you've used a "video=" yaboot parameter with a CD then that parameter should be automatically passed onto the install. However, other parameters may not be copied so this is something you need to check after an install.
+
+How do I make a yaboot parameter permanent?
+
+To make a yaboot parameter permanent or remove a parameter from an installation, use the command
+
+sudo nano /etc/yaboot.conf
+
+and change the 'append' lines in the file. Add the desired parameter into the quotes, or remove the word splash if you want to disable the splash screen. Every parameter inside the quotes should be separated by a space. Save (ctrl+o) and exit (ctrl+x), then type the command
+
+sudo ybin -v
+
+to copy the file across to the boot partition. 

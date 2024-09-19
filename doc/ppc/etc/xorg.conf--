@@ -1,0 +1,37 @@
+Section "Screen" 
+	Identifier "Default screen"
+	Monitor "Configured Monitor"
+	Device "Radeon" 
+	SubSection "Display"
+		Depth 16
+	EndSubSection
+EndSection 
+
+Section "Device" 
+	Identifier "Radeon" 
+	Driver "radeon"
+	#BusID "PCI:0:16:0"
+
+	Option "BusType" "PCI"
+
+    Option        "DynamicClocks" "true"
+    Option        "AGPMode" "4"
+    Option        "AGPFastWrite" "true"
+#    Option        "UseFBDev" "true"
+#    Option        "DRI" "false"
+    Option        "GARTSize" "64"
+#    Option        "AddARGBGLXVisuals" "true"
+#    Option        "XAANoOffscreenPixmaps"
+#    Option        "DisableGLXRootClipping" "true"
+#    Option        "AllowGLXWithComposite" "true"
+	Option "SWCursor"	"off"
+	Option "EnablePageFlip"	"on"
+	Option "AccelMethod"	"EXA"
+	Option "RenderAccel"	"true"
+	Option "ColorTiling"	"on"
+	Option "EXAVsync"	"off"
+	Option "EXAPixmaps"	"on"
+	Option "AccelDFS"	"true"
+EndSection
+
+

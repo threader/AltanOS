@@ -1,0 +1,340 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<title>Gentoo Wiki Archives - Apple_Powerbook_G4</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="Gentoo%20Wiki%20Archives%20-%20Apple_Powerbook_G4_files/style.css" media="screen,projection" type="text/css">
+</head>
+<body>
+<script type="text/javascript">
+window.google_analytics_uacct = "UA-281984-9";
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-281984-9']);
+_gaq.push(['_trackPageview']);
+var rs_site = 4;
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+var rs = document.createElement('script');rs.type = "text/javascript";rs.async = true;rs.src = "http://services.realsauce.com.au/assets/js/stats.js";s.parentNode.insertBefore(rs, s);
+})();
+</script>
+<div class="floatingbar">
+<div style="float:right">
+<form action="http://www.google.com/cse" id="cse-search-box">
+  <div>
+    <input name="cx" value="partner-pub-9207841248349609:gjwiap-3rhb" type="hidden">
+    <input name="ie" value="UTF-8" type="hidden">
+    <input name="q" size="31" type="text">
+    <input name="sa" value="Search" type="submit">
+  </div>
+</form>
+<script type="text/javascript">
+window.google_analytics_uacct = "UA-281984-9";
+</script>
+<script type="text/javascript" src="Gentoo%20Wiki%20Archives%20-%20Apple_Powerbook_G4_files/brand"></script>
+</div>
+<h1><a href="http://www.gentoo-wiki.info/"><img src="Gentoo%20Wiki%20Archives%20-%20Apple_Powerbook_G4_files/logo.gif" alt="Gentoo Wiki Archives"><span>Gentoo Wiki</span></a></h1>
+</div>
+<div class="ad">
+<script type="text/javascript"><!--
+google_ad_client = "pub-9207841248349609";
+google_ad_slot = "4158563626";
+google_ad_width = 160;
+google_ad_height = 600;
+//-->
+</script>
+<script type="text/javascript" src="Gentoo%20Wiki%20Archives%20-%20Apple_Powerbook_G4_files/show_ads.js">
+</script>
+</div>
+<div class="maincontent">
+<script type="text/javascript"><!--
+google_ad_client = "pub-9207841248349609";
+google_ad_slot = "4352298629";
+google_ad_width = 728;
+google_ad_height = 90;
+//-->
+</script>
+<script type="text/javascript" src="Gentoo%20Wiki%20Archives%20-%20Apple_Powerbook_G4_files/show_ads.js">
+</script>
+<h1>Apple_Powerbook_G4</h1><table id="toc" class="toc" summary="Contents"><tbody><tr><td><div id="toctitle"><h2>Contents</h2></div><ul><li class="toclevel-1"><a href="#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li><li class="toclevel-1"><a href="#Installation_Environment"><span class="tocnumber">2</span> <span class="toctext">Installation Environment</span></a><ul><li class="toclevel-2"><a href="#System_Info"><span class="tocnumber">2.1</span> <span class="toctext">System Info</span></a></li></ul></li><li class="toclevel-1"><a href="#Kernel_Configuration"><span class="tocnumber">3</span> <span class="toctext">Kernel Configuration</span></a><ul><li class="toclevel-2"><a href="#Processor"><span class="tocnumber">3.1</span> <span class="toctext">Processor</span></a></li><li class="toclevel-2"><a href="#Platform_Options"><span class="tocnumber">3.2</span> <span class="toctext">Platform Options</span></a></li><li class="toclevel-2"><a href="#Device_Drivers"><span class="tocnumber">3.3</span> <span class="toctext">Device Drivers</span></a></li><li class="toclevel-2"><a href="#File_Systems"><span class="tocnumber">3.4</span> <span class="toctext">File Systems</span></a></li></ul></li><li class="toclevel-1"><a href="#Other_brief_notes"><span class="tocnumber">4</span> <span class="toctext">Other brief notes</span></a><ul><li class="toclevel-2"><a href="#Sleep.2FSuspend"><span class="tocnumber">4.1</span> <span class="toctext">Sleep/Suspend</span></a></li><li class="toclevel-2"><a href="#Open_Firmware"><span class="tocnumber">4.2</span> <span class="toctext">Open Firmware</span></a></li></ul></li><li class="toclevel-1"><a href="#Links"><span class="tocnumber">5</span> <span class="toctext">Links</span></a></li><li class="toclevel-1"><a href="#Unresolved_Issues"><span class="tocnumber">6</span> <span class="toctext">Unresolved Issues</span></a></li><li class="toclevel-1"><a href="#Thanks_.2F_Credits"><span class="tocnumber">7</span> <span class="toctext">Thanks / Credits</span></a></li></ul></td></tr></tbody></table> <a name="Introduction"></a><h2> <span class="mw-headline"> Introduction </span></h2><p><b>deprecated, should be overworked as wlan is working, 3d is working etc </b></p><p>This
+ wiki will describe the installation process of Gentoo Linux on an Apple
+ Powerbook G4 15" SuperDrive. Updates as soon as I completely nail down 
+everything with my personal configuration. Some of the main issues 
+include sound and suspend-to-RAM/sleep capability, which I hope to 
+address as soon as possible. For now I can provide a thorough 
+description of the actual hardware, kernel modules/chipset support 
+needed (and those not needed).</p><p>This wiki is aimed at pretty much 
+everyone. New Gentoo users will (hopefully) find it an extremely 
+informative document, while seasoned veterans may just be here looking 
+for that one evasive setting they forgot. Either or, enjoy. =)</p><p>For the most part, follow the <a href="http://www.gentoo.org/doc/en/handbook/handbook-ppc.xml" class="external text" title="http://www.gentoo.org/doc/en/handbook/handbook-ppc.xml" rel="nofollow">PPC Handbook</a>
+ to a 'T'. I'll try and highlight any quirks during the install, but 
+this wiki mainly deals with post-configuration and 
+kernel/module/keymapping issues.</p><p>Also, trying to consolidate the <b>extremely</b> good forum posts and howtos already out there and apply them to this specific machine.</p> <a name="Installation_Environment"></a><h2> <span class="mw-headline"> Installation Environment </span></h2><p>AFAIK,
+ configuration varies on Powerbooks, iBooks, and older machines. This 
+wiki is designed specifically for the Aluminum PowerBook 15" G4 5.4 (the
+ new series is 5,6 i believe). However that does not mean that this 
+information is <i>not</i> pertinent to your machine, and it <i>may</i> work. All I can guarantee is that it works on the <a href="http://store.apple.com/1-800-MY-APPLE/WebObjects/AppleStore/" class="external text" title="http://store.apple.com/1-800-MY-APPLE/WebObjects/AppleStore/" rel="nofollow">15" AlBook</a>.&nbsp;:)</p> <a name="System_Info"></a><h3> <span class="mw-headline"> System Info </span></h3><p>This is just a handy reference. =)</p><p>Some (commented) output commands on this specific machine so we're all on the same page:</p><table style="background-color: #f2fff2; border: solid 1px #bfffbf;" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td style="background-color: #c1ffc1; border: solid 1px #a0ffa0; border-bottom: 1px solid #888;"> <font size="-1"><b>Code:</b> uname -a</font></td></tr><tr><td><div class="scroll"><pre>Linux narya 2.6.11-gentoo-r6 #2 Sun Apr 10 02:06:56 MST 2005 ppc 7447A, altivec supported PowerBook5,4 GNU/Linux
+</pre></div></td></tr></tbody></table><table style="background-color: #f2fff2; border: solid 1px #bfffbf;" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td style="background-color: #c1ffc1; border: solid 1px #a0ffa0; border-bottom: 1px solid #888;"> <font size="-1"><b>Code:</b> cat /proc/cpuinfo</font></td></tr><tr><td><div class="scroll"><pre> processor      &nbsp;: 0
+ cpu            &nbsp;: 7447A, altivec supported /* Enable the altivec use flag! */
+ clock          &nbsp;: 1499MHz
+ revision       &nbsp;: 1.1 (pvr 8003 0101)
+ bogomips       &nbsp;: 1495.04
+ machine        &nbsp;: PowerBook5,4             /* This is the "old" generation before the 1Q 2005 price drop and 1.66 model */
+ motherboard    &nbsp;: PowerBook5,4 MacRISC3 Power Macintosh
+ detected as    &nbsp;: 287 (PowerBook G4 15")
+ pmac flags     &nbsp;: 0000001b
+ L2 cache       &nbsp;: 512K unified
+ memory         &nbsp;: 512MB
+ pmac-generation&nbsp;: NewWorld                 /* yaboot only*/
+</pre></div></td></tr></tbody></table><table style="background-color: #fff2f2; border: solid 1px #ffbfbf;" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td style="background-color: #ffafaf; border-bottom: 1px solid #888;"> <font size="-1"><b>File:</b> /etc/yaboot.conf</font></td></tr><tr><td><div class="scroll"><pre>## yaboot.conf generated by yabootconfig 1.0.8
+##
+## run: "man yaboot.conf" for details. Do not make changes until you have!!
+##
+## For a dual-boot menu, add one or more of:
+## bsd=/dev/hdaX, macos=/dev/hdaY, macosx=/dev/hdaZ
+
+ofboot=hd:2
+boot=/dev/hda2
+device=/pci@f4000000/ata-6@d/disk@0: /* this is really just hd:2 */
+partition=4
+root=/dev/hda4
+timeout=30
+install=/usr/lib/yaboot/yaboot
+magicboot=/usr/lib/yaboot/ofboot
+enableofboot
+enablecdboot
+default=Linux-2.6.11-r1
+image=/boot/kernel-2.6.11
+        label=Linux-2.6.11
+        read-only
+        sysmap=/boot/System.map-2.6.11-old
+image=/boot/kernel-2.6.11-old       /* always keep a kernel you KNOW will boot&nbsp;:) */
+        label=Linux-2.6.11-old
+        read-only
+        sysmap=/boot/System.map-2.6.11-old
+</pre></div></td></tr></tbody></table><table style="background-color: #f2fff2; border: solid 1px #bfffbf;" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td style="background-color: #c1ffc1; border: solid 1px #a0ffa0; border-bottom: 1px solid #888;"> <font size="-1"><b>Code:</b> lspci -v</font></td></tr><tr><td><div class="scroll"><pre>0000:00:0b.0 Host bridge: Apple Computer Inc. UniNorth 2 AGP
+        Flags: bus master, 66Mhz, medium devsel, latency 16
+        Capabilities: [80] AGP version 1.0
+
+0000:00:10.0 VGA compatible controller: ATI Technologies Inc RV350 [Mobility Radeon 9600 M10] (prog-if 00 [VGA])
+        Subsystem: ATI Technologies Inc RV350 [Mobility Radeon 9600 M10]
+        Flags: bus master, 66Mhz, medium devsel, latency 255, IRQ 48
+        Memory at b8000000 (32-bit, prefetchable) [size=f1000000]
+        I/O ports at 802400 [size=256]
+        Memory at b0000000 (32-bit, non-prefetchable) [size=64K]
+        Expansion ROM at 00020000 [disabled]
+        Capabilities: [58] AGP version 2.0
+        Capabilities: [50] Power Management version 2
+</pre><p><b>NOTE: Will not work with XFree or xorg-x11 DRI!</b></p><pre>0001:10:0b.0 Host bridge: Apple Computer Inc. UniNorth 2 PCI
+        Flags: bus master, 66Mhz, medium devsel, latency 16
+
+0001:10:12.0 Network controller: Broadcom Corporation BCM4306 802.11b/g Wireless LAN Controller (rev 03)
+        Subsystem: Apple Computer Inc.: Unknown device 004e
+        Flags: bus master, fast devsel, latency 16, IRQ 52
+        Memory at a0006000 (32-bit, non-prefetchable) [disabled]
+        Capabilities: [40] Power Management version 2
+</pre><p><b>NOTE: THE ABOVE IS AIRPORT EXTREME <strike>AND WILL NOT WORK WITH LINUX!</strike></b></p><pre>0001:10:13.0 CardBus bridge: Texas Instruments PCI1510 PC card Cardbus Controller
+        Flags: bus master, medium devsel, latency 168, IRQ 53
+        Memory at a0004000 (32-bit, non-prefetchable)
+        Bus: primary=10, secondary=11, subordinate=14, sec-latency=176
+        Memory window 0: 90000000-9ffff000 (prefetchable)
+        Memory window 1: f3000000-f31ff000
+        I/O window 0: 00001000-000010ff
+        I/O window 1: 00001400-000014ff
+        16-bit legacy interface ports at 0001
+</pre><p><b>NOTE: Works great. If you have Airport Extreme you'll probably want to get a USB or PCMCIA wireless dongle</b></p><pre>0001:10:17.0 Class ff00: Apple Computer Inc. KeyLargo/Intrepid Mac I/O
+        Flags: bus master, medium devsel, latency 16
+        Memory at 80000000 (32-bit, non-prefetchable)
+</pre><p><b>NOTE: Enable I2C support for this in the kernel</b></p><pre>0001:10:18.0 USB Controller: Apple Computer Inc. KeyLargo/Intrepid USB (prog-if 10 [OHCI])
+        Flags: medium devsel
+
+0001:10:19.0 USB Controller: Apple Computer Inc. KeyLargo/Intrepid USB (prog-if 10 [OHCI])
+        Flags: medium devsel
+
+0001:10:1a.0 USB Controller: Apple Computer Inc. KeyLargo/Intrepid USB (prog-if 10 [OHCI])
+        Flags: bus master, medium devsel, latency 16, IRQ 29
+        Memory at a0003000 (32-bit, non-prefetchable)
+
+0001:10:1b.0 USB Controller: NEC Corporation USB (rev 43) (prog-if 10 [OHCI])
+        Subsystem: NEC Corporation USB
+        Flags: bus master, medium devsel, latency 16, IRQ 63
+        Memory at a0002000 (32-bit, non-prefetchable)
+        Capabilities: [40] Power Management version 2
+
+0001:10:1b.1 USB Controller: NEC Corporation USB (rev 43) (prog-if 10 [OHCI])
+        Subsystem: NEC Corporation USB
+        Flags: bus master, medium devsel, latency 16, IRQ 63
+        Memory at a0001000 (32-bit, non-prefetchable)
+        Capabilities: [40] Power Management version 2
+
+0001:10:1b.2 USB Controller: NEC Corporation USB 2.0 (rev 04) (prog-if 20 [EHCI
+)
+        Subsystem: NEC Corporation USB 2.0
+        Flags: bus master, medium devsel, latency 16, IRQ 63
+        Memory at a0000000 (32-bit, non-prefetchable)
+        Capabilities: [40] Power Management version 2
+
+0002:24:0b.0 Host bridge: Apple Computer Inc. UniNorth 2 Internal PCI
+        Flags: bus master, 66Mhz, medium devsel, latency 16
+
+0002:24:0d.0 Class ff00: Apple Computer Inc. UniNorth/Intrepid ATA/100
+        Flags: bus master, medium devsel, latency 32, IRQ 39
+        Memory at f5004000 (32-bit, non-prefetchable)
+
+0002:24:0e.0 FireWire (IEEE 1394): Apple Computer Inc. UniNorth 2 FireWire (rev 81) (prog-if 10 [OHCI])
+        Subsystem: Apple Computer Inc.: Unknown device 5811
+        Flags: bus master, medium devsel, latency 64, IRQ 40
+        Memory at f5000000 (32-bit, non-prefetchable)
+        Capabilities: [44] Power Management version 2
+
+0002:24:0f.0 Ethernet controller: Apple Computer Inc. UniNorth 2 GMAC (Sun GEM) (rev 80)
+        Flags: bus master, 66Mhz, slow devsel, latency 16, IRQ 41
+        Memory at f5200000 (32-bit, non-prefetchable) [size=f5100000]
+        Expansion ROM at 00100000 [disabled]
+</pre><p><b>NOTE: Enable Sun GEM support in the kernel. Module is sungem.o</b></p></div></td></tr></tbody></table> <a name="Kernel_Configuration"></a><h2> <span class="mw-headline"> Kernel Configuration </span></h2><p>Here I'll discuss some of the kernel options available to a PPC user, moreover which ones apply specifically to this machine.</p><p>Keep
+ in mind, this is for an out-of-the-box, fresh-smelling PowerBook. Make 
+exceptions for the obvious, e.g. you use SCSI hardware or I20.</p><ul><li> You <b>need</b> to have both options selected in Code Maturity Level before you do anything else.</li><li> You do not <i>need</i> any of the top-level options below File Systems, these are all user choices and as such...it's your choice =)</li><li> The General Setup options are just that, general. They should be configured however you like, if in doubt, read the <tt>Help</tt>.</li><li>
+ You need to enable kernel module support, and autoload at your 
+discretion however this is desirable in every situation I've 
+encountered.</li></ul><p><b>The only options listed are the ones that I have selected, so they will appear out of order in <span style="background-color:#ddffdd; color:#000000; font-weight:bold;"><tt>make menuconfig</tt></span>.</b></p><p>To the nitty-gritty:</p> <a name="Processor"></a><h3> <span class="mw-headline"> Processor </span></h3><table style="background-color: #faebd7; margin: 1em 0; border: solid 4px #7070FF;" width="100%"><tbody><tr><td style="background-color: #7070FF; border: solid 1px #0000FF; color: #FFFFFF;"> <font size="-1">Linux Kernel Configuration: Processor Opts</font></td></tr><tr><td><div class="scroll"><pre>Processor Type: (X) 6xx/7xx/74xx/52xx/8260
+[*] AltiVec Support
+[*] Thermal Management Support
+
+</pre></div></td></tr></tbody></table> <a name="Platform_Options"></a><h3> <span class="mw-headline"> Platform Options </span></h3><table style="background-color: #faebd7; margin: 1em 0; border: solid 4px #7070FF;" width="100%"><tbody><tr><td style="background-color: #7070FF; border: solid 1px #0000FF; color: #FFFFFF;"> <font size="-1">Linux Kernel Configuration:  Platform Opts</font></td></tr><tr><td><div class="scroll"><pre>Machine Type: (X) CHRP/PowerMac/PReP
+[*] Support for Open Firmware device tree in /proc
+[*] Support for PReP Residual Data
+[*] Support for reading of PReP Residual Data in /proc
+
+</pre></div></td></tr></tbody></table><p><br></p> <a name="Device_Drivers"></a><h3> <span class="mw-headline"> Device Drivers </span></h3><p><b>NOTE:</b>
+ This applies mostly to any special hardware you might be using, so be 
+sure to DOUBLE CHECK before you change things around in this section! 
+There are some things you most likely will not need listed below that 
+are pretty obvious, but again, use your common sense.</p><ul><li> <b>Not</b> needed:<ul><li> MTD support</li><li> Plug and Play support</li><li> ISDN support</li><li> Fusion MPT support</li><li> I20 support</li><li> Parallel Port support</li><li> SCSI support</li><li> RAID and LVM support</li><li> Telephony support</li><li> Misc devices</li><li> MMC/SD Card support</li><li> Infiniband support</li></ul></li></ul><table style="background-color: #faebd7; margin: 1em 0; border: solid 4px #7070FF;" width="100%"><tbody><tr><td style="background-color: #7070FF; border: solid 1px #0000FF; color: #FFFFFF;"> <font size="-1">Linux Kernel Configuration:  Device Drivers</font></td></tr><tr><td><div class="scroll"><pre> Block devices  ---&gt;
+     &lt;*&gt; RAM disk support                       /* Only needed if you want to use an initial ramdisk (initrd) for bootsplash, etc. */
+     [*]   Initial RAM disk (initrd) support    /* enable this too, then, if so */
+     &lt;*&gt; Packet writing on CD/DVD media         /* performance */
+     [*]   Enable write caching                 /* use this only with known-good media unless you want a new coaster collection */
+
+ ATA/ATAPI/MFM/RLL support ---&gt;
+     &lt;*&gt; ATA/ATAPI/MFM/RLL support
+          &lt;*&gt;   Enhanced IDE/MFM/RLL disk/cdrom/tape/floppy support
+          &lt;*&gt;     Include IDE/ATA-2 DISK support
+          &lt;*&gt;     Include IDE/ATAPI CDROM support
+          &lt;*&gt;     generic/default IDE chipset support
+          [*]     PCI IDE chipset support
+          [*]       Sharing PCI IDE interrupts support
+          &lt;*&gt;       Generic PCI IDE Chipset Support
+          [*]       Generic PCI bus-master DMA support
+          [*]         Use PCI DMA by default when available
+          [*]     Builtin PowerMac IDE support
+          [*]       Probe internal ATA/100 (Kauai) first
+          [*]       PowerMac IDE DMA support
+          [*]       Blink laptop LED on drive activity          /* the LED on the 'open' button - pers. preference */
+
+ IEEE 1394 (FireWire) support  ---&gt;         /* this entire section is completely optional. Read the Help on each option for more info */
+     &lt;*&gt; IEEE 1394 (FireWire) support
+     &lt;*&gt;   OHCI-1394 support                /* we do in fact have 'such a card' :) */
+     &lt;*&gt;   OHCI-1394 Video support          /* has anyone tried an iSight with this? */
+     &lt;*&gt;   Ethernet over 1394               /* RFC 2734, no multicast though */
+     &lt;*&gt;   OHCI-DV I/O support              /* for DV devices (again, iSight?) */
+     &lt;*&gt;   Raw IEEE1394 I/O support         /* good idea for userspace programs */
+ 
+ Macintosh device drivers  ---&gt;
+     [*] Apple Desktop Bus (ADB) support          /* will disable kb if not selected */
+     [*] Support for PMU  based PowerMacs
+     [*]   Power management support for PowerBooks
+     &lt;*&gt;     APM emulation
+     [*]   Backlight control for LCD screens
+     [*] Support for ADB input devices (keyboard, mice, ...)
+     [*]   Support for mouse button 2+3 emulation
+     &lt;*&gt; Support for thermal mgmnt on laptops with ADT 746x chipset     /* better control of gpu/cpu fans */
+
+<b>NB: There are way too many options in Networking to go over in detail, and most do not apply at all to the PowerBook 15.</b>
+
+ Networking support ---&gt;
+     [*] Networking support                                     /* duh */
+     &lt;*&gt; Bluetooth subsystem support  ---&gt;                      /* if you want to enable BT */
+         ****WILL ADD TO THIS SECTION LATER****
+     [*] Network device support
+     Ethernet (10 or 100Mbit)  ---&gt;
+          [*] Ethernet (10 or 100Mbit)
+          &lt;*&gt;   Sun GEM support
+     &lt;*&gt;   PPP (point-to-point protocol) support                /* enable for dialup, DSL, VPN */
+         ****WILL ADD TO THIS SECTION LATER****
+ 
+ Input device support ---&gt;
+     [*] Provide legacy /dev/psaux device                       /* some old stuff uses this, same as /dev/input/mice */
+ 
+ Character devices ---&gt;
+     &lt;*&gt; /dev/nvram support                                     /* does this support OF? unsure... */
+     &lt;*&gt; Generic /dev/rtc emulation
+     [ ]   Extended RTC operation                               /* NOTE: THIS IS EMPTY BECAUSE YOU SHOULD _NOT_ SELECT IT */
+     &lt;*&gt; /dev/agpgart (AGP Support)
+     &lt;*&gt;   Apple UniNorth AGP support
+     &lt;*&gt; Direct Rendering Manager (XFree86 4.1.0 and higher DRI support)
+     &lt;*&gt;   ATI Radeon                                           /* 2d acceleration only (no dri driver for ATI r300 on PPC */
+
+ Graphics support ---&gt;                                          /* mostly framebuffer stuff in this section */
+     [*]   Open Firmware frame buffer device support
+     &lt;*&gt; ATI Radeon display support
+     [*]   DDC/I2C for ATI Radeon support
+     Console display driver support ---&gt;
+          [*] VGA text console                                  /* liven up that vt =) */
+          &lt;*&gt; Framebuffer console support                       /* enable fbcon useflag as well */
+     Logo configuration
+          [ ] Bootup logo                                       /* you must DISABLE this for bootsplash */
+     [*] Backlight &amp; LCD device support  ---&gt;                   /* remember to enable both options in the submenu under this */
+     [*] Support for the framebuffer splash                     /* again, this is for fbsplash */
+
+ /* NOTE: what follows in the sound section is hackish at best. I am still trying to get it nailed down and will update as necessary */
+
+ Sound support ---&gt;                                             /* this is a real bitch. don't expect it to work right the first time */
+     &lt;*&gt; Sound card support                                     /* still not sure if my config is working right either. =( */
+     [ ] PowerMac DMA sound support                             /* this is the OSS module, don't enable it. I think. */
+     Advanced Linux Sound Architecture ---&gt;
+          &lt;M&gt; Advanced Linux Sound Architecture                 /* module snd */
+          &lt;M&gt; Sequencer support                                 /* module snd_seq (?) */
+          &lt;M&gt; OSS Mixer API                                     /* module snd_mixer_oss */
+          &lt;M&gt; OSS PCM (digital audio) API                       /* module snd_pcm_oss */
+          ALSA Mac Devices ---&gt;
+               [M] PowerMac (AWACS...Keywest)                   /* module snd_powermac */
+
+ USB support ---&gt;                                               /* Most options will relate to extra hardware you might have */
+ &lt;*&gt; Support for Host-side USB                                  /* so enable any required support (mass storage, usb cdrom etc */
+ [*] USB device filesystem                                      /* note: this has nothing to do with udev or devfs */
+ [*] USB suspend/resume                                         /* needed for USB when waking from suspend to disk/ram */
+ &lt;*&gt; EHCI HCD (USB 2.0) support
+ &lt;*&gt; OHCI HCD support
+ &lt;*&gt; USB Human Interface Device (full HID) support
+ [*]   HID input layer support
+
+</pre></div></td></tr></tbody></table> <a name="File_Systems"></a><h3> <span class="mw-headline"> File Systems </span></h3><ul><li> You should know which filesystems you need, but this is a good start:<ul><li> Local Filesystems<ul><li> ext2</li><li> ext3</li><li> reiserfs (nice to have on a separate /var or /usr partition, for portage/rsync)</li><li> HFS/HFS+</li></ul></li><li> Network Filesystems<ul><li> SMB/CIFS (windows shares)</li><li> NFS v3/v4 (Unix shares)</li></ul></li></ul></li><li> And of course, don't forget to add support for the Apple Partition Map in Advanced Partition Selection.</li></ul> <a name="Other_brief_notes"></a><h2> <span class="mw-headline"> Other brief notes </span></h2> <a name="Sleep.2FSuspend"></a><h3> <span class="mw-headline"> Sleep/Suspend </span></h3><ul><li> As of now, the 2.6.11-r6 sources include support for sleep (finally).<ul><li> You should have all the related power options compiled into the kernel.</li><li> You should perform the following:</li></ul></li></ul><pre>emerge --sync
+emerge -u gentoo-sources
+cd /usr/src; rm linux; ln -s /usr/src/linux-2.6.11-r6 linux
+cd linux; make menuconfig
+make all
+</pre><ul><li> edit /etc/yaboot.conf as necessary</li><li> install <a href="http://gentoo-portage.com/Search?search=app-laptop/pmud" class="extiw" title="ebuild:app-laptop/pmud">app-laptop/pmud</a> and <a href="http://gentoo-portage.com/Search?search=app-laptop/pbbuttonsd" class="extiw" title="ebuild:app-laptop/pbbuttonsd">app-laptop/pbbuttonsd</a></li></ul><pre>emerge pmud
+emerge pbbuttonsd
+rc-update add pmud default
+rc-update add pbbuttonsd default
+</pre><p>At this point you should be able to initiate suspend-to-RAM with the <span style="background-color:#ddffdd; color:#000000; font-weight:bold;"><tt>snooze</tt></span> command.</p> <a name="Open_Firmware"></a><h3> <span class="mw-headline"> Open Firmware </span></h3><ul><li>
+ This is just in case you screw up the device= line in your yaboot.conf 
+and don't want to reboot to the livecd to fix it. This is of course 
+assuming you have a kernel that will boot, and references the 
+yaboot.conf used above.</li></ul><pre>printenv                                  /* this will give you a nice little printout of your settings. */
+setenv boot-device hd:2                   /* this will reset your boot device to hd:2 (your bootstrap partition) */
+boot hd:2,\\/boot/your.kernel.here        /* and hopefully all goes well */
+</pre><p>To reset your settings:</p><pre>reset-all
+</pre><a name="Links"></a><h2> <span class="mw-headline"> Links </span></h2><ul><li> <a href="http://www.gentoo-wiki.info/Broadcom_43xx" title="Broadcom 43xx">Broadcom 43xx</a></li><li> <a href="http://forums.gentoo.org/viewtopic-t-192895.html" class="external text" title="http://forums.gentoo.org/viewtopic-t-192895.html" rel="nofollow">Bootsplash on PPC (Gentoo Forums)</a></li><li> <a href="http://ppcconfdb.sourceforge.net/" class="external text" title="http://ppcconfdb.sourceforge.net/" rel="nofollow">PPC ConfDB</a></li><li> <a href="http://forums.gentoo.org/viewtopic-t-162622-highlight-alsa+ppc.html" class="external text" title="http://forums.gentoo.org/viewtopic-t-162622-highlight-alsa+ppc.html" rel="nofollow">The basis for this wiki</a></li><li> <a href="http://www.gentoo.org/doc/en/gentoo-ppc-faq.xml" class="external text" title="http://www.gentoo.org/doc/en/gentoo-ppc-faq.xml" rel="nofollow">Gentoo PPC FAQ</a></li><li> <a href="http://www.gentoo.org/doc/en/handbook/handbook-ppc.xml" class="external text" title="http://www.gentoo.org/doc/en/handbook/handbook-ppc.xml" rel="nofollow">Gentoo PPC Handbook</a></li><li> <a href="http://tstotts.net/linux/gentoopb.html" class="external text" title="http://tstotts.net/linux/gentoopb.html" rel="nofollow">Expert Notes of Gentoo on a Powerbook G4</a></li></ul> <a name="Unresolved_Issues"></a><h2> <span class="mw-headline"> Unresolved Issues </span></h2><ul><li> I personally have a number of unresolved issues with my system as of right now:<ul><li> The system will not save the date when shutting down.</li><li> yaboot will only load into the firmware after a system halt, not a soft reboot.</li><li> i get no response from showkey on Fn+F6 -- Fn+F10. My keycode for Fn+F5 is 225 and this is also where my <font style="font-family: monospace;" color="green">/usr/include/linux/input.h</font> stops listing keycodes.</li></ul></li></ul><p>Mathias Grimm has developed an app called pbbuttonsd<a href="http://sourceforge.net/projects/pbbuttons/" class="external autonumber" title="http://sourceforge.net/projects/pbbuttons/" rel="nofollow">[1]</a> to handle these special keys!</p><p>I know yours it is not a PowerBook but you can still try! It's working perfectly on my mac!</p><p>He's also developing a graphical interface (GTk based)</p> <a name="Thanks_.2F_Credits"></a><h2> <span class="mw-headline"> Thanks / Credits </span></h2><p>Initially created from trial/error and a lot of resources on the net by [[[User:Sam|Sam]]].
+A <b>big</b> thanks goes out to Theefer @ The Gentoo PPC Forum: <a href="http://forums.gentoo.org/profile.php?mode=viewprofile&amp;u=24759" class="external text" title="http://forums.gentoo.org/profile.php?mode=viewprofile&amp;u=24759" rel="nofollow">Theefer</a></p><p>And of course, the Gentoo Foundation and the Gentoo Development Team for making such a wonderful system possible.</p><div class="printfooter"> Retrieved from "<a href="http://www.gentoo-wiki.info/Apple_Powerbook_G4">http://www.gentoo-wiki.info/Apple_Powerbook_G4</a>"</div><div id="catlinks" class="catlinks"><div id="mw-normal-catlinks"><a href="http://www.gentoo-wiki.info/Special:Categories" title="Special:Categories">Categories</a>: <span dir="ltr"><a href="http://www.gentoo-wiki.info/Category:Laptop" title="Category:Laptop">Laptop</a></span> | <span dir="ltr"><a href="http://www.gentoo-wiki.info/Category:Apple" title="Category:Apple">Apple</a></span></div><br><hr><a href="http://www.gentoo-wiki.info/Category:Browse_categories" title="Category:Browse categories">Browse categories</a> &gt; <a href="http://www.gentoo-wiki.info/Category:Hardware" title="Category:Hardware">Hardware</a> &gt; <a href="http://www.gentoo-wiki.info/Category:Laptop" title="Category:Laptop">Laptop</a><br> <a href="http://www.gentoo-wiki.info/Category:Browse_categories" title="Category:Browse categories">Browse categories</a> &gt; <a href="http://www.gentoo-wiki.info/Category:Hardware" title="Category:Hardware">Hardware</a> &gt; <a href="http://www.gentoo-wiki.info/Category:Manufacturer" title="Category:Manufacturer">Manufacturer</a> &gt; <a href="http://www.gentoo-wiki.info/Category:Apple" title="Category:Apple">Apple</a></div><hr><div style="text-size:x-small;"><b>Last modified</b>: Fri, 29 Aug 2008 08:41:00 +1000 <b>Hits</b>: 21,265</div><br>
+<span style="font-size:x-small">
+Created by <a href="http://nickstallman.net/" target="_blank">NickStallman.net</a>, <a href="http://www.luxuryhomesaustralia.com.au/">Luxury Homes Australia</a><br>
+Real estate agents should list their <a href="http://www.apartmentsaustralia.com.au/">apartments, townhouses and units in Australia</a>.<br>
+</span>
+</div>
+<script type="text/javascript">var dc_AdLinkColor = 'blue';var dc_PublisherID = 172804;</script>
+<script type="text/javascript" src="Gentoo%20Wiki%20Archives%20-%20Apple_Powerbook_G4_files/KonaLibInline.js">
+</script>
+
+
+</body></html>

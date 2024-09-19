@@ -1,0 +1,11 @@
+dpkg --get-selections | grep deinstall | awk '{print $1}'
+dpkg -l | awk '/^rc/ {print $2}'
+dpkg -l | grep ^rc | cut -d' ' -f3
+# aptitude purge `dpkg --get-selections | grep deinstall | awk '{print $1}'
+# aptitude purge '~c'
+
+# dpkg -l | awk '/^rc/ {print $2}' | xargs dpkg -P
+
+# dpkg -l | grep ^rc | cut -d' ' -f3 | xargs dpkg -P
+
+aptitude purge ~o 
