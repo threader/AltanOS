@@ -188,7 +188,7 @@ $sysdrive =  $Env:SystemDrive
  
 # Mkay my draft proposal of the layout for this I would like to be something like: 
 # ESP/EFI Partition: 512mb fat16
-#  * One File Linux w/GRUB and Win2kX .wmi
+#  * One File Linux w/GRUB and Win2kX .wmi, note. there exists also the possibility of making this rntire project even more complicated and including Apple PPC since GRUB supports that and dot down my yaboot config on PPC next time its on.
 # BOOT
 # * Somehow veryfy the MD5/SHA256/512 of the core booting image. etc 
 # BOOT encypted (kexex vmlinux from here and have grub decrypt the volume in OFL? for "other-os",.efi etc? and rest of available .wim .iso .img and whatever GRUB supports.)
