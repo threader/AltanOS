@@ -218,7 +218,10 @@ $sysdrive =  $Env:SystemDrive
 #
 # remember KfreeBSD, Hurd, Darwin/OSX and Coreptcher or what it was for osx, maybe see if a recovery image for OSX86 
 # can be grabbed from apple.com , modify and boot to that. Packages are installable, well, were at least, by components
-# and i did that on a multibooting osx86 12 years ago and force installed to a MBR, believe this was 10.7.11 or somehing
+# and i did that on a multibooting osx86 12 years ago and force installed to a MBR, believe this was 10.7.11 or somehing.
+# You could basicll run the package installer command gainst ctually very few OSX packages , like BSD* core* Esssenstials 
+# and a few other that are actualy needed. I have that script on some drive somewhere. all that was needed to do was move 
+# the /etc/rc.cdrom script or something preventing the DVD installer from running 
 # 
 # Maybe have an encrypted WMI or whatever that you boot from, mabye encrypt the windows folder 
 # maybe encrypt the /Users/<user> foler or maybe just documents or pictures or something. ,
