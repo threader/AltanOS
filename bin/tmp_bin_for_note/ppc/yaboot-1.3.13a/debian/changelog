@@ -1,0 +1,397 @@
+yaboot (1.3.13a-1squeeze1) testing-proposed-updates; urgency=low
+
+  * Team upload.
+  * Get scsi, sata, and firewire drive info from sysfs as legacy /proc/scsi
+    interface does not exist anymore.
+    (Closes: #572869, #377097, #342833, #289201)
+  * Use persistent device naming symlinks, UUID and LABEL tags instead of 
+    unix block device names. (Closes: #580455)
+  * debian/copyright: Add copyright notice from ofpath.
+
+ -- Milan Kupcevic <milan@physics.harvard.edu>  Sun, 05 Dec 2010 10:34:50 -0500
+
+yaboot (1.3.13a-1) unstable; urgency=high
+
+  * Convert debian/control from ISO_8859-15 to UTF-8.
+  * Change the orig.tar.gz to use
+  <ftp://debootloaders.alioth.debian.org/pub/debootloaders/yaboot/yaboot_1.3.13a.orig.tar.gz>
+  which is a cleaned up version of
+  <http://penguinppc.org/bootloaders/yaboot/yaboot-1.3.13.tar.gz>
+  instead of
+  <http://penguinppc.org/bootloaders/yaboot/yaboot-1.3.13-debian.tar.gz>
+  which included external source and binary.
+  This is the final touch for #377839.
+  * Modify FSF address in upstream copyright file.
+
+ -- Aurélien GÉRÔME <ag@roxor.cx>  Sun, 16 Jul 2006 13:00:00 +0200
+
+yaboot (1.3.13-7) unstable; urgency=high
+
+  * Adopt the package (closes: #354974).
+  * Reviewing Fedora and Ubuntu patches (closes: #375680).
+  * Remove a duplicity in debian/README.Debian the previous upload
+  left.
+  * Change section/priority from base/important to admin/important
+  to suppress override disparities shown by the PTS.
+  * Fix booting with initramfs from XFS (closes: #336993).
+  * Fix to recognise RAID filesystems (closes: #233810).
+  * Fix booting on Apple G5 second SATA harddisk (closes: #294081).
+  * Fix booting on Firewire harddisk (closes: #288008).
+  * Update to the latest Standards-Version.
+  * Fix build system to really compile from Debian maintained source
+  (closes: #377839).
+  * Add German translation of yaboot.8 manpage (closes: #261488).
+
+ -- Aurélien GÉRÔME <ag@roxor.cx>  Wed, 12 Jul 2006 00:57:07 +0200
+
+yaboot (1.3.13-6) unstable; urgency=low
+
+  * QA upload.
+  * Fix up seriously wedged source package; the content of many files was
+    duplicated.
+  * Apply Pegasos patches (closes: #299686):
+    - Add support for IDE devices that advertise as "spi".
+    - Add (trivial) support for Pegasos to ofpath.
+  * Use debhelper v4.
+
+ -- Colin Watson <cjwatson@debian.org>  Mon,  3 Jul 2006 16:39:34 +0100
+
+yaboot (1.3.13-5) unstable; urgency=low
+
+  * Orphaning package.
+
+ -- Warren A. Layton <zeevon@debian.org>  Thu,  2 Mar 2006 09:05:52 -0500
+
+yaboot (1.3.13-4.1) unstable; urgency=low
+
+  * NMU
+  * Fix the FTBS in strstr.c. Thanks to Andreas Jochens for the patch.
+    (Closes: #322539)
+
+ -- Don Armstrong <don@debian.org>  Sat, 31 Dec 2005 00:04:32 -0800
+
+yaboot (1.3.13-4) unstable; urgency=low
+
+  * Apply upstream patch to ofpath (Closes: #321962)
+
+ -- Warren A. Layton <zeevon@debian.org>  Wed, 10 Aug 2005 07:31:37 -0400
+
+yaboot (1.3.13-3) unstable; urgency=low
+
+  * Add Amiga support courtesy of Sven Luther (Closes: #267812)
+
+ -- Warren A. Layton <zeevon@debian.org>  Thu, 25 Nov 2004 21:19:22 -0500
+
+yaboot (1.3.13-2) unstable; urgency=low
+
+  * postinst script doesn't redirect to /dev/tty anymore
+    (Closes: #259510, #245927)
+  * Fix some typos in yaboot(8) man page - thanks to Helge Kreutzmann
+    for the patch (Closes: #261038)
+
+ -- Warren A. Layton <zeevon@debian.org>  Sat, 24 Jul 2004 12:04:13 -0400
+
+yaboot (1.3.13-1) unstable; urgency=low
+
+  * New upstream release (all bugfixes below are a result of upstream work)
+  * yabootconfig now supports initrd (Closes: #244484)
+  * yabootconfig now supports LABEL and UUID in fstab (Thanks to Colin Watson)
+    (Closes: #258168)
+  * ofpath - fix errors going to stdout instead stderr (Closes: #247822)
+  * ybin: detect broken /dev/nvram better (Closes: #248017)
+
+ -- Warren A. Layton <zeevon@debian.org>  Tue, 13 Jul 2004 05:16:35 -0400
+
+yaboot (1.3.12-2) unstable; urgency=high
+
+  * Increased tftp buffer size again, so that d-i will work (Closes: #256263)
+
+ -- Warren A. Layton <zeevon@debian.org>  Mon, 28 Jun 2004 08:39:58 -0400
+
+yaboot (1.3.12-1) unstable; urgency=low
+
+  * New upstream release
+  * New release has ofpath that supports linux kernels 2.6.3+
+  * Source for libext2 included in new release (Closes: #233811)
+  * Increased tftp buffer size from 4MB to 5MB (Closes: #242348)
+
+ -- Warren A. Layton <zeevon@debian.org>  Thu, 22 Apr 2004 07:58:17 -0400
+
+yaboot (1.3.11-1) unstable; urgency=low
+
+  * New upstream release (Closes: #222284)
+  * Acknowledge NMU'd fixes (Closes: #205696, Closes: #212918)
+
+ -- Warren A. Layton <zeevon@debian.org>  Sun, 30 Nov 2003 14:21:20 -0500
+
+yaboot (1.3.10-2.1) unstable; urgency=low
+
+  * Non-maintainer upload
+  * Change DEBCONF_FRONTENT in postinst script.
+    This fix problems with debooststrap and debian-installer.
+    Closes: #205696.
+    Closes: #212918.
+
+ -- Thorsten Sauter <tsauter@debian.org>  Sun, 28 Sep 2003 00:39:42 +0200
+
+yaboot (1.3.10-2) unstable; urgency=low
+
+  * New Maintainer.
+
+ -- Warren A. Layton <zeevon@debian.org>  Tue, 10 Jun 2003 14:46:42 -0400
+
+yaboot (1.3.10-1) unstable; urgency=low
+
+  * New upstream version.
+
+ -- Daniel Jacobowitz <dan@debian.org>  Sun, 23 Mar 2003 13:18:08 -0500
+
+yaboot (1.3.9-2) unstable; urgency=low
+
+  * Update priority to important.
+
+ -- Daniel Jacobowitz <dan@debian.org>  Mon, 17 Feb 2003 19:08:38 -0500
+
+yaboot (1.3.9-1) unstable; urgency=low
+
+  * New upstream release.
+    - Compatible with the new Apple hardware.
+    - Fix IBM CHRP support for multiple boot partitions (again).
+
+ -- Daniel Jacobowitz <dan@debian.org>  Mon, 17 Feb 2003 15:14:12 -0500
+
+yaboot (1.3.8-2) unstable; urgency=low
+
+  * The "Maintained well by Ethan" release.
+  * dh_installchangelogs does not do what I thought it did.  Actually
+    include both sets of changelogs this time (Closes: #173411).
+
+ -- Daniel Jacobowitz <dan@debian.org>  Mon, 30 Dec 2002 23:11:55 -0500
+
+yaboot (1.3.8-1) unstable; urgency=low
+
+  * New upstream version (Closes: #163464).
+  * Include both sets of changelogs.
+
+ -- Daniel Jacobowitz <dan@debian.org>  Mon, 16 Dec 2002 13:35:39 -0500
+
+yaboot (1.3.6-3) unstable; urgency=low
+
+  * Bump yabootconfig version back to 1.0.5.debian by Ethan's request.
+
+ -- Daniel Jacobowitz <dan@debian.org>  Sun, 18 Aug 2002 18:57:03 -0400
+
+yaboot (1.3.6-2) unstable; urgency=low
+
+  * Change prompt in OS menu to be less ambiguous (Closes: #153203).
+  * Patches from upstream:
+    - Fix a rare ReiserFS symlink bug.
+    - Don't report bugs to BenH anymore.
+    - Handle commented-out "/" entries in /etc/fstab (Closes: #156742).
+
+ -- Daniel Jacobowitz <dan@debian.org>  Sun, 18 Aug 2002 17:21:27 -0400
+
+yaboot (1.3.6-1) unstable; urgency=low
+
+  * New upstream version.
+  * Add conflicts with quik (<< 2.0e-0.6) (Closes: #122346).
+  * Previous changes were from Colin Walters, not Colin Watson.  Sorry!
+
+ -- Daniel Jacobowitz <dan@debian.org>  Wed, 12 Dec 2001 23:48:50 -0500
+
+yaboot (1.3.5-1) unstable; urgency=low
+
+  * New upstream release.
+  * Cleanups to the source package, from Colin Watson (Closes: #117499,
+    #119994).
+
+ -- Daniel Jacobowitz <dan@debian.org>  Mon, 19 Nov 2001 19:54:58 -0500
+
+yaboot (1.3.4-1) unstable; urgency=low
+
+  * New upstream release (Closes: #111316, #113862).
+  * Move to a normal source package and version now that yaboot and ybin
+    are unified.
+
+ -- Daniel Jacobowitz <dan@debian.org>  Sun, 14 Oct 2001 11:19:56 -0400
+
+yaboot (1.2.3-1.2.5-1) unstable; urgency=low
+
+  * New upstream ybin fixes quoting errors (Closes: #109324).
+
+ -- Daniel Jacobowitz <dan@debian.org>  Sat, 25 Aug 2001 13:27:19 -0700
+
+yaboot (1.2.3-1.2.4-1) unstable; urgency=low
+
+  * Upload prepared by Brendan O'Dea, thank you.
+  * New upstream yaboot, fixes a serious bug which could lead to
+    kernel memory corruption (particularly in newer kernels)
+    (Closes: #107858).
+
+  * New upstream ybin, fixes a bug with multibooter on recent
+    OpenFirmware.
+
+  * Strip addnote, remove .comment section from yaboot.
+
+ -- Daniel Jacobowitz <dan@debian.org>  Mon, 13 Aug 2001 12:25:31 -0700
+
+yaboot (1.2.1-1.2.3-2) unstable; urgency=low
+
+  * Add addnote binary (Closes: #103760).
+
+ -- Daniel Jacobowitz <dan@debian.org>  Fri,  6 Jul 2001 17:07:36 -0700
+
+yaboot (1.2.1-1.2.3-1) unstable; urgency=low
+
+  * New upstream ybin, should work better on CHRP now (Closes: #102712).
+  * Remove the ld -N patch, for CHRP's sake.  We ned to find a better
+    solution, as this bloats yaboot disgustingly.
+
+ -- Daniel Jacobowitz <dan@debian.org>  Sun,  1 Jul 2001 13:29:08 -0700
+
+yaboot (1.2.1-1.2.1-1) unstable; urgency=medium
+
+  * New upstream version of ybin.  This finally adds yabootconfig!
+  * No longer include /etc/yaboot.conf as a conffile.
+  * Fix bashisms in build scripts.
+
+ -- Daniel Jacobowitz <dan@debian.org>  Fri,  8 Jun 2001 17:32:59 -0700
+
+yaboot (1.2.1-1.1.1-1) unstable; urgency=low
+
+  * New upstream versions of both yaboot and ybin, fixing
+    an obscure booting problem and errors in the password
+    locking code.
+
+ -- Daniel Jacobowitz <dan@debian.org>  Mon,  7 May 2001 13:23:33 -0400
+
+yaboot (1.2-1.1-1) unstable; urgency=low
+
+  * New upstream versions of both yaboot and ybin.
+  * Should fix booting on some new iMacs.
+
+ -- Daniel Jacobowitz <dan@debian.org>  Sun,  6 May 2001 14:18:47 -0400
+
+yaboot (0.9-0.30-3) stable unstable; urgency=medium
+
+  * Use "MacRISC" instead of the entire list of machine types
+    in <COMPATIBLE>.  One line change, should fix booting
+    on all recent machines.  (Well, one line change in four
+    places).
+
+ -- Daniel Jacobowitz <dan@debian.org>  Thu,  8 Mar 2001 11:11:08 -0600
+
+yaboot (0.9-0.30-2) stable unstable; urgency=medium
+
+  * Fix link creation on upgrades (Closes: #78027).
+
+ -- Daniel Jacobowitz <dan@debian.org>  Sun, 26 Nov 2000 12:53:45 -0500
+
+yaboot (0.9-0.30-1) stable unstable; urgency=medium
+
+  * New upstream ybin - only fixes booting to MacOSX after booting
+    to MacOS.
+
+ -- Daniel Jacobowitz <dan@debian.org>  Mon, 20 Nov 2000 15:09:36 -0500
+
+yaboot (0.9-0.29-1) stable unstable; urgency=medium
+
+  * Brown paper bag bugfix, man page was corrupt.
+
+ -- Daniel Jacobowitz <dan@debian.org>  Sun, 29 Oct 2000 13:06:49 -0500
+
+yaboot (0.9-0.28-1) stable unstable; urgency=medium
+
+  * New upstream yaboot - PPC64 and RS6000 support.
+  * New upstream ybin - lots of boot script improvements.
+
+ -- Daniel Jacobowitz <dan@debian.org>  Sat, 28 Oct 2000 10:43:58 -0400
+
+yaboot (0.8-0.23-1) stable unstable; urgency=medium
+
+  * YA new upstream ybin - the only change is using "ofboot.b" on the HFS
+    partition, regardless of the value of magicboot in the config file.
+
+ -- Daniel Jacobowitz <dan@debian.org>  Sat, 28 Oct 2000 10:43:32 -0400
+
+yaboot (0.8-0.22-1) stable unstable; urgency=medium
+
+  * New upstream ybin - mostly file location and documentation updates
+    over 0.21.
+  * New upstream yaboot - falls back to a kernel in yaboot's location if
+    none was specified.
+  * Moved yaboot and ofboot out of /boot entirely.
+
+ -- Daniel Jacobowitz <dan@debian.org>  Wed, 13 Sep 2000 16:32:42 -0400
+
+yaboot (0.7-0.21-1) stable unstable; urgency=medium
+
+  * New upstream yaboot version.
+    - Recognize partitions of type linux_swap or of type linux and named swap
+    - Fix a novideo bug.
+  * New upstream ybin version.
+    - Improve boot scripts and documentation.
+    - Add ofpath script for finding the OF path to devices.
+    - Recognize additional machine types in <COMPATIBLE>
+      (Closes: #69870).
+    - Improve booting reliability on some machines.
+  * Remove ofboot.b from /etc, as it is no longer a conffile.  Make the one
+    in /boot be a real file.
+  * Also rename it to ofboot.b.sh - it is not a CHRP boot script any more.
+  * Recommend powerpc-utils (>= 1.1.3-2) for the new-world nvsetenv.
+
+ -- Daniel Jacobowitz <dan@debian.org>  Tue,  5 Sep 2000 12:53:33 -0400
+
+yaboot (0.6-0.16-1) frozen unstable; urgency=medium
+
+  * New upstream version of ybin.
+  * The menu_ofboot.b did not have a boot command and thus did not work
+    (RC).
+
+ -- Daniel Jacobowitz <dan@debian.org>  Tue, 25 Apr 2000 22:39:44 -0400
+
+yaboot (0.6-0.15-1) frozen unstable; urgency=medium
+
+  * New upstream ybin which supercedes quik's bootstrap(8); this fixes an
+    overwrite problem with the other powerpc bootloader (RC).
+  * Install important documentation.
+  * Mention ybin in package description.
+  * Add /boot/ofboot.b as a symlink to /etc and /etc/ofboot.b as a conffile
+    (important fix for boot floppies).
+  * Also add /etc/yaboot.conf as a conffile, even if we don't have a really
+    useful one yet.
+
+ -- Daniel Jacobowitz <dan@debian.org>  Tue, 25 Apr 2000 06:51:12 -0400
+
+yaboot (0.6-0.13-1) frozen unstable; urgency=medium
+
+  * New version of ybin, correcting several thinkos in the busybox patch.
+  * This is the first version to actually function on a rescue floppy.
+
+ -- Daniel Jacobowitz <dan@debian.org>  Sun, 23 Apr 2000 11:53:18 -0400
+
+yaboot (0.6-0.12-1) frozen unstable; urgency=medium
+
+  * Add an updated ybin which works within the confines of busybox on
+    the boot floppies.
+  * Update version number to recognize that we are tracking two upstream
+    sources at once.
+
+ -- Daniel Jacobowitz <dan@debian.org>  Sun, 23 Apr 2000 00:19:53 -0400
+
+yaboot (0.6-2) frozen unstable; urgency=medium
+
+  * Add a patch to compile yaboot with -Os.
+  * Call strip on yaboot; the author believes it won't cause any problems,
+    and space on the boot floppies is far too tight.
+
+ -- Daniel Jacobowitz <dan@debian.org>  Sat, 22 Apr 2000 13:07:13 -0400
+
+yaboot (0.6-1) frozen unstable; urgency=medium
+
+  * New package.
+  * This is the primary bootloader for perhaps a third of the
+    supported powerpc machines; it needs to go into frozen for
+    boot-floppies.
+
+ -- Daniel Jacobowitz <dan@debian.org>  Fri, 21 Apr 2000 20:14:03 -0400

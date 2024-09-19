@@ -1,0 +1,110 @@
+<CHRP-BOOT>
+<COMPATIBLE>
+MacRISC MacRISC3 MacRISC4
+</COMPATIBLE>
+<DESCRIPTION>
+PowerPC GNU/Linux First Stage Bootstrap
+</DESCRIPTION>
+<BOOT-SCRIPT>
+: .printf fb8-write drop ;
+: bootyaboot " Loading second stage bootstrap..." .printf 100 ms load-base release-load-area " /pci@f4000000/ata-6@d/@0:2,\\yaboot" $boot ;
+: bootmacos " Booting MacOS..." .printf 100 ms load-base release-load-area " /pci@f4000000/ata-6@d/@0:10,\\:tbxi" $boot ;
+: bootmorphos " Booting MorphOS..." .printf 100 ms load-base release-load-area " /pci@f4000000/ata-6@d/disk@0:2,\\boot.img" $boot ;
+: bootamigaos " Booting AmigaOS..." .printf 100 ms load-base release-load-area " /pci@f4000000/ata-6@d/disk@0:2,\\slb_v2_mm_debug" $boot ;
+: bootcd " Booting CDROM..." .printf 100 ms load-base release-load-area " cd:,\\:tbxi" $boot ;
+: bootof " Booting OpenFirmware..." .printf 100 ms quit ;
+" screen" output
+variable interactive
+1 interactive !
+
+0 interactive @ = if
+  bootyaboot
+then
+
+dev screen
+" "(0000000000aa00aa0000aaaaaa0000aa00aaaa5500aaaaaa)" drop 0 7 set-colors
+" "(5555555555ff55ff5555ffffff5555ff55ffffff55ffffff)" drop 8 15 set-colors
+device-end
+f to foreground-color
+0 to background-color
+" "(0C)" .printf
+
+" First Stage Debian GNU/Linux Bootstrap"(0d 0a)" .printf
+"  "(0d 0a)" .printf
+" Press l for GNU/Linux,"(0d 0a)" .printf
+"       m for MacOS,"(0d 0a)" .printf
+"       a for AmigaOS,"(0d 0a)" .printf
+"       p for MorphOS,"(0d 0a)" .printf
+"       c for CDROM,"(0d 0a)" .printf
+"       o for OpenFirmware."(0d 0a)" .printf
+"  "(0d 0a)" .printf
+" Stage 1 Boot: " .printf
+get-msecs d# 10 3E8 * +
+begin
+  key? if
+    key case
+      ascii l of " l "(0d 0a)" .printf bootyaboot endof
+      ascii m of " m "(0d 0a)" .printf bootmacos endof
+      ascii p of " p "(0d 0a)" .printf bootmorphos endof
+      ascii a of " a "(0d 0a)" .printf bootamigaos endof
+      ascii c of " c "(0d 0a)" .printf bootcd endof
+      ascii o of " o "(0d 0a)" .printf bootof endof
+    endcase
+  then
+  dup get-msecs &lt;
+until
+drop
+"  "(0d 0a)" .printf bootyaboot
+</BOOT-SCRIPT>
+<OS-BADGE-ICONS>
+1010
+000000000000F8FEACF6000000000000
+0000000000F5FFFFFEFEF50000000000
+00000000002BFAFEFAFCF70000000000
+0000000000F65D5857812B0000000000
+0000000000F5350B2F88560000000000
+0000000000F6335708F8FE0000000000
+00000000005600F600F5FD8100000000
+00000000F9F8000000F5FAFFF8000000
+000000008100F5F50000F6FEFE000000
+000000F8F700F500F50000FCFFF70000
+00000088F70000F50000F5FCFF2B0000
+0000002F582A00F5000008ADE02C0000
+00090B0A35A62B0000002D3B350A0000
+000A0A0B0B3BF60000505E0B0A0B0A00
+002E350B0B2F87FAFCF45F0B2E090000
+00000007335FF82BF72B575907000000
+000000000000ACFFFF81000000000000
+000000000081FFFFFFFF810000000000
+0000000000FBFFFFFFFFAC0000000000
+000000000081DFDFDFFFFB0000000000
+000000000081DD5F83FFFD0000000000
+000000000081DDDF5EACFF0000000000
+0000000000FDF981F981FFFF00000000
+00000000FFACF9F9F981FFFFAC000000
+00000000FFF98181F9F981FFFF000000
+000000ACACF981F981F9F9FFFFAC0000
+000000FFACF9F981F9F981FFFFFB0000
+00000083DFFBF981F9F95EFFFFFC0000
+005F5F5FDDFFFBF9F9F983DDDD5F0000
+005F5F5F5FDD81F9F9E7DF5F5F5F5F00
+0083DD5F5F83FFFFFFFFDF5F835F0000
+000000FBDDDFACFBACFBDFDFFB000000
+000000000000FFFFFFFF000000000000
+0000000000FFFFFFFFFFFF0000000000
+0000000000FFFFFFFFFFFF0000000000
+0000000000FFFFFFFFFFFF0000000000
+0000000000FFFFFFFFFFFF0000000000
+0000000000FFFFFFFFFFFF0000000000
+0000000000FFFFFFFFFFFFFF00000000
+00000000FFFFFFFFFFFFFFFFFF000000
+00000000FFFFFFFFFFFFFFFFFF000000
+000000FFFFFFFFFFFFFFFFFFFFFF0000
+000000FFFFFFFFFFFFFFFFFFFFFF0000
+000000FFFFFFFFFFFFFFFFFFFFFF0000
+00FFFFFFFFFFFFFFFFFFFFFFFFFF0000
+00FFFFFFFFFFFFFFFFFFFFFFFFFFFF00
+00FFFFFFFFFFFFFFFFFFFFFFFFFF0000
+000000FFFFFFFFFFFFFFFFFFFF000000
+</OS-BADGE-ICONS>
+</CHRP-BOOT>

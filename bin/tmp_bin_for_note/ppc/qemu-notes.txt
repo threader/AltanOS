@@ -1,0 +1,24 @@
+
+
+# osx 10.3
+/usr/bin/qemu-system-ppc -monitor stdio -enable-kvm -m 386 -localtime -drive file=/home/mike/Downloads/MacOSX_10.3.9_Panther/Mac_OS_X_10.3_7B85_User_CD_1.iso.cdr,media=cdrom -drive file=/home/mike/mol/osx-storage.img,media=disk -boot once=d,menu=on -net none -name "osx"
+
+/usr/bin/qemu-system-ppc -monitor stdio -enable-kvm -m 256 -localtime -drive file=/home/mike/Downloads/MacOSX_10.3.9_Panther/Mac_OS_X_10.3_7B85_User_CD_1.iso.cdr,media=disk -drive file=/home/mike/mol/osx-hd.img,media=disk -drive file=/home/mike/mol/osx-storage.img,media=disk -boot once=c,menu=on -net none -name "osx" -cpu G4
+
+/usr/bin/qemu-system-ppc -m g3beige -monitor stdio -enable-kvm -m 386 -localtime -drive file=/home/mike/Downloads/MacOSX_10.3.9_Panther/Mac_OS_X_10.3_7B85_User_CD_1.iso.cdr,media=cdrom -drive file=/home/mike/mol/osx-storage.img,media=disk -boot once=d,menu=on -net none -name "osx"
+
+
+
+#
+
+# linux debian insta
+
+  /usr/bin/qemu-system-ppc -monitor stdio -enable-kvm -m 361 -localtime -drive file=/home/mike/mol/osx-hd.img,if=ide,index=0,media=disk -drive file=/home/mike/dev/debian-testing-powerpc-xfce-CD-1.iso,if=ide,index=1,media=cdrom -net none -kernel /media/cdrom0/install/powerpc/vmlinux -initrd /media/cdrom0/install/powerpc/initrd.gz -name "test"
+
+
+# osx 10.3 
+
+
+/usr/bin/qemu-system-ppc -monitor stdio -M mac99 -enable-kvm -m 512 -localtime -drive file="/home/mike/dev/ppc/osx/MacOSX_10.3.9_Panther/Mac_OS_X_10.3_7B85_User_CD_2.iso.cdr",if=ide,index=1,media=cdrom -drive file="/home/mike/mol/osx-hd.img",if=ide,media=disk -boot once=c,menu=off -net none -name "test"
+
+

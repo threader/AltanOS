@@ -1,0 +1,77 @@
+#!/usr/bin/make -f
+
+STAMP_DIR := debian/stamps
+
+$(STAMP_DIR)/stamp:
+	[ -d $(STAMP_DIR) ] || mkdir $(STAMP_DIR)
+	touch $(STAMP_DIR)/stamp
+
+build: $(STAMP_DIR)/build $(STAMP_DIR)/man
+$(STAMP_DIR)/build: $(STAMP_DIR)/stamp
+	dh_testdir
+
+	$(MAKE) all
+
+	touch $(STAMP_DIR)/build
+
+$(STAMP_DIR)/man: $(STAMP_DIR)/stamp
+	dh_testdir
+
+	cd man && patch < ../man.patch
+
+	touch $(STAMP_DIR)/man
+
+man-clean:
+	dh_testdir
+
+	if [ -f $(STAMP_DIR)/man ]; then	\
+	  cd man && patch -R < ../man.patch;	\
+	  rm -f $(STAMP_DIR)/man;		\
+	fi
+
+clean: man-clean
+	$(MAKE) clean
+	rm -rf $(STAMP_DIR)
+	dh_clean
+
+binary-indep:
+
+binary-arch: build
+	dh_testdir
+	dh_testroot
+
+	dh_clean -k
+
+	dh_installdirs usr/sbin usr/lib/yaboot usr/share/lintian/overrides/
+	install -m 644 debian/overrides-yaboot debian/yaboot/usr/share/lintian/overrides/yaboot
+
+	install -m 644 second/yaboot	debian/yaboot/usr/lib/yaboot/yaboot
+	install -m 755 util/addnote \
+			debian/yaboot/usr/lib/yaboot/addnote
+	install -m 755 ybin/ybin	debian/yaboot/usr/sbin/ybin
+	install -m 755 ybin/yabootconfig debian/yaboot/usr/sbin/yabootconfig
+	ln -s		ybin		debian/yaboot/usr/sbin/mkofboot
+	install -m 755 ybin/ofpath	debian/yaboot/usr/sbin/ofpath
+	install -m 644 first/ofboot	debian/yaboot/usr/lib/yaboot/ofboot
+
+	dh_installexamples doc/examples/*
+	dh_installman man/*
+	dh_installdocs ChangeLog README doc/README* BUGS THANKS TODO \
+		doc/yaboot-howto*
+	dh_installchangelogs changelog
+
+	dh_strip
+
+	# dh_strip won't do this one since it's not executable
+	strip --remove-section=.comment debian/yaboot/usr/lib/yaboot/yaboot
+
+	dh_fixperms
+	dh_compress
+
+	dh_shlibdeps
+	dh_gencontrol
+	dh_md5sums
+	dh_installdeb
+	dh_builddeb
+
+binary: binary-indep binary-arch

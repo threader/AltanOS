@@ -1,0 +1,27 @@
+MorphOS booting instructions for PowerPC Apple hardware
+
+Automatic:
+
+IWizard automatically creates a HFS Boot partition when installing MorphOS
+and places the boot.img and a bootinfo.txt boot script file on it. In case
+the harddrive is partitioned manually, the installation process will fail
+if a Boot HFS partition isn't found. By default MorphOS will boot using the
+settings from the bootinfo.txt file.
+
+Manual:
+
+In order to boot MorphOS on a supported PowerPC Apple machine you need to
+place the boot.img file on a HFS formatted partition called Boot. Each
+time the file is updated, it will have to be blessed with the HFSSetMacBoot
+command. This tells the OpenFirmware which file to load when booting.
+
+It is only possible to bless one file per partition. OpenFirmware can only
+read HFS or HFS+ formatted partitions of the internal harddrive.
+
+IMPORTANT:
+OpenFirmware may sometimes be unable to read the boot.img if it's the
+only file on the partition, therefore it is best not to remove this file.
+
+IMPORTANT:
+You have to bless the bootinfo.txt file after editing it to make it
+bootable again!
