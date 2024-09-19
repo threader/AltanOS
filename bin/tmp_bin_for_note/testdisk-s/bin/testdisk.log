@@ -1,0 +1,350 @@
+
+
+Tue May 21 05:08:32 2013
+Command line: TestDisk
+
+TestDisk 6.11, Data Recovery Utility, April 2009
+Christophe GRENIER <grenier@cgsecurity.org>
+http://www.cgsecurity.org
+OS: Linux, kernel 3.7.4-mikeey (#3 SMP Fri Jan 25 00:41:13 CET 2013)
+Compiler: GCC 4.4 - Sep  5 2010 16:13:36
+ext2fs lib: 1.41.12, ntfs lib: 10:0:0, reiserfs lib: none, ewf lib: none
+/dev/sda: LBA, LBA48, DCO support
+/dev/sda: size       1250263728 sectors
+/dev/sda: user_max   1250263728 sectors
+/dev/sda: dco        1250263728 sectors
+Warning: can't get size for Disk /dev/mapper/control - 0 B - CHS 1 1 1, sector size=512
+Hard disk list
+Disk /dev/sda - 640 GB / 596 GiB - CHS 77825 255 63, sector size=512 - ATA TOSHIBA MK6465GS
+Disk /dev/sde - 2007 MB / 1914 MiB - CHS 1020 62 62, sector size=512 - SEMC SD CCR-80
+Disk /dev/sdf - 7790 MB / 7429 MiB - CHS 1022 240 62, sector size=512 - Kingston DT 101 G2
+
+Partition table type (auto): None
+Disk /dev/sde - 2007 MB / 1914 MiB - SEMC SD CCR-80
+Partition table type: None
+
+Analyse Disk /dev/sde - 2007 MB / 1914 MiB - CHS 1020 62 62
+
+recover_EXT2: s_block_group_nr=0/14, s_mnt_count=0/34, s_blocks_per_group=32768, s_inodes_per_group=8176
+recover_EXT2: s_blocksize=4096
+recover_EXT2: s_blocks_count 490102
+recover_EXT2: part_size 3920816
+Current partition structure:
+   P ext3                     0   0  1  1020   0 16    3920896
+
+search_part()
+Disk /dev/sde - 2007 MB / 1914 MiB - CHS 1020 62 62
+
+recover_EXT2: s_block_group_nr=0/14, s_mnt_count=0/34, s_blocks_per_group=32768, s_inodes_per_group=8176
+recover_EXT2: s_blocksize=4096
+recover_EXT2: s_blocks_count 490102
+recover_EXT2: part_size 3920816
+     ext3                     0   0  1  1019  60 60    3920816
+     EXT3 Large file Sparse superblock, 2007 MB / 1914 MiB
+
+Results
+   P ext3                     0   0  1  1019  60 60    3920816
+     EXT3 Large file Sparse superblock, 2007 MB / 1914 MiB
+
+interface_write()
+   P ext3                     0   0  1  1019  60 60    3920816
+ 
+Write isn't available because the partition table type "None" has been selected.
+
+search_part()
+Disk /dev/sde - 2007 MB / 1914 MiB - CHS 1020 62 62
+
+recover_EXT2: s_block_group_nr=0/14, s_mnt_count=0/34, s_blocks_per_group=32768, s_inodes_per_group=8176
+recover_EXT2: s_blocksize=4096
+recover_EXT2: s_blocks_count 490102
+recover_EXT2: part_size 3920816
+     ext3                     0   0  1  1019  60 60    3920816
+     EXT3 Large file Sparse superblock, 2007 MB / 1914 MiB
+
+block_group_nr 1
+
+recover_EXT2: part_offset problem
+
+block_group_nr 1
+
+recover_EXT2: "e2fsck -b 32768 -B 4096 device" may be needed
+recover_EXT2: s_block_group_nr=1/14, s_mnt_count=0/34, s_blocks_per_group=32768, s_inodes_per_group=8176
+recover_EXT2: s_blocksize=4096
+recover_EXT2: s_blocks_count 490102
+recover_EXT2: part_size 3920816
+     ext3                     0   0  1  1019  60 60    3920816
+     EXT3 Large file Sparse superblock Backup superblock, 2007 MB / 1914 MiB
+
+block_group_nr 1
+
+recover_EXT2: "e2fsck -b 32768 -B 4096 device" may be needed
+recover_EXT2: s_block_group_nr=1/14, s_mnt_count=0/34, s_blocks_per_group=32768, s_inodes_per_group=8176
+recover_EXT2: s_blocksize=4096
+recover_EXT2: s_blocks_count 490102
+recover_EXT2: part_size 3920816
+     ext3                     0   0 61  1019  61 58    3920816
+     EXT3 Large file Sparse superblock Backup superblock, 2007 MB / 1914 MiB
+
+block_group_nr 1
+
+recover_EXT2: "e2fsck -b 32768 -B 4096 device" may be needed
+recover_EXT2: s_block_group_nr=1/14, s_mnt_count=0/34, s_blocks_per_group=32768, s_inodes_per_group=8176
+recover_EXT2: s_blocksize=4096
+recover_EXT2: s_blocks_count 490102
+recover_EXT2: part_size 3920816
+     ext3                     0   1  1  1019  61 60    3920816
+     EXT3 Large file Sparse superblock Backup superblock, 2007 MB / 1914 MiB
+
+block_group_nr 3
+
+recover_EXT2: part_offset problem
+
+block_group_nr 3
+
+recover_EXT2: "e2fsck -b 98304 -B 4096 device" may be needed
+recover_EXT2: s_block_group_nr=3/14, s_mnt_count=0/34, s_blocks_per_group=32768, s_inodes_per_group=8176
+recover_EXT2: s_blocksize=4096
+recover_EXT2: s_blocks_count 490102
+recover_EXT2: part_size 3920816
+     ext3                     0   0  1  1019  60 60    3920816
+     EXT3 Large file Sparse superblock Backup superblock, 2007 MB / 1914 MiB
+
+block_group_nr 3
+
+recover_EXT2: "e2fsck -b 98304 -B 4096 device" may be needed
+recover_EXT2: s_block_group_nr=3/14, s_mnt_count=0/34, s_blocks_per_group=32768, s_inodes_per_group=8176
+recover_EXT2: s_blocksize=4096
+recover_EXT2: s_blocks_count 490102
+recover_EXT2: part_size 3920816
+     ext3                     0   0 61  1019  61 58    3920816
+     EXT3 Large file Sparse superblock Backup superblock, 2007 MB / 1914 MiB
+
+block_group_nr 3
+
+recover_EXT2: "e2fsck -b 98304 -B 4096 device" may be needed
+recover_EXT2: s_block_group_nr=3/14, s_mnt_count=0/34, s_blocks_per_group=32768, s_inodes_per_group=8176
+recover_EXT2: s_blocksize=4096
+recover_EXT2: s_blocks_count 490102
+recover_EXT2: part_size 3920816
+     ext3                     0   1  1  1019  61 60    3920816
+     EXT3 Large file Sparse superblock Backup superblock, 2007 MB / 1914 MiB
+
+block_group_nr 5
+
+recover_EXT2: part_offset problem
+
+block_group_nr 5
+
+recover_EXT2: "e2fsck -b 163840 -B 4096 device" may be needed
+recover_EXT2: s_block_group_nr=5/14, s_mnt_count=0/34, s_blocks_per_group=32768, s_inodes_per_group=8176
+recover_EXT2: s_blocksize=4096
+recover_EXT2: s_blocks_count 490102
+recover_EXT2: part_size 3920816
+     ext3                     0   0  1  1019  60 60    3920816
+     EXT3 Large file Sparse superblock Backup superblock, 2007 MB / 1914 MiB
+
+block_group_nr 5
+
+recover_EXT2: "e2fsck -b 163840 -B 4096 device" may be needed
+recover_EXT2: s_block_group_nr=5/14, s_mnt_count=0/34, s_blocks_per_group=32768, s_inodes_per_group=8176
+recover_EXT2: s_blocksize=4096
+recover_EXT2: s_blocks_count 490102
+recover_EXT2: part_size 3920816
+     ext3                     0   0 61  1019  61 58    3920816
+     EXT3 Large file Sparse superblock Backup superblock, 2007 MB / 1914 MiB
+
+block_group_nr 5
+
+recover_EXT2: "e2fsck -b 163840 -B 4096 device" may be needed
+recover_EXT2: s_block_group_nr=5/14, s_mnt_count=0/34, s_blocks_per_group=32768, s_inodes_per_group=8176
+recover_EXT2: s_blocksize=4096
+recover_EXT2: s_blocks_count 490102
+recover_EXT2: part_size 3920816
+     ext3                     0   1  1  1019  61 60    3920816
+     EXT3 Large file Sparse superblock Backup superblock, 2007 MB / 1914 MiB
+
+block_group_nr 7
+
+recover_EXT2: part_offset problem
+
+block_group_nr 7
+
+recover_EXT2: "e2fsck -b 229376 -B 4096 device" may be needed
+recover_EXT2: s_block_group_nr=7/14, s_mnt_count=0/34, s_blocks_per_group=32768, s_inodes_per_group=8176
+recover_EXT2: s_blocksize=4096
+recover_EXT2: s_blocks_count 490102
+recover_EXT2: part_size 3920816
+     ext3                     0   0  1  1019  60 60    3920816
+     EXT3 Large file Sparse superblock Backup superblock, 2007 MB / 1914 MiB
+
+block_group_nr 7
+
+recover_EXT2: "e2fsck -b 229376 -B 4096 device" may be needed
+recover_EXT2: s_block_group_nr=7/14, s_mnt_count=0/34, s_blocks_per_group=32768, s_inodes_per_group=8176
+recover_EXT2: s_blocksize=4096
+recover_EXT2: s_blocks_count 490102
+recover_EXT2: part_size 3920816
+     ext3                     0   0 61  1019  61 58    3920816
+     EXT3 Large file Sparse superblock Backup superblock, 2007 MB / 1914 MiB
+
+block_group_nr 7
+
+recover_EXT2: "e2fsck -b 229376 -B 4096 device" may be needed
+recover_EXT2: s_block_group_nr=7/14, s_mnt_count=0/34, s_blocks_per_group=32768, s_inodes_per_group=8176
+recover_EXT2: s_blocksize=4096
+recover_EXT2: s_blocks_count 490102
+recover_EXT2: part_size 3920816
+     ext3                     0   1  1  1019  61 60    3920816
+     EXT3 Large file Sparse superblock Backup superblock, 2007 MB / 1914 MiB
+
+block_group_nr 9
+
+recover_EXT2: part_offset problem
+
+block_group_nr 9
+
+recover_EXT2: "e2fsck -b 294912 -B 4096 device" may be needed
+recover_EXT2: s_block_group_nr=9/14, s_mnt_count=0/34, s_blocks_per_group=32768, s_inodes_per_group=8176
+recover_EXT2: s_blocksize=4096
+recover_EXT2: s_blocks_count 490102
+recover_EXT2: part_size 3920816
+     ext3                     0   0  1  1019  60 60    3920816
+     EXT3 Large file Sparse superblock Backup superblock, 2007 MB / 1914 MiB
+
+block_group_nr 9
+
+recover_EXT2: "e2fsck -b 294912 -B 4096 device" may be needed
+recover_EXT2: s_block_group_nr=9/14, s_mnt_count=0/34, s_blocks_per_group=32768, s_inodes_per_group=8176
+recover_EXT2: s_blocksize=4096
+recover_EXT2: s_blocks_count 490102
+recover_EXT2: part_size 3920816
+     ext3                     0   0 61  1019  61 58    3920816
+     EXT3 Large file Sparse superblock Backup superblock, 2007 MB / 1914 MiB
+
+block_group_nr 9
+
+recover_EXT2: "e2fsck -b 294912 -B 4096 device" may be needed
+recover_EXT2: s_block_group_nr=9/14, s_mnt_count=0/34, s_blocks_per_group=32768, s_inodes_per_group=8176
+recover_EXT2: s_blocksize=4096
+recover_EXT2: s_blocks_count 490102
+recover_EXT2: part_size 3920816
+     ext3                     0   1  1  1019  61 60    3920816
+     EXT3 Large file Sparse superblock Backup superblock, 2007 MB / 1914 MiB
+
+Results
+   P ext3                     0   0  1  1019  60 60    3920816
+     EXT3 Large file Sparse superblock, 2007 MB / 1914 MiB
+   P ext3                     0   0 61  1019  61 58    3920816
+     EXT3 Large file Sparse superblock Backup superblock, 2007 MB / 1914 MiB
+   P ext3                     0   1  1  1019  61 60    3920816
+     EXT3 Large file Sparse superblock Backup superblock, 2007 MB / 1914 MiB
+
+interface_write()
+   P ext3                     0   0  1  1019  60 60    3920816
+   P ext3                     0   0 61  1019  61 58    3920816
+   P ext3                     0   1  1  1019  61 60    3920816
+ 
+Write isn't available because the partition table type "None" has been selected.
+
+Analyse Disk /dev/sde - 2007 MB / 1914 MiB - CHS 1020 62 62
+
+recover_EXT2: s_block_group_nr=0/14, s_mnt_count=0/34, s_blocks_per_group=32768, s_inodes_per_group=8176
+recover_EXT2: s_blocksize=4096
+recover_EXT2: s_blocks_count 490102
+recover_EXT2: part_size 3920816
+Current partition structure:
+   P ext3                     0   0  1  1020   0 16    3920896
+
+search_part()
+Disk /dev/sde - 2007 MB / 1914 MiB - CHS 1020 62 62
+
+recover_EXT2: s_block_group_nr=0/14, s_mnt_count=0/34, s_blocks_per_group=32768, s_inodes_per_group=8176
+recover_EXT2: s_blocksize=4096
+recover_EXT2: s_blocks_count 490102
+recover_EXT2: part_size 3920816
+     ext3                     0   0  1  1019  60 60    3920816
+     EXT3 Large file Sparse superblock, 2007 MB / 1914 MiB
+
+Results
+   P ext3                     0   0  1  1019  60 60    3920816
+     EXT3 Large file Sparse superblock, 2007 MB / 1914 MiB
+
+interface_write()
+   P ext3                     0   0  1  1019  60 60    3920816
+ 
+Write isn't available because the partition table type "None" has been selected.
+Partition table type (auto): None
+Disk /dev/sde - 2007 MB / 1914 MiB - SEMC SD CCR-80
+Partition table type: Intel
+
+Analyse Disk /dev/sde - 2007 MB / 1914 MiB - CHS 1020 62 62
+Geometry from i386 MBR: head=62 sector=62
+check_part_i386 failed for partition type 83
+Current partition structure:
+No EXT2, JFS, Reiser, cramfs or XFS marker
+ 1 P Linux                    0   0  2  1019  61 62    3920879
+ 1 P Linux                    0   0  2  1019  61 62    3920879
+No partition is bootable
+Ask the user for vista mode
+Allow partial last cylinder : No
+search_vista_part: 0
+
+search_part()
+Disk /dev/sde - 2007 MB / 1914 MiB - CHS 1020 62 62
+
+Results
+
+interface_write()
+ 
+No partition found or selected for recovery
+
+search_part()
+Disk /dev/sde - 2007 MB / 1914 MiB - CHS 1020 62 62
+
+block_group_nr 3
+
+recover_EXT2: "e2fsck -b 98304 -B 4096 device" may be needed
+recover_EXT2: s_block_group_nr=3/14, s_mnt_count=0/34, s_blocks_per_group=32768, s_inodes_per_group=8176
+recover_EXT2: s_blocksize=4096
+recover_EXT2: s_blocks_count 490102
+recover_EXT2: part_size 3920816
+     Linux                    0   0  1  1019  60 60    3920816
+     EXT3 Large file Sparse superblock Backup superblock, 2007 MB / 1914 MiB
+Partition not added.
+
+block_group_nr 3
+
+recover_EXT2: "e2fsck -b 98304 -B 4096 device" may be needed
+recover_EXT2: s_block_group_nr=3/14, s_mnt_count=0/34, s_blocks_per_group=32768, s_inodes_per_group=8176
+recover_EXT2: s_blocksize=4096
+recover_EXT2: s_blocks_count 490102
+recover_EXT2: part_size 3920816
+     Linux                    0   1  1  1019  61 60    3920816
+     EXT3 Large file Sparse superblock Backup superblock, 2007 MB / 1914 MiB
+get_geometry_from_list_part_aux head=62 nbr=2
+get_geometry_from_list_part_aux head=8 nbr=2
+get_geometry_from_list_part_aux head=16 nbr=1
+get_geometry_from_list_part_aux head=32 nbr=1
+get_geometry_from_list_part_aux head=64 nbr=1
+get_geometry_from_list_part_aux head=128 nbr=1
+get_geometry_from_list_part_aux head=240 nbr=1
+get_geometry_from_list_part_aux head=255 nbr=2
+Warning: the current number of heads per cylinder is 62 but the correct value may be 255.
+
+Results
+   * Linux                    0   1  1  1019  61 62    3920818
+     EXT3 Large file Sparse superblock Backup superblock, 2007 MB / 1914 MiB
+
+interface_write()
+ 1 * Linux                    0   1  1  1019  61 62    3920818
+write!
+
+write_mbr_i386: starting...
+write_all_log_i386: starting...
+No extended partition
+Need to fix
+ 1 * Linux                    0   1  1  1019  61 62    3920818
+     EXT3 Large file Sparse superblock Backup superblock, 2007 MB / 1914 MiB
+You will have to reboot for the change to take effect.
+
+TestDisk exited normally.

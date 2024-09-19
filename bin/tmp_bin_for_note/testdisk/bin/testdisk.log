@@ -1,0 +1,1502 @@
+
+
+Fri Feb 10 12:07:24 2023
+Command line: TestDisk
+
+TestDisk 6.11, Data Recovery Utility, April 2009
+Christophe GRENIER <grenier@cgsecurity.org>
+http://www.cgsecurity.org
+OS: Linux, kernel 5.10.0-20-amd64 (#1 SMP Debian 5.10.158-2 (2022-12-13))
+Compiler: GCC 4.4 - Sep  5 2010 16:13:36
+ext2fs lib: 1.46.2, ntfs lib: 10:0:0, reiserfs lib: none, ewf lib: none
+/dev/sda: LBA, HPA, LBA48, DCO support
+/dev/sda: size       1465149168 sectors
+/dev/sda: user_max   1465149168 sectors
+/dev/sda: native_max 1465149168 sectors
+/dev/sda: dco        1465149168 sectors
+Warning: can't get size for Disk /dev/mapper/control - 0 B - CHS 1 1 1, sector size=512
+Hard disk list
+Disk /dev/sda - 750 GB / 698 GiB - CHS 91201 255 63, sector size=512 - ATA WDC WD7500BPVT-2
+Disk /dev/sdb - 2000 GB / 1863 GiB - CHS 243201 255 63, sector size=512 - TOSHIBA External USB 3.0
+Disk /dev/sdc - 406 MB / 388 MiB - CHS 1018 13 60 (RO), sector size=512 - Linux File-Stor Gadget
+Disk /dev/sdd - 62 GB / 57 GiB - CHS 59232 64 32, sector size=512 - SanDisk Ultra Fit
+
+Partition table type (auto): Intel
+Disk /dev/sda - 750 GB / 698 GiB - ATA WDC WD7500BPVT-2
+Partition table type: Intel
+
+Analyse Disk /dev/sda - 750 GB / 698 GiB - CHS 91201 255 63
+Geometry from i386 MBR: head=255 sector=63
+FAT32 at 0/32/33
+Info: size boot_sector 409563, partition 409600
+FAT1 : 32-3182
+FAT2 : 3183-6333
+start_rootdir : 6334 root cluster : 2
+Data : 6334-409562
+sectors : 409563
+cluster_size : 1
+no_of_cluster : 403229 (2 - 403230)
+fat_length 3151 calculated 3151
+set_FAT_info: name from BS used
+NTFS at 25/159/7
+NTFS at 31975/48/10
+get_geometry_from_list_part_aux head=255 nbr=4
+get_geometry_from_list_part_aux head=255 nbr=4
+Current partition structure:
+ 1 P FAT32                    0  32 33    25 159  6     409600 [NO NAME]
+ 2 * HPFS - NTFS             25 159  7 31975  15 40  513267712
+ 3 P HPFS - NTFS          31975  48 10 74378 254 61  681217225 [Stinkiediskie]
+ 4 E extended LBA         74379   0  1 91201  80 63  270250533
+ 5 L Linux                74379   1  1 76988 254 63   41929587
+   X extended             77785   0  1 91201  52 51  215531367
+ 6 L Linux                77785 192 40 91201  52 51  215519232
+Computes LBA from CHS for Disk /dev/sda - 750 GB / 698 GiB - CHS 91202 255 63
+Allow partial last cylinder : Yes
+search_vista_part: 1
+
+search_part()
+Disk /dev/sda - 750 GB / 698 GiB - CHS 91202 255 63
+FAT32 at 0/32/33
+FAT1 : 32-3182
+FAT2 : 3183-6333
+start_rootdir : 6334 root cluster : 2
+Data : 6334-409562
+sectors : 409563
+cluster_size : 1
+no_of_cluster : 403229 (2 - 403230)
+fat_length 3151 calculated 3151
+set_FAT_info: name from BS used
+
+FAT32 at 0/32/33
+     FAT32                    0  32 33    25 158 32     409563 [NO NAME]
+     FAT32, 209 MB / 199 MiB
+NTFS at 25/159/7
+filesystem size           513267712
+sectors_per_cluster       8
+mft_lcn                   4
+mftmirr_lcn               32079231
+clusters_per_mft_record   -10
+clusters_per_index_record 1
+     HPFS - NTFS             25 159  7 31975  15 40  513267712
+     NTFS, 262 GB / 244 GiB
+NTFS at 31975/48/10
+filesystem size           681217225
+sectors_per_cluster       8
+mft_lcn                   792296
+mftmirr_lcn               792295
+clusters_per_mft_record   -10
+clusters_per_index_record 1
+     HPFS - NTFS          31975  48 10 74378 254 61  681217225 [Stinkiediskie]
+     NTFS, 348 GB / 324 GiB
+
+recover_EXT2: s_block_group_nr=0/639, s_mnt_count=2/20, s_blocks_per_group=16384, s_inodes_per_group=8192
+recover_EXT2: s_blocksize=2048
+recover_EXT2: s_blocks_count 10482396
+recover_EXT2: part_size 41929584
+     Linux                74379   1  1 76988 254 60   41929584
+     EXT4 Large file Sparse superblock, 21 GB / 19 GiB
+
+recover_EXT2: s_block_group_nr=0/822, s_mnt_count=7/25, s_blocks_per_group=32768, s_inodes_per_group=8192
+recover_EXT2: s_blocksize=4096
+recover_EXT2: s_blocks_count 26939904
+recover_EXT2: part_size 215519232
+     Linux                77785 192 40 91201  52 51  215519232
+     EXT4 Large file Sparse superblock, 110 GB / 102 GiB
+get_geometry_from_list_part_aux head=255 nbr=2
+get_geometry_from_list_part_aux head=255 nbr=2
+
+Results
+   * FAT32                    0  32 33    25 158 32     409563 [NO NAME]
+     FAT32, 209 MB / 199 MiB
+   P HPFS - NTFS             25 159  7 31975  15 40  513267712
+     NTFS, 262 GB / 244 GiB
+   P HPFS - NTFS          31975  48 10 74378 254 61  681217225 [Stinkiediskie]
+     NTFS, 348 GB / 324 GiB
+   L Linux                74379   1  1 76988 254 60   41929584
+     EXT4 Large file Sparse superblock, 21 GB / 19 GiB
+   L Linux                77785 192 40 91201  52 51  215519232
+     EXT4 Large file Sparse superblock, 110 GB / 102 GiB
+
+interface_write()
+ 1 * FAT32                    0  32 33    25 158 32     409563 [NO NAME]
+ 2 P HPFS - NTFS             25 159  7 31975  15 40  513267712
+ 3 P HPFS - NTFS          31975  48 10 74378 254 61  681217225 [Stinkiediskie]
+ 4 E extended LBA         74379   0  1 91201 254 63  270261495
+ 5 L Linux                74379   1  1 76988 254 60   41929584
+ 6 L Linux                77785 192 40 91201  52 51  215519232
+
+search_part()
+Disk /dev/sda - 750 GB / 698 GiB - CHS 91202 255 63
+FAT32 at 0/32/33
+FAT1 : 32-3182
+FAT2 : 3183-6333
+start_rootdir : 6334 root cluster : 2
+Data : 6334-409562
+sectors : 409563
+cluster_size : 1
+no_of_cluster : 403229 (2 - 403230)
+fat_length 3151 calculated 3151
+set_FAT_info: name from BS used
+
+FAT32 at 0/32/33
+     FAT32                    0  32 33    25 158 32     409563 [NO NAME]
+     FAT32, 209 MB / 199 MiB
+FAT32 at 0/32/39
+FAT1 : 32-3182
+FAT2 : 3183-6333
+start_rootdir : 6334 root cluster : 2
+Data : 6334-409562
+sectors : 409563
+cluster_size : 1
+no_of_cluster : 403229 (2 - 403230)
+fat_length 3151 calculated 3151
+
+FAT32 at 0/32/39
+     FAT32                    0  32 33    25 158 32     409563 [FILE0]
+     FAT found using backup sector!, 209 MB / 199 MiB
+NTFS at 25/159/7
+filesystem size           513267712
+sectors_per_cluster       8
+mft_lcn                   4
+mftmirr_lcn               32079231
+clusters_per_mft_record   -10
+clusters_per_index_record 1
+     HPFS - NTFS             25 159  7 31975  15 40  513267712
+     NTFS, 262 GB / 244 GiB
+
+recover_EXT2: s_block_group_nr=0/182, s_mnt_count=142/4294967295, s_blocks_per_group=32768, s_inodes_per_group=8160
+recover_EXT2: s_blocksize=4096
+recover_EXT2: s_blocks_count 5968147
+recover_EXT2: part_size 47745176
+     Linux                25434 248 31 28406 248 26   47745176
+     EXT4 Large file Sparse superblock Recover, 24 GB / 22 GiB
+
+recover_EXT2: s_block_group_nr=0/182, s_mnt_count=142/4294967295, s_blocks_per_group=32768, s_inodes_per_group=8160
+recover_EXT2: s_blocksize=4096
+recover_EXT2: s_blocks_count 5968147
+recover_EXT2: part_size 47745176
+     Linux                25441 251 27 28413 251 22   47745176
+     EXT4 Large file Sparse superblock Recover, 24 GB / 22 GiB
+
+recover_EXT2: s_block_group_nr=0/182, s_mnt_count=142/4294967295, s_blocks_per_group=32768, s_inodes_per_group=8160
+recover_EXT2: s_blocksize=4096
+recover_EXT2: s_blocks_count 5968147
+recover_EXT2: part_size 47745176
+     Linux                25444 169  6 28416 169  1   47745176
+     EXT4 Large file Sparse superblock Recover, 24 GB / 22 GiB
+NTFS at 31975/15/40
+filesystem size           513267712
+sectors_per_cluster       8
+mft_lcn                   4
+mftmirr_lcn               32079231
+clusters_per_mft_record   -10
+clusters_per_index_record 1
+     HPFS - NTFS             25 159  7 31975  15 40  513267712
+     NTFS found using backup sector!, 262 GB / 244 GiB
+NTFS at 31975/48/10
+filesystem size           681217225
+sectors_per_cluster       8
+mft_lcn                   792296
+mftmirr_lcn               792295
+clusters_per_mft_record   -10
+clusters_per_index_record 1
+     HPFS - NTFS          31975  48 10 74378 254 61  681217225 [Stinkiediskie]
+     NTFS, 348 GB / 324 GiB
+NTFS at 74378/254/63
+filesystem size           681217225
+sectors_per_cluster       8
+mft_lcn                   792296
+mftmirr_lcn               792295
+clusters_per_mft_record   -10
+clusters_per_index_record 1
+     HPFS - NTFS          31975  48 12 74378 254 63  681217225 [Stinkiediskie]
+     NTFS found using backup sector!, 348 GB / 324 GiB
+
+recover_EXT2: s_block_group_nr=0/639, s_mnt_count=2/20, s_blocks_per_group=16384, s_inodes_per_group=8192
+recover_EXT2: s_blocksize=2048
+recover_EXT2: s_blocks_count 10482396
+recover_EXT2: part_size 41929584
+     Linux                74379   1  1 76988 254 60   41929584
+     EXT4 Large file Sparse superblock, 21 GB / 19 GiB
+
+recover_EXT2: s_block_group_nr=0/149, s_mnt_count=5/4294967295, s_blocks_per_group=32768, s_inodes_per_group=8144
+recover_EXT2: s_blocksize=4096
+recover_EXT2: s_blocks_count 4885248
+recover_EXT2: part_size 39081984
+     Linux                74379  13  3 76811 201 62   39081984
+     EXT4 Large file Sparse superblock, 20 GB / 18 GiB
+
+block_group_nr 3
+
+recover_EXT2: "e2fsck -b 49152 -B 2048 device" may be needed
+recover_EXT2: s_block_group_nr=3/639, s_mnt_count=0/20, s_blocks_per_group=16384, s_inodes_per_group=8192
+recover_EXT2: s_blocksize=2048
+recover_EXT2: s_blocks_count 10482396
+recover_EXT2: part_size 41929584
+     Linux                74379   1  1 76988 254 60   41929584
+     EXT4 Large file Sparse superblock Backup superblock, 21 GB / 19 GiB
+
+recover_EXT2: s_block_group_nr=0/149, s_mnt_count=5/4294967295, s_blocks_per_group=32768, s_inodes_per_group=8144
+recover_EXT2: s_blocksize=4096
+recover_EXT2: s_blocks_count 4885248
+recover_EXT2: part_size 39081984
+     Linux                75439 244  6 77872 178  2   39081984
+     EXT4 Large file Sparse superblock Recover, 20 GB / 18 GiB
+
+recover_EXT2: s_block_group_nr=0/149, s_mnt_count=14/4294967295, s_blocks_per_group=32768, s_inodes_per_group=8144
+recover_EXT2: s_blocksize=4096
+recover_EXT2: s_blocks_count 4885248
+recover_EXT2: part_size 39081984
+     Linux                75452 114 55 77885  48 51   39081984
+     EXT4 Large file Sparse superblock Recover, 20 GB / 18 GiB
+
+recover_EXT2: s_block_group_nr=0/149, s_mnt_count=14/4294967295, s_blocks_per_group=32768, s_inodes_per_group=8144
+recover_EXT2: s_blocksize=4096
+recover_EXT2: s_blocks_count 4885248
+recover_EXT2: part_size 39081984
+     Linux                75455  97 35 77888  31 31   39081984
+     EXT4 Large file Sparse superblock Recover, 20 GB / 18 GiB
+     Linux Swap           76811 234 32 77785 159 54   15642608
+     SWAP2 version 1, 8009 MB / 7637 MiB
+
+recover_EXT2: s_block_group_nr=0/822, s_mnt_count=7/25, s_blocks_per_group=32768, s_inodes_per_group=8192
+recover_EXT2: s_blocksize=4096
+recover_EXT2: s_blocks_count 26939904
+recover_EXT2: part_size 215519232
+     Linux                77785 192 40 91201  52 51  215519232
+     EXT4 Large file Sparse superblock, 110 GB / 102 GiB
+FAT32 at 78628/40/5
+FAT1 : 32-15199
+FAT2 : 15200-30367
+start_rootdir : 30368 root cluster : 2
+Data : 30368-15554559
+sectors : 15554560
+cluster_size : 8
+no_of_cluster : 1940524 (2 - 1940525)
+fat_length 15168 calculated 15161
+heads/cylinder 64 (FAT) != 255 (HD)
+sect/track 32 (FAT) != 63 (HD)
+set_FAT_info: name from BS used
+
+FAT32 at 78628/40/5
+     FAT32 LBA            78628  40  5 79596  97 53   15554560
+     FAT32, 7963 MB / 7595 MiB
+FAT32 at 78628/40/11
+FAT1 : 32-15199
+FAT2 : 15200-30367
+start_rootdir : 30368 root cluster : 2
+Data : 30368-15554559
+sectors : 15554560
+cluster_size : 8
+no_of_cluster : 1940524 (2 - 1940525)
+fat_length 15168 calculated 15161
+heads/cylinder 64 (FAT) != 255 (HD)
+sect/track 32 (FAT) != 63 (HD)
+set_FAT_info: name from BS used
+
+FAT32 at 78628/40/11
+     FAT32 LBA            78628  40  5 79596  97 53   15554560
+     FAT found using backup sector!, 7963 MB / 7595 MiB
+
+recover_EXT2: s_block_group_nr=0/0, s_mnt_count=39/4294967295, s_blocks_per_group=32768, s_inodes_per_group=4480
+recover_EXT2: s_blocksize=4096
+recover_EXT2: s_blocks_count 17920
+recover_EXT2: part_size 143360
+     Linux                80055 243 61 80064 224 32     143360
+     EXT3 Large file Sparse superblock Recover, 73 MB / 70 MiB
+
+recover_EXT2: s_block_group_nr=0/0, s_mnt_count=39/4294967295, s_blocks_per_group=32768, s_inodes_per_group=4480
+recover_EXT2: s_blocksize=4096
+recover_EXT2: s_blocks_count 17920
+recover_EXT2: part_size 143360
+     Linux                80091 166 12 80100 146 46     143360
+     EXT3 Large file Sparse superblock Recover, 73 MB / 70 MiB
+FAT16 at 83603/4/50
+FAT1 : 1-239
+FAT2 : 240-478
+start_rootdir : 479
+Data : 511-3911550
+sectors : 3911551
+cluster_size : 64
+no_of_cluster : 61110 (2 - 61111)
+fat_length 239 calculated 239
+heads/cylinder 64 (FAT) != 255 (HD)
+
+FAT16 at 83603/4/50
+     FAT16 LBA            83603   4 50 83846 127 56    3911551
+     FAT16, 2002 MB / 1909 MiB
+
+recover_EXT2: s_block_group_nr=0/1, s_mnt_count=0/32, s_blocks_per_group=8192, s_inodes_per_group=256
+recover_EXT2: s_blocksize=1024
+recover_EXT2: s_blocks_count 8192
+recover_EXT2: part_size 16384
+     Linux                84717  54 10 84718  59 13      16384
+     EXT3 Sparse superblock, 8388 KB / 8192 KiB
+FAT12 at 84771/35/1
+FAT1 : 1-1
+FAT2 : 2-2
+start_rootdir : 3
+Data : 35-518
+sectors : 520
+cluster_size : 4
+no_of_cluster : 121 (2 - 122)
+fat_length 1 calculated 1
+heads/cylinder 64 (FAT) != 255 (HD)
+sect/track 32 (FAT) != 63 (HD)
+
+FAT12 at 84771/35/1
+     FAT12                84771  35  1 84771  43 16        520
+     FAT12, 266 KB / 260 KiB
+FAT12 at 84771/67/33
+FAT1 : 1-1
+FAT2 : 2-2
+start_rootdir : 3
+Data : 35-578
+sectors : 582
+cluster_size : 4
+no_of_cluster : 136 (2 - 137)
+fat_length 1 calculated 1
+heads/cylinder 64 (FAT) != 255 (HD)
+sect/track 32 (FAT) != 63 (HD)
+
+FAT12 at 84771/67/33
+     FAT12                84771  67 33 84771  76 47        582
+     FAT12, 297 KB / 291 KiB
+NTFS at 31975/48/2
+filesystem size           513679353
+sectors_per_cluster       8
+mft_lcn                   1963
+mftmirr_lcn               1962
+clusters_per_mft_record   -10
+clusters_per_index_record 1
+NTFS at 31975/48/7
+filesystem size           513679358
+sectors_per_cluster       8
+mft_lcn                   1963
+mftmirr_lcn               1962
+clusters_per_mft_record   -10
+clusters_per_index_record 1
+NTFS at 31975/48/10
+filesystem size           681217225
+sectors_per_cluster       8
+mft_lcn                   792296
+mftmirr_lcn               792295
+clusters_per_mft_record   -10
+clusters_per_index_record 1
+get_geometry_from_list_part_aux head=255 nbr=2
+get_geometry_from_list_part_aux head=8 nbr=1
+get_geometry_from_list_part_aux head=16 nbr=1
+get_geometry_from_list_part_aux head=32 nbr=1
+get_geometry_from_list_part_aux head=64 nbr=1
+get_geometry_from_list_part_aux head=128 nbr=1
+get_geometry_from_list_part_aux head=255 nbr=2
+
+Results
+   * FAT32                    0  32 33    25 158 32     409563 [NO NAME]
+     FAT32, 209 MB / 199 MiB
+     HPFS - NTFS             25 159  7 31975  15 40  513267712
+     NTFS, 262 GB / 244 GiB
+     Linux                25434 248 31 28406 248 26   47745176
+     EXT4 Large file Sparse superblock Recover, 24 GB / 22 GiB
+     Linux                25441 251 27 28413 251 22   47745176
+     EXT4 Large file Sparse superblock Recover, 24 GB / 22 GiB
+     Linux                25444 169  6 28416 169  1   47745176
+     EXT4 Large file Sparse superblock Recover, 24 GB / 22 GiB
+     HPFS - NTFS          31975  48  2 63950  63 34  513679353
+     NTFS, 263 GB / 244 GiB
+     HPFS - NTFS          31975  48  7 63950  63 44  513679358
+     NTFS, 263 GB / 244 GiB
+     HPFS - NTFS          31975  48 10 74378 254 61  681217225 [Stinkiediskie]
+     NTFS, 348 GB / 324 GiB
+     HPFS - NTFS          31975  48 12 74378 254 63  681217225 [Stinkiediskie]
+     NTFS found using backup sector!, 348 GB / 324 GiB
+     Linux                74379   1  1 76988 254 60   41929584
+     EXT4 Large file Sparse superblock, 21 GB / 19 GiB
+     Linux                74379  13  3 76811 201 62   39081984
+     EXT4 Large file Sparse superblock, 20 GB / 18 GiB
+     Linux                75439 244  6 77872 178  2   39081984
+     EXT4 Large file Sparse superblock Recover, 20 GB / 18 GiB
+     Linux                75452 114 55 77885  48 51   39081984
+     EXT4 Large file Sparse superblock Recover, 20 GB / 18 GiB
+     Linux                75455  97 35 77888  31 31   39081984
+     EXT4 Large file Sparse superblock Recover, 20 GB / 18 GiB
+     Linux Swap           76811 234 32 77785 159 54   15642608
+     SWAP2 version 1, 8009 MB / 7637 MiB
+     Linux                77785 192 40 91201  52 51  215519232
+     EXT4 Large file Sparse superblock, 110 GB / 102 GiB
+     FAT32 LBA            78628  40  5 79596  97 53   15554560
+     FAT32, 7963 MB / 7595 MiB
+     Linux                80055 243 61 80064 224 32     143360
+     EXT3 Large file Sparse superblock Recover, 73 MB / 70 MiB
+     Linux                80091 166 12 80100 146 46     143360
+     EXT3 Large file Sparse superblock Recover, 73 MB / 70 MiB
+     FAT16 LBA            83603   4 50 83846 127 56    3911551
+     FAT16, 2002 MB / 1909 MiB
+     Linux                84717  54 10 84718  59 13      16384
+     EXT3 Sparse superblock, 8388 KB / 8192 KiB
+     FAT12                84771  35  1 84771  43 16        520
+     FAT12, 266 KB / 260 KiB
+     FAT12                84771  67 33 84771  76 47        582
+     FAT12, 297 KB / 291 KiB
+ntfs_device_testdisk_io_ioctl() unimplemented
+ntfs_ucstoutf8: iconv_open failed
+
+
+dir_partition inode=5
+     HPFS - NTFS          31975  48 10 74378 254 61  681217225 [Stinkiediskie]
+     NTFS, 348 GB / 324 GiB
+Cannot represent filenamFailed to open $MFT/$BITMAP: No such file or directory.
+ntfs_mft_load(): Failed.
+Failed to load $MFT: No such file or directory.
+Failed to startup volume: No such file or directory.
+Failed to open $MFT/$BITMAP: No such file or directory.
+ntfs_mft_load(): Failed.
+Failed to load $MFT: No such file or directory.
+Failed to open $MFT/$BITMAP: No such file or directory.
+ntfs_mft_load(): Failed.
+Failed to load $MFT: No such file or directory.
+Failed to startup volume: No such file or directory.
+Failed to open $MFT/$BITMAP: No such file or directory.
+ntfs_mft_load(): Failed.
+Failed to load $MFT: No such file or directory.
+e in current locale.
+Directory /
+       5 dr-xr-xr-x     0      0         0 11-Apr-2021 20:17 .
+       5 dr-xr-xr-x     0      0         0 11-Apr-2021 20:17 ..
+      49 -r--r--r--     0      0      8192 30-May-2022 06:38 DumpStack.log.tmp
+   10954 dr-xr-xr-x     0      0         0 14-Jan-2012 18:11 msdownld.tmp
+      37 dr-xr-xr-x     0      0         0 24-Dec-2011 09:49 $RECYCLE.BIN
+    6299 dr-xr-xr-x     0      0         0 27-Oct-2019 06:46 Aron-28-02-2016
+  118053 dr-xr-xr-x     0      0         0 22-Apr-2019 15:27 back.mike
+  112857 dr-xr-xr-x     0      0         0 30-Dec-2018 18:45 Bilder-backup
+    5715 dr-xr-xr-x     0      0         0 21-Jul-2020 13:56 Download
+   46399 dr-xr-xr-x     0      0         0 27-Oct-2019 07:18 Musikk
+  135470 dr-xr-xr-x     0      0         0  4-Jan-2021 21:51 pc-c64_classic-ps1_classic
+  117922 dr-xr-xr-x     0      0         0  7-Apr-2019 19:27 Pink Floyd
+  117914 -r--r--r--     0      0    376528 13-May-2017 18:54 RefreshWindowsTool.exe
+      42 dr-xr-xr-x     0      0         0 24-Dec-2011 16:39 Spill
+    6138 dr-xr-xr-x     0      0         0 27-Oct-2019 06:45 sunniva-lg-bilde
+      35 dr-xr-xr-x     0      0         0 24-Dec-2011 09:49 System Volume Information
+  117839 dr-xr-xr-x     0      0         0 13-May-2017 18:00 win10-grub-usb-boot
+  117912 -r--r--r--     0      0      1816 13-May-2017 18:54 win10-ser.txt
+  116225 dr-xr-xr-x     0      0         0 17-Jul-2016 01:33 win32_64-stuff
+      23 dr-xr-xr-x     0      0         0 17-Apr-2020 21:34 ellie-usb
+   49561 dr-xr-xr-x     0      0         0 17-Nov-2019 15:54 Ellisiv
+   46325 dr-xr-xr-x     0      0         0 27-Oct-2019 07:12 Huawei p7 accend-mamma-original-firmware
+   48372 dr-xr-xr-x     0      0         0 17-Nov-2019 15:45 Huawei-mamma-2019.17.11
+    5719 dr-xr-xr-x     0      0         0 12-Feb-2021 18:11 Huawei-mamma-2021.01.12
+   46400 dr-xr-xr-x     0      0         0 29-Oct-2019 20:57 huawei-p7-android
+   46405 -r--r--r--     0      0        15 29-Oct-2019 20:56 husk
+   10250 dr-xr-xr-x     0      0         0 27-Oct-2019 06:47 kitty-purr-recorder-2000
+   46418 -r--r--r--     0      0         4 29-Oct-2019 20:56 los13-repo.img
+  117913 -r--r--r--     0      0   18357776 13-May-2017 18:54 MediaCreationTool.exe
+   50769 dr-xr-xr-x     0      0         0 14-Jun-2018 17:10 Mike ting
+  181092 dr-xr-xr-x     0      0         0 30-Dec-2018 22:55 mozilla-profiles
+ntfs_device_testdisk_io_ioctl() unimplemented
+ntfs_device_testdisk_io_ioctl() unimplemented
+ntfs_device_testdisk_io_ioctl() unimplemented
+ntfs_device_testdisk_io_ioctl() unimplemented
+
+     HPFS - NTFS          31975  48 12 74378 254 63  681217225 [Stinkiediskie]
+     NTFS found using backup sector!, 348 GB / 324 GiB
+Can't open filesystem. Filesystem seems damaged.
+ntfs_device_testdisk_io_ioctl() unimplemented
+ntfs_ucstoutf8: iconv_open failed
+
+
+dir_partition inode=5
+     HPFS - NTFS          31975  48 10 74378 254 61  681217225 [Stinkiediskie]
+     NTFS, 348 GB / 324 GiB
+Cannot represent filename in current locale.
+Directory /
+       5 dr-xr-xr-x     0      0         0 11-Apr-2021 20:17 .
+       5 dr-xr-xr-x     0      0         0 11-Apr-2021 20:17 ..
+      49 -r--r--r--     0      0      8192 30-May-2022 06:38 DumpStack.log.tmp
+   10954 dr-xr-xr-x     0      0         0 14-Jan-2012 18:11 msdownld.tmp
+      37 dr-xr-xr-x     0      0         0 24-Dec-2011 09:49 $RECYCLE.BIN
+    6299 dr-xr-xr-x     0      0         0 27-Oct-2019 06:46 Aron-28-02-2016
+  118053 dr-xr-xr-x     0      0         0 22-Apr-2019 15:27 back.mike
+  112857 dr-xr-xr-x     0      0         0 30-Dec-2018 18:45 Bilder-backup
+    5715 dr-xr-xr-x     0      0         0 21-Jul-2020 13:56 Download
+   46399 dr-xr-xr-x     0      0         0 27-Oct-2019 07:18 Musikk
+  135470 dr-xr-xr-x     0      0         0  4-Jan-2021 21:51 pc-c64_classic-ps1_classic
+  117922 dr-xr-xr-x     0      0         0  7-Apr-2019 19:27 Pink Floyd
+  117914 -r--r--r--     0      0    376528 13-May-2017 18:54 RefreshWindowsTool.exe
+      42 dr-xr-xr-x     0      0         0 24-Dec-2011 16:39 Spill
+    6138 dr-xr-xr-x     0 free(): double free detected in tcache 2
+
+
+Fri Feb 10 15:16:46 2023
+Command line: TestDisk
+
+TestDisk 6.11, Data Recovery Utility, April 2009
+Christophe GRENIER <grenier@cgsecurity.org>
+http://www.cgsecurity.org
+OS: Linux, kernel 5.10.0-20-amd64 (#1 SMP Debian 5.10.158-2 (2022-12-13))
+Compiler: GCC 4.4 - Sep  5 2010 16:13:36
+ext2fs lib: 1.46.2, ntfs lib: 10:0:0, reiserfs lib: none, ewf lib: none
+/dev/sda: LBA, HPA, LBA48, DCO support
+/dev/sda: size       1465149168 sectors
+/dev/sda: user_max   1465149168 sectors
+/dev/sda: native_max 1465149168 sectors
+/dev/sda: dco        1465149168 sectors
+Warning: can't get size for Disk /dev/mapper/control - 0 B - CHS 1 1 1, sector size=512
+Hard disk list
+Disk /dev/sda - 750 GB / 698 GiB - CHS 91201 255 63, sector size=512 - ATA WDC WD7500BPVT-2
+Disk /dev/sdb - 2000 GB / 1863 GiB - CHS 243201 255 63, sector size=512 - TOSHIBA External USB 3.0
+Disk /dev/sdc - 406 MB / 388 MiB - CHS 1018 13 60 (RO), sector size=512 - Linux File-Stor Gadget
+Disk /dev/sdd - 62 GB / 57 GiB - CHS 59232 64 32, sector size=512 - SanDisk Ultra Fit
+
+Partition table type (auto): Intel
+Disk /dev/sda - 750 GB / 698 GiB - ATA WDC WD7500BPVT-2
+Partition table type: Intel
+
+Analyse Disk /dev/sda - 750 GB / 698 GiB - CHS 91201 255 63
+Geometry from i386 MBR: head=255 sector=63
+FAT32 at 0/32/33
+Info: size boot_sector 409563, partition 409600
+FAT1 : 32-3182
+FAT2 : 3183-6333
+start_rootdir : 6334 root cluster : 2
+Data : 6334-409562
+sectors : 409563
+cluster_size : 1
+no_of_cluster : 403229 (2 - 403230)
+fat_length 3151 calculated 3151
+set_FAT_info: name from BS used
+NTFS at 25/159/7
+NTFS at 31975/48/10
+get_geometry_from_list_part_aux head=255 nbr=4
+get_geometry_from_list_part_aux head=255 nbr=4
+Current partition structure:
+ 1 P FAT32                    0  32 33    25 159  6     409600 [NO NAME]
+ 2 * HPFS - NTFS             25 159  7 31975  15 40  513267712
+ 3 P HPFS - NTFS          31975  48 10 74378 254 61  681217225 [Stinkiediskie]
+ 4 E extended LBA         74379   0  1 91201  80 63  270250533
+ 5 L Linux                74379   1  1 76988 254 63   41929587
+   X extended             77785   0  1 91201  52 51  215531367
+ 6 L Linux                77785 192 40 91201  52 51  215519232
+Backup partition structure
+partition_save
+Computes LBA from CHS for Disk /dev/sda - 750 GB / 698 GiB - CHS 91202 255 63
+Allow partial last cylinder : Yes
+search_vista_part: 1
+
+search_part()
+Disk /dev/sda - 750 GB / 698 GiB - CHS 91202 255 63
+FAT32 at 0/32/33
+FAT1 : 32-3182
+FAT2 : 3183-6333
+start_rootdir : 6334 root cluster : 2
+Data : 6334-409562
+sectors : 409563
+cluster_size : 1
+no_of_cluster : 403229 (2 - 403230)
+fat_length 3151 calculated 3151
+set_FAT_info: name from BS used
+
+FAT32 at 0/32/33
+     FAT32                    0  32 33    25 158 32     409563 [NO NAME]
+     FAT32, 209 MB / 199 MiB
+NTFS at 25/159/7
+filesystem size           513267712
+sectors_per_cluster       8
+mft_lcn                   4
+mftmirr_lcn               32079231
+clusters_per_mft_record   -10
+clusters_per_index_record 1
+     HPFS - NTFS             25 159  7 31975  15 40  513267712
+     NTFS, 262 GB / 244 GiB
+NTFS at 31975/48/10
+filesystem size           681217225
+sectors_per_cluster       8
+mft_lcn                   792296
+mftmirr_lcn               792295
+clusters_per_mft_record   -10
+clusters_per_index_record 1
+     HPFS - NTFS          31975  48 10 74378 254 61  681217225 [Stinkiediskie]
+     NTFS, 348 GB / 324 GiB
+
+recover_EXT2: s_block_group_nr=0/639, s_mnt_count=2/20, s_blocks_per_group=16384, s_inodes_per_group=8192
+recover_EXT2: s_blocksize=2048
+recover_EXT2: s_blocks_count 10482396
+recover_EXT2: part_size 41929584
+     Linux                74379   1  1 76988 254 60   41929584
+     EXT4 Large file Sparse superblock, 21 GB / 19 GiB
+
+recover_EXT2: s_block_group_nr=0/822, s_mnt_count=7/25, s_blocks_per_group=32768, s_inodes_per_group=8192
+recover_EXT2: s_blocksize=4096
+recover_EXT2: s_blocks_count 26939904
+recover_EXT2: part_size 215519232
+     Linux                77785 192 40 91201  52 51  215519232
+     EXT4 Large file Sparse superblock, 110 GB / 102 GiB
+get_geometry_from_list_part_aux head=255 nbr=2
+get_geometry_from_list_part_aux head=255 nbr=2
+
+Results
+   * FAT32                    0  32 33    25 158 32     409563 [NO NAME]
+     FAT32, 209 MB / 199 MiB
+   P HPFS - NTFS             25 159  7 31975  15 40  513267712
+     NTFS, 262 GB / 244 GiB
+   P HPFS - NTFS          31975  48 10 74378 254 61  681217225 [Stinkiediskie]
+     NTFS, 348 GB / 324 GiB
+   L Linux                74379   1  1 76988 254 60   41929584
+     EXT4 Large file Sparse superblock, 21 GB / 19 GiB
+   L Linux                77785 192 40 91201  52 51  215519232
+     EXT4 Large file Sparse superblock, 110 GB / 102 GiB
+ntfs_device_testdisk_io_ioctl() unimplemented
+ntfs_ucstoutf8: iconv_open failed
+
+
+dir_partition inode=5
+   P HPFS - NTFS             25 159  7 31975  15 40  513267712
+     NTFS, 262 GB / 244 GiB
+Directory /
+       5 dr-xr-xr-x     0      0         0 10-Feb-2023 09:23 .
+       5 dr-xr-xr-x     0      0         0 10-Feb-2023 09:23 ..
+ntfs_device_testdisk_io_ioctl() unimplemented
+ntfs_ucstoutf8: iconv_open failed
+
+
+dir_partition inode=5
+   P HPFS - NTFS          31975  48 10 74378 254 61  681217225 [Stinkiediskie]
+     NTFS, 348 GB / 324 GiB
+Cannot represent filename in current locale.
+Directory /
+       5 dr-xr-xr-x     0      0         0 11-Apr-2021 20:17 .
+       5 dr-xr-xr-x     0      0         0 11-Apr-2021 20:17 ..
+      49 -r--r--r--     0      0      8192 30-May-2022 06:38 DumpStack.log.tmp
+   10954 dr-xr-xr-x     0      0         0 14-Jan-2012 18:11 msdownld.tmp
+      37 dr-xr-xr-x     0      0         0 24-Dec-2011 09:49 $RECYCLE.BIN
+    6299 dr-xr-xr-x     0      0         0 27-Oct-2019 06:46 Aron-28-02-2016
+  118053 dr-xr-xr-x     0      0         0 22-Apr-2019 15:27 back.mike
+  112857 dr-xr-xr-x     0      0         0 30-Dec-2018 18:45 Bilder-backup
+    5715 dr-xr-xr-x     0      0         0 21-Jul-2020 13:56 Download
+   46399 dr-xr-xr-x     0      0         0 27-Oct-2019 07:18 Musikk
+  135470 dr-xr-xr-x     0      0         0  4-Jan-2021 21:51 pc-c64_classic-ps1_classic
+  117922 dr-xr-xr-x     0      0         0  7-Apr-2019 19:27 Pink Floyd
+  117914 -r--r--r--     0      0    376528 13-May-2017 18:54 RefreshWindowsTool.exe
+      42 dr-xr-xr-x     0  free(): double free detected in tcache 2
+
+
+Fri Feb 10 15:18:39 2023
+Command line: TestDisk
+
+TestDisk 6.11, Data Recovery Utility, April 2009
+Christophe GRENIER <grenier@cgsecurity.org>
+http://www.cgsecurity.org
+OS: Linux, kernel 5.10.0-20-amd64 (#1 SMP Debian 5.10.158-2 (2022-12-13))
+Compiler: GCC 4.4 - Sep  5 2010 16:13:36
+ext2fs lib: 1.46.2, ntfs lib: 10:0:0, reiserfs lib: none, ewf lib: none
+/dev/sda: LBA, HPA, LBA48, DCO support
+/dev/sda: size       1465149168 sectors
+/dev/sda: user_max   1465149168 sectors
+/dev/sda: native_max 1465149168 sectors
+/dev/sda: dco        1465149168 sectors
+Warning: can't get size for Disk /dev/mapper/control - 0 B - CHS 1 1 1, sector size=512
+Hard disk list
+Disk /dev/sda - 750 GB / 698 GiB - CHS 91201 255 63, sector size=512 - ATA WDC WD7500BPVT-2
+Disk /dev/sdb - 2000 GB / 1863 GiB - CHS 243201 255 63, sector size=512 - TOSHIBA External USB 3.0
+Disk /dev/sdc - 406 MB / 388 MiB - CHS 1018 13 60 (RO), sector size=512 - Linux File-Stor Gadget
+Disk /dev/sdd - 62 GB / 57 GiB - CHS 59232 64 32, sector size=512 - SanDisk Ultra Fit
+
+Partition table type (auto): Intel
+Disk /dev/sda - 750 GB / 698 GiB - ATA WDC WD7500BPVT-2
+Partition table type: Intel
+New options :
+ Dump : No
+ Cylinder boundary : Yes
+ Allow partial last cylinder : No
+ Expert mode : Yes
+
+Analyse Disk /dev/sda - 750 GB / 698 GiB - CHS 91201 255 63
+Geometry from i386 MBR: head=255 sector=63
+FAT32 at 0/32/33
+Info: size boot_sector 409563, partition 409600
+FAT1 : 32-3182
+FAT2 : 3183-6333
+start_rootdir : 6334 root cluster : 2
+Data : 6334-409562
+sectors : 409563
+cluster_size : 1
+no_of_cluster : 403229 (2 - 403230)
+fat_length 3151 calculated 3151
+set_FAT_info: name from BS used
+NTFS at 25/159/7
+NTFS at 31975/48/10
+get_geometry_from_list_part_aux head=255 nbr=4
+get_geometry_from_list_part_aux head=255 nbr=4
+Current partition structure:
+ 1 P FAT32                    0  32 33    25 159  6     409600 [NO NAME]
+ 2 * HPFS - NTFS             25 159  7 31975  15 40  513267712
+ 3 P HPFS - NTFS          31975  48 10 74378 254 61  681217225 [Stinkiediskie]
+ 4 E extended LBA         74379   0  1 91201  80 63  270250533
+ 5 L Linux                74379   1  1 76988 254 63   41929587
+   X extended             77785   0  1 91201  52 51  215531367
+ 6 L Linux                77785 192 40 91201  52 51  215519232
+Computes LBA from CHS for Disk /dev/sda - 750 GB / 698 GiB - CHS 91202 255 63
+Allow partial last cylinder : Yes
+search_vista_part: 1
+
+search_part()
+Disk /dev/sda - 750 GB / 698 GiB - CHS 91202 255 63
+FAT32 at 0/32/33
+FAT1 : 32-3182
+FAT2 : 3183-6333
+start_rootdir : 6334 root cluster : 2
+Data : 6334-409562
+sectors : 409563
+cluster_size : 1
+no_of_cluster : 403229 (2 - 403230)
+fat_length 3151 calculated 3151
+set_FAT_info: name from BS used
+
+FAT32 at 0/32/33
+     FAT32                    0  32 33    25 158 32     409563 [NO NAME]
+     FAT32, 209 MB / 199 MiB
+NTFS at 25/159/7
+filesystem size           513267712
+sectors_per_cluster       8
+mft_lcn                   4
+mftmirr_lcn               32079231
+clusters_per_mft_record   -10
+clusters_per_index_record 1
+     HPFS - NTFS             25 159  7 31975  15 40  513267712
+     NTFS, 262 GB / 244 GiB
+NTFS at 31975/48/10
+filesystem size           681217225
+sectors_per_cluster       8
+mft_lcn                   792296
+mftmirr_lcn               792295
+clusters_per_mft_record   -10
+clusters_per_index_record 1
+     HPFS - NTFS          31975  48 10 74378 254 61  681217225 [Stinkiediskie]
+     NTFS, 348 GB / 324 GiB
+
+recover_EXT2: s_block_group_nr=0/639, s_mnt_count=2/20, s_blocks_per_group=16384, s_inodes_per_group=8192
+recover_EXT2: s_blocksize=2048
+recover_EXT2: s_blocks_count 10482396
+recover_EXT2: part_size 41929584
+     Linux                74379   1  1 76988 254 60   41929584
+     EXT4 Large file Sparse superblock, 21 GB / 19 GiB
+
+recover_EXT2: s_block_group_nr=0/822, s_mnt_count=7/25, s_blocks_per_group=32768, s_inodes_per_group=8192
+recover_EXT2: s_blocksize=4096
+recover_EXT2: s_blocks_count 26939904
+recover_EXT2: part_size 215519232
+     Linux                77785 192 40 91201  52 51  215519232
+     EXT4 Large file Sparse superblock, 110 GB / 102 GiB
+get_geometry_from_list_part_aux head=255 nbr=2
+get_geometry_from_list_part_aux head=255 nbr=2
+
+Results
+   * FAT32                    0  32 33    25 158 32     409563 [NO NAME]
+     FAT32, 209 MB / 199 MiB
+   P HPFS - NTFS             25 159  7 31975  15 40  513267712
+     NTFS, 262 GB / 244 GiB
+   P HPFS - NTFS          31975  48 10 74378 254 61  681217225 [Stinkiediskie]
+     NTFS, 348 GB / 324 GiB
+   L Linux                74379   1  1 76988 254 60   41929584
+     EXT4 Large file Sparse superblock, 21 GB / 19 GiB
+   L Linux                77785 192 40 91201  52 51  215519232
+     EXT4 Large file Sparse superblock, 110 GB / 102 GiB
+ntfs_device_testdisk_io_ioctl() unimplemented
+ntfs_ucstoutf8: iconv_open failed
+
+
+dir_partition inode=5
+   P HPFS - NTFS          31975  48 10 74378 254 61  681217225 [Stinkiediskie]
+     NTFS, 348 GB / 324 GiB
+Cannot represent filename in current locale.
+Directory /
+       5 dr-xr-xr-x     0      0         0 11-Apr-2021 20:17 .
+       5 dr-xr-xr-x     0      0         0 11-Apr-2021 20:17 ..
+      49 -r--r--r--     0      0      8192 30-May-2022 06:38 DumpStack.log.tmp
+   10954 dr-xr-xr-x     0      0         0 14-Jan-2012 18:11 msdownld.tmp
+      37 dr-xr-xr-x     0      0         0 24-Dec-2011 09:49 $RECYCLE.BIN
+    6299 dr-xr-xr-x     0      0         0 27-Oct-2019 06:46 Aron-28-02-2016
+  118053 dr-xr-xr-x     0      0         0 22-Apr-2019 15:27 back.mike
+  112857 dr-xr-xr-x     0      0         0 30-Dec-2018 18:45 Bilder-backup
+    5715 dr-xr-xr-x     0      0         0 21-Jul-2020 13:56 Download
+   46399 dr-xr-xr-x     0      0         0 27-Oct-2019 07:18 Musikk
+  135470 dr-xr-xr-x     0      0         0  4-Jan-2021 21:51 pc-c64_classic-ps1_classic
+  117922 dr-xr-xr-x     0      0         0  7-Apr-2019 19:27 Pink Floyd
+  117914 -r--r--r--     0      0    376528 13-May-2017 18:54 RefreshWindowsTool.exe
+      42 dr-xr-xr-x     0      0         0 24-Dec-2011 16:39 Spill
+    6138 dr-xr-xr-x     0      0         0 27-Oct-2019 06:45 sunniva-lg-bilde
+      35 dr-xr-xr-x     0      0         0 24-Dec-2011 09:49 System Volume Information
+  117839 dr-xr-xr-x     0      0         0 13-May-2017 18:00 win10-grub-usb-boot
+  117912 -r--r--r--     0      0      1816 13-May-2017 18:54 win10-ser.txt
+  116225 dr-xr-xr-x     0      0         0 17-Jul-2016 01:33 win32_64-stuff
+      23 dr-xr-xr-x     0      0         0 17-Apr-2020 21:34 ellie-usb
+   49561 dr-xr-xr-x     0      0         0 17-Nov-2019 15:54 Ellisiv
+   46325 dr-xr-xr-x     0      0         0 27-Oct-2019 07:12 Huawei p7 accend-mamma-original-firmware
+   48372 dr-xr-xr-x     0      0         0 17-Nov-2019 15:45 Huawei-mamma-2019.17.11
+    5719 dr-xr-xr-x     0      0         0 12-Feb-2021 18:11 Huawei-mamma-2021.01.12
+   46400 dr-xr-xr-x     0      0         0 29-Oct-2019 20:57 huawei-p7-android
+   46405 -r--r--r--     0      0        15 29-Oct-2019 20:56 husk
+   10250 dr-xr-xr-x     0      0         0 27-Oct-2019 06:47 kitty-purr-recorder-2000
+   46418 -r--r--r--     0      0         4 29-Oct-2019 20:56 los13-repo.img
+  117913 -r--r--r--     0      0   18357776 13-May-2017 18:54 MediaCreationTool.exe
+   50769 dr-xr-xr-x     0      0         0 14-Jun-2018 17:10 Mike ting
+  181092 dr-xr-xr-x     0      0         0 30-Dec-2018 22:55 mozilla-profiles
+ntfs_device_testdisk_io_ioctl() unimplemented
+ntfs_ucstoutf8: iconv_open failed
+
+
+dir_partition inode=5
+   P HPFS - NTFS          31975  48 10 74378 254 61  681217225 [Stinkiediskie]
+     NTFS, 348 GB / 324 GiB
+Cannot represent filename in current locale.
+Directory /
+       5 dr-xr-xr-x     0      0         0 11-Apr-2021 20:17 .
+       5 dr-xr-xr-x     0      0         0 11-Apr-2021 20:17 ..
+      49 -r--r--r--     0      0      8192 30-May-2022 06:38 DumpStack.log.tmp
+   10954 dr-xr-xr-x     0      0         0 14-Jan-2012 18:11 msdownld.tmp
+      37 dr-xr-xr-x     0      0         0 24-Dec-2011 09:49 $RECYCLE.BIN
+    6299 dr-xr-xr-x     0      0         0 27-Oct-2019 06:46 Aron-28-02-2016
+  118053 dr-xr-xr-x     0      0         0 22-Apr-2019 15:27 back.mike
+  112857 dr-xr-xr-x     0      0         0 30-Dec-2018 18:45 Bilder-backup
+    5715 dr-xr-xr-x     0      0         0 21-Jul-2020 13:56 Download
+   46399 dr-xr-xr-x     0      0         0 27-Oct-2019 07:18 Musikk
+  135470 dr-xr-xr-x     0      0         0  4-Jan-2021 21:51 pc-c64_classic-ps1_classic
+  117922 dr-xr-xr-x     0      0         0  7-Apr-2019 19:27 Pink Floyd
+  117914 -r--r--r--     0      0    376528 13-May-2017 18:54 RefreshWindowsTool.exe
+      42 dr-xr-xr-x     0      0         0 24-Dec-2011 16:39 Spill
+    6138 dr-xr-xr-x     0      0         0 27-Oct-2019 06:45 sunniva-lg-bilde
+      35 dr-xr-xr-x     0      0         0 24-Dec-2011 09:49 System Volume Information
+  117839 dr-xr-xr-x     0      0         0 13-May-2017 18:00 win10-grub-usb-boot
+  117912 -r--r--r--     0      0      1816 13-May-2017 18:54 win10-ser.txt
+  116225 dr-xr-xr-x     0      0         0 17-Jul-2016 01:33 win32_64-stuff
+      23 dr-xr-xr-x     0      0         0 17-Apr-2020 21:34 ellie-usb
+   49561 dr-xr-xr-x     0      0         0 17-Nov-2019 15:54 Ellisiv
+   46325 dr-xr-xr-x     0      0         0 27-Oct-2019 07:12 Huawei p7 accend-mamma-original-firmware
+   48372 dr-xr-xr-x     0      0         0 17-Nov-2019 15:45 Huawei-mamma-2019.17.11
+    5719 dr-xr-xr-x     0      0         0 12-Feb-2021 18:11 Huawei-mamma-2021.01.12
+   46400 dr-xr-xr-x     0      0         0 29-Oct-2019 20:57 huawei-p7-android
+   46405 -r--r--r--     0      0        15 29-Oct-2019 20:56 husk
+   10250 dr-xr-xr-x     0      0         0 27-Oct-2019 06:47 kitty-purr-recorder-2000
+   46418 -r--r--r--     0      0         4 29-Oct-2019 20:56 los13-repo.img
+  117913 -r--r--r--     0      0   18357776 13-May-2017 18:54 MediaCreationTool.exe
+   50769 dr-xr-xr-x     0      0         0 14-Jun-2018 17:10 Mike ting
+  181092 dr-xr-xr-x     0      0         0 30-Dec-2018 22:55 mozilla-profiles
+
+dir_partition inode=23
+   P HPFS - NTFS          31975  48 10 74378 254 61  681217225 [Stinkiediskie]
+     NTFS, 348 GB / 324 GiB
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Directory /ellie-usb
+      23 dr-xr-xr-x     0      0         0 17-Apr-2020 21:34 .
+       5 dr-xr-xr-x     0      0         0 11-Apr-2021 20:17 ..
+    3674 dr-xr-xr-x     0      0         0 17-Apr-2020 21:35 bokdummy
+   50010 dr-xr-xr-x     0      0         0 17-Apr-2020 21:36 Ellisiv
+   51602 dr-xr-xr-x     0      0         0 17-Apr-2020 21:40 innscanninga 4 mars
+   51894 dr-xr-xr-x     0      0         0 17-Apr-2020 21:41 ny innskanninga
+   52018 dr-xr-xr-x     0      0         0 17-Apr-2020 21:42 nye ting
+Cannot represent filename in current locale.
+Directory /
+       5 dr-xr-xr-x     0      0         0 11-Apr-2021 20:17 .
+       5 dr-xr-xr-x     0      0         0 11-Apr-2021 20:17 ..
+      49 -r--r--r--     0      0      8192 30-May-2022 06:38 DumpStack.log.tmp
+   10954 dr-xr-xr-x     0      0         0 14-Jan-2012 18:11 msdownld.tmp
+      37 dr-xr-xr-x     0      0         0 24-Dec-2011 09:49 $RECYCLE.BIN
+    6299 dr-xr-xr-x     0      0         0 27-Oct-2019 06:46 Aron-28-02-2016
+  118053 dr-xr-xr-x     0      0         0 22-Apr-2019 15:27 back.mike
+  112857 dr-xr-xr-x     0      0         0 30-Dec-2018 18:45 Bilder-backup
+    5715 dr-xr-xr-x     0      0         0 21-Jul-2020 13:56 Download
+   46399 dr-xr-xr-x     0      0         0 27-Oct-2019 07:18 Musikk
+  135470 dr-xr-xr-x     0      0         0  4-Jan-2021 21:51 pc-c64_classic-ps1_classic
+  117922 dr-xr-xr-x     0      0         0  7-Apr-2019 19:27 Pink Floyd
+  117914 -r--r--r--     0      0    376528 13-May-2017 18:54 RefreshWindowsTool.exe
+      42 dr-xr-xr-x     0      0         0 24-Dec-2011 16:39 Spill
+    6138 dr-xr-xr-x     0      0         0 27-Oct-2019 06:45 sunniva-lg-bilde
+      35 dr-xr-xr-x     0      0         0 24-Dec-2011 09:49 System Volume Information
+  117839 dr-xr-xr-x     0      0         0 13-May-2017 18:00 win10-grub-usb-boot
+  117912 -r--r--r--     0      0      1816 13-May-2017 18:54 win10-ser.txt
+  116225 dr-xr-xr-x     0      0         0 17-Jul-2016 01:33 win32_64-stuff
+      23 dr-xr-xr-x     0      0         0 17-Apr-2020 21:34 ellie-usb
+   49561 dr-xr-xr-x     0      0         0 17-Nov-2019 15:54 Ellisiv
+   46325 dr-xr-xr-x     0      0         0 27-Oct-2019 07:12 Huawei p7 accend-mamma-original-firmware
+   48372 dr-xr-xr-x     0      0         0 17-Nov-2019 15:45 Huawei-mamma-2019.17.11
+    5719 dr-xr-xr-x     0      0         0 12-Feb-2021 18:11 Huawei-mamma-2021.01.12
+   46400 dr-xr-xr-x     0      0         0 29-Oct-2019 20:57 huawei-p7-android
+   46405 -r--r--r--     0      0        15 29-Oct-2019 20:56 husk
+   10250 dr-xr-xr-x     0      0         0 27-Oct-2019 06:47 kitty-purr-recorder-2000
+   46418 -r--r--r--     0      0         4 29-Oct-2019 20:56 los13-repo.img
+  117913 -r--r--r--     0      0   18357776 13-May-2017 18:54 MediaCreationTool.exe
+   50769 dr-xr-xr-x     0      0         0 14-Jun-2018 17:10 Mike ting
+  181092 dr-xr-xr-x     0      0         0 30-Dec-2018 22:55 mozilla-profiles
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+Cannot represent filename in current locale.
+
+interface_write()
+ 1 * FAT32                    0  32 33    25 158 32     409563 [NO NAME]
+ 2 P HPFS - NTFS             25 159  7 31975  15 40  513267712
+ 3 P HPFS - NTFS          31975  48 10 74378 254 61  681217225 [Stinkiediskie]
+ 4 E extended LBA         74379   0  1 91201 254 63  270261495
+ 5 L Linux                74379   1  1 76988 254 60   41929584
+ 6 L Linux                77785 192 40 91201  52 51  215519232
+write!
+
+write_mbr_i386: starting...
+write_all_log_i386: starting...
+write_all_log_i386: CHS: 74379/0/1,lba=1194898635
+write_all_log_i386: CHS: 77785/191/1,lba=1249628058
+You will have to reboot for the change to take effect.
+
+TestDisk exited normally.

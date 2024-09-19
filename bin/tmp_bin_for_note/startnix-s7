@@ -1,0 +1,3 @@
+#!/system/bin/sh
+busybox su -c "/system/bin/sh /mnt/sdcard/arm-linux/startnix-s7.sh"  
+

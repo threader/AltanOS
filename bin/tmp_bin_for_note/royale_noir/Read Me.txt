@@ -1,0 +1,4 @@
+copy this Royale folder.
+paste into your themes folder (for example: c:\windows\resources\themes)
+double click the luna.msstyles
+

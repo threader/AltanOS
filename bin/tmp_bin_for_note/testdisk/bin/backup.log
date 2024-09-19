@@ -1,0 +1,7 @@
+#1676042231 Disk /dev/sda - 750 GB / 698 GiB - CHS 91201 255 63
+ 1 : start=     2048, size=   409600, Id=0B, P
+ 2 : start=   411648, size=513267712, Id=07, *
+ 3 : start=513681408, size=681217225, Id=07, P
+ 4 : start=1194898635, size=270250533, Id=0F, E
+ 5 : start=1194898698, size= 41929587, Id=83, L
+ 6 : start=1249628160, size=215519232, Id=83, L

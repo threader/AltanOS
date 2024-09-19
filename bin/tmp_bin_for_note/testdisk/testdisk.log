@@ -1,0 +1,156 @@
+
+
+Sun Feb 12 21:06:36 2023
+Command line: TestDisk
+
+TestDisk 6.11, Data Recovery Utility, April 2009
+Christophe GRENIER <grenier@cgsecurity.org>
+http://www.cgsecurity.org
+OS: Linux, kernel 5.10.0-20-amd64 (#1 SMP Debian 5.10.158-2 (2022-12-13))
+Compiler: GCC 4.4 - Sep  5 2010 16:13:36
+ext2fs lib: 1.46.2, ntfs lib: 10:0:0, reiserfs lib: none, ewf lib: none
+/dev/sda: LBA, HPA, LBA48, DCO support
+/dev/sda: size       1465149168 sectors
+/dev/sda: user_max   1465149168 sectors
+/dev/sda: native_max 1465149168 sectors
+/dev/sda: dco        1465149168 sectors
+Warning: can't get size for Disk /dev/mapper/control - 0 B - CHS 1 1 1, sector size=512
+Hard disk list
+Disk /dev/sda - 750 GB / 698 GiB - CHS 91201 255 63, sector size=512 - ATA WDC WD7500BPVT-2
+Disk /dev/sdb - 62 GB / 57 GiB - CHS 59232 64 32, sector size=512 - SanDisk Ultra Fit
+Disk /dev/sdc - 2000 GB / 1863 GiB - CHS 243201 255 63, sector size=512 - TOSHIBA External USB 3.0
+Disk /dev/sdd - 406 MB / 388 MiB - CHS 1018 13 60 (RO), sector size=512 - Linux File-Stor Gadget
+
+Partition table type (auto): Intel
+Disk /dev/sda - 750 GB / 698 GiB - ATA WDC WD7500BPVT-2
+Partition table type: Intel
+
+Interface Advanced
+Geometry from i386 MBR: head=255 sector=63
+FAT32 at 0/32/33
+Info: size boot_sector 409563, partition 409563
+FAT1 : 32-3182
+FAT2 : 3183-6333
+start_rootdir : 6334 root cluster : 2
+Data : 6334-409562
+sectors : 409563
+cluster_size : 1
+no_of_cluster : 403229 (2 - 403230)
+fat_length 3151 calculated 3151
+set_FAT_info: name from BS used
+NTFS at 25/159/7
+NTFS at 31975/48/10
+get_geometry_from_list_part_aux head=255 nbr=4
+get_geometry_from_list_part_aux head=255 nbr=4
+ 1 * FAT32                    0  32 33    25 158 32     409563 [NO NAME]
+     FAT32, 209 MB / 199 MiB
+ 2 P HPFS - NTFS             25 159  7 31975  15 40  513267712
+     NTFS, 262 GB / 244 GiB
+ 3 P HPFS - NTFS          31975  48 10 74378 254 61  681217225 [Stinkiediskie]
+     NTFS, 348 GB / 324 GiB
+ 4 E extended LBA         74379   0  1 91201 254 63  270261495
+ 5 L Linux                74379   1  1 76988 254 60   41929584
+     EXT4 Large file Sparse superblock, 21 GB / 19 GiB
+   X extended             77785 191  1 91201  52 51  215519334
+ 6 L Linux                77785 192 40 91201  52 51  215519232
+     EXT4 Large file Sparse superblock, 110 GB / 102 GiB
+search_superblock
+
+recover_EXT2: s_block_group_nr=0/639, s_mnt_count=3/20, s_blocks_per_group=16384, s_inodes_per_group=8192
+recover_EXT2: s_blocksize=2048
+recover_EXT2: s_blocks_count 10482396
+recover_EXT2: part_size 41929584
+Ext2 superblock found at sector 2 (block=0, blocksize=2048)
+
+block_group_nr 1
+
+recover_EXT2: "e2fsck -b 16384 -B 2048 device" may be needed
+recover_EXT2: s_block_group_nr=1/639, s_mnt_count=0/20, s_blocks_per_group=16384, s_inodes_per_group=8192
+recover_EXT2: s_blocksize=2048
+recover_EXT2: s_blocks_count 10482396
+recover_EXT2: part_size 41929584
+Ext2 superblock found at sector 65536 (block=16384, blocksize=2048)
+
+block_group_nr 3
+
+recover_EXT2: "e2fsck -b 49152 -B 2048 device" may be needed
+recover_EXT2: s_block_group_nr=3/639, s_mnt_count=0/20, s_blocks_per_group=16384, s_inodes_per_group=8192
+recover_EXT2: s_blocksize=2048
+recover_EXT2: s_blocks_count 10482396
+recover_EXT2: part_size 41929584
+Ext2 superblock found at sector 196608 (block=49152, blocksize=2048)
+
+block_group_nr 5
+
+recover_EXT2: "e2fsck -b 81920 -B 2048 device" may be needed
+recover_EXT2: s_block_group_nr=5/639, s_mnt_count=0/20, s_blocks_per_group=16384, s_inodes_per_group=8192
+recover_EXT2: s_blocksize=2048
+recover_EXT2: s_blocks_count 10482396
+recover_EXT2: part_size 41929584
+Ext2 superblock found at sector 327680 (block=81920, blocksize=2048)
+
+block_group_nr 7
+
+recover_EXT2: "e2fsck -b 114688 -B 2048 device" may be needed
+recover_EXT2: s_block_group_nr=7/639, s_mnt_count=0/20, s_blocks_per_group=16384, s_inodes_per_group=8192
+recover_EXT2: s_blocksize=2048
+recover_EXT2: s_blocks_count 10482396
+recover_EXT2: part_size 41929584
+Ext2 superblock found at sector 458752 (block=114688, blocksize=2048)
+
+block_group_nr 9
+
+recover_EXT2: "e2fsck -b 147456 -B 2048 device" may be needed
+recover_EXT2: s_block_group_nr=9/639, s_mnt_count=0/20, s_blocks_per_group=16384, s_inodes_per_group=8192
+recover_EXT2: s_blocksize=2048
+recover_EXT2: s_blocks_count 10482396
+recover_EXT2: part_size 41929584
+Ext2 superblock found at sector 589824 (block=147456, blocksize=2048)
+
+block_group_nr 25
+
+recover_EXT2: "e2fsck -b 409600 -B 2048 device" may be needed
+recover_EXT2: s_block_group_nr=25/639, s_mnt_count=0/20, s_blocks_per_group=16384, s_inodes_per_group=8192
+recover_EXT2: s_blocksize=2048
+recover_EXT2: s_blocks_count 10482396
+recover_EXT2: part_size 41929584
+Ext2 superblock found at sector 1638400 (block=409600, blocksize=2048)
+
+block_group_nr 27
+
+recover_EXT2: "e2fsck -b 442368 -B 2048 device" may be needed
+recover_EXT2: s_block_group_nr=27/639, s_mnt_count=0/20, s_blocks_per_group=16384, s_inodes_per_group=8192
+recover_EXT2: s_blocksize=2048
+recover_EXT2: s_blocks_count 10482396
+recover_EXT2: part_size 41929584
+Ext2 superblock found at sector 1769472 (block=442368, blocksize=2048)
+
+block_group_nr 49
+
+recover_EXT2: "e2fsck -b 802816 -B 2048 device" may be needed
+recover_EXT2: s_block_group_nr=49/639, s_mnt_count=0/20, s_blocks_per_group=16384, s_inodes_per_group=8192
+recover_EXT2: s_blocksize=2048
+recover_EXT2: s_blocks_count 10482396
+recover_EXT2: part_size 41929584
+Ext2 superblock found at sector 3211264 (block=802816, blocksize=2048)
+
+block_group_nr 81
+
+recover_EXT2: "e2fsck -b 1327104 -B 2048 device" may be needed
+recover_EXT2: s_block_group_nr=81/639, s_mnt_count=0/20, s_blocks_per_group=16384, s_inodes_per_group=8192
+recover_EXT2: s_blocksize=2048
+recover_EXT2: s_blocks_count 10482396
+recover_EXT2: part_size 41929584
+Ext2 superblock found at sector 5308416 (block=1327104, blocksize=2048)
+  Linux                74379   1  1 76988 254 60   41929584
+superblock 0, blocksize=2048 []
+superblock 16384, blocksize=2048 []
+superblock 49152, blocksize=2048 []
+superblock 81920, blocksize=2048 []
+superblock 114688, blocksize=2048 []
+superblock 147456, blocksize=2048 []
+superblock 409600, blocksize=2048 []
+superblock 442368, blocksize=2048 []
+superblock 802816, blocksize=2048 []
+superblock 1327104, blocksize=2048 []
+SIGINT detected! TestDisk has been killed.
