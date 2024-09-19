@@ -1,0 +1,392 @@
+I suppoe i might as well start making cross-dev notes here because these
+ideas are taking on a life on their own and some very cool paths lie 
+ahead.
+
+Include my first posdt on xda i think.
+---
+ https://xdaforums.com/t/howto-install-gnu-linux-on-the-huawei-s7-development-thread-kernel-gb.1109730/ : 
+---
+[HOWTO] Install GNU/Linux on the Huawei S7 && Development thread (Kernel & GB)
+
+Installing GNU/Linux on the Huawei IDEOS S7
+( Using Debian or Ubuntu )
+THIS GUIDE IS A WORK IN PROGRESS!
+USE AT OWN RISK!​
+
+
+Requirements:
+Gnu/Linux experience! THIS IS NOT INTENDED FOR THE FAINTHEARTED!
+Debian or Ubuntu.
+The Google Android SDK Or at least adb and Fastboot
+Busybox and a terminal emulator for Android.
+A rooted device. See http://xdaforums.com/showthread.php?p=14321729#post14321729 For how to root the Huawei S7 Android (2.2.2)
+
+UPDATE:
+New Image available.
+Compatible and tested on :
+-Huawei S7
+-Huawei X5 / U8800(not quite done yet),
+-RK2818 based devices,
+-Samsung Galaxy s2.
+
+Add "setprop ctl.stop bootanim" to the chroot command in "startnix-s7/other/rk.sh" on targets newer then gingerbread.
+
+The image is using the MSM/QSD X11 driver for video,
+ext3-4 modules for chroot on Android 2.2.2 stock image
+xinput calibrator for screen calibration
+Recompiled udev making that compatible.
+And also a new sane kernel. which can be fastbooted with this image where ext3-4 are included and compiled-in. This kernel is necessary for enabling acceleration on the MSM/QSD X11 driver, using DRM. Swap and alsa(hopefully) are also enabled, ++, currently for _testing_only_!
+Read post #11 for information - Merry Christmas and a Happy new year to you all!!
+
+
+Setting up an image.
+dd if=/dev/zero of=arm-linux.img bs=1024 count=2097152 to create a 2gb image.
+mkfs.ext2,3 or 4 arm-linux.img , see post 10 for ext3 and 4 modules. as well as jbd and jbd2 which need to be insmodded.
+
+Setting up a partition.
+Plug it into your pc running Debian or Ubuntu, have usb storage selected on the device.
+Back up everything on the 8GB Fat32 partition. I did this with a simple tar -cf android-back.tar /media/8gigandroidmountpoint. Verify that .android_secure is properly packed, but i also strongly suggest using titanium backup to backup application data and settings first then backup with a .tar. That cant fail.
+
+Create a mountpoint and locate the special device of the S7.
+Once you are absolutely sure you backed your partition, proceed with partitioning. Also be warned that ext2 is very prone to dataloss if not properly unmounted before rebooting, And by default, the s7 only supports ext2. So be sure and remember to have unmount any ext2 partition properly when done in Gnu/Linux, run sync as root before exiting, And have e2fsck handy. i have had to edit /etc/mtab back in due to corruption a dozen times when i was using ext2!
+
+Code:
+cfdisk -z /dev/sdx
+I recommend at least 2Gb's. You can always increase the size of the partition later using tools such as gparted , but be aware, gparted might wreak havoc on your fat32 partition!
+
+Now, create the first partition. It is very important that you make the first partition a Fat32 partition or the pad might go mad and operating systems with Multiple $clerosis wont see the partition! Choose "Type" and enter "0B" (FAT32). Create the second partition using the remaining space.
+Select "Write" then Exit.
+
+Now, do mkfs.vfat /dev/sdx1 and mkfs.ext2,3 or 4 /dev/sdx2.
+
+
+Installing.
+Once this is done we make ourselves a temporary directory, lets say mkdir /media/deb and loop mount the image or the partition there.
+
+Instruct debootstrap to get the base packages for squeeze (Debian 6.0),
+Squeeze is based on kernel 2.6.32 and is therefore safest to base our installation on, as Android 2.2 is designed with 2.6.32 in mind. The s7 is a armv7 so we could also use armhf, the drawbacks are its not quite done yet, and there is currently no video driver for our device available from me or the debian repo tested for armhf.
+Code:
+apt-get install debootstrap
+# Adjust .nl. for your closest Debian mirror. Saves time and energy. 
+debootstrap --verbose --arch armel --foreign squeeze /media/deb [URL]ftp://ftp.nl.debian.org/debian[/URL]
+Now using adb from the Google Android SDK and a usb cable, enter a shell and do the following.
+(NOTE: I'm using /sdcard2 , which is the mountpoint to any external sdcard as the mountpoint, the reason for this is lazyness, creating a new folder on the s7's filesystem requires you run psneuter, remount the fs, then create your directory, see my rooting thread for that, you must change this if you are using an sdcard)
+
+Code:
+adb kill-server
+adb start-server
+adb shell
+su
+
+# For loopback image
+mknod /dev/block/loop255 b 7 255
+busybox losetup arm-linux.img /dev/block/loop255
+mount -o rw -t ext2,3 or 4  /dev/block/loop255 /sdcard2
+# For partition
+mount -o rw -t ext2,3 or 4 /dev/block/vold/179:2 /sdcard2
+
+export bin=/sdcard2/bin
+export PATH=$bin:/bin/:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:$PATH 
+export TERM=linux 
+export HOME=/root
+
+cp -r /etc/firwmare/* /sdcard2/lib/firmware/
+cp -r /etc/wifi/* /sdcard2/lib/firmware/
+cp /sbin/adbd /sdcard2/sbin
+cp -r /dev /sdcard2/
+chroot /sdcard2 /debootstrap/debootstrap --second-stage 
+# Adjust .nl. for your closest Debian mirror.
+echo 'deb [URL]ftp://ftp.nl.debian.org/debian[/URL] squeeze main' > /sdcard2/etc/apt/sources.list
+Tell it what nameserver to use, probably your routers IP address.
+In this case we'll just use Googles DNS that should work in any case.
+Code:
+echo 'nameserver 8.8.8.8' > /sdcard2/etc/resolv.conf
+echo 'nameserver 8.8.4.4' >> /sdcard2/etc/resolv.conf
+Lets drop by our new home and make it nice and comfy.
+Code:
+ chroot /sdcard2 /bin/bash
+Once in, we need to do a quick few mounts, a fast few mknodes and a little bit of linking to make things fully functional.
+
+Code:
+    mount -t devpts devpts /dev/pts 
+    mount -t proc proc /proc 
+    mount -t sysfs sysfs /sys 
+          ln -s /proc/self/fd/0 /dev/stdin
+ 	  ln -s /proc/self/fd/2 /dev/stderr
+	  ln -s /proc/self/fd/1 /dev/stdout
+          mknod /dev/block/loop255 b 7 255 # Shouldn't really be needed as we just copied /dev
+	  ln -s /dev/ptmx /dev/pts/ptmx
+	 #mknod /dev/pts/ptmx c 5 2
+	 # ln -s /dev/input/event0 /dev/event0
+	  ln -s /dev/graphics/fb1 /dev/fb1
+	  ln -s /dev/graphics/fb0 /dev/fb0
+Creating the /etc/mtab file
+
+The /etc/mtab file should look something like this.
+Code:
+/dev/block/vold/179:2 / ext2 rw,noatime 0 0
+# or  - You should have figured to adjust for ext 2 3 or 4 now?
+/dev/block/loop255 / ext2 rw,noatime 0 0
+proc /proc proc rw 0 0
+sysfs /sys sysfs rw 0 0
+devpts /dev/pts devpts rw 0 0
+The FS should always be mounted with the noatime option! This reduces load considerably and conserves sdcard!
+mount -o rw,noatime -t ext2 /dev/block/vold/179:2 /sdcard2 for instance
+
+/etc/fstab should look like this: (remember to adjust / )
+Code:
+/dev/block/loop255 	/	 ext3 	defaults,noatime 1 	1
+tmpfs		/lib/init/rw 	tmpfs	rw,nosuid,mode=0755	0	0
+proc            /proc           proc    defaults        0       0
+sysfs 		/sys		sysfs	defaults	0 	0
+tmpfs		/dev/shm	tmpfs	defaults	0 	0
+devpts		/dev/pts	devpts	rw,gid=5,mode=620 0 0
+Setup a password for the root account.
+
+For some reason i had to run dhclient to get online at first, even though ifconfig shows me as connected. Also be aware that when Android falls asleep it puts the wlan0 device to sleep, dropping the connection. Pinging something with -i 90 is a temporary workaround for this.
+
+Setting up OpenSSH
+
+Code:
+    apt-get update 
+    apt-get install openssh
+
+(OPTIONAL) To configure your locale settings to use a language other than English, install the locales support package and configure it.
+Currently the use of UTF-8 locales are recommended.
+Code:
+apt-get install locales
+dpkg-reconfigure locales
+
+(OPTIONAL! ) The "tasksel install standard" command installs all packages marked as "standard" packages for the selected distribution. Running just tasksel will promote you with several choices. tasksel --initial will promote you with installing the base system.
+
+For things like the touchscreen to work properly we need to populate /dev.
+Code:
+# NOT NEEDED ANYMORE , USING DIFFERENT APPROACH!  - leaving for reference
+#mknod /dev/kgsl-3d0 c 244 0  
+#mkdir /dev/input
+#mknod /dev/input/input0 c 13 64
+#mknod /dev/input/input1 c 13 65
+#mknod /dev/input/input3 c 13 67
+#mknod /dev/input/input4 c 13 68
+#mknod /dev/i2c-0 c 89 0
+#mknod /dev/i2c-1 c 89 1
+Poking around i figured out the touchscreen and stuff.
+input0 = Hid Ofn
+input1 = Touchscreen
+input2 = Sensor
+input3 = Keypad
+input4 = Handset
+
+After the installation there will be a lot of downloaded packages in /var/cache/apt/archives/. You can free up some diskspace by running:
+apt-get clean
+
+
+I then created a small script to drop into GNU/Linux a bit easier, note the path of the modules.
+Code:
+su &
+if test -e /mnt/sdcard/arm-linux/linux/bin/bash # or /sdcard2/bin/ if your using a partition
+
+then
+echo "Already mounted."
+else
+
+busybox insmod /mnt/sdcard/arm-linux/s7/jbd.ko
+busybox insmod /mnt/sdcard/arm-linux/s7/ext3.ko
+busybox insmod /mnt/sdcard/arm-linux/s7/jbd2.ko
+busybox insmod /mnt/sdcard/arm-linux/s7/ext4.ko
+
+# For loopback image
+mknod /dev/block/loop255 b 7 255
+busybox losetup arm-linux.img /dev/block/loop255
+mount -o rw,noatime -t ext2,3 or 4  /dev/block/loop255 /sdcard2
+# For partition
+mount -o rw,noatime -t ext2,3 or 4 /dev/block/vold/179:2 /sdcard2
+fi 
+
+export bin=/sdcard2/bin/ # or /mnt/sdcard/arm-linux/linux if your using an image
+export PATH=$bin:/bin/:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:$PATH 
+export TERM=linux 
+export HOME=/root 
+export SHELL=/bin/bash 
+
+# You can also do  
+#'setprop ctl.stop zygote & setprop ctl.stop media && chroot /sdcard2/ /bin/bash && setprop ctl.start zygote & setprop ctl.start media' 
+# This will kill the Android wm, start chroot, and once you quit return you to 
+# android, but that doens work in an android terminal, only via adb. 
+
+chroot /sdcard2 /bin/bash
+This needs to be expanded with another script since you still need some mounts (sysfs devpts and proc), i just dropped them in the .bashrc file in /root for now.
+Code:
+if test -e /sys/class/graphics/fb0/uevent
+	then
+	 echo "All sys mounts already mounted."
+	else
+mount -a
+#service hal start
+hald --daemon=yes
+service ssh start
+fi
+cd
+
+For Xorg
+I've compiled the MSM/QSD X11 drivers, which should provide "limited 3d acceleration, provided they works, here is the status of that so far:
+
+http://threader.zapto.org/s7/dev/msm-drv/xf86-video-msm-6fd8528-gcc46-2-rgb-fix-accel-6.tar , Colour working, needs NoAccel on production kernel. With accel enabled on the production kernel, there are no errors shown when starting X as there were. But Lxde first appears, tjen the menu, taskbar, background, and the rest vanish in a puff of smoke, leaving only the pointer and which can be moved about corruption regions of the screen. This is because certain features were left out of the production kernel. Using the kernel provided in post #11, acceleration works!
+
+You can always check http://threader.zapto.org/s7/dev/msm-drv/ and try out some of the others I've compiled and see if there are any speed issues, sources are also available.
+
+Now to enter the X server, the first thing you really want to do is have your ssh server running and connect to it. You can start your xserver and have all resources devoted to it by having passed "setprop ctl.stop media & setprop ctl.stop zygote" to android in the ADB. Starting zygote again is merely a 'setprop ctl.start zygote & setprop ctl.start zygote'.
+
+The HTC Dream is fairly similar to our device, similar as in its a QSD8x50 device, we should be able to borrow some of their work, this is probably optimized and should be fast, http://build.shr-project.org/shr-unstable/images/htcdream/ its good for reference anyway.
+
+
+Some problems i ran into. # Outdated but leaving for reference.
+When trying to ssh in, after a reboot, i got a rather nasty error.
+PTY allocation request failed on channel 0
+if present remove /dev/ptmx and do mknod /dev/ptmx c 5 2 then redo these mounts or make sure they are properly mounted.
+mount -t devpts devpts /dev/pts
+mount -t proc proc /proc
+mount -t sysfs sysfs /sys
+
+TIPS:
+Install localepurge! This will save a lot of space!
+Install a vncserver and try setting up an X session your happy with, i would recommend the use of lxde and openbox to minimize the memory footprint and to conserve space and ram as the s7's kernel is compiled without swap enabled (o,0).
+Configure xorg.conf in /etc/X11/xorg.conf with the config i posted in #3 http://xdaforums.com/showpost.php?p=14594464&postcount=3
+Be sure to properly unmount the ext partition before you reboot your device! Especially ext2 partitions are prone to dataloss!!!!! Use "sync" as root atleast before exiting!
+install matchbox-keyboard ( an onscreen keyboard )
+Starting X11 was an oddball first few attempts! As the fbdev driver isn't really compatible with the qsd8250 gpu, it blanks out the screen and doesnt know how to revert it. With android still running, I experimented with startx -- :1 and stuff the xorg.conf but ended up using just startx and found that repeatedly pressing the power button (quite frantically) (once the screen blanked out), low and behold, the x session miraculously appeared! This was before i had even "thunk" about compiling the qsd msm driver and before the xf86-video-msm driver in wheezy Debian.
+
+Congratulations, you should now have a fully working Debian install on your Huawei S7!
+
+-------------------------------------------------------------------------------
+
+Clean booting into the Debian partition!
+
+
+
+Configure /etc/fstab: # Outdated , needs updating, see arm-linux.img
+Code:
+# /etc/fstab: static file system information.
+#
+# file system    mount point   type    options     dump pass
+/dev/block/mmcblk0p2 / ext2 defaults 1 1
+proc /proc proc defaults 0 0
+/dev/mmcblk0p1 /media/sdcard vfat defaults 0 0
+
+Add "/sbin/adbd &" to /etc/rc.local and make a symlink so adbd can find sh or bash. (NB, was unsuccessful in my attempts at this for unknown reasons, did not fight it to long.)
+# mkdir -p /system/bin/
+# ln -s /bin/bash /system/bin/sh
+
+apt-get install wpasupplicant network-manager-gnome wireless-tools
+mv /etc/init.d/udev /etc/init.d/dis for now, this is a showstopper.
+
+Get fastboot http://developer.htc.com/adp.html
+Grab the zImage
+(s7 10x -- Self compiled kernel,with ext3-4,drm,alsa(hopefully,powermanagement etc. _TESTING_ONLY_ copy lib to / , System.map to /boot/ and add dhd.ko to /etc/modules run depmod somehow ) http://threader.zapto.org/s7/kernel/2.6.32.9-ideos-fs-snd-drm-sane-5.tar.bz2
+(s7 101 -- stock rom image ) http://threader.zapto.org/s7/rom/extracted/output-brazil/kern/zImage
+(s7 other then 101 -- stock rom image ) http://threader.zapto.org/s7/rom/extracted/output/zImage
+
+Configure the network:
+To configure the network we need to copy a module from android dhd.ko from /lib/modules/ to /lib/modules/2.6.32.9-ideos/kernel/ and create an entry in /lib/modules/2.6.32.9-ideos/modules.dep kernel/dhd.ko: then run depmod -a from within Debian and add dhd to /etc/modules
+
+Boot Debian:
+Put the device into fastboot mode
+$ adb reboot bootloader
+
+The '-c' flag specifies arguments to pass to the kernel for boot.
+This is probably the bare minimum.
+
+Format is "fastboot -c 'kernelcmdline' boot zImage"
+
+fastboot -c 'root=/dev/mmcblk0p2 rw rootfs=ext2 init=/sbin/init rootwait noinitrd' boot zImage
+
+Please help feed my Linux addiction! Go to http://threader.zapto.org and click Donate!
+
+TODO:
+Clean boot from the Debian partition using fastboot.- DONE
+Compile the codeaurora.org MSM/QSD X11 drv - DONE
+Compile a sane kernel, with all the features you'd expect from a Linux kernel - DONE
+Create a boot image with the new kernel compatible with the S7 101-105 possibly 201(slim) capable of booting Android and Linux, either from an early boot menu or using chroot. (WIP)
+Hack up an existing rom, or compile 2.3.7 and make a complete solution. (TBA)
+Stop playing Angry Birds, Dragon, FLY! XConstruct, Finger physics and Skies Of Glory when i should be doing this! - NEARLY ALMOST MOSTLY COMPLETELY DONE(ish) ;Þ
+
+References & useful stuff! This would never have been possible in this short of a time if it weren't for these excellent posts. (Woaw, i sounded so optimistic in june 2011. The initial work was quick, over half a year later though im still not done! "Just gotta fix that last little ting before... Hey! i discover another little thing ...! ;)
+http://www.saurik.com/id/10
+http://www.debian.org/releases/stable/i386/apds03.html
+http://www.irregular-expression.com/?p=30
+xdaforums.com/archive/index.php/t-830077.html
+http://xdaforums.com/archive/index.php/t-830077.html
+
+For development
+git clone git://codeaurora.org/kernel/msm.git android-msm-2.6.32
+https://www.codeaurora.org/gitweb/quic/xwin/
+https://www.codeaurora.org/gitweb/quic/xwin/?p=xf86-video-msm.git;a=shortlog;h=refs/heads/chromium
+http://gitorious.org/htc-msm-2-6-32...d65936b8bbc8708f352719/include/drm/kgsl_drm.h
+
+https://github.com/tmzt/androix-xserver
+Last edited: Oct 20, 2013
+Like Reactions:alireza7991, CenterTurkHD, goodoane and 3 others
+threader
+Senior Member
+Jun 4, 2011
+#2
+5znofa.jpg
+29nxle9.jpg
+threader
+Senior Member
+Jun 10, 2011
+#3
+/etc/X11/xorg.conf
+Code:
+Section "Device"                                  
+        Identifier      "msm"
+# For MSM/QSD X11
+        Driver "msm"
+        Option "fb" "/dev/fb0"
+# For fbdev
+#       Driver  "fbdev"
+#       Option "ShadowFB" "on" 
+#       Option "Rotate" "CW" 
+# for MSM/QSD X11  
+  Option       "NoAccel" "true"
+#  Option       "SWBlit"  "true"
+EndSection                                                
+
+
+Section "Screen"                                        
+        Identifier "Framebuffer"     
+#        Device  "fbdev" 
+        Device "msm"  
+        Monitor "Monitor"               
+#	DefaultFbBpp 24
+	SubSection "Display"
+#		Depth 24
+        	Modes "800x480"
+	EndSubSection
+EndSection                                              
+
+Section "ServerLayout"                                 
+        Identifier      "Builtin Default Layout"                                     
+        Screen  "Framebuffer"        
+#	InputDevice "Trackball" "CorePointer" # Reserved for buttons . 
+	InputDevice "Touchscreen" "CorePointer"
+        InputDevice "Keyboard" "CoreKeyboard"
+EndSection        
+
+Section "InputDevice"
+    Identifier "Touchscreen"
+    Driver     "evdev"
+    Option     "Device"        "/dev/input/input1"
+ #   Option     "ScreenNumber"  "0"
+    Option     "ReportingMode" "Raw"    
+    Option     "ReportingMode" "Scaled"
+    Option     "ButtonNumber"  "1"
+    Option     "SendCoreEvents"
+EndSection
+
+Section "InputDevice"
+        Identifier  "Keyboard"
+        Driver      "kbd"
+#        Option      "XkbLayout" "en_US"
+EndSection
+---
