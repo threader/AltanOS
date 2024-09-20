@@ -114,6 +114,10 @@ $sysdrive =  $Env:SystemDrive
 # https://archive.org/download/microsoftSrcLeakCollection/windows_nt_3_5_source_code.7z
 # https://archive.org/download/microsoftSrcLeakCollection/ms_dos_6_0_source_code.7z
 
+# https://aminet.net/package/misc/os/debian-m68k-1
+# https://aminet.net/package/misc/os/linux2.6.28-m68k-bliz - carry that patch
+# https://aminet.net/package/dev/gg/pkg-config-bin-src - and wtf wss indo7ng here ahain?
+
 # note :
 # It is my opinion that encrypting the entire HDD is a complete waste of read/write cycles, 
 # using something like a bellow encrypted throw away disposable VM image or really something makes more sense. 
