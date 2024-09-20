@@ -1,0 +1,197 @@
+@ECHO OFF
+
+SET CC=US
+SET DRV=X:
+SET COPYR=
+SET drive=A
+
+DSKSTATE
+IF ERRORLEVEL 3 GOTO DSTATE3
+IF ERRORLEVEL 2 GOTO DSTATE2
+IF ERRORLEVEL 1 GOTO DSTATE1
+IF ERRORLEVEL 0 GOTO DSTATE0
+
+:DSTATE3
+SET DSTATE=3
+GOTO GETDRV
+
+:DSTATE2
+SET DSTATE=2
+GOTO GETDRV
+
+:DSTATE1
+SET DSTATE=1
+GOTO GETDRV
+
+:DSTATE0
+SET DSTATE=0
+
+:GETDRV
+getdrive.exe /CC=%CC%
+IF ERRORLEVEL 1002 GOTO PANASONIC
+IF ERRORLEVEL 1001 GOTO INTERNAL
+IF ERRORLEVEL 1000 GOTO DOCK
+IF ERRORLEVEL 0 GOTO NOSELECT
+
+:PANASONIC
+rem A:\DYNALOAD A:\aspiomgr.sys
+rem A:\DYNALOAD A:\kmecd.sys /d:pcmciacd /n:1 
+
+rem Panasonic USB Drive
+A:\DYNALOAD A:\ramfd.sys
+A:\DYNALOAD A:\usbaspi.sys /W
+A:\DYNALOAD A:\usbcd.sys /d:PCMCIACD
+
+LH A:\MSCDEX.EXE /D:pcmciacd /M:10 /L:X
+GOTO NOWGO
+
+:INTERNAL
+LH A:\MSCDEX.EXE /D:IBMCD001 /L:X
+GOTO NOWGO
+                
+:DOCK
+LH A:\MSCDEX.EXE /D:CMD_CD /L:X
+GOTO NOWGO
+
+:NOSELECT
+ECHO NO CD DRIVE SELECTION WAS MADE.
+GOTO DONE
+
+:NOWGO
+A:\SMARTDRV.EXE 4096 C+ /U
+A:\MOUSE
+
+REM FIND DRIVE WITH RECOVERY CD
+FINDCD.EXE
+IF ERRORLEVEL 25 IF NOT ERRORLEVEL 26 SET DRV=Z:
+IF ERRORLEVEL 24 IF NOT ERRORLEVEL 25 SET DRV=Y:
+IF ERRORLEVEL 23 IF NOT ERRORLEVEL 24 SET DRV=X:
+IF ERRORLEVEL 22 IF NOT ERRORLEVEL 23 SET DRV=W:
+IF ERRORLEVEL 21 IF NOT ERRORLEVEL 22 SET DRV=V:
+IF ERRORLEVEL 20 IF NOT ERRORLEVEL 21 SET DRV=U:
+IF ERRORLEVEL 19 IF NOT ERRORLEVEL 20 SET DRV=T:
+IF ERRORLEVEL 18 IF NOT ERRORLEVEL 17 SET DRV=R:
+IF ERRORLEVEL 17 IF NOT ERRORLEVEL 16 SET DRV=Q:
+IF ERRORLEVEL 16 IF NOT ERRORLEVEL 15 SET DRV=P:
+IF ERRORLEVEL 15 IF NOT ERRORLEVEL 14 SET DRV=O:
+IF ERRORLEVEL 14 IF NOT ERRORLEVEL 13 SET DRV=N:
+IF ERRORLEVEL 13 IF NOT ERRORLEVEL 12 SET DRV=L:
+IF ERRORLEVEL 12 IF NOT ERRORLEVEL 11 SET DRV=L:
+IF ERRORLEVEL 11 IF NOT ERRORLEVEL 10 SET DRV=K:
+IF ERRORLEVEL 10 IF NOT ERRORLEVEL  9 SET DRV=J:
+IF ERRORLEVEL  9 IF NOT ERRORLEVEL  8 SET DRV=I:
+IF ERRORLEVEL  8 IF NOT ERRORLEVEL  7 SET DRV=H:
+IF ERRORLEVEL  7 IF NOT ERRORLEVEL  6 SET DRV=G:
+IF ERRORLEVEL  6 IF NOT ERRORLEVEL  5 SET DRV=F:
+IF ERRORLEVEL  5 IF NOT ERRORLEVEL  4 SET DRV=E:
+IF ERRORLEVEL  4 IF NOT ERRORLEVEL  3 SET DRV=D:
+IF ERRORLEVEL  3 IF NOT ERRORLEVEL  2 SET DRV=C:
+IF ERRORLEVEL  2 IF NOT ERRORLEVEL  1 SET DRV=B:
+IF ERRORLEVEL  1 IF NOT ERRORLEVEL  0 SET DRV=A:
+
+CALL FINDDRV.BAT
+COPY A:\*.* %RAMD%\ > NUL
+SET COMSPEC=%RAMD%\COMMAND.COM
+
+ECHO .
+ECHO -----------------
+ECHO Recovery Drive=%DRV%
+ECHO RAM Drive     =%RAMD%
+ECHO -----------------
+ECHO .
+%RAMD%
+                                        
+PATH=%RAMD%\;%DRV%\RECOVERY;%DRV%\RECOVERY\%CC%   
+SUBST A: %RAMD%\
+
+call %drive%:\DISKETTE.EXE B >NUL
+if errorlevel 1 goto YESdiskette
+GOTO START
+
+:YESdiskette
+if exist B:\MFGMODE goto MFGmode
+if exist B:\ERROR.LOG goto MFGcleanup
+GOTO START
+
+:MFGmode
+if exist B:\PREDL.bat call B:\PREDL.bat
+g:\recovery\recover.exe /AUTO
+if exist B:\VEPT.EXE B:\VEPT.EXE /n /c /ww
+if exist B:\DEVMODE goto DONE
+call a:\veptcrc.bat
+if exist B:\ERROR.LOG goto DLerror
+if exist B:\POSTDL.bat call B:\POSTDL.bat
+%drive%:\set_cmos 0 0x36 xxxx0010
+%drive%:\fmodify.exe A:\auditset.fm
+c:\windows\regedit /L:C:\WINDOWS\system.dat /R:C:\WINDOWS\user.dat %drive%:\mfgbooti.reg
+copy %drive%:\set_cmos.exe c:\
+copy %drive%:\unaudit.exe c:\
+copy %drive%:\MFGRESET.BAT c:\
+copy %drive%:\ERROR.LOG B:\
+%drive%:\REBOOT.EXE
+GOTO DONE
+
+:MFGcleanup
+if exist B:\POSTAUD.bat call B:\POSTAUD.bat
+copy A:\TESTER.CTL B:\
+del c:\set_cmos.exe
+del c:\unaudit.exe
+del c:\MFGRESET.BAT
+del b:\error.log
+A:\set_cmos 0 0x36 xxxx0000
+A:\REBOOT.EXE
+GOTO DONE
+
+:DLerror
+copy A:\TESTER.CTL B:\
+A:\set_cmos 0 0x36 xxxx0000
+A:\REBOOT.EXE
+GOTO DONE
+    
+:START      
+CLS                                     
+IF %DSTATE%==2 GOTO GORECOV            
+IF %DSTATE%==1 GOTO DORECOV            
+IF %DSTATE%==0 GOTO CONTINUE           
+                                        
+:DORECOV                                
+IF EXIST C:\$APTINST.DAT GOTO DELFILE   
+                                        
+:GORECOV                                
+%DRV%\RECOVERY\RECOVER.EXE %COPYR% /P:%DRV%\RECOVERY
+IF ERRORLEVEL 2527 GOTO DIAGDISK      
+IF ERRORLEVEL 2525 GOTO DIAGNOSTICS     
+IF ERRORLEVEL 2523 GOTO SYSTEMINFO      
+GOTO DONE                               
+                                        
+:DELFILE                                
+ERASE C:\$APTINST.DAT                   
+                                        
+:CONTINUE                               
+%DRV%\RECOVERY\RECOVER.EXE /Y %COPYR% /P:%DRV%\RECOVERY
+IF ERRORLEVEL 2527 GOTO DIAGDISK      
+IF ERRORLEVEL 2525 GOTO DIAGNOSTICS     
+IF ERRORLEVEL 2523 GOTO SYSTEMINFO      
+GOTO DONE                               
+                                        
+:SYSTEMINFO                             
+SET COPYR=/S                            
+%DRV%\PCDR\PCDR.EXE /SI /PAUSE             
+GOTO START                              
+                                        
+:DIAGNOSTICS                            
+SET COPYR=/S                            
+%DRV%
+CD \PCDR
+%DRV%\PCDR\PCDR.EXE
+CD \
+GOTO START                              
+                                        
+:DIAGDISK                            
+SET COPYR=/S                            
+%DRV%\PCDR\MAKEDIAG.EXE B:                        
+PAUSE
+GOTO START
+                                        
+:DONE                                   
+@ECHO ON

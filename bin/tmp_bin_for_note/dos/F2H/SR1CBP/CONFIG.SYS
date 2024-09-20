@@ -1,0 +1,20 @@
+[menu]
+menuitem=SETUP_CD,Panasonic USB Drive
+menucolor=7,0
+
+[SETUP_CD]
+DEVICEHigh=RAMFD.SYS
+DEVICEHIGH=USBASPI.SYS /W
+DEVICEHIGH=USBCD.SYS /d:CDROM001
+
+[COMMON]
+DEVICEHigh=BILING.SYS
+DEVICEHigh=JFONT.SYS /MSG=OFF
+DEVICEHigh=JDISP.SYS /HS=LC
+DEVICEHigh=JKEYB.SYS
+DEVICEHigh=ANSI.SYS
+files=60
+buffers=20
+dos=high,umb
+stacks=9,256
+lastdrive=z

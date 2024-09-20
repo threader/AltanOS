@@ -1,0 +1,74 @@
+;------------------------------------------------------------------------------
+; USB Mass-Storage Class Miniport Driver
+;
+; Installation inf for Windows 98 / 98Se / Me
+;
+; Copyright(C) 2001-2002 Medialogic Corp.
+;------------------------------------------------------------------------------
+[Version]
+Signature   = "$CHICAGO$"
+Class       = HDC
+ClassGUID   = {4d36e96a-e325-11ce-bfc1-08002be10318}
+Provider    = %Medialogic%
+;CatalogFile = KMUSBMS.cat
+LayoutFile  = LAYOUT.INF
+DriverVer   = 04/10/2002,1.30.06
+
+[ControlFlags]
+
+;----------------------------------------------------------------------------
+; Manufacturer Name Section
+;----------------------------------------------------------------------------
+[Manufacturer]
+%Medialogic%=Medialogic
+
+;------------------------------------------------------------------------------
+; Copy Files Section
+;------------------------------------------------------------------------------
+[DestinationDirs]
+DefaultDestDir   = 10, system32\drivers
+MPD.CopyList     = 12
+WDM.CopyList     = 10, system32\drivers
+
+[MPD.CopyList]
+KMUSBMS.MPD
+
+[WDM.CopyList]
+KMUSBBLK.SYS
+
+[SourceDisksNames]
+1 = %OurSuppliedDisk%,,,
+
+[SourceDisksFiles]
+KMUSBMS.MPD  = 1,,
+KMUSBBLK.SYS = 1,,
+
+;----------------------------------------------------------------------------
+; Install Section
+;----------------------------------------------------------------------------
+[Medialogic]
+%CDRCB02.DriverDesc% = KMUSBMS, NINJAUSB\VID_04DA&PID_0D0A
+%CDRRW10.DriverDesc% = KMUSBMS, NINJAUSB\VID_04DA&PID_0D0B
+
+[KMUSBMS]
+CopyFiles=MPD.CopyList, WDM.CopyList
+AddReg=KMUSBMS.AddReg
+
+[KMUSBMS.AddReg]
+HKR,,DevLoader,,*IOS
+HKR,,PortDriver,,"KMUSBMS.MPD"
+
+[KMUSBMS.HW]
+AddReg=Argumentreg
+
+[Argumentreg]
+HKR,,AdapterSettings,,""
+
+;----------------------------------------------------------------------------
+; Strings
+;----------------------------------------------------------------------------
+[Strings]
+Medialogic          = "Medialogic Corp."
+CDRCB02.DriverDesc  = "CDRCB02 USB Adapter"
+CDRRW10.DriverDesc  = "CDRRW10 USB CD-R/RW Adapter"
+OurSuppliedDisk     = "CD-R/RW Drive (CDRRW10) Setup Disk"

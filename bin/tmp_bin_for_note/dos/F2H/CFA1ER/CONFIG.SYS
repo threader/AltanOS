@@ -1,0 +1,30 @@
+;------------------------------------------
+; Windows 再インストール用 config.sys
+;------------------------------------------
+DEVICE=HIMEM.SYS
+BUFFERS=20
+FILES=60
+DEVICE=BILING.SYS
+DEVICE=JFONT.SYS /MSG=OFF
+DEVICE=JDISP.SYS /HS=LC
+DEVICE=JKEYB.SYS /106 JKEYBRD.SYS
+DEVICE=ANSI.SYS
+
+;------------------------------------------
+; その他の CD-ROMドライブ
+;------------------------------------------
+;◆ PC Card ドライバー（使用しない場合は、コメントアウト）
+;◆ ソケットサービス
+rem DEVICE=A:\PCCARD\IBMDSS01.SYS
+
+;◆ カードサービス
+rem DEVICE=A:\PCCARD\IBMDOSCS.SYS
+
+;◆ インターフェースカード固有のドライバー（カードに付属のマニュアル参照）
+DEVICE=A:\OTHER\usbaspi.SYS
+
+;◆ ドライブ固有のドライバー（CD-ROMドライブに付属のマニュアル参照）
+;◆ CD-ROMドライバーのデバイス名は、AUTOEXEC.BATのMSCDEXと一致させてください。
+DEVICE=A:\OTHER\usbcd.SYS /D:CD001
+; ...
+

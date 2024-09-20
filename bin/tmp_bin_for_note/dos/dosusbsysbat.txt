@@ -1,0 +1,15 @@
+[config.sys]
+DOS=HIGH,UMB
+lastdrive=Z
+device=HIMEM.SYS
+rem The following line loads Panasonic's universal USB- controller driver
+devicehigh=USBASPI.SYS /v /w /e
+rem the following is an aspi mass storage driver for usb- connected HDs and compactflash memory cards
+devicehigh=DI1000DD.SYS
+rem The following one loads CD-ROM driver
+devicehigh=USBCD.SYS /d:USBCD001
+
+[autoexec.bat]
+@echo off
+REM the following line adds a drive letter to the usb cd(rom/r/rw) mounted
+LH MSCDEX /d:USBCD001

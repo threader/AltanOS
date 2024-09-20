@@ -1,0 +1,100 @@
+@ECHO OFF
+@SET PROMPT=$e[37;44;1m$p$g
+CLS
+@ECHO [37;44;1m
+REM   DOSK (pass) (Ramdrive) (Lang) (MachType) (CDTYPE)
+REM    Load CD-ROM drivers,
+REM        then Recover,
+REM        then Exit to DOS
+REM    Make Boot diskette,
+REM    Test CD,
+REM    Run Drive Fitness Test
+REM    Reset C disk
+
+REM   set LANG variable to LANG parameter
+if %3g==g then lctchus
+set LANG=%3
+goto overlang
+:lctchus
+set LANG=US
+:overlang
+
+CALL %RAMD%:\BIN\PWAIT.BAT %LANG%
+
+@SET PROMPT=$e[34;44;0m$e[34;44;2m
+@ECHO   [34;44;0m[34;44;2m
+REM Driver Load Batch file
+
+if %1g==g   goto NoPARM
+
+:Alltimes
+if "%5" == "0" goto Escape
+if "%5" == "1" goto INTERNAL
+if "%5" == "2" goto OBI
+if "%5" == "3" goto OBI2
+if "%5" == "4" goto D1
+goto ERROR
+
+:IBMCD
+:INTERNAL
+goto Complete
+
+:OBI
+REM IBM PCMCIA CD-ROM 20x
+  dynaload \BIN\PCMCD20X.SYS /I:10 /P:240 /D:PCMCD001
+  LOADHIGH \BIN\MSCDEX.EXE /D:PCMCD001 /M:15 /L:Z
+if errorlevel 1 goto ERROR
+goto Complete
+
+:OBI2
+rem CNF PCMCIA CD-ROM 2x
+ loadhigh dynaload \BIN\CTCNFCD.SYS /D:CTCNFCD$ >NUL
+ loadhigh  \BIN\MSCDEX.EXE /D:CTCNFCD$ /M:10 /L:Z >NUL
+if errorlevel 1 goto ERROR
+goto Complete
+
+
+:D1
+rem Panasonic PCMCIA CD-ROM 783
+ dynaload \BIN\usbaspi.sys 
+ dynaload \BIN\usbcd.sys /d:pcmciacd 
+  LOADHIGH \BIN\MSCDEX.EXE /D:pcmciacd /M:10 /L:Z
+if errorlevel 1 goto ERROR
+
+:Complete
+path %PATH%;z:\recovery
+if "%1"=="3" goto TODOS
+if "%1"=="2" goto Second
+
+:First
+REM @SET PROMPT=$e[34;44;0m$e[34;44;2m
+REM @ECHO   [34;44;0m[34;44;2m
+REM The color is changed to allow viewing int 24h errors
+@SET PROMPT=$e[37;44;1m$p$g
+@ECHO   [37;44;1m
+%RAMD%:
+Poff.exe
+goto exit
+
+:Second
+REM adjust for languages
+REM Second time through, drives are partitioned but not formatted
+@SET PROMPT=$e[37;44;1m
+@ECHO   [0m[37;44;1m
+CLS
+CALL \BIN\SNDCHK.EXE
+REM Can't do the following, we wont see int 24h error messages
+REM @SET PROMPT=$e[34;44;0m$e[34;44;2m
+REM @ECHO   [34;44;0m[34;44;2m
+CALL Z:\RECOVERY\RECV3.BAT
+goto EXIT
+
+:TODOS
+@SET PROMPT=$e[37;44;1m$p$g
+RESETC
+CLS
+ECHO [37;44;1m
+:NoPARM
+:Escape
+:ERROR
+:EXIT

@@ -1,0 +1,82 @@
+;------------------------------------------------------------------------------
+; USB Mass-Storage Class WDM Driver
+;
+; Installation inf for Windows 98 / 98Se / Me
+;
+; Copyright(C) 2001-2002 Medialogic Corp.
+;------------------------------------------------------------------------------
+[Version]
+Signature   = "$CHICAGO$"
+Class       = USB
+ClassGUID   = {36FC9E60-C465-11CF-8056-444553540000}
+Provider    = %Medialogic%
+;CatalogFile = KMUSBBLK.cat
+LayoutFile  = LAYOUT.INF
+DriverVer   = 04/10/2002,1.30.06
+
+[ControlFlags]
+
+;----------------------------------------------------------------------------
+; Manufacturer Name Section
+;----------------------------------------------------------------------------
+[Manufacturer]
+%Medialogic%=Medialogic
+
+;------------------------------------------------------------------------------
+; Copy Files Section
+;------------------------------------------------------------------------------
+[DestinationDirs]
+DefaultDestDir   = 10, system32\drivers
+MPD.CopyList     = 12
+WDM.CopyList     = 10, system32\drivers
+
+[MPD.CopyList]
+KMUSBMS.MPD
+
+[WDM.CopyList]
+KMUSBBLK.SYS
+
+[SourceDisksNames]
+1 = %OurSuppliedDisk%,,,
+
+[SourceDisksFiles]
+KMUSBMS.MPD  = 1,,
+KMUSBBLK.SYS = 1,,
+
+;----------------------------------------------------------------------------
+; Install Section
+;----------------------------------------------------------------------------
+[Medialogic]
+%CDRCB02.DriverDesc%=KMUSBBLK,  USB\VID_04DA&PID_0D0A
+%CDRRW10.DriverDesc%=KMUSBBLK,  USB\VID_04DA&PID_0D0B
+
+;----------------------------------------------------------------------------
+; Windows 98 Install Section
+;----------------------------------------------------------------------------
+[KMUSBBLK]
+CopyFiles = MPD.CopyList, WDM.CopyList
+AddReg    = KMUSBBLK.AddReg
+
+[KMUSBBLK.AddReg]
+HKR,,DevLoader,,*NTKERN
+HKR,,NTMPDriver,,KMUSBBLK.SYS
+
+[KMUSBBLK.HW]
+AddReg=KMUSBBLK.HW.AddReg
+DelReg=KMUSBBLK.HW.DelReg
+
+[KMUSBBLK.HW.AddReg]
+HKR,,"CheckNecOhci",0x10001,0
+
+[KMUSBBLK.HW.DelReg]
+HKR,,"UpperFilters"
+HKR,,"LowerFilters"
+
+;----------------------------------------------------------------------------
+; Strings
+;----------------------------------------------------------------------------
+[Strings]
+Medialogic          = "Medialogic Corp."
+CDRCB02.DriverDesc  = "CDRCB02 USB device driver"
+CDRRW10.DriverDesc  = "CDRRW10 USB CD-R/RW device driver"
+OurSuppliedDisk     = "CD-R/RW Drive (CDRRW10) Setup Disk"

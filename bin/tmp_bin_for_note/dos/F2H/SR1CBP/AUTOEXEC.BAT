@@ -1,0 +1,7 @@
+@ECHO OFF
+set path=A:\;A:\DOS;Q:\SONY
+MSCDEX.EXE /D:CDROM001 /L:Q
+
+Q:
+cd \SONY
+INSTALL4.EXE

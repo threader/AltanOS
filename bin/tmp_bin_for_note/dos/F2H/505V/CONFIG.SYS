@@ -1,0 +1,20 @@
+dos=high
+
+device=\sys\himem.sys /testmem:off
+devicehigh=\sys\biling.sys
+devicehigh=\sys\jfont.sys /msg=off
+devicehigh=\sys\jdisp.sys /HS=LC
+devicehigh=\sys\jkeyb.sys /106 \sys\jkeybrd.sys
+devicehigh=\sys\ansi.sys
+devicehigh=\sys\ifshlp.sys
+
+REM ●● PC カードを利用する際に必要なドライバ ●●
+rem DEVICEHIGH=\PCCARD\CNFIGNAM.EXE /DEFAULT
+rem DEVICEHIGH=\PCCARD\PCMSS.EXE
+rem DEVICEHIGH=\PCCARD\PCMCS95.EXE
+rem DEVICEHIGH=\PCCARD\PCMRMAN.SYS
+
+REM ●● ここに CD-ROM ドライバに関する記述を追加してください ●●
+devicehigh=usbaspi.sys
+devicehigh=usbcd.sys /d:usbcd
+lastdrive=Z

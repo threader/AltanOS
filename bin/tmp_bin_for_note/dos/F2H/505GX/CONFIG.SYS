@@ -1,0 +1,14 @@
+dos=high
+
+device=\sys\himem.sys /testmem:off
+devicehigh=\sys\biling.sys
+devicehigh=\sys\jfont.sys /msg=off
+devicehigh=\sys\jdisp.sys /HS=LC
+devicehigh=\sys\jkeyb.sys /106 \sys\jkeybrd.sys
+devicehigh=\sys\ansi.sys
+devicehigh=\sys\ifshlp.sys
+
+REM ●● ここに CD-ROM ドライバに関する記述を追加してください ●●
+devicehigh=a:\usbaspi.sys
+devicehigh=a:\usbcd.sys /d:usbcd
+LASTDRIVE=Z
