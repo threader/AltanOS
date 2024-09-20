@@ -1,8 +1,13 @@
 ## AltanOS - started it's life as an overdue todo item of severe necessity, randomly being inspired to persue after reading trough the scripts of PC-Tuning and Atlas by 'amitvxv' and co. and having a handfull of recrent tricks worth looking into.
 
-This project is undergoing change, testing and has not settled. It might not run as expected, experience adviced, so is a fresh install. Be prepared to step trough the script with PowerShell ISE. This will remove all removable Windows packages for all users on the system.
+This project is _undergoing change_, (_not much_) testing and _has not settled_. It _might not run as expected_, _experience_ adviced, so is a _fresh install/image whatever_. Be prepared to step trough the script with PowerShell ISE. _This will remove all removable Windows packages for all users on the system._
 
-The goal of this project is to optimize/minimize and harden Windows systems, making the deployed system more maintainable with tools like winget and UniGetUI and the 3rd party module 'PSWindowsUpdate'.
+One goal of this project is to optimize/minimize and harden Windows systems, making the deployed system more maintainable with tools like winget and UniGetUI and the 3rd party module 'PSWindowsUpdate'.
+
+By the end now we might be talking 'ELKS' and shoehorning Bitlocker into some version of 'Winnt', set up opencorepatcher (osx86 whatever), or use the 'Darling' project and compile to deploy 'Darwin/OSX/something franken', ideas and possibilities are eppearing that make my notes on the possibilities that actuslly exsist and, https://github.com/threader/xnu_gcc_libc_etc_darwin , https://github.com/threader/elks and https://github.com/threader/OneFileLinux even my notes need sorting since they are dotted down at just an approximate location. so take note of the notes and noting onewards i suppose,
+Dizzying notes: https://github.com/threader/AltanOS/blob/main/src/harden.ps1#L103 
+This project is now in a temporary state and include binaries that will need to be removed etc. A forced update to this repository is planned to keep the weight minimal.
+
 
 Run AltanOS.cmd from It's parent directory and the rest happens with some interaction. There are some pauses for input and information text, uninstalling Edge needs a mouse button click, 'PSWindowsUpdate' also require NuGet that requires confirmation.
 
