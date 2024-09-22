@@ -215,6 +215,7 @@ $sysdrive =  $Env:SystemDrive
 # SYSTEM ( EXT 4 )
 # u know what to do
 # BACKUP
+# Mount the windows.wim as read only and only while applying updates unlock, run the check_image.ps1/cmd/sh periodically, somehow veryfy trust upwards and backesrds when booted to ENC_
 # Then comes what to do, or how to handle things so that we can have users/ %programfiles% (most interesting right now since there 
 # will be some switching between the early winnt versions as a startingpoint here etc. on a different "HDD" alltogether etc and have 
 # this work like mount -o loop etc. 
