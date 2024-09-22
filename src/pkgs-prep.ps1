@@ -269,10 +269,12 @@ winget upgrade --accept-source-agreements --disable-interactivity --include-unkn
  Expand-Archive -Force "$altonsinstdir\B2P_224b.zip"  "$altonsinstdir\B2P_224b"
 
 # 7zip blood 2 exe?
-
-##
-
-$ProgressPreference = 'Continue' 
+#
+# Wings Of Glory, was quite unstable as i remember, might be fun to try for 5 whole minutes.
+# https://archive.org/download/wingsofglory-pc-redump/WINGSOFGLORY-PC-REDUMP/ (EU/US)
+# https://archive.org/download/GLORY_EXE/GLORY.EXE
+# https://archive.org/download/wings-1-6/WINGS1_6.iso
+$ProgressPreference = 'Continue'
 
 # Display My Computer on desktop
 (New-Object -ComObject shell.application).toggleDesktop()
