@@ -147,25 +147,26 @@ echo Rebuild performance counters
 echo Forces the clock to be backed by a platform source, no synthetic timers are allowed. Have not been able to prove the benifits of this, feel free to skip or test yourself:
  bcdedit /set useplatformtick yes
 
-cd %altanosdir%
+:: cd %altanosdir%
 
 :: The following operations can under some circumstances take a hellova lot of thime, i'm not really sure if this really is ideal.
   Echo There will be packages that fail to remove here because they are core components, some red text to follow.
 :: %powshadmcmd% "%altanosdir%\src\pkgs-prep.ps1"
  
- echo git clone the latest AltanOS
- if exist %altanoinstsdir%
- "%gitget%" pull -b main https://github.com/threader/AltanOS "%altanosinstdir%"
- else
- "%gitget%" clone -b main https://github.com/threader/AltanOS "%altanosinstdir%"
- cd %altanosdir%\AltanOS
+ :: I BLOODY DID THIS YESTERDAY! AND FIXED THE README! F U WINDOWS
+ :: echo git clone the latest AltanOS
+ :: if exist %altanoinstsdir%
+ :: "%gitget%" pull -b main https://github.com/threader/AltanOS "%altanosinstdir%"
+ :: else
+ :: "%gitget%" clone -b main https://github.com/threader/AltanOS "%altanosinstdir%"
+ :: cd %altanosdir%\AltanOS
  
   :: After first git clone: 
- git submodule update --init --recursive 
+ :: git submodule update --init --recursive 
  :: pull latest submodules changes:
- git submodule update --recursive
+:: git submodule update --recursive
  
- cd %altanosdir%
+:: cd %altanosdir%
 
 :: im sure this happened elsewhere 
  xcopy %altanosdir%\bin\PrivaZer.ini %altanosinstdir%/bin/ 
@@ -188,7 +189,9 @@ cd %altanosdir%
 echo Remember to configure the TinyWall firewall, select 'Autolearn' if you have problems and use the 'Manage' dialog to tune the selection.
 :: if exist "%programfiles_arch%"\TinyWall\TinyWall.exe goto skipptw
 :: pause 
-msiexec.exe /a %altanosinstdir%\TinyWall-v3-Installer.msi /quiet /passive
+
+:: Unless i can run the TW.exe against a preset rules that allow... stuff, this will need to be very optional to not block all connections. 
+:: msiexec.exe /a %altanosinstdir%\TinyWall-v3-Installer.msi /quiet /passive
 :: "%altanosinstdir%"\bin\network-indicator"%niarchbit%"\NetworkIndicatorSetup.exe
 :: :skiptw
 
