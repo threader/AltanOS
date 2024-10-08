@@ -5,7 +5,7 @@
  $GET_APPXPACKAGE_NAME = Write-Output $GET_APPXPACKAGE.Name
 
  ForEach ($_ in $GET_APPXPACKAGE_NAME) {
-   Remove-AppPackage -AllUsers -Online -PackageName $GET_APPXPACKAGE_NAME
+   Remove-AppPackage -AllUsers -Online -PackageName  $_ # $GET_APPXPACKAGE_NAME
    }
 
 Read-Host -Prompt "Press any key to continue - this didnt solve the problem i solved then copied.. from harden.ps1" 
@@ -16,7 +16,7 @@ Read-Host -Prompt "Press any key to continue - this didnt solve the problem i so
  $GET_APPXPPACKAGE_NAME = Write-Output $GET_APPXPPACKAGE.PackageName
 
  ForEach ($_ in $GET_APPXPPACKAGE_NAME) {
-   Remove-AppxProvisionedPackage -AllUsers -Online -PackageName $GET_APPXPPACKAGE_NAME
+   Remove-AppxProvisionedPackage -AllUsers -Online -PackageName $_ # $GET_APPXPPACKAGE_NAME
 	}
 
 Read-Host -Prompt "Press any key to continue - this didnt solve the problem i solved then copied.. from harden.ps1"
