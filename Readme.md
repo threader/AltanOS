@@ -1,16 +1,17 @@
 ## AltanOS - started it's life as an overdue todo item of severe necessity, randomly being inspired to persue after reading trough the scripts of PC-Tuning and Atlas by 'amitvxv' and co. and having a handfull of recrent tricks worth looking into.
 
-This project is _undergoing change_, (_not much_) testing and _has not settled_. It _might not run as expected_, _experience_ adviced, so is a _fresh install/image whatever_. Be prepared to step trough the script with PowerShell ISE. _This will remove all removable Windows packages for all users on the system._
+This project is _undergoing change_, (_not much_) testing and _has not settled_. It _might not run as expected_, actually it currently does not according to my last full test 'recerntly', _experience_ adviced, so is a _fresh install/image whatever_. Be prepared to step trough the script with PowerShell ISE. _This will remove all removable Windows packages for all users on the system._
 
-One goal of this project is to optimize/minimize and harden Windows systems, making the deployed system more maintainable with tools like winget and UniGetUI and the 3rd party module 'PSWindowsUpdate'.
+One goal of this project is to optimize/minimize and harden Windows systems, making the deployed system more maintainable with tools like winget and UniGetUI and the 3rd party module 'PSWindowsUpdate'. Especially importent on Win 10 as the auto update feature there is... more of a random occurance?
 
-By the end now we might be talking 'ELKS' and shoehorning Bitlocker into some version of 'Winnt', set up opencorepatcher (osx86 whatever) a recovery and yaboot grub config for PowerPC Openfirmware and so on, use the 'Darling' project and compile to deploy 'Darwin/OSX/something franken'(OpenDarwin and apple xnu, i dont know or remember how that all tied together anymore), ideas and possibilities are eppearing that make my notes on the possibilities that actuslly exsist considering just the following projects ; https://github.com/threader/xnu_gcc_libc_etc_darwin , https://github.com/threader/elks and https://github.com/threader/OneFileLinux 
+By the end now we might be talking 'ELKS' and shoehorning Bitlocker into some version of 'Winnt', set up opencorepatcher (osx86 whatever) to do a recovery/installer for osx, and yaboot grub config for PowerPC Openfirmware and so on, maybe try and use the 'Darling' project and compile to deploy 'Darwin/OSX/something franken'(OpenDarwin and apple xnu, i dont know or remember how that all tied together anymore), the ideas and possibilities that are appearing as seen in my notes will take time to organize and think trough, actually considering just the following projects ; https://github.com/threader/xnu_gcc_libc_etc_darwin , https://github.com/threader/elks and https://github.com/threader/OneFileLinux 
 
 Even my notes need sorting since they are dotted down at just an approximate location. so take note of the notes and noting onewards i suppose. in-between all this there 'The the c64 mini' stuff  https://github.com/threader/buildroot-the-c64-mini not to mention playing around with 'pkg-src'.... anyway, compiling up be able to bootstrap a Darwin/bsd/netbsd is now on the to-do list along with the rest of the rodo list... 
 Dizzying notes: https://github.com/threader/AltanOS/blob/main/src/harden.ps1#L103 
 This project is now in a temporary state and include binaries that will need to be removed etc. A forced update to this repository is planned to keep the weight minimal.
 
-
+End of warnings?
+---
 Run AltanOS.cmd from It's parent directory and the rest happens with some interaction. There are some pauses for input and information text, uninstalling Edge needs a mouse button click, 'PSWindowsUpdate' also require NuGet that requires confirmation.
 
 This project will copy itself to the system partition equivlent to C:\AltanOS and C:\AltanOS.inst
@@ -83,10 +84,16 @@ Tested on Windows 10 and Windows 11. Some applications are x86 only, arm could e
 Too many to list, read the harden-* files? Read all the scripts? 
 
 There is room for improvement and granular tuning of the set process mitigations:
-I'm currently evaluating and running this:
+I have been evaluating and running this:
 ```console
 Set-ProcessMitigation -System -Enable DEP, EmulateAtlThunks, RequireInfo, BottomUp, HighEntropy, StrictHandle, SuppressExports, SEHOP, AuditSEHOP, SEHOPTelemetry, AuditMicrosoftSigned, AuditStoreSigned, EnforceModuleDependencySigning, DisableNonSystemFonts, AuditFont
 ```
+
+However, in a test 'just the other day' against a Win 11 Pro that was to be set up as a gaming rig, everything anti cheat kernel mode failed. I ended up with something like: 
+```console
+Set-ProcessMitigation -System -Enable DEP, EmulateAtlThunks, RequireInfo, BottomUp, HighEntropy, SEHOP, DisableNonSystemFonts
+```
+
 There are certainly other options that could be enabled.
 - https://learn.microsoft.com/en-us/defender-endpoint/enable-exploit-protection 
 - https://learn.microsoft.com/en-us/powershell/module/processmitigations/set-processmitigation?view=windowsserver2022-ps
@@ -103,7 +110,8 @@ Disabled:
 
 On Windows 10 and 11 _pro_ and above enabled: 
  * Containers-DisposableClientVM ( https://learn.microsoft.com/en-us/windows/security/application-security/application-isolation/windows-sandbox/windows-sandbox-overview )
-
+	See the config file commented out in harden.ps1 . # VM_Config.wsb :
+	
 Good reading: 
 * https://blog.palantir.com/assessing-the-effectiveness-of-a-new-security-data-source-windows-defender-exploit-guard-860b69db2ad2?gi=e48021ca0dde
 
@@ -228,6 +236,9 @@ The following settings live there, that are turned off because they are untested
 ```
 
 # TODID:
+* Add logging, eyeballing whats going on here by now is becomming... hard...
+* Absolutley stop using NTFS for GIT stuff, now it screwed some .git/ object and corrupted god knows... 
+ - Why the f* is it so hard to properly unmount the f*ing filesystem when I SHUT DOWN!
 * Read more on this
  - https://github.com/Ccmexec/PowerShell/blob/master/Customize%20TaskBar%20and%20Start%20Windows%2011/CustomizeTaskbar%20v1.1.ps1
  - https://ccmexec.com/2022/10/customizing-taskbar-and-start-in-windows-11-22h2-with-powershell/
