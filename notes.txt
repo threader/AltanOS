@@ -1,5 +1,39 @@
 Notes: again... 
 
+---
+https://superuser.com/questions/985332/ramdisk-os-installing-windows-10-on-a-ramdisk :
+
+Yes you can and 16G RAM are more than enough
+
+    Shrink the size of any windows iso using tools like ntlite or winreducer
+    Feed the output wim in to NtSetup
+    Boot the output VHD and configure your Windows - add firadisk driver
+    Mount the VHD from your normal OS and capture it with wimlib
+    Apply the output wim to a new VHD using the compact=lzx switch
+    Use grub4dos to map that VHD in RAM and boot it
+
+That's a rough sketch of the procedure, it's a lot more complicated than it sounds but it can be done. I'm using a 1.2G Windows 10 VHD booted from RAM right now. Windows 10 support LZX compression on the fly. Windows 7 too but with the help of wofadk.sys.
+
+If you're still interested ask for details.
+
+---
+https://github.com/grub4dos/firadisk/blob/main/src/driver.c
+
+---
+https://github.com/grub4dos/wimboot_bios
+https://github.com/grub4dos/wimboot
+docs: https://ipxe.org/wimboot
+---
+
+https://github.com/grub4dos/ntloader  -  NTloader -- Windows NT6+ OS/VHD/WIM loader
+
+https://github.com/grub4dos/mkimage - Make a bootable image of GRUB4EFI.
+
+https://github.com/grub4dos/grub2-filemanager  - https://github.com/grub4dos/grub2-filemanager#support-types-of-files 
+
+https://github.com/grub4dos/grub4dos
+
+---
 
 # https://mspoweruser.com/how-to-use-staging-tool/
 # https://www.theverge.com/2023/8/3/23818363/microsoft-windows-11-stagingtool-leak-secret-features

@@ -6,8 +6,8 @@ One goal of this project is to optimize/minimize and harden Windows systems, mak
 
 By the end now we might be talking 'ELKS' and shoehorning Bitlocker into some version of 'Winnt', set up opencorepatcher (osx86 whatever) to do a recovery/installer for osx, and yaboot grub config for PowerPC Openfirmware and so on, maybe try and use the 'Darling' project and compile to deploy 'Darwin/OSX/something franken'(OpenDarwin and apple xnu, i dont know or remember how that all tied together anymore), the ideas and possibilities that are appearing as seen in my notes will take time to organize and think trough, actually considering just the following projects ; https://github.com/threader/xnu_gcc_libc_etc_darwin , https://github.com/threader/elks and https://github.com/threader/OneFileLinux 
 
-Even my notes need sorting since they are dotted down at just an approximate location. so take note of the notes and noting onewards i suppose. in-between all this there 'The the c64 mini' stuff  https://github.com/threader/buildroot-the-c64-mini not to mention playing around with 'pkg-src'.... anyway, compiling up be able to bootstrap a Darwin/bsd/netbsd is now on the to-do list along with the rest of the rodo list... 
-Dizzying notes: https://github.com/threader/AltanOS/blob/main/src/harden.ps1#L103 
+Even my notes need sorting since they are dotted down at just an approximate location. So take note of the notes, i suppose. in-between all this there 'The the c64 mini' stuff  https://github.com/threader/buildroot-the-c64-mini not to mention playing around with 'pkg-src'.... anyway, compiling up and be able to bootstrap a Darwin/bsd/netbsd is now on the to-do list along with the rest of the 'to' list... 
+Dizzying notes: https://github.com/threader/AltanOS/blob/main/notes.txt
 This project is now in a temporary state and include binaries that will need to be removed etc. A forced update to this repository is planned to keep the weight minimal.
 
 End of warnings?
