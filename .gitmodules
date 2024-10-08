@@ -5,3 +5,6 @@
 [submodule "pttb"]
 	path = pttb
 	url = https://github.com/gunnarhaslinger/Add-or-Remove-Application-To-Windows-10-Taskbar
+[submodule "wsgm/Windows-Super-God-Mode"]
+	path = wsgm/Windows-Super-God-Mode
+	url = https://github.com/ThioJoe/Windows-Super-God-Mode
