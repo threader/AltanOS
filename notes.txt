@@ -126,7 +126,8 @@ https://github.com/grub4dos/grub4dos
 
  
 # Mkay my draft proposal of the layout for this I would like to be something like: 
-# ESP/EFI Partition: 512mb fat16
+# What about ' abusing ' hybrid HDD/SDD combos to have the MMU on the SSD unnap a region for storing ' sensetive files '?
+# ESP/EFI Partition: 2gb/512mb fat32/fat16 / Rufus ntfs efi... 
 #  * One File Linux w/GRUB and Win2kX .wmi, note. there exists also the possibility of making this rntire project even more complicated and including Apple PPC since GRUB supports that and dot down my yaboot config on PPC next time its on.
 # BOOT
 # * Somehow veryfy the MD5/SHA256/512 of the core booting image. etc 
