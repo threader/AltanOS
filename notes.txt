@@ -213,3 +213,5 @@ https://github.com/grub4dos/grub4dos
 
 # Quick note: maybe export the resulting image to a https://github.com/threader/Create-BitLocker-Encrypted-VHDX-Virtual-Disk-Containerfile and drop into that if not on win pro?
 
+https://github.com/builtbybel/SuperMSConfig
+https://github.com/builtbybel/Flyby11 
