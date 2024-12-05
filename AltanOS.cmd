@@ -97,8 +97,7 @@ echo "No progress bar as there is a bug in PowerShell making the download increa
  :: %powshcmd% Expand-Archive -Force '%altanosinstdir%\network-indicator%niarchbit%.zip' '%altanosinstdir%\bin\network-indicator%niarchbit%'
 
 
- %powshadmcmd% "%altanosdir%\src\pkgs-prep.ps1"
- %altanosinstdir%\bin\adwcleaner.exe
+::  %powshadmcmd% "%altanosdir%\src\pkgs-prep.ps1"
 
 :: - open scripts in notepad++ to preview instead of executing when clicking
 if exist "%ProgramFiles%\Notepad++\Notepad++.exe" (
@@ -177,8 +176,8 @@ echo Forces the clock to be backed by a platform source, no synthetic timers are
  :: harden.reg loads in harden-AltanOS.cmd for now
  :: %powshadmcmd% 'powshcmd% "reg import %altanosdir%\harden.reg"'
  
-:: fix
- %powshadmcmd% "%altanosdir%\src\schedule-tasks.ps1"
+:: Disable this untill i fix it
+:: %powshadmcmd% "%altanosdir%\src\schedule-tasks.ps1"
 
 :: %uacadmuser% %powshcmd% "New-ItemProperty -Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Run" -Name "Update Windows and Applications" -Value "%altanosdir%\autorun-update.cmd"  -PropertyType "String""
 
