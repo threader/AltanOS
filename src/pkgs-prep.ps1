@@ -50,14 +50,14 @@ function get_utils() {
 		 } else  {
 		 $niarchbit = "-64"
 		 }
-# Invoke-WebRequest -uri "https://adwcleaner.malwarebytes.com/adwcleaner?channel=release" -OutFile "$altanosinstdir\bin\adwcleaner.exe"
+ Invoke-WebRequest -uri "https://adwcleaner.malwarebytes.com/adwcleaner?channel=release" -OutFile "$altanosinstdir\bin\adwcleaner.exe"
  Start-Process -FilePath $altanosinstdir\bin\adwcleaner.exe
 
-# Invoke-WebRequest -uri "https://tinywall.pados.hu/files/TinyWall-v3-Installer.msi" -OutFile "$altanosinstdir\TinyWall-v3-Installer.msi"
+ Invoke-WebRequest -uri "https://tinywall.pados.hu/files/TinyWall-v3-Installer.msi" -OutFile "$altanosinstdir\TinyWall-v3-Installer.msi"
 
-# Invoke-WebRequest -uri "http://www.itsamples.com/downloads/network-activity-indicator-setup$niarchbit.zip" -OutFile "$altanosinstdir\bin\network-indicator-setup$niarchbit.zip"
+ Invoke-WebRequest -uri "http://www.itsamples.com/downloads/network-activity-indicator-setup$niarchbit.zip" -OutFile "$altanosinstdir\bin\network-indicator-setup$niarchbit.zip"
 
-# Invoke-WebRequest -uri "https://privazer.com/en/PrivaZer.exe" -OutFile "$altanosinstdir\bin\PrivaZer.exe"
+ Invoke-WebRequest -uri "https://privazer.com/en/PrivaZer.exe" -OutFile "$altanosinstdir\bin\PrivaZer.exe"
 
  cp $altanosdir\bin\PrivaZer.ini $altanosinstdir\bin\
 
@@ -108,7 +108,7 @@ Get-Help
 }
 #enable_win_packages
 
-if (-not (Test-Path "$altanosinstdir/UniGetUI.Installer.exe")) {
+if (-not (Test-Path "$altanosinstdir/Microsoft.DesktopAppInstaller.msixbundle")) {
 	write-output "Winget not found. Grab and install. No progress bar as there is a bug in PowerShell making the download increadibly slow... ( https://github.com/PowerShell/PowerShell/issues/2138 )" 
 	$ProgressPreference = 'SilentlyContinue'
 
@@ -233,7 +233,7 @@ winget upgrade --accept-source-agreements --disable-interactivity --include-unkn
 	# get dev tools
 	    if(-not ( Get-Machine-Architecture -eq "AMD64")) {
 	    Write-Output "Assume x86"
-	    	# Invoke-WebRequest -uri "httmps://github.com/radareorg/radare2/releases/download/5.9.4/radare2-5.9.4-w32.zip" -OutFile "$altanosinstdir\radare2-5.9.4-w64.zip"
+	    		 Invoke-WebRequest -uri "httmps://github.com/radareorg/radare2/releases/download/5.9.4/radare2-5.9.4-w32.zip" -OutFile "$altanosinstdir\radare2-5.9.4-w64.zip"
 			
 			 Expand-Archive -Force "$altanosinstdir\adare2-5.9.4-w32.zip" "$altanosinstdir\bin\radare2-5.9.4-w32"
 		 } else  {
@@ -244,8 +244,8 @@ winget upgrade --accept-source-agreements --disable-interactivity --include-unkn
 			 Expand-Archive -Force "$altanosinstdir\alcat_win64_lite.zip" "$altanosinstdir\bin\malcat_win64_lite"
 			 Expand-Archive -Force "$altanosinstdir\radare2-5.9.4-w64.zip" "$altanosinstdir\bin\radare2-5.9.4-w64"
 		 }
-# Invoke-WebRequest -uri "https://github.com/NationalSecurityAgency/ghidra/releases/download/Ghidra_11.1.2_build/ghidra_11.1.2_PUBLIC_20240709.zip" -OutFile "$altanosinstdir\ghidra_11.1.2_PUBLIC_20240709.zip"
-# Expand-Archive -Force "$altanosinstdir\ghidra_11.1.2_PUBLIC_20240709.zip" "$altanosinstdir\bin\ghidra_11.1.2_PUBLIC_20240709"
+ Invoke-WebRequest -uri "https://github.com/NationalSecurityAgency/ghidra/releases/download/Ghidra_11.1.2_build/ghidra_11.1.2_PUBLIC_20240709.zip" -OutFile "$altanosinstdir\ghidra_11.1.2_PUBLIC_20240709.zip"
+ Expand-Archive -Force "$altanosinstdir\ghidra_11.1.2_PUBLIC_20240709.zip" "$altanosinstdir\bin\ghidra_11.1.2_PUBLIC_20240709"
 
 #ask
 ## Games:
