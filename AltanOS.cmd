@@ -150,7 +150,7 @@ echo Forces the clock to be backed by a platform source, no synthetic timers are
 
 :: The following operations can under some circumstances take a hellova lot of thime, i'm not really sure if this really is ideal.
   Echo There will be packages that fail to remove here because they are core components, some red text to follow.
-:: %powshadmcmd% "%altanosdir%\src\pkgs-prep.ps1"
+ %powshadmcmd% "%altanosdir%\src\pkgs-prep.ps1"
  
  :: I BLOODY DID THIS YESTERDAY! AND FIXED THE README! F U WINDOWS
  :: echo git clone the latest AltanOS
@@ -185,7 +185,7 @@ echo Forces the clock to be backed by a platform source, no synthetic timers are
 :: %admuser% dotnet add package Microsoft.UI.Xaml 
 
 :: Ask to install - Tinywall, Network activity indicator, (auto)/run PrivaZer, with config?.
-echo Remember to configure the TinyWall firewall, select 'Autolearn' if you have problems and use the 'Manage' dialog to tune the selection.
+:: echo Remember to configure the TinyWall firewall, select 'Autolearn' if you have problems and use the 'Manage' dialog to tune the selection.
 :: if exist "%programfiles_arch%"\TinyWall\TinyWall.exe goto skipptw
 :: pause 
 
