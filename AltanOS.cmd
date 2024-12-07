@@ -168,7 +168,7 @@ echo Forces the clock to be backed by a platform source, no synthetic timers are
 :: cd %altanosdir%
 
 :: im sure this happened elsewhere 
- xcopy %altanosdir%\bin\PrivaZer.ini %altanosinstdir%/bin/ 
+ xcopy %altanosdir%\bin\PrivaZer.ini %altanosinstdir%\bin\ 
 
 :: There are problems here, 
  %powshadmcmd% "%altanosdir%\src\harden-AltanOS.cmd"
