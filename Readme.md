@@ -1,14 +1,12 @@
 ## AltanOS - started it's life as an overdue todo item of severe necessity, randomly being inspired to persue after reading trough the scripts of PC-Tuning and Atlas by 'amitvxv' and co. and having a handfull of recrent tricks worth looking into.
 
-This project is _undergoing change_, (_not much_) testing and _has not settled_. It _might not run as expected_, actually it currently does not according to my last full test 'recerntly', _experience_ adviced, so is a _fresh install/image whatever_. Be prepared to step trough the script with PowerShell ISE. _This will remove all removable Windows packages for all users on the system._
+This project is _undergoing change_, (_not much_) testing and _has not settled_. It _might not run as expected_, _experience_ adviced, so is a _fresh install/Windows image_. Be prepared to step trough the script with PowerShell ISE. _This will remove all removable Windows packages for all users on the system._ And I _warn_ on a Win 11 Home i was looking at and stepping trough PowerHell ISE and otherwise picking out bits of hardening i wanted for that system, where afterwards [somehow(?)](https://github.com/threader/AltanOS/blob/main/src/harden-AltanOS.cmd#L100) the password and pin for that user did not work, this was a Microsoft Account connected device where the only way to log on again and change tha pin and passwords were online trough Microsoft being online, needless to say i will be stuffing in two local users , on $USER-adm or so in my next gesture to sanity and logic.
 
 One goal of this project is to optimize/minimize and harden Windows systems, making the deployed system more maintainable with tools like winget and UniGetUI and the 3rd party module 'PSWindowsUpdate'. Especially importent on Win 10 as the auto update feature there is... more of a random occurance?
 
-By the end now we might be talking 'ELKS' and shoehorning Bitlocker into some version of 'Winnt', set up opencorepatcher (osx86 whatever) to do a recovery/installer for osx, and yaboot grub config for PowerPC Openfirmware and so on, maybe try and use the 'Darling' project and compile to deploy 'Darwin/OSX/something franken'(OpenDarwin and apple xnu, i dont know or remember how that all tied together anymore), the ideas and possibilities that are appearing as seen in my notes will take time to organize and think trough, actually considering just the following projects ; https://github.com/threader/xnu_gcc_libc_etc_darwin , https://github.com/threader/elks and https://github.com/threader/OneFileLinux 
+I might end up creating some recovery env. where it might make sense shoehorning Bitlocker into some version of 'Winnt'. A 'minimal' Buildroot Linux that verifies the system image loading, 4 ways?, tools for dumping the TMP etc, maybe use the 'Darling' project and compile to deploy 'Darwin/OSX/something franken'(OpenDarwin and apple xnu recovery), the ideas and possibilities that are appearing in my notes will take time to organize and think trough properly, see my take on [OneFileLinux](https://github.com/threader/elks and https://github.com/threader/OneFileLinux) and [Dizzying notes:](https://github.com/threader/AltanOS/blob/main/notes.txt)
 
-Even my notes need sorting since they are dotted down at just an approximate location. So take note of the notes, i suppose. in-between all this there 'The the c64 mini' stuff  https://github.com/threader/buildroot-the-c64-mini not to mention playing around with 'pkg-src'.... anyway, compiling up and be able to bootstrap a Darwin/bsd/netbsd is now on the to-do list along with the rest of the 'to' list... 
-Dizzying notes: https://github.com/threader/AltanOS/blob/main/notes.txt
-This project is now in a temporary state and include binaries that will need to be removed etc. A forced update to this repository is planned to keep the weight minimal.
+This project is now in a temporary state and include binaries that will need to be removed/sorted etc. A forced update to this repository is planned to keep the weight minimal.
 
 End of warnings?
 ---
@@ -25,9 +23,9 @@ This project will copy itself to the system partition equivlent to C:\AltanOS an
 	git submodule update --recursive
 	```
 	
-	* Fastboot/Hiberboot is disabled, so Windows will properly shut down, unmount disks, unlock the NTFS journal and take some extra time to boot.
+	* Fastboot/Hiberboot is disabled, so Windows will properly shut down, unmount disks, unlock the NTFS journal.
 
-	* Mind the TinyWall firewall - select 'Autolearn' if you have problems and use the 'Manage' dialog to tune the selection. Hopefully a more elegant solution cand be found like importing the .tws file in AltanOS\bin
+	* # Not handled or automatically installed .. yet? # Mind the TinyWall firewall - select 'Autolearn' if you have problems and use the 'Manage' dialog to tune the selection. Hopefully a more elegant solution cand be found like importing the .tws file in AltanOS\bin
 
 	* N.B: Uninstalling TinyWall while configured to block an application or default settings will lead to connection blocking even after uninstall!
 
@@ -89,7 +87,7 @@ I have been evaluating and running this:
 Set-ProcessMitigation -System -Enable DEP, EmulateAtlThunks, RequireInfo, BottomUp, HighEntropy, StrictHandle, SuppressExports, SEHOP, AuditSEHOP, SEHOPTelemetry, AuditMicrosoftSigned, AuditStoreSigned, EnforceModuleDependencySigning, DisableNonSystemFonts, AuditFont
 ```
 
-However, in a test 'just the other day' against a Win 11 Pro that was to be set up as a gaming rig, everything anti cheat kernel mode failed. I ended up with something like: 
+However, in a test against a Win 11 Pro that was to be set up as a gaming rig, everything anti cheat kernel mode failed. I ended up with something like: 
 ```console
 Set-ProcessMitigation -System -Enable DEP, EmulateAtlThunks, RequireInfo, BottomUp, HighEntropy, SEHOP, DisableNonSystemFonts
 ```
@@ -118,14 +116,15 @@ Good reading:
 ## The following files can run standalone if needed:
 * harden-AltanOS.cmd		- Now runs script in submodules so it can't _really_ be said to run standalone anymore.
 * harden.ps1
-* harden.reg 				- ofc 
+* harden.reg 				- ofc
+* mouse-config.ps1 			- There is just one item that is enabled atm, jump to default button.  
 * pkgs-prep.ps1
 * pref-cnt.ps1
 * schedule-tasks.ps1        - Not yet working.
+* strip_windows.ps1			- Strips all and everything , still needs some testing as i cobbled this together being quite tired and at a time while i needed to give _it a rest_.
 * wsl-2-debian.ps1			- Not at all asked even if to be executed yet.
-* mouse-config.ps1 			- There is just one item that is enabled atm. 
 
-## The following packages are installed:
+## The following packages are installed/left:
 * VCLibs
 * NET.CoreRuntime
 * NET.Native
@@ -152,7 +151,8 @@ Good reading:
 * Microsoft.Sysinternals.ProcessExplorer
 * Microsoft.PowerToys - https://learn.microsoft.com/en-us/windows/powertoys/
 * #Microsoft.Powershell
-* Google.Chrome 
+* #Google.Chrome
+* Chromium 
 * Mozilla.Firefox
 * 7zip.7zip
 * VideoLAN.VLC
@@ -213,10 +213,10 @@ autorun-maintain.ps1 will (once i fix this....) also be run upon login, once, af
 * Remove the 'Window snapping' 'feature' on Windows 11 to avoid an aneurisme. 
 * Revert to 'Old context menu' on Windows 11, again to avoid an aneurisme.
 * Mouse is set to (hopefully) jump to a prompt and land on the default answer, this saves time.
-* Revert8Plus (turns windows 10/11 into Windows7) install script is downloaded but not initialized.
+* # Revert8Plus (turns windows 10/11 into Windows7) install script is downloaded but not initialized.
 * Black theme enabled in harden.reg. - Must bother to split this soon - there migt be a bug here leading to black text on dark windows, before first reboot?
 
-In harden.reg (- ofc.. where else would you logically put the taskbar colour settings?)
+Also in harden.reg (- ofc.. where else would you logically put the taskbar colour settings?)
 The following settings live there, that are turned off because they are untested.
 
 ```console
@@ -236,7 +236,7 @@ The following settings live there, that are turned off because they are untested
 ```
 
 # TODID:
-* Add logging, eyeballing whats going on here by now is becomming... hard...
+* Add logging, eyeballing whats going on here by now is becomming... hard... (its 2025 mike, add logging you twat you have no idea whats going on anymore)
 * Absolutley stop using NTFS for GIT stuff, now it screwed some .git/ object and corrupted god knows... 
  - Why the f* is it so hard to properly unmount the f*ing filesystem when I SHUT DOWN!
 * Read more on this
