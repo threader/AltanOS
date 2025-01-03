@@ -4,6 +4,7 @@ $altanosinstdir = "$sysdrive\AltanOS.inst"
 # Put som paths and url's here eventually
 
 if (-not (Test-Path -Path $altanosinstdir)) {
+	mkdir "$altanosinstdir"
 	mkdir "$altanosinstdir\bin"
 	mkdir "$altanosinstdir\games"
 }
@@ -42,6 +43,10 @@ function Get-Machine-Architecture() {
 
     return $ENV:PROCESSOR_ARCHITECTURE
 }
+
+	write-output "Winget not found. Grab and install. No progress bar as there is a bug in PowerShell making the download increadibly slow... ( https://github.com/PowerShell/PowerShell/issues/2138 )" 
+	$ProgressPreference = 'SilentlyContinue'
+
 
 function get_utils() {
 	    if(-not ( Get-Machine-Architecture -eq "AMD64")) {
@@ -84,33 +89,8 @@ Get-Help
  }
 disable_win_packages
 
-function enable_win_packages() {
- Get-AppxPackage -allusers Microsoft.VCLibs* | Foreach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
- Get-AppxPackage -allusers Microsoft.NET.CoreRuntime* | Foreach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
- Get-AppxPackage -allusers Microsoft.NET.Native* | Foreach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
- Get-AppxPackage -allusers Microsoft.NET.Native.Runtime* | Foreach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
- Get-AppxPackage -allusers Microsoft.NET.Native.Framework.1.7* | Foreach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
- Get-AppxPackage -allusers Microsoft.NET.Native.Framework.2.2* | Foreach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
- Get-AppxPackage -allusers Microsoft.UI.Xaml* | Foreach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
- Get-AppxPackage -allusers Microsoft.PackageManagement.NuGetProvider* | Foreach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
- Get-AppxPackage -allusers Microsoft.UI.Xaml.2.7* | Foreach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
- Get-AppxPackage -allusers Microsoft.UI.Xaml.2.8* | Foreach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
- Get-AppxPackage -allusers Microsoft.WindowsStore* | Foreach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
- Get-AppxPackage -allusers Microsoft.StorePurchaseApp* | Foreach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
-## Get-AppxPackage -allusers Microsoft.MicrosoftOfficeHub* | Foreach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
- Get-AppxPackage -allusers Microsoft.WindowsCalculator* | Foreach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
- Get-AppxPackage -allusers Microsoft.MSPaint* | Foreach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
- Get-AppxPackage -allusers Microsoft.MicrosoftSolitaireCollection* | Foreach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
-
-# get PowerShell help docs
-Get-Help 
-
-}
-#enable_win_packages
 
 if (-not (Test-Path "$altanosinstdir/Microsoft.DesktopAppInstaller.msixbundle")) {
-	write-output "Winget not found. Grab and install. No progress bar as there is a bug in PowerShell making the download increadibly slow... ( https://github.com/PowerShell/PowerShell/issues/2138 )" 
-	$ProgressPreference = 'SilentlyContinue'
 
 	function grab_winget_deps() {
 
@@ -291,7 +271,7 @@ winget upgrade --accept-source-agreements --disable-interactivity --include-unkn
 $ProgressPreference = 'Continue'
 
 # Display My Computer on desktop
-(New-Object -ComObject shell.application).toggleDesktop()
+#(New-Object -ComObject shell.application).toggleDesktop() # Thsi simply doesnt work and temporarily removes the search bar from tray....
 
 
 # This will need to reboot....

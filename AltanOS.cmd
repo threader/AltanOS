@@ -97,7 +97,30 @@ echo "No progress bar as there is a bug in PowerShell making the download increa
  :: %powshcmd% Expand-Archive -Force '%altanosinstdir%\network-indicator%niarchbit%.zip' '%altanosinstdir%\bin\network-indicator%niarchbit%'
 
 
-::  %powshadmcmd% "%altanosdir%\src\pkgs-prep.ps1"
+:skipdl 
+pause 
+
+:: and so i read and learn that it could indeed have been done using something like this: 
+:: %powshcmd% -Argument "-NoProfile -ExecutionPolicy Bypass"  ^
+::    $userprofiles = @('C:\Users\');  ^
+::   ForEach ($user in $userprofiles) {  ^
+::      Set-Location -Path $user;  ^
+::      Get-ChildItem -Filter '*.log~' ^| Where-Object { $_.Attributes -band [System.IO.FileAttributes]::Archive }  ^
+::   };
+
+:: rebuild performance counters
+:: https://learn.microsoft.com/en-us/troubleshoot/windows-server/performance/manually-rebuild-performance-counters
+echo Rebuild performance counters
+ %powshadmcmd% "%altanosdir%\src\pref-cnt.ps1"
+
+echo Forces the clock to be backed by a platform source, no synthetic timers are allowed. Have not been able to prove the benifits of this, feel free to skip or test yourself:
+ bcdedit /set useplatformtick yes
+
+:: cd %altanosdir%
+
+:: The following operations can under some circumstances take a hellova lot of thime, i'm not really sure if this really is ideal.
+  Echo There will be packages that fail to remove here because they are core components, some red text to follow.
+ %powshadmcmd% "%altanosdir%\src\pkgs-prep.ps1"
 
 :: - open scripts in notepad++ to preview instead of executing when clicking
 if exist "%ProgramFiles%\Notepad++\Notepad++.exe" (
@@ -126,31 +149,6 @@ for %%a in (
 ) do (
    ftype %%a="%ProgramFiles%\Notepad++\Notepad++.exe" "%1"
 ) ) 
-
-:skipdl 
-pause 
-
-:: and so i read and learn that it could indeed have been done using something like this: 
-:: %powshcmd% -Argument "-NoProfile -ExecutionPolicy Bypass"  ^
-::    $userprofiles = @('C:\Users\');  ^
-::   ForEach ($user in $userprofiles) {  ^
-::      Set-Location -Path $user;  ^
-::      Get-ChildItem -Filter '*.log~' ^| Where-Object { $_.Attributes -band [System.IO.FileAttributes]::Archive }  ^
-::   };
-
-:: rebuild performance counters
-:: https://learn.microsoft.com/en-us/troubleshoot/windows-server/performance/manually-rebuild-performance-counters
-echo Rebuild performance counters
- %powshadmcmd% "%altanosdir%\src\pref-cnt.ps1"
-
-echo Forces the clock to be backed by a platform source, no synthetic timers are allowed. Have not been able to prove the benifits of this, feel free to skip or test yourself:
- bcdedit /set useplatformtick yes
-
-:: cd %altanosdir%
-
-:: The following operations can under some circumstances take a hellova lot of thime, i'm not really sure if this really is ideal.
-  Echo There will be packages that fail to remove here because they are core components, some red text to follow.
- %powshadmcmd% "%altanosdir%\src\pkgs-prep.ps1"
  
  :: I BLOODY DID THIS YESTERDAY! AND FIXED THE README! F U WINDOWS
  :: echo git clone the latest AltanOS

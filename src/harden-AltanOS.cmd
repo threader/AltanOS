@@ -389,7 +389,7 @@ reg add "HKCU\SOFTWARE\Policies\Microsoft\Windows\Explorer" /v "NoRemoteDestinat
 :: Works, but not very user friendly... Make this optional .. are you set up for 'work' or 'modern' gaming?
 :: %powshcmd% "Set-ProcessMitigation -System -Enable DEP, EmulateAtlThunks, RequireInfo, BottomUp, HighEntropy, StrictHandle, SuppressExports, SEHOP, AuditMicrosoftSigned, AuditStoreSigned, EnforceModuleDependencySigning, DisableNonSystemFonts, AuditFont, EnableRopStackPivot"
 :: so land on this for now. 
- %powshcmd% "Set-ProcessMitigation -System -Enable DEP, EmulateAtlThunks, RequireInfo, BottomUp, HighEntropy, SEHOP, DisableNonSystemFonts"
+ %powshcmd% "Set-ProcessMitigation -System -Enable DEP, EmulateAtlThunks, RequireInfo, BottomUp, HighEntropy, SEHOP, DisableNonSystemFonts, AuditFontAuditMicrosoftSigned, AuditStoreSigned, EnableRopStackPivo"
 
 bcdedit /set nx Optin
 
@@ -434,6 +434,6 @@ echo Disablng WMP and IE, enable Hyper-V and WSL
 
 :: reset the admin password prompt, a value of 1 on here on the admin account will require password to be entered. 2 is a prompt.
 :: %powshcmd% Set-ItemProperty -Path REGISTRY::HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System -Name ConsentPromptBehaviorAdmin -Value 1
- echo All done, pausing for you to review what might have gone astray.
+ echo All done, pausing to review what might have gone astray.
 
 pause
