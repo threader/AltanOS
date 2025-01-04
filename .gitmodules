@@ -14,3 +14,6 @@
 [submodule "ewls"]
 	path = ewls
 	url = https://github.com/Yamato-Security/EnableWindowsLogSettings
+[submodule "sysmon-config"]
+	path = sysmon-config
+	url = https://github.com/Neo23x0/sysmon-config
