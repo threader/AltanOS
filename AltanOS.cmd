@@ -175,12 +175,13 @@ for %%a in (
 
 :: And i bow in respect to Yamato-Security - however this should be made configurable, so - ask
  %powshadmcmd% "%altanosdir%\ewl\YamatoSecurityConfigureWinEventLogs.bat"
+:: https://github.com/trustedsec/SysmonCommunityGuide/blob/master/chapters/install_windows.md#install
 :: install/accept the eula
-sysmon.exe --i --accepteula "%altanosdir%\sysmon-config\sysmonconfig-export-block-loldrivers.xml"
-:: Renamed Driver
-sysmon.exe -i -d summonmon
+sysmon.exe -i -accepteula "%altanosdir%\sysmon-config\sysmonconfig-export-block-loldrivers.xml"
+:: Renamed Driver ... The driver file and registry entry are renamed. Name has an 8-character lim
+sysmon.exe -i -d sumonmon
 :: Renamed service
-summonmon.exe -i -d summonmon
+sumonmon.exe -i -d sumonmon
 
  :: harden.reg loads in harden-AltanOS.cmd for now
  :: %powshadmcmd% 'powshcmd% "reg import %altanosdir%\harden.reg"'
