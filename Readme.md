@@ -1,22 +1,22 @@
 ## AltanOS - started it's life as an overdue todo item of severe necessity, randomly being inspired to persue after reading trough the scripts of PC-Tuning and Atlas by 'amitvxv' and co. and having a handfull of recrent tricks worth looking into.
 
-This project is _undergoing change_, (_not much_) testing and _has not settled_. It _might not run as expected_, _experience_ adviced, so is a _fresh install/Windows image_. Be prepared to step trough the script with PowerShell ISE. _This will remove all removable Windows packages for all users on the system._ And I _warn_ on a Win 11 Home i was looking at and stepping trough PowerHell ISE and otherwise picking out bits of hardening i wanted for that system, where afterwards [somehow(?)](https://github.com/threader/AltanOS/blob/main/src/harden-AltanOS.cmd#L100) the password and pin for that user did not work, this was a Microsoft Account connected device where the only way to log on again and change tha pin and passwords were online trough Microsoft being online, needless to say i will be stuffing in two local users , on $USER-adm or so in my next gesture to sanity and logic.
+This project is _undergoing change_, (_not much_) testing and _has not settled_. It _might not run as expected_, _experience_ adviced, so is a _fresh install/Windows image_. Be prepared to step trough the script with PowerShell ISE. _This will remove all removable non-core Windows packages for all users on the system._ And I _warn_ on a Win 11 Home I was looking this winter going trough and otherwise picking out bits of hardening i wanted for that system [somehow(?)](https://github.com/threader/AltanOS/blob/main/src/harden-AltanOS.cmd#L100) the password and pin for that user did not work after, this was a Microsoft Account connected device where the only way to log on again and change tha pin and passwords were online trough Microsoft being online, needless to say i will be stuffing in two local users , one $USER-adm in my next gesture to sanity and logic.
 
-One goal of this project is to optimize/minimize and harden Windows systems, making the deployed system more maintainable with tools like winget and UniGetUI and the 3rd party module 'PSWindowsUpdate'. Especially importent on Win 10 as the auto update feature there is... more of a random occurance?
+One goal of this project is to optimize/minimize and harden Windows systems, making the deployed system more maintainable with tools like WinGet, UniGetUI and the 3rd party module 'PSWindowsUpdate'. Especially importent on Win 10 as the Windows Update feature there is...well, more of a random occurance?
 
-I might end up creating some recovery env. where it might make sense shoehorning Bitlocker into some version of 'Winnt'. A 'minimal' Buildroot Linux that verifies the system image loading, 4 ways?, tools for dumping the TMP etc, maybe use the 'Darling' project and compile to deploy 'Darwin/OSX/something franken'(OpenDarwin and apple xnu recovery), the ideas and possibilities that are appearing in my notes will take time to organize and think trough properly, see my take on [OneFileLinux](https://github.com/threader/elks and https://github.com/threader/OneFileLinux) and [Dizzying notes:](https://github.com/threader/AltanOS/blob/main/notes.txt)
+I might end up creating some recovery env. where it might make sense shoehorning Bitlocker into some version of 'Winnt'. A 'minimal' Buildroot Linux that verifies the system image loading, 4 ways? Need tools for dumping the TMP etc, maybe use the 'Darling' project and compile to deploy 'Darwin/OSX/something franken'(OpenDarwin and apple xnu recovery), the ideas and possibilities that are appearing in my notes will take time to organize and think trough properly, see my take on [OneFileLinux](https://github.com/threader/elks and https://github.com/threader/OneFileLinux) and [Dizzying notes:](https://github.com/threader/AltanOS/blob/main/notes.txt)
 
 This project is now in a temporary state and include binaries that will need to be removed/sorted etc. A forced update to this repository is planned to keep the weight minimal.
 
 End of warnings?
 ---
-Run AltanOS.cmd from It's parent directory and the rest happens with some interaction. There are some pauses for input and information text, uninstalling Edge needs a mouse button click, 'PSWindowsUpdate' also require NuGet that requires confirmation.
+Run AltanOS.cmd from It's parent directory and the rest happens with some interaction. There are some pauses for input and information text, and even an unexpected pause where i think the correct thing is to press Y or ENTER, uninstalling Edge needs a mouse button click, 'PSWindowsUpdate' also require NuGet that requires confirmation.
 
-This project will copy itself to the system partition equivlent to C:\AltanOS and C:\AltanOS.inst
+This project will copy itself to the system partition equivlent to C:\AltanOS and store downloaded files in C:\AltanOS.inst
 
 - Important notes:
 	* Remember to grab the submodules. 
-	```console  p
+	```console
 	:: After first git clone: 
 	git submodule update --init --recursive 
 	:: pull latest submodules changes:
@@ -97,9 +97,12 @@ There are certainly other options that could be enabled.
 - https://learn.microsoft.com/en-us/powershell/module/processmitigations/set-processmitigation?view=windowsserver2022-ps
 
 * [exploitguard](https://github.com/palantir/exploitguard/) - Added to AltanOS/src/harden.ps1 
-* [Windows-Defender-Exploit-Guard-Configuration](https://github.com/threader/Windows-Defender-Exploit-Guard-Configuration) - Runs AltanOS/wdegc/Enable-ExploitGuard-AttackSurfaceReduction.ps1 originally by [Gunnar Haslinger](https://github.com/gunnarhaslinger/).
+* [Modified Windows-Defender-Exploit-Guard-Configuration](https://github.com/threader/Windows-Defender-Exploit-Guard-Configuration) - Runs AltanOS/wdegc/Enable-ExploitGuard-AttackSurfaceReduction.ps1 originally by [Gunnar Haslinger](https://github.com/gunnarhaslinger/).
+* [Modified windows-hardening-scripts](https://github.com/threader/windows-hardening-scripts) by [atlantsecurity](https://github.com/atlantsecurity/windows-hardening-scripts) and [zer0lightning](https://github.com/zer0lightning/windows-hardening-scripts).
+* [EnableWindowsLogSettings](https://github.com/Yamato-Security/EnableWindowsLogSetting) - Increases log sizes substantially.
+* [Sysmon-config](https://github.com/THEVER1TAS/sysmon-config) - Sysmon configration to detect and block unwanted .. events.
 
-Disabled: 
+Disabled - well, strip_windows.ps1 now verbatmin disables everything, but essentially: 
  * SMB1
  * RemoteDesktopConnection
  * WorkFolders
@@ -107,7 +110,7 @@ Disabled:
  * MSRDC
 
 On Windows 10 and 11 _pro_ and above enabled: 
- * Containers-DisposableClientVM ( https://learn.microsoft.com/en-us/windows/security/application-security/application-isolation/windows-sandbox/windows-sandbox-overview )
+ * [Containers-DisposableClientVM](https://learn.microsoft.com/en-us/windows/security/application-security/application-isolation/windows-sandbox/windows-sandbox-overview)
 	See the config file commented out in harden.ps1 . # VM_Config.wsb :
 	
 Good reading: 
@@ -149,6 +152,7 @@ Good reading:
 * Git.Git
 * Microsoft.Sysinternals.ProcessMonitor
 * Microsoft.Sysinternals.ProcessExplorer
+* Microsoft.Sysinternals.SysMon
 * Microsoft.PowerToys - https://learn.microsoft.com/en-us/windows/powertoys/
 * #Microsoft.Powershell
 * #Google.Chrome
@@ -248,13 +252,13 @@ The following settings live there, that are turned off because they are untested
 * Ask to either install MalwareBytes or run to AwdCleaner sometimes? - Just schedule AwdCleaner to run anyway.
 * Add AwdCleaner and scan quickly before proceeding. - Added, but not set any arguments and requires user interaction.
 * Ask if you wish to install LibreOffice or Microsoft Office, VSCodium or VisualStudioCode
-* Dig around for more hardening or other things that make sense.
+* Dig around for more hardening or other things that make sense. - Found some really cool things now i think
 * Better Readme and explenation, 2 days now i've layed down in bed to sleep then having a great idea what to write, then not when i wake up... - Done?
 * Try to preconfigure Sandboxie. -Naaah
 
 v 0.0.1 - ish
 
-* Fix the sheduled task and create one for sfc and dism every... two, maybe three weeks? - Not fixed...
+* Fix the sheduled task and create one for sfc and dism every... two, maybe three weeks? - Not fixed... ... Must fix now for SysMon....
 * Move AltanOS* to somewhere predictable. - Fixed
 * More testing. - Ongoing - Still.. ... Still... still... 
 * Add a script to run once at first startup to resolve an iusse where we are already in need to reboot. - Maybe fixed
