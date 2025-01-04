@@ -1,18 +1,18 @@
-## AltanOS - started it's life as an overdue todo item of severe necessity, randomly being inspired to persue after reading trough the scripts of PC-Tuning and Atlas by 'amitvxv' and co. and having a handfull of recrent tricks worth looking into.
+## AltanOS - started it's life as an overdue todo item of severe necessity, randomly being inspired to persue after stumbling over and reading trough the scripts of PC-Tuning and Atlas by 'amitvxv' and co. JIT for me to be re-installing a Windows having a handfull of recrent tricks worth looking into.
 
-This project is _undergoing change_, (_not much_) testing and _has not settled_. It _might not run as expected_, _experience_ adviced, so is a _fresh install/Windows image_. Be prepared to step trough the script with PowerShell ISE. _This will remove all removable non-core Windows packages for all users on the system._ And I _warn_ on a Win 11 Home I was looking this winter going trough and otherwise picking out bits of hardening i wanted for that system [somehow(?)](https://github.com/threader/AltanOS/blob/main/src/harden-AltanOS.cmd#L100) the password and pin for that user did not work after, this was a Microsoft Account connected device where the only way to log on again and change tha pin and passwords were online trough Microsoft being online, needless to say i will be stuffing in two local users , one $USER-adm in my next gesture to sanity and logic.
+This project is _undergoing change_, (_not much_) testing and _has not settled_. It _might not run as expected_, _experience_ adviced, so is a _fresh install/Windows image_. Be prepared to step trough the script with PowerShell ISE. _This will remove all non essential Windows core packages for all users on the system._ And I _warn_ on a Win 11 Home I was looking this winter going trough and otherwise picking out bits of hardening i wanted for that system, [somehow(?)](https://github.com/threader/AltanOS/blob/main/src/harden-AltanOS.cmd#L100) the password and pin for the user/machine did not work after, this was a Microsoft account connected device where the only way to log back on and change tha pin and passwords were the online login... Needless to say I will be stuffing in two local users, one $USER-adm and one $USER-user in my next gesture to sanity and logic.
 
 One goal of this project is to optimize/minimize and harden Windows systems, making the deployed system more maintainable with tools like WinGet, UniGetUI and the 3rd party module 'PSWindowsUpdate'. Especially importent on Win 10 as the Windows Update feature there is...well, more of a random occurance?
 
-I might end up creating some recovery env. where it might make sense shoehorning Bitlocker into some version of 'Winnt'. A 'minimal' Buildroot Linux that verifies the system image loading, 4 ways? Need tools for dumping the TMP etc, maybe use the 'Darling' project and compile to deploy 'Darwin/OSX/something franken'(OpenDarwin and apple xnu recovery), the ideas and possibilities that are appearing in my notes will take time to organize and think trough properly, see my take on [OneFileLinux](https://github.com/threader/elks and https://github.com/threader/OneFileLinux) and [Dizzying notes:](https://github.com/threader/AltanOS/blob/main/notes.txt)
+I might end up creating some recovery env. where a prepared and exported a .wim as the result running this script that may be booted as say Read Only by GRUB. The ideas and possibilities in my notes will take time to think trough properly, see my take on [OneFileLinux](https://github.com/threader/OneFileLinux) and [Dizzying notes:](https://github.com/threader/AltanOS/blob/main/notes.txt)
 
-This project is now in a temporary state and include binaries that will need to be removed/sorted etc. A forced update to this repository is planned to keep the weight minimal.
+This project is now in a temporary state and include binaries that will be removed/sorted etc. A forced update to this repository is planned in the near future to keep the weight minimal.
 
 End of warnings?
 ---
-Run AltanOS.cmd from It's parent directory and the rest happens with some interaction. There are some pauses for input and information text, and even an unexpected pause where i think the correct thing is to press Y or ENTER, uninstalling Edge needs a mouse button click, 'PSWindowsUpdate' also require NuGet that requires confirmation.
+Run AltanOS.cmd from It's parent directory and the rest happens with some interaction. There are some pauses for input and information text, and even an unexpected pause where i think the correct thing is to press Y or ENTER, uninstalling Edge needs a mouse button click, 'PSWindowsUpdate' also require NuGet that requires confirmation. And some WinGet packages absolutley require you to press 'Y' or a swallow randomly implodes outside.
 
-This project will copy itself to the system partition equivlent to C:\AltanOS and store downloaded files in C:\AltanOS.inst
+This project will copy itself to the system partition equivlent to C:\AltanOS and store downloadeds in C:\AltanOS.inst
 
 - Important notes:
 	* Remember to grab the submodules. 
@@ -25,7 +25,9 @@ This project will copy itself to the system partition equivlent to C:\AltanOS an
 	
 	* Fastboot/Hiberboot is disabled, so Windows will properly shut down, unmount disks, unlock the NTFS journal.
 
-	* # Not handled or automatically installed .. yet? # Mind the TinyWall firewall - select 'Autolearn' if you have problems and use the 'Manage' dialog to tune the selection. Hopefully a more elegant solution cand be found like importing the .tws file in AltanOS\bin
+	* !Not handled or automatically installed yet! - Mind the TinyWall firewall - select 'Autolearn' if you have problems and use the 'Manage' dialog to tune the selection. Hopefully a more elegant solution cand be found like importing the .tws file in AltanOS\bin 
+	
+	* N.B: Some basic Firewall rules are applied by the 'windows-hardening-scripts'.
 
 	* N.B: Uninstalling TinyWall while configured to block an application or default settings will lead to connection blocking even after uninstall!
 
@@ -41,35 +43,35 @@ This project will copy itself to the system partition equivlent to C:\AltanOS an
 
 	* https://www.reddit.com/r/lowendgaming/comments/1258usx/updated_win1011_drivers_for_intel_hd_3000/
 
-If it is the case that old drivers are missbehaving - Run and reboot:
+- If it is the case that old drivers are missbehaving - Run and reboot:
 
-```console
-reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\DeviceGuard" /t REG_DWORD /v "HypervisorEnforcedCodeIntegrity" /d "0" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\DeviceGuard" /v "EnableVirtualizationBasedSecurity" /t REG_DWORD /d 0/f
-```
+	```console
+	reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\DeviceGuard" /t REG_DWORD /v "HypervisorEnforcedCodeIntegrity" /d "0" /f
+	reg add "HKLM\SYSTEM\CurrentControlSet\Control\DeviceGuard" /v "EnableVirtualizationBasedSecurity" /t REG_DWORD /d 0/f
+	```
 
-Upon further reading - https://learn.microsoft.com/en-us/windows/security/hardware-security/enable-virtualization-based-protection-of-code-integrity there are two ways to enable/disable this, without efi (locked), the command done above and this method bellow ...  - Bah read more here.... 
-```console
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\DeviceGuard" /v "EnableVirtualizationBasedSecurity" /t REG_DWORD /d 0 /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\DeviceGuard" /v "RequirePlatformSecurityFeatures" /t REG_DWORD /d 0 /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\DeviceGuard" /v "Locked" /t REG_DWORD /d 0 /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\DeviceGuard\Scenarios\HypervisorEnforcedCodeIntegrity" /v "Enabled" /t REG_DWORD /d 0 /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\DeviceGuard\Scenarios\HypervisorEnforcedCodeIntegrity" /v "Locked" /t REG_DWORD /d 0 /f
-```
+	* Upon further reading - https://learn.microsoft.com/en-us/windows/security/hardware-security/enable-virtualization-based-protection-of-code-integrity there are two ways to enable/disable this, without efi (locked), the command done above and this method bellow ...  - Bah read more here.... 
+	```console
+	reg add "HKLM\SYSTEM\CurrentControlSet\Control\DeviceGuard" /v "EnableVirtualizationBasedSecurity" /t REG_DWORD /d 0 /f
+	reg add "HKLM\SYSTEM\CurrentControlSet\Control\DeviceGuard" /v "RequirePlatformSecurityFeatures" /t REG_DWORD /d 0 /f
+	reg add "HKLM\SYSTEM\CurrentControlSet\Control\DeviceGuard" /v "Locked" /t REG_DWORD /d 0 /f
+	reg add "HKLM\SYSTEM\CurrentControlSet\Control\DeviceGuard\Scenarios\HypervisorEnforcedCodeIntegrity" /v "Enabled" /t REG_DWORD /d 0 /f
+	reg add "HKLM\SYSTEM\CurrentControlSet\Control\DeviceGuard\Scenarios\HypervisorEnforcedCodeIntegrity" /v "Locked" /t REG_DWORD /d 0 /f
+	```
 
-This will enable "fastboot/Hiberboot" if so desired:
+- This will enable "fastboot/Hiberboot" if so desired:
 
-```console
-reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Power" /v "HiberbootEnabled" /t REG_DWORD /d "1" /f
-```
+	```console
+	reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Power" /v "HiberbootEnabled" /t REG_DWORD /d "1" /f
+	```
 
-This should solve TinyWall blockage: 
+- This should solve TinyWall blockage: 
 
-```console
-:: clean up firewall rules
-reg delete "HKLM\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\FirewallRules" /f
-reg add "HKLM\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\FirewallRules" /f
-```
+	```console
+	:: clean up firewall rules
+	reg delete "HKLM\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\FirewallRules" /f
+	reg add "HKLM\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\FirewallRules" /f
+	```
 
 
 Solutions moved because of formatting issues, I will actually have to read about .md formatting...
@@ -96,13 +98,15 @@ There are certainly other options that could be enabled.
 - https://learn.microsoft.com/en-us/defender-endpoint/enable-exploit-protection 
 - https://learn.microsoft.com/en-us/powershell/module/processmitigations/set-processmitigation?view=windowsserver2022-ps
 
+
+The following projects are included in one form or another:
 * [exploitguard](https://github.com/palantir/exploitguard/) - Added to AltanOS/src/harden.ps1 
-* [Modified Windows-Defender-Exploit-Guard-Configuration](https://github.com/threader/Windows-Defender-Exploit-Guard-Configuration) - Runs AltanOS/wdegc/Enable-ExploitGuard-AttackSurfaceReduction.ps1 originally by [Gunnar Haslinger](https://github.com/gunnarhaslinger/).
-* [Modified windows-hardening-scripts](https://github.com/threader/windows-hardening-scripts) by [atlantsecurity](https://github.com/atlantsecurity/windows-hardening-scripts) and [zer0lightning](https://github.com/zer0lightning/windows-hardening-scripts).
+* [Modified: Windows-Defender-Exploit-Guard-Configuration](https://github.com/threader/Windows-Defender-Exploit-Guard-Configuration) - Runs AltanOS/wdegc/Enable-ExploitGuard-AttackSurfaceReduction.ps1 originally by [Gunnar Haslinger](https://github.com/gunnarhaslinger/).
+* [Modified: windows-hardening-scripts](https://github.com/threader/windows-hardening-scripts) by [atlantsecurity](https://github.com/atlantsecurity/windows-hardening-scripts) and [zer0lightning](https://github.com/zer0lightning/windows-hardening-scripts).
 * [EnableWindowsLogSettings](https://github.com/Yamato-Security/EnableWindowsLogSetting) - Increases log sizes substantially.
 * [Sysmon-config](https://github.com/THEVER1TAS/sysmon-config) - Sysmon configration to detect and block unwanted .. events.
 
-Disabled - well, strip_windows.ps1 now verbatmin disables everything, but essentially: 
+Disabled - well, strip_windows.ps1 now verbatim disables everything, but essentially: 
  * SMB1
  * RemoteDesktopConnection
  * WorkFolders
@@ -117,17 +121,19 @@ Good reading:
 * https://blog.palantir.com/assessing-the-effectiveness-of-a-new-security-data-source-windows-defender-exploit-guard-860b69db2ad2?gi=e48021ca0dde
 
 ## The following files can run standalone if needed:
-* harden-AltanOS.cmd		- Now runs script in submodules so it can't _really_ be said to run standalone anymore.
+* harden-AltanOS.cmd										- Now runs script in submodules so it can't _really_ be said to run standalone anymore.
 * harden.ps1
-* harden.reg 				- ofc
-* mouse-config.ps1 			- There is just one item that is enabled atm, jump to default button.  
+* harden.reg								 				- ofc
+* mouse-config.ps1								 			- There is just one item that is enabled atm, jump to default button.  
 * pkgs-prep.ps1
 * pref-cnt.ps1
-* schedule-tasks.ps1        - Not yet working.
-* strip_windows.ps1			- Strips all and everything , still needs some testing as i cobbled this together being quite tired and at a time while i needed to give _it a rest_.
-* wsl-2-debian.ps1			- Not at all asked even if to be executed yet.
+* schedule-tasks.ps1								        - Not yet working.
+* strip_windows.ps1											- Strips all and everything , still needs some testing as i cobbled this together being quite tired and at a time while i needed to give _it a rest_.
+* wsl-2-debian.ps1											- Not executed yet.
+* wdegc\Enable-ExploitGuard-AttackSurfaceReduction.ps1		- Script by Gunnar Haslinger to handle the [attack surface reduction rules](https://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference).
+* whs\windows-hardening-script.cmd							- Script by 'atlantsecurity' later modified by 'zer0lightning' - might also block some of the things relied on. - testing needed 
 
-## The following packages are installed/left:
+## The following packages are left installed:
 * VCLibs
 * NET.CoreRuntime
 * NET.Native
@@ -195,7 +201,6 @@ To be made optional:
 * KDiff3
 * WinMerge - Where is WinMerge2011
 * VSCodium
-* VisualStudioCode
 * MiniGW
 
 ## It will schedule tasks to be autorun - N.B! Not yet working, scheduling script is bonkers: 
@@ -203,6 +208,7 @@ To be made optional:
 * autorun-maintain.ps1              - Runs sfc /scannow and DISM /Online /Cleanup-Image /StartComponentCleanup /ResetBase /RestoreHealth every 3 weeks at 18pm  
 * autorun-privazer.ps1              - Runs PrivaZer to delete residue in the NTFS journal, and write ZERO to the free disk space as well as remove temporary files everywhere. Every 3 weeks Wedensday at 17pm
 * autorun-awdcleaner.ps1            - Runs AwdClenaer every Wedensday at 16pm.
+* autorun-sysmon.ps1 				- Runs sysmon service config for blocking unwanted events - TBD.
 
 autorun-maintain.ps1 will (once i fix this....) also be run upon login, once, after a reboot(!!!).
 
@@ -217,7 +223,7 @@ autorun-maintain.ps1 will (once i fix this....) also be run upon login, once, af
 * Remove the 'Window snapping' 'feature' on Windows 11 to avoid an aneurisme. 
 * Revert to 'Old context menu' on Windows 11, again to avoid an aneurisme.
 * Mouse is set to (hopefully) jump to a prompt and land on the default answer, this saves time.
-* # Revert8Plus (turns windows 10/11 into Windows7) install script is downloaded but not initialized.
+* Revert8Plus (turns windows 10/11 into Windows7) install script is not initialized.
 * Black theme enabled in harden.reg. - Must bother to split this soon - there migt be a bug here leading to black text on dark windows, before first reboot?
 
 Also in harden.reg (- ofc.. where else would you logically put the taskbar colour settings?)
@@ -248,7 +254,7 @@ The following settings live there, that are turned off because they are untested
  - https://ccmexec.com/2022/10/customizing-taskbar-and-start-in-windows-11-22h2-with-powershell/
  - most certainly run this with '-StartMoreRecommendations -StartMorePins -RemoveChat -RunForExistingUsers'
 * Move scripts to own folder, it's getting messy. - done
-* Bother to ask when to schedule thing.
+* Bother to ask when to schedule thing. ... Must fix now for SysMon service....
 * Ask to either install MalwareBytes or run to AwdCleaner sometimes? - Just schedule AwdCleaner to run anyway.
 * Add AwdCleaner and scan quickly before proceeding. - Added, but not set any arguments and requires user interaction.
 * Ask if you wish to install LibreOffice or Microsoft Office, VSCodium or VisualStudioCode
@@ -258,7 +264,7 @@ The following settings live there, that are turned off because they are untested
 
 v 0.0.1 - ish
 
-* Fix the sheduled task and create one for sfc and dism every... two, maybe three weeks? - Not fixed... ... Must fix now for SysMon....
+* Fix the sheduled task and create one for sfc and dism every... two, maybe three weeks? - Not fixed... 
 * Move AltanOS* to somewhere predictable. - Fixed
 * More testing. - Ongoing - Still.. ... Still... still... 
 * Add a script to run once at first startup to resolve an iusse where we are already in need to reboot. - Maybe fixed
