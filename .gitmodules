@@ -8,3 +8,6 @@
 [submodule "wsgm/Windows-Super-God-Mode"]
 	path = wsgm/Windows-Super-God-Mode
 	url = https://github.com/ThioJoe/Windows-Super-God-Mode
+[submodule "whs"]
+	path = whs
+	url = https://github.com/threader/windows-hardening-scripts
