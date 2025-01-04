@@ -168,8 +168,10 @@ for %%a in (
 :: im sure this happened elsewhere 
  xcopy %altanosdir%\bin\PrivaZer.ini %altanosinstdir%\bin\ 
 
-:: There are problems here, 
+:: Hardening scripts
  %powshadmcmd% "%altanosdir%\src\harden-AltanOS.cmd"
+:: a new arrival with additional great hardening finds
+ %powshadmcmd% "%altanosdir%\whs\windows-hardening-script.cmd"
  
  :: harden.reg loads in harden-AltanOS.cmd for now
  :: %powshadmcmd% 'powshcmd% "reg import %altanosdir%\harden.reg"'
