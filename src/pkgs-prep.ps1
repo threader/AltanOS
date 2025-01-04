@@ -148,6 +148,7 @@ winget install --disable-interactivity --accept-source-agreements --id SomePytho
 winget install --disable-interactivity --accept-source-agreements --id Git.Git --source winget
 winget install --disable-interactivity --accept-source-agreements --id Microsoft.Sysinternals.ProcessMonitor --source winget
 winget install --disable-interactivity --accept-source-agreements --id Microsoft.Sysinternals.ProcessExplorer --source winget
+winget install --disable-interactivity --accept-source-agreements --id Microsoft.Sysinternals.SysMon --source winget
 # winget install --disable-interactivity --accept-source-agreements --id Microsoft.Powershell --source winget
 winget install --disable-interactivity --accept-source-agreements --id eloston.ungoogled-chromium  --source winget
 # winget install --disable-interactivity --accept-source-agreements --id Google.Chrome  --source winget
