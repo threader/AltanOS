@@ -176,7 +176,7 @@ for %%a in (
 :: And i bow in respect to Yamato-Security - however this should be made configurable, so - ask
  %powshadmcmd% "%altanosdir%\ewl\YamatoSecurityConfigureWinEventLogs.bat"
 :: install/accept the eula
-sysmon.exe --i --accepteula sysmon-config/sysmonconfig-export-block.xml
+sysmon.exe --i --accepteula "%altanosdir%\sysmon-config\sysmonconfig-export-block-loldrivers.xml"
 :: Renamed Driver
 sysmon.exe -i -d summonmon
 :: Renamed service
