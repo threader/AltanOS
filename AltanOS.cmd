@@ -172,7 +172,9 @@ for %%a in (
  %powshadmcmd% "%altanosdir%\src\harden-AltanOS.cmd"
 :: a new arrival with additional great hardening finds
  %powshadmcmd% "%altanosdir%\whs\windows-hardening-script.cmd"
- 
+:: And i bow in respect to Yamato-Security - however this should be made configurable, so - ask
+ %powshadmcmd% "%altanosdir%\ewl\YamatoSecurityConfigureWinEventLogs.bat"
+
  :: harden.reg loads in harden-AltanOS.cmd for now
  :: %powshadmcmd% 'powshcmd% "reg import %altanosdir%\harden.reg"'
  
