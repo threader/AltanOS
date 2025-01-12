@@ -1,7 +1,7 @@
 Write-Output "Basic maintainance of Windows."
 
- sfc /SCANNOW
  DISM /Online /Cleanup-Image /StartComponentCleanup /ResetBase /RestoreHealth
+ sfc /SCANNOW
  
  Set-ExecutionPolicy -ExecutionPolicy Restricted
  

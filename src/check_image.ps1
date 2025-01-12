@@ -1,5 +1,5 @@
 # Well, ofc, this too i added yesterday after fixing and testing went AWOL...
-# the thought here is to use the '[System.BitConverter]::ToString($md5.ComputeHash([System.IO.File]::ReadAllBytes($_))).Replace("-","") '
+# the thought here is to use the '[System.BitConverter]::ToString($sha256.ComputeHash([System.IO.File]::ReadAllBytes($_))).Replace("-","") '
 # that works around the 4gb limit of (Get-FileHash $_).hash) etc. and is compatible with old? powershell versions too?
 # this ofc needs to be changed to at least sha256, maybe depending on the config and needs... 
 # But, build a list of *.wim *.iso *.img *.vhd *.whatever and store it somewhere is the point here, even if that means 
@@ -14,16 +14,18 @@
 # Now running elevated so launch the script:
 #& "d:\long path name\script name.ps1" "Long Argument 1" "Long Argument 2"
 
-Write-Output "Workaround read only NVRAM or in my case a hacked BIOS with hardcoded defaults and an early version EFI." 
+
+$sysdrive =  $Env:SystemDrive
+$altanoswimdir = $sysdrive\AltanOS.wim
+
+
+Write-Output "This script will search $altanoswimdir for .wim files and put their SHA256 hases in a file." 
 pause
 
-$msefi = 'W:\EFI\Microsoft\Boot\bootmgfw.efi'
-$MsRepEfiFile = "W:\EFI\Microsoft\Boot\bootmgfww.efi"
-$MsBakEfiFile = "W:\EFI\Microsoft\Boot\bootmgfw.efi.bak"
-
-if (-not (Test-Path $msefi)) {
-Write-Output "Mounting EFI to W:"
-mountvol w: /S
+if (-not (Test-Path $altanoswimdir)) {
+Write-output "No directory $altanoswimdir"
+pause
+break
 }
 
 $checkforstring = (Get-ChildItem -Path $msefi| Select-Object -First 1).fullname
@@ -50,71 +52,14 @@ if ($checkforstring) {
     break
 }
 
-$GrubForMsEfiLoc = $null
-
-write-output "Locate signed or unsigned Secure Boot shim*.efi* and grub*.efi* files and path:"
-$GrubEfiSecFileLoc = Get-ChildItem –Path W:\EFI -include shim*.efi -Force -Recurse |
-		? FullName -notLike 'W:\EFI\Microsoft\Boot\shim*.efi*' |
-				Get-ChildItem -File -Force |
-				select-object -Expand FullName
-	# Write-output "Found: $GrubEfiSecFileLoc" 
-
-	$GrubPwd = Split-Path -Path "$GrubEfiSecFileLoc" -Parent
-	
-	if (Test-Path "$GrubPwd\shim*.efi") {
-        $ask = Read-Host -Prompt "Found unsigned Secure Boot GRUB $GrubEfiSecFileLoc, use this file?[y/n]"
-			if ( $ask -eq 'y' ) {
-				$GrubForMsEfiLoc = Resolve-Path -Path $GrubPwd\shim*.efi
-				write-output "Using unsigned GRUB EFI: $GrubForMsEfiLoc"
-			}
-	}
-				
-	if (Test-Path "$GrubPwd\shim*.efi.*") { 
-		$ask = Read-Host -Prompt "Found Microsoft signed Secure Boot GRUB $GrubEfiSecFileLoc, use this file?[y/n]"
-			if ( $ask -eq 'y' ) {
-				$GrubForMsEfiLoc = Resolve-Path -Path $GrubPwd\shim*.efi.*
-				write-output "Using signed GRUB EFI : $GrubForMsEfiLoc"
-			}
-	}
-
-$GrubEfiFileLoc = Get-ChildItem –Path W:\EFI -include grub*.efi -Force -Recurse |
-		? FullName -notLike 'W:\EFI\Microsoft\Boot\grub*.efi*' |
-				Get-ChildItem -File -Force |
-				select-object -Expand FullName
-	# Write-output "Found: $GrubEfiFileLoc"
-
-	$GrubPwd = Split-Path -Path "$GrubEfiFileLoc" -Parent
 
 
-	if (Test-Path "$GrubPwd\grub*.efi") {
-		$ask = Read-Host -Prompt "Found unsigned GRUB boot $GrubEfiFileLoc, use this file?[y/n]"
-		if ( $ask -eq 'y' ) {
-			$GrubForMsEfiLoc = Resolve-Path -Path $GrubPwd\grub*.efi
-			write-output "Using unsigned GRUB EFI: $GrubForMsEfiLoc"
-		}
-	}
+Write-Output "SHA256 compare $altanoswimloc" 
 
-	if (Test-Path "$GrubPwd\grub*.efi.*") {
-		$ask = Read-Host -Prompt "Found your Linux distributions signed GRUB $GrubEfiFileLoc, use this file?[y/n]"
-		if ( $ask -eq 'y' ) {
-			$GrubForMsEfiLoc = Resolve-Path -Path $GrubPwd\grub*.efi.*
-			write-output "Using signed GRUB EFI: $GrubForMsEfiLoc"
-		} 
-	}
+$get_date = Get-Date -Format "dddd-MM-dd-yyyy-HH-mm"
 
-# add a choice for multiple distros 
-
-	if ($null -eq $GrubForMsEfiLoc) {
-		Write-Output "No GRUB EFI file found or selected. Aborting"
-		pause
-		break
-	}
-	write-output "GRUB location: $GrubPwd"
-
-Write-Output "MD5 compare W:\EFI\*.efi" 
-
-$hashfile = "W:\hash.output.txt"
-$hashfilenew = "W:\hash.output.new.txt"
+$hashfile = "$altanoswimdir\hash.output.txt"
+$hashfilenew = "$altanoswimdir\hash.output.new.$get_date.txt"
 
 if (-not (Test-Path -Path $hashfilenew)) {
 $hashfileout = $hashfile
@@ -123,54 +68,74 @@ $hashfilenew = $null
 $hashfileout = $hashfilenew
         }
 
-Write-Output "Writing file hashes to: $hashfileout"
+$altansearchwim = $null
 
-function MD5HashEfi() {
-$md5 = New-Object -TypeName System.Security.Cryptography.MD5CryptoServiceProvider
+write-output "Locate AltanOS-*.wim:"
+$altansearchwim = Get-ChildItem -Path $altanoswimdir -include altanos-*.wim -Force -Recurse |
+				Get-ChildItem -File -Force |
+				select-object -Expand FullName
+	Write-output "Found: $altanwimloc" 
 
-	$hash = [System.BitConverter]::ToString($md5.ComputeHash([System.IO.File]::ReadAllBytes($msefi))).Replace("-","")
-	Write-Output "$msefi MD5: $hash"
-	Out-File -FilePath $hashfileout -InputObject $hash 
+	$altanoswimloc = Split-Path -Path "$altansearchwim" -Parent
 
-	$hash = [System.BitConverter]::ToString($md5.ComputeHash([System.IO.File]::ReadAllBytes($MsRepEfiFile))).Replace("-","")
-	Write-Output "$MsRepEfiFile MD5: $hash"
+	if (Test-Path "$altanoswimloc\altan-*.wim") {
+	ForEach ($_ in $altanoswimloc) {
+	$sha256 = New-Object -TypeName System.Security.Cryptography.SHA256CryptoServiceProvider
+	$hash = [System.BitConverter]::ToString($sha256.ComputeHash([System.IO.File]::ReadAllBytes($_))).Replace("-","")
+	Write-Output "$altanoswimloc $algo: $hash"
 	Out-File -FilePath $hashfileout -InputObject $hash -Append
+	}
 
-	$hash = [System.BitConverter]::ToString($md5.ComputeHash([System.IO.File]::ReadAllBytes($GrubForMsEfiLoc))).Replace("-","")
-	Write-Output "$GrubForMsEfiLoc MD5: $hash"
-	Out-File -FilePath $hashfileout -InputObject $hash -Append
+#        $ask = Read-Host -Prompt "Found $altanoswimloc , use this file?[y/n]"
+#			if ( $ask -eq 'y' ) {
+#				$altansearchwim = Resolve-Path -Path $altanoswimloc\altanos-*.wim
+#				write-output "Using: $altansearchwim"
+#			}
 
-}
-MD5HashEfi
+	}
+
+	if ($null -eq $altansearchwim) {
+		Write-Output "No WIM file found or selected. Aborting"
+		pause
+		break
+	}
+	write-output "WIM location: $altanoswimloc"
+
 
 function CompareHashFiles() {
- if((Get-FileHash $hashfile).hash  -ne (Get-FileHash $hashfilenew).hash) {
- write-output "EFI file hashes are different replacing changed EFI files"
+$algo = "-Algorithm SHA512"
+$file_path = $null
+$litteral_path = $null
 
-	if((Get-FileHash $msefi).hash  -ne (Get-FileHash $GrubForMsEfiLoc).hash) {
-	 Write-Output "$GrubForMsEfiLoc differs from $msefi"
-     write-output "Copying $GrubEfiFileLoc to $msefi and $GrubPwd to W:\EFI\Microsoft\Boot\."
+ if((Get-FileHash $hashfile).hash  -ne (Get-FileHash $hashfilenew).hash) {
+ write-output "WIM file hashes have changed"
+
+#	if((Get-FileHash $msefi).hash  -ne (Get-FileHash $GrubForMsEfiLoc).hash) {
+#	 Write-Output "$GrubForMsEfiLoc differs from $msefi"
+#     write-output "Copying $GrubEfiFileLoc to $msefi and $GrubPwd to W:\EFI\Microsoft\Boot\."
    #  cp $msefi W:\EFI\Microsoft\Boot\
 	 cp $GrubForMsEfiLoc $msefi
-	 Copy-Item -Recurse -Force $GrubPwd\* W:\EFI\Microsoft\Boot\
+#	 Copy-Item -Recurse -Force $GrubPwd\* W:\EFI\Microsoft\Boot\
 	} else { 
-	 Write-Output "$GrubForMsEfiLoc is equal to $msefi" 
-    }
+#	 Write-Output "$GrubForMsEfiLoc is equal to $msefi" 
+ #   }
 
   cp $hashfileout $hashfile
 
-	} else {
-	    Write-output  "$hashfile and $hashfilenew are the same file. Assume all is well."
-    Write-output  "You should not be here"
+#	} else {
+#	    Write-output  "$hashfile and $hashfilenew are the same file. Assume all is well."
+#    Write-output  "You should not be here"
 		# $ask = Read-Host -Prompt "Copy $GrubForMsEfiLoc to $msefi etc. anyway?[y/n]"
 		# if ( $ask -eq 'y' ) {
 		# cp $GrubForMsEfiLoc $msefi
 		# Copy-Item -Recurse -Force $GrubPwd\* W:\EFI\Microsoft\Boot\
 		# }
-	}
+#	}
 }
 CompareHashFiles
 
 
 Write-Output "All should be well"
+
+Read-Host -Prompt "Press any key to continue"
 pause

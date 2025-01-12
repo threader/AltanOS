@@ -11,7 +11,7 @@ IF "%PROCESSOR_ARCHITECTURE%"=="AMD64" (set nsarchbit=x64
 ) ELSE (set nsarchbit=Win32)
 
 set "altanosdir=%cd%"
-set "usedir=%SystemDrive%\AltanOS.inst" 
+set "altanosinstdir=%SystemDrive%\AltanOS.inst" 
 set "wingetinstdcmd=winget install --disable-interactivity --accept-source-agreements"
 set "powshcmd=PowerShell -Command"
 set "powshadmcmd=%powshcmd% "Start-process "powershell -Wait -Verb RunAS"""
@@ -20,21 +20,21 @@ set "webgetps=%powshcmd% Invoke-WebRequest -uri "%geturl%" -OutFile %geturlout% 
 set "dismpkg=DISM /online /add-package"
 set "msipkg=msiexec.exe /quiet /norestart /passive /package"
 set "gitget=%ProgramFiles%\Git\bin\git.exe"
+set "altanlog=%altanosinstdir%\logs"
 
 reg import "%altanosdir%\src\harden.reg"
 
-echo Will need net for this 
-
 :: if 'someone' is testing and just runs this file...
-if exist %usedir% goto skipusedir
- mkdir %usedir%
-:skipusedir
+if exist %altanosinstdir% goto skipaltanosinstdir
+ mkdir %altanosinstdir%
+ mkdir %altanosinstdir%\logs
+:skipaltanosinstdir
 
 :: Flagged by Defender - not really needed
-:: if exist %usedir%\bin\Nsudo\%nsarchbit%\NSudoLG.exe goto skipnsudo
-:: %bitsadminget% https://github.com/... %usedir%\...
-:: %powscmd% "Invoke-WebRequest -uri  https://github.com/...--OutFile %usedir%\.."
-:: %powshcmd% "Expand-Archive -Force '%usedir%\...' '%usedir%\bin\...'"
+:: if exist %altanosinstdir%\bin\Nsudo\%nsarchbit%\NSudoLG.exe goto skipnsudo
+:: %bitsadminget% https://github.com/... %altanosinstdir%\...
+:: %powscmd% "Invoke-WebRequest -uri  https://github.com/...--OutFile %altanosinstdir%\.."
+:: %powshcmd% "Expand-Archive -Force '%altanosinstdir%\...' '%altanosinstdir%\bin\...'"
 :: :skipnsudo
 
 
@@ -414,13 +414,14 @@ echo Disablng WMP and IE, enable Hyper-V and WSL
 :: https://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference
 %powshadmcmd% "%altanosdir%\wdegc\Enable-ExploitGuard-AttackSurfaceReduction.ps1"
 
+%powshadmcmd% "%altanosdir%\src\strip_windows.ps1"
  :: echo info: cleaning the winsxs folder - bah this needs to be done after a reboot 
  :: DISM /Online /Cleanup-Image /StartComponentCleanup /ResetBase /RestoreHealth
 
  sfc /SCANNOW
  :: ask and make user aware this will trash connectivity...
  :: echo Remember to configure the TinyWall firewall, select autolearn from the menu for a while for instance to allo traffic
- :: %msipkg% %usedir%\TinyWall-v3-Installer.msi
+ :: %msipkg% %altanosinstdir%\TinyWall-v3-Installer.msi
 
 ::
 

@@ -277,11 +277,11 @@ $ProgressPreference = 'Continue'
 
 # This will need to reboot....
 #Write-output "Installing and running PSWindowsUpdate. - temp. Workaround: script continuing while previous operations not done."
-# Set-ExecutionPolicy -ExecutionPolicy Bypass
-#	start-process "powershell -Wait "Install-Module -Force PSWindowsUpdate" "
-#	start-process "powershell -Wait "Import-Module PSWindowsUpdate" "
-#	start-process "powershell -Wait "Get-WindowsUpdate -AcceptAll -Install""
-# Install-WindowsUpdate
-# Set-ExecutionPolicy -ExecutionPolicy Restricted
+
+#Install-Module -Force PSWindowsUpdate
+#Import-Module PSWindowsUpdate
+# This will grab everything, optional included , Reboot's might be needed, this needs to run first boot again..
+#Get-WindowsUpdate -AcceptAll -Install
+
 
 Read-Host -Prompt "Press any key to continue"

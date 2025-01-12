@@ -40,68 +40,12 @@ Disable-WindowsOptionalFeature -NoRestart -Online -FeatureName Microsoft-RemoteD
 Disable-WindowsOptionalFeature -NoRestart -Online -FeatureName WorkFolders-Client
 Disable-WindowsOptionalFeature -NoRestart -Online -FeatureName Printing-Foundation-Internetprinting-Client
 Disable-WindowsOptionalFeature -NoRestart -Online -FeatureName MSRDC-Infrastructure
- 
-# This should be handled in strip_windows.ps1
-#
-# https://learn.microsoft.com/en-us/powershell/module/dism/get-windowscapability?view=windowsserver2022-ps
-# https://learn.microsoft.com/en-us/powershell/module/dism/remove-windowscapability?view=windowsserver2022-ps
-# Get-WindowsCapability -online | Where-Object { $_.Name -like '*VBSCRIPT*' } | Remove-WindowsCapability -online
-#   Write-Output "---------------------------------------------" 
-#   Write-Output "WindowsCapability list prior:"         
-#Get-WindowsCapability -online | Where-Object { ($_.Name) -and ($_.State -like 'Installed') }
-#   Write-Output "---------------------------------------------" 
-#Get-WindowsCapability -online | Where-Object { ($_.Name) -and ($_.State -like 'Installed') -and ($_.Name -notlike "Language.Basic*") -and ($_.Name -notlike "Language.Handwriting*") -and ($_.Name -notlike "Windows.Client.ShellComponents*") -and ($_.Name -notlike "OpenSSH.Client*") -and ($_.Name -notlike "Microsoft.Windows.Powershell.ISE*") -and ($_.Name -notlike "Microsoft.Windows.Notepad*") -and ($_.Name -notlike "Microsoft.Windows.MSPaint") -and ($_.Name -notlike "MathRecognizer*") -and ($_.Name -notlike "Print.Fax.Scan") | Remove-WindowsCapability -online }
-#   Write-Output "---------------------------------------------" 
-#   Write-Output "WindowsCapability list after:" 
-#Get-WindowsCapability -online | Where-Object { ($_.Name) -and ($_.State -like 'Installed') }
-#   Write-Output "---------------------------------------------" 
-
-# to check installed:
-# Get-WindowsCapability -online | Where-Object { ($_.Name) -and ($_.State -like 'Installed') }
-#
-# These are the packages that _were_ left on the system prior to the commands above: 
-#  add-windowscapability -online -Name "MathRecognizer~~~~0.0.1.0"
-#  add-windowscapability -online -Name "Microsoft.Windows.MSPaint~~~~0.0.1.0"
-#  add-windowscapability -online -Name "Microsoft.Windows.Notepad~~~~0.0.1.0"
-#  add-windowscapability -online -Name "Microsoft.Windows.PowerShell.ISE~~~~0.0.1.0" # Not reinstallable
-#  add-windowscapability -online -Name "Windows.Client.ShellComponents~~~~0.0.1.0" # Not reinstallable
-#  add-windowscapability -online -Name "OpenSSH.Client~~~~0.0.1.0" # Not reinstallable
-#  add-windowscapability -online -Name "Language.Basic~~~en-GB~0.0.1.0"
-#  add-windowscapability -online -Name Language.Handwriting~~~en-GB~0.0.1.0
-#  add-windowscapability -online -Name Language.OCR~~~en-GB~0.0.1.0
-#  add-windowscapability -online -Name Language.Speech~~~en-GB~0.0.1.0
-#  add-windowscapability -online -Name Language.TextToSpeech~~~en-GB~0.0.1.0
-#  add-windowscapability -online -Name Microsoft.Windows.WordPad~~~~0.0.1.0
-#  add-windowscapability -online -Name OneCoreUAP.OneSync~~~~0.0.1.0
-#  add-windowscapability -online -Name Print.Fax.Scan~~~~0.0.1.0 # this could probably be handy? - Not reinstallable
-
-# 
-# $GET_APPXPPACKAGE_ALL = Get-AppXProvisionedPackage -online | Where-Object { ($_.PackageName) }
-# $GET_APPXPPACKAGE = Get-AppXProvisionedPackage -online | Where-Object { ($_.PackageName) -and ($_.PackageName -notlike "Microsoft.DesktopAppInstaller*") -and ($_.PackageName -notlike "Microsoft.HEIFImageExtension*") -and ($_.PackageName -notlike "Microsoft.MicrosoftSolitaireCollection*") -and ($_.PackageName -notlike "Microsoft.MSPaint*") -and ($_.PackageName -notlike "Microsoft.MicrosoftStickyNotes") -and ($_.PackageName -notlike "Microsoft.Windows.Photos*") -and ($_.PackageName -notlike "Microsoft.MicrosoftEdge*") -and ($_.PackageName -notlike "Microsoft.StorePurchaseApp*") -and ($_.PackageName -notlike "Microsoft.VP9*") -and ($_.PackageName -notlike "Microsoft.VP9VideoExtensions*") -and ($_.PackageName -notlike "Microsoft.Web*Extension*") -and ($_.PackageName -notlike "Microsoft.Wallet*") -and ($_.PackageName -notlike "Microsoft.Windows.DevHome*") -and ($_.PackageName -notlike "Microsoft.WindowsStore*") -and ($_.PackageName -notlike "Microsoft.WindowsMaps*")  -and ($_.PackageName -notlike "Microsoft.WindowsSoundRecorder*") -and ($_.PackageName -notlike "Microsoft.VCLibs*") -and ($_.PackageName -notlike "Microsoft.VP9VideoEstension*") -and ($_.PackageName -notlike "Microsoft.Web*Extension*") -and ($_.PackageName -notlike "Microsoft.Wallet*") -and ($_.PackageName -notlike "Microsoft.Windows.DevHome*") -and ($_.PackageName -notlike "Microsoft.WindowsAlarms*") -and ($_.PackageName -notlike "Microsoft.WindowsCalculator*") }
-# $GET_APPXPPACKAGE_NAME = Write-Output $GET_APPXPPACKAGE.PackageName
-# $GET_APPXPPACKAGE_NAME_ALL = Write-Output $GET_APPXPPACKAGE_ALL.PackageName
-  # Write-Output $GET_APPXPPACKAGE_NAME_ALL
-#   Write-Output "---------------------------------------------" 
-#   Write-Output "Packages list prior:"        
-#   Write-Output $GET_APPXPPACKAGE_NAME_ALL   
-#   Write-Output "---------------------------------------------" 
-#   Write-Output "Packages to be removed: $GET_APPXPPACKAGE_NAME"
-#   Write-Output "---------------------------------------------"
-# ForEach ($_ in $GET_APPXPPACKAGE_NAME) {
-#   Remove-AppxProvisionedPackage -AllUsers -Online -PackageName $GET_APPXPPACKAGE_NAME
-#}
-#   Write-Output "Packages list after:"
-#  Write-Output $GET_APPXPPACKAGE_NAME_ALL
-#   Write-Output "---------------------------------------------" 
-#
-# END: This should be handled in strip_windows.ps1
-#
 }
 disable_win_feature
 
 $sysdrive =  $Env:SystemDrive
 # To replace the command in harden-*.cmd - https://learn.microsoft.com/en-us/powershell/module/dism/repair-windowsimage?view=windowsserver2022-ps
-# Repair-WindowsImage -Online -RestoreHealth -Source "Ssysdrive\Windows\WinSxS" 
+# Repair-WindowsImage -Online -RestoreHealth -Source "$sysdrive\Windows\WinSxS" 
 Repair-WindowsImage  -RestoreHealth -StartComponentCleanup -ResetBase -NoRestart -Online
 
 # Repair-WindowsImage -CheckHealth -ScanHealth -RestoreHealth -StartComponentCleanup -ResetBase -NoRestart -Online
@@ -166,3 +110,6 @@ Repair-WindowsImage  -RestoreHealth -StartComponentCleanup -ResetBase -NoRestart
 Set-VMProcessor -VMName VM-Sandbox -ExposeVirtualizationExtensions $true
 Update-VMVersion -VMName VM-Sandbox
 Enable-WindowsOptionalFeature -FeatureName "Containers-DisposableClientVM" -All -Online
+
+
+Read-Host -Prompt "Press any key to continue"

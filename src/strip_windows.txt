@@ -42,3 +42,6 @@ remove:?
 -and ($_.PackageName -notlike "Microsoft.Windows.Search")
 -and ($_.PackageName -notlike "Microsoft.Windows.CloudExperienceHost")
 -and ($_.PackageName -notlike "Microsoft.MicrosoftEdge")
+
+$GETREMOVABLEAPPSPOLICY = Get-NonRemovableAppsPolicy -Online 
+$SETREMOVABLEAPPSPOLICY Set-NonRemovableAppsPolicy -Online -PackageFamilyName 

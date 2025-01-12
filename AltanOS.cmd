@@ -18,8 +18,11 @@ set "msipkg=msiexec.exe /a %msipkpath% /quiet /norestart /passive /package"
 set "gitget=%ProgramFiles%\Git\bin\git.exe"
  :: [Environment]::CurrentDirectory = $ExecutionContext.SessionState.Path.CurrentFileSystemLocation.ProviderPath
 
+set "altanlog=%altanosinstdir%\logs\"
+
 if exist %altanosinstdir% goto skipaltanosinstdir
  mkdir -p %altanosinstdir%\bin
+ mkdir -p %altanosinstdir%\logs
 :skipaltanosinstdir
 
 if exist %altanosdir% goto skipaltanosdir
@@ -111,7 +114,7 @@ pause
 :: rebuild performance counters
 :: https://learn.microsoft.com/en-us/troubleshoot/windows-server/performance/manually-rebuild-performance-counters
 echo Rebuild performance counters
- %powshadmcmd% "%altanosdir%\src\pref-cnt.ps1"
+%powshadmcmd% "%altanosdir%\src\pref-cnt.ps1" >> %altanlog%\pref-cnt.log
 
 echo Forces the clock to be backed by a platform source, no synthetic timers are allowed. Have not been able to prove the benifits of this, feel free to skip or test yourself:
  bcdedit /set useplatformtick yes
@@ -120,7 +123,7 @@ echo Forces the clock to be backed by a platform source, no synthetic timers are
 
 :: The following operations can under some circumstances take a hellova lot of thime, i'm not really sure if this really is ideal.
   Echo There will be packages that fail to remove here because they are core components, some red text to follow.
- %powshadmcmd% "%altanosdir%\src\pkgs-prep.ps1"
+ %powshadmcmd% "%altanosdir%\src\pkgs-prep.ps1" >> %altanlog%\pkgs-prep.log
 
 :: - open scripts in notepad++ to preview instead of executing when clicking
 if exist "%ProgramFiles%\Notepad++\Notepad++.exe" (
@@ -169,12 +172,14 @@ for %%a in (
  xcopy %altanosdir%\bin\PrivaZer.ini %altanosinstdir%\bin\ 
 
 :: Hardening scripts
- %powshadmcmd% "%altanosdir%\src\harden-AltanOS.cmd"
+ %powshadmcmd% "%altanosdir%\src\harden-AltanOS.cmd" >> %altanlog%\harden-AltanOS.log
 :: a new arrival with additional great hardening finds
- %powshadmcmd% "%altanosdir%\whs\windows-hardening-script.cmd"
+ %powshadmcmd% "%altanosdir%\whs\windows-hardening-script.cmd" >> %altanlog%\whs.log
+
+ %powshadmcmd% "%altanosdir%\src\mouse-config.ps1"
 
 :: And i bow in respect to Yamato-Security - however this should be made configurable, so - ask
- %powshadmcmd% "%altanosdir%\ewl\YamatoSecurityConfigureWinEventLogs.bat"
+ %powshadmcmd% "%altanosdir%\ewl\YamatoSecurityConfigureWinEventLogs.bat" >> %altanlog%\yscwel.log
 :: https://github.com/trustedsec/SysmonCommunityGuide/blob/master/chapters/install_windows.md#install
 :: install/accept the eula
 sysmon.exe -i -accepteula "%altanosdir%\sysmon-config\sysmonconfig-export-block-loldrivers.xml"
@@ -183,9 +188,9 @@ sysmon.exe -i -d sumonmon
 :: Renamed service
 sumonmon.exe -i -d sumonmon
 
- :: harden.reg loads in harden-AltanOS.cmd for now
- :: %powshadmcmd% 'powshcmd% "reg import %altanosdir%\harden.reg"'
- 
+:: Backup to bootable .wim 
+ %powshadmcmd% "%altanosdir%\src\export-wim.ps1"
+
 :: Disable this untill i fix it
 :: %powshadmcmd% "%altanosdir%\src\schedule-tasks.ps1"
 
@@ -203,8 +208,6 @@ sumonmon.exe -i -d sumonmon
 :: msiexec.exe /a %altanosinstdir%\TinyWall-v3-Installer.msi /quiet /passive
 :: "%altanosinstdir%"\bin\network-indicator"%niarchbit%"\NetworkIndicatorSetup.exe
 :: :skiptw
-
- %powshadmcmd% "%altanosdir%\src\mouse-config.ps1"
 
 :: powershell -command "&{$var = 'Set-ExecutionPolicy -ExecutionPolicy Restricted'+\" Set-ItemProperty -Path REGISTRY::HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System -Name ConsentPromptBehaviorAdmin -Value 1' \"; echo $var}"
 

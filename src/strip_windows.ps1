@@ -1,5 +1,5 @@
 $sysdrive =  $Env:SystemDrive
-$altanosinstdir = $sysdrive\AltaOS.inst
+$altanosinstdir = $sysdrive\AltanOS.inst
 
 if (-not (Test-Path -Path $altanosinstdir)) {
 	mkdir $altanosinstdir
