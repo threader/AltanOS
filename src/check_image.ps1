@@ -59,7 +59,7 @@ Write-Output "SHA256 compare $altanoswimloc"
 $get_date = Get-Date -Format "dddd-MM-dd-yyyy-HH-mm"
 
 $hashfile = "$altanoswimdir\hash.output.txt"
-$hashfilenew = "$altanoswimdir\hash.output.new.$get_date.txt"
+$hashfilenew = "$altanoswimdir\hash.output.$get_date.txt"
 
 if (-not (Test-Path -Path $hashfilenew)) {
 $hashfileout = $hashfile
@@ -78,10 +78,17 @@ $altansearchwim = Get-ChildItem -Path $altanoswimdir -include altanos-*.wim -For
 
 	$altanoswimloc = Split-Path -Path "$altansearchwim" -Parent
 
-	if (Test-Path "$altanoswimloc\altan-*.wim") {
-	ForEach ($_ in $altanoswimloc) {
+	if (Test-Path "$altanoswimloc\altan.crt.txt") {
+
 	$sha256 = New-Object -TypeName System.Security.Cryptography.SHA256CryptoServiceProvider
-	$hash = [System.BitConverter]::ToString($sha256.ComputeHash([System.IO.File]::ReadAllBytes($_))).Replace("-","")
+	$hash = [System.BitConverter]::ToString($sha256.ComputeHash([System.IO.File]::ReadAllBytes($altanoswimloc\altan.crt))).Replace("-","")
+	Out-File -FilePath $hashfileout -InputObject $hash 
+
+	ForEach ($_ in $altansearchwim) {
+	$altanwimrespath = Resolve-Path -Path $_\altanos-*.wim
+
+	$sha256 = New-Object -TypeName System.Security.Cryptography.SHA256CryptoServiceProvider
+	$hash = [System.BitConverter]::ToString($sha256.ComputeHash([System.IO.File]::ReadAllBytes($altanwimrespath))).Replace("-","")
 	Write-Output "$altanoswimloc $algo: $hash"
 	Out-File -FilePath $hashfileout -InputObject $hash -Append
 	}
