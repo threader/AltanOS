@@ -79,8 +79,8 @@ function disable_win_packages()  {
 # so this will at least get the version:
 # (Get-ItemProperty -Path HKLM:\SOFTWARE\Microsoft\PowerShell\3\PowerShellEngine -Name 'PowerShellVersion').PowerShellVersion
 # (Get-Host).Version and Get-Host should work.
-$altanosdir = "$sysdrive\AltanOS"
-PowerShell -command $altanosdir\src\strip_windows.ps1
+# $altanosdir = "$sysdrive\AltanOS"
+# PowerShell -command -wait $altanosdir\src\strip_windows.ps1
 Get-Help
 # Get-AppPackage -AllUsers | Remove-AppPackage -AllUsers
  # This will remove all user installed packages on the system.. 
@@ -90,7 +90,7 @@ Get-Help
 disable_win_packages
 
 
-if (-not (Test-Path "$altanosinstdir/Microsoft.DesktopAppInstaller.msixbundle")) {
+if (-not (Test-Path "$altanosinstdir\Microsoft.DesktopAppInstaller.msixbundle")) {
 
 	function grab_winget_deps() {
 
@@ -167,8 +167,9 @@ winget install --disable-interactivity --accept-source-agreements --id SaferNetw
 winget install --disable-interactivity --accept-source-agreements --id Microsoft.PowerToys --source winget
 
 # dev tools - ask
-winget install --disable-interactivity --accept-source-agreements --id Cygwin.Cygwin.Cygwin --source winget
-coco install mingw -y --params "ALLUSERS=1"
+winget install --accept-source-agreements --id Cygwin.Cygwin.Cygwin --source winget
+# 
+# coco install mingw -y --params "ALLUSERS=1"
 winget install --disable-interactivity --accept-source-agreements --id Meld.Meld.Meld --soure winget
 winget install --disable-interactivity --accept-source-agreements --id KDE.KDiff3 --source winget
 winget install --disable-interactivity --accept-source-agreements --id WinMgerge.WinMerge--source winget
@@ -222,7 +223,7 @@ winget upgrade --accept-source-agreements --disable-interactivity --include-unkn
 			Invoke-WebRequest -Uri "https://malcat.fr/latest/malcat_win64_lite.zip" -OutFile "$altanosinstdir\malcat_win64_lite.zip"
 			Invoke-WebRequest -Uri "https://github.com/radareorg/radare2/releases/download/5.9.4/radare2-5.9.4-w32.zip" -OutFile "$altanosinstdir\radare2-5.9.4-w64.zip"
 			
-			 Expand-Archive -Force "$altanosinstdir\alcat_win64_lite.zip" "$altanosinstdir\bin\malcat_win64_lite"
+			 Expand-Archive -Force "$altanosinstdir\malcat_win64_lite.zip" "$altanosinstdir\bin\malcat_win64_lite"
 			 Expand-Archive -Force "$altanosinstdir\radare2-5.9.4-w64.zip" "$altanosinstdir\bin\radare2-5.9.4-w64"
 		 }
  Invoke-WebRequest -uri "https://github.com/NationalSecurityAgency/ghidra/releases/download/Ghidra_11.1.2_build/ghidra_11.1.2_PUBLIC_20240709.zip" -OutFile "$altanosinstdir\ghidra_11.1.2_PUBLIC_20240709.zip"

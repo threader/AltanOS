@@ -46,7 +46,7 @@ disable_win_feature
 $sysdrive =  $Env:SystemDrive
 # To replace the command in harden-*.cmd - https://learn.microsoft.com/en-us/powershell/module/dism/repair-windowsimage?view=windowsserver2022-ps
 # Repair-WindowsImage -Online -RestoreHealth -Source "$sysdrive\Windows\WinSxS" 
-Repair-WindowsImage  -RestoreHealth -StartComponentCleanup -ResetBase -NoRestart -Online
+Repair-WindowsImage  -RestoreHealth -ResetBase -NoRestart -Online
 
 # Repair-WindowsImage -CheckHealth -ScanHealth -RestoreHealth -StartComponentCleanup -ResetBase -NoRestart -Online
 

@@ -365,6 +365,10 @@ reg add "HKCU\SOFTWARE\Policies\Microsoft\Windows\Explorer" /v "NoRemoteDestinat
     reg add "%%a\Properties" /v "{b3f8fa53-0004-438e-9003-51a46e139bfc},4" /t REG_DWORD /d "0" /f
 )
 
+:: Block new Outlook
+reg delete \"HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\WindowsUpdate\\Orchestrator\\UScheduler_Oobe\\OutlookUpdate\" /f
+
+
 :: - harden process mitigations (lower compatibilty for legacy apps) 
 :: This is way to strict.
 :: %powshcmd% "Set-ProcessMitigation -System -Enable DEP, EmulateAtlThunks, RequireInfo, BottomUp, HighEntropy, StrictHandle, CFG, StrictCFG, SuppressExports, SEHOP, AuditSEHOP, SEHOPTelemetry, ForceRelocateImages"
@@ -414,7 +418,6 @@ echo Disablng WMP and IE, enable Hyper-V and WSL
 :: https://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference
 %powshadmcmd% "%altanosdir%\wdegc\Enable-ExploitGuard-AttackSurfaceReduction.ps1"
 
-%powshadmcmd% "%altanosdir%\src\strip_windows.ps1"
  :: echo info: cleaning the winsxs folder - bah this needs to be done after a reboot 
  :: DISM /Online /Cleanup-Image /StartComponentCleanup /ResetBase /RestoreHealth
 

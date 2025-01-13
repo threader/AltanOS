@@ -21,8 +21,9 @@ set "gitget=%ProgramFiles%\Git\bin\git.exe"
 set "altanlog=%altanosinstdir%\logs\"
 
 if exist %altanosinstdir% goto skipaltanosinstdir
- mkdir -p %altanosinstdir%\bin
- mkdir -p %altanosinstdir%\logs
+ mkdir %altanosinstdir%
+ mkdir %altanosinstdir%\bin
+ mkdir %altanosinstdir%\logs
 :skipaltanosinstdir
 
 if exist %altanosdir% goto skipaltanosdir
@@ -114,16 +115,19 @@ pause
 :: rebuild performance counters
 :: https://learn.microsoft.com/en-us/troubleshoot/windows-server/performance/manually-rebuild-performance-counters
 echo Rebuild performance counters
-%powshadmcmd% "%altanosdir%\src\pref-cnt.ps1" >> %altanlog%\pref-cnt.log
+%powshadmcmd% "%altanosdir%\src\pref-cnt.ps1"
 
 echo Forces the clock to be backed by a platform source, no synthetic timers are allowed. Have not been able to prove the benifits of this, feel free to skip or test yourself:
  bcdedit /set useplatformtick yes
 
 :: cd %altanosdir%
 
+:: I think strip windows here
+ %powshadmcmd% "%altanosdir%\src\strip_windows.ps1 
+
 :: The following operations can under some circumstances take a hellova lot of thime, i'm not really sure if this really is ideal.
   Echo There will be packages that fail to remove here because they are core components, some red text to follow.
- %powshadmcmd% "%altanosdir%\src\pkgs-prep.ps1" >> %altanlog%\pkgs-prep.log
+ %powshadmcmd% "%altanosdir%\src\pkgs-prep.ps1"
 
 :: - open scripts in notepad++ to preview instead of executing when clicking
 if exist "%ProgramFiles%\Notepad++\Notepad++.exe" (
@@ -172,14 +176,14 @@ for %%a in (
  xcopy %altanosdir%\bin\PrivaZer.ini %altanosinstdir%\bin\ 
 
 :: Hardening scripts
- %powshadmcmd% "%altanosdir%\src\harden-AltanOS.cmd" >> %altanlog%\harden-AltanOS.log
+ %powshadmcmd% "%altanosdir%\src\harden-AltanOS.cmd"
 :: a new arrival with additional great hardening finds
- %powshadmcmd% "%altanosdir%\whs\windows-hardening-script.cmd" >> %altanlog%\whs.log
+ %powshadmcmd% "%altanosdir%\whs\windows-hardening-script.cmd"
 
  %powshadmcmd% "%altanosdir%\src\mouse-config.ps1"
 
 :: And i bow in respect to Yamato-Security - however this should be made configurable, so - ask
- %powshadmcmd% "%altanosdir%\ewl\YamatoSecurityConfigureWinEventLogs.bat" >> %altanlog%\yscwel.log
+ %powshadmcmd% "%altanosdir%\ewl\YamatoSecurityConfigureWinEventLogs.bat"
 :: https://github.com/trustedsec/SysmonCommunityGuide/blob/master/chapters/install_windows.md#install
 :: install/accept the eula
 sysmon.exe -i -accepteula "%altanosdir%\sysmon-config\sysmonconfig-export-block-loldrivers.xml"
@@ -188,6 +192,7 @@ sysmon.exe -i -d sumonmon
 :: Renamed service
 sumonmon.exe -i -d sumonmon
 
+ %altanosinstdir%\bin\PrivaZer.exe
 :: Backup to bootable .wim 
  %powshadmcmd% "%altanosdir%\src\export-wim.ps1"
 
