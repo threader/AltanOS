@@ -1,14 +1,15 @@
 $sysdrive =  $Env:SystemDrive
-$altanosinstdir = $sysdrive\AltanOS\
-$awimacfg = $altanosinstdir\bin\WimScript.ini
+$altanosinstdir = "$sysdrive\AltanOS\"
+$awimacfg = "$altanosinstdir\bin\WimScript.ini"
 
-$awimadir = $sysdrive\AltanOS.wim
+$awimadir = "$sysdrive\AltanOS.wim"
 
 function awimawhe() {
 
-$get_date = Get-Date -Format "dddd-MM-dd-yyyy-HH-mm"
+$get_date = Get-Date -Format "HHmm-MM-dd-yyyy"
 
-$awimprefix = altanos-$get_date
+$awimprefix = Write-Output "altanos-$get_date"
+Write-Output $awimprefix
 
 $hashfile = "$awimadir\hash.output.old.txt"
 $hashfilenew = "$awimadir\hash.output.$awimprefix.new.txt"
@@ -22,27 +23,32 @@ $hashfileout = $hashfilenew
         }
         
 
-$awim = $awimadir\$awimprefix.wim
+$awim = "$awimadir\$awimprefix.wim"
 
-$rsapriv = $awimadir\$awimprefix.priv.txt
-$rsapub = $awimadir\$awimprefix.pub.txt
+$rsapriv = "$awimadir\$awimprefix.priv.txt"
+$rsapub = "$awimadir\$awimprefix.pub.txt"
 
 
-$rsa = New-Object System.Security.Cryptography.RSACryptoServiceProvider(2048)
-$rsa.ExportRSAPrivateKeyPem() | Out-File -FilePath '$rsapriv'
-$rsa.ExportRSAPublicKeyPem() | Out-File -FilePath '$rsapub'
+# huh - https://learn.microsoft.com/en-us/dotnet/api/system.security.cryptography.rsa.exportrsaprivatekeypem?view=net-9.0#system-security-cryptography-rsa-exportrsaprivatekeypem 
+# https://learn.microsoft.com/en-us/dotnet/api/system.security.cryptography.rsacryptoserviceprovider?view=net-9.0
+#
+# $rsa = New-Object -TypeName System.Security.Cryptography.RSACryptoServiceProvider(2048)
+# $rsa.ExportRSAPrivateKeyPem() | Out-File -FilePath '$rsapriv'
+# $rsa.ExportRSAPublicKeyPem() | Out-File -FilePath '$rsapub'
 
 	$sha256 = New-Object -TypeName System.Security.Cryptography.SHA256CryptoServiceProvider
-	$hash = [System.BitConverter]::ToString($sha256.ComputeHash([System.IO.File]::ReadAllBytes($awimadir\$awimprefix*.pub.txt))).Replace("-","")
-	Write-Output "$altanoswimloc $algo: $hash"
-	Out-File -FilePath $hashfileout -InputObject $hash
+	#$hash = [System.BitConverter]::ToString($sha256.ComputeHash([System.IO.File]::ReadAllBytes("$awimadir\$awimprefix*.pub.txt"))).Replace("-","")
+	Write-Output "$altanoswimloc $algo $hash"
+	#Out-File -FilePath $hashfileout -InputObject $hash
 	
 
-New-WindowsImage -ImagePath "$awim" -CapturePath "$sysdrive" -CompressionType "None" -ConfigFilePath $awimacfg -Name "$awimprefix_$sysdrive_wim" -SupportEa -Setbootable -WIMBoot -Verify
+# New-WindowsImage -ImagePath "$awim" -CapturePath "$sysdrive" -CompressionType "None" -ConfigFilePath $awimacfg -Name "$awimprefix"  -SupportEa -Setbootable -WIMBoot -Verify
+	Write-Output   "$awim  $sysdrive  $awimacfg  $awimprefix"
+New-WindowsImage -ImagePath $awim -CapturePath $sysdrive -ConfigFilePath $awimacfg -Name $awimprefix -WIMBoot -Verify
 
 	$sha256 = New-Object -TypeName System.Security.Cryptography.SHA256CryptoServiceProvider
 	$hash = [System.BitConverter]::ToString($sha256.ComputeHash([System.IO.File]::ReadAllBytes($awim))).Replace("-","")
-	Write-Output "$altanoswimloc $algo: $hash"
+	Write-Output "$altanoswimloc $algo $hash"
 	Out-File -FilePath $hashfileout -InputObject $hash -Append
 
 #New-WindowsImage -ImagePath "$awim" -CapturePath "$sysdrive" -CompressionType "None" -ConfigFilePath $awimusracfg -Name "$awimprefix_$sysdrive_user_wim" -SupportEa -Setbootable -WIMBoot -Verify

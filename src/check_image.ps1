@@ -16,7 +16,7 @@
 
 
 $sysdrive =  $Env:SystemDrive
-$altanoswimdir = $sysdrive\AltanOS.wim
+$altanoswimdir = "$sysdrive\AltanOS.wim"
 
 
 Write-Output "This script will search $altanoswimdir for .wim files and put their SHA256 hases in a file." 
@@ -98,7 +98,7 @@ $altansearchwim = Get-ChildItem -Path $altanoswimdir -include altanos-*.wim -For
 	if (Test-Path "$altanoswimloc\*.priv.txt") {
 
 	$sha256 = New-Object -TypeName System.Security.Cryptography.SHA256CryptoServiceProvider
-	$hash = [System.BitConverter]::ToString($sha256.ComputeHash([System.IO.File]::ReadAllBytes($altanoswimloc\*.priv.txt))).Replace("-","")
+	$hash = [System.BitConverter]::ToString($sha256.ComputeHash([System.IO.File]::ReadAllBytes("$altanoswimloc\*.priv.txt"))).Replace("-","")
 	Out-File -FilePath $hashfileout -InputObject $hash 
 
 	ForEach ($_ in $altanoswimloc) {
@@ -106,7 +106,7 @@ $altansearchwim = Get-ChildItem -Path $altanoswimdir -include altanos-*.wim -For
 
 	$sha256 = New-Object -TypeName System.Security.Cryptography.SHA256CryptoServiceProvider
 	$hash = [System.BitConverter]::ToString($sha256.ComputeHash([System.IO.File]::ReadAllBytes($altanwimrespath))).Replace("-","")
-	Write-Output "$altanoswimloc $algo: $hash"
+	Write-Output "$altanoswimloc $algo $hash"
 	Out-File -FilePath $hashfileout -InputObject $hash -Append
 	}
 
