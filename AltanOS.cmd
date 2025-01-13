@@ -190,7 +190,7 @@ sysmon.exe -i -accepteula "%altanosdir%\sysmon-config\sysmonconfig-export-block-
 :: Renamed Driver ... The driver file and registry entry are renamed. Name has an 8-character lim
 sysmon.exe -i -d sumonmon
 :: Renamed service
-sumonmon.exe -i -d sumonmon
+::sysmon.exe -i -d sumonmon
 
  %altanosinstdir%\bin\PrivaZer.exe
 :: Backup to bootable .wim 

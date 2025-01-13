@@ -1,3 +1,13 @@
+$sysdrive =  $Env:SystemDrive
+$altanosinstdir = "$sysdrive\AltanOS.inst"
+# Put som paths and url's here eventually
+
+if (-not (Test-Path -Path $altanosinstdir)) {
+	mkdir "$altanosinstdir"
+	mkdir "$altanosinstdir\bin"
+	mkdir "$altanosinstdir\games"
+}
+
 # huge thanks to Matthew Graeber @ SpecterOps - https://github.com/palantir/exploitguard
 function harden_processes() {
 Set-ProcessMitigation -Name outlook.exe -Enable DEP,BottomUp,ForceRelocateImages,CFG,AuditRemoteImageLoads,AuditLowLabelImageLoads,EnableExportAddressFilter,EnableExportAddressFilterPlus,EnableImportAddressFilter,EnableRopStackPivot,EnableRopCallerCheck,EnableRopSimExec,SEHOP,TerminateOnError,AuditChildProcess
@@ -31,6 +41,9 @@ Set-ProcessMitigation -Name wmplayer.exe -Enable DEP,BottomUp,CFG,AuditRemoteIma
 }
 harden_processes
 
+Invoke-WebRequest -Uri https://demo.wd.microsoft.com/Content/ProcessMitigation.xml -OutFile $altanosinstdir\ProcessMitigation.xml
+Set-ProcessMitigation -PolicyFilePath $altanosinstdir\ProcessMitigation.xml
+
 # List the optional features in the running Operating System:
 #    PS C:\> Get-WindowsOptionalFeature –Online
 function disable_win_feature() {
@@ -40,10 +53,11 @@ Disable-WindowsOptionalFeature -NoRestart -Online -FeatureName Microsoft-RemoteD
 Disable-WindowsOptionalFeature -NoRestart -Online -FeatureName WorkFolders-Client
 Disable-WindowsOptionalFeature -NoRestart -Online -FeatureName Printing-Foundation-Internetprinting-Client
 Disable-WindowsOptionalFeature -NoRestart -Online -FeatureName MSRDC-Infrastructure
+Disable-WindowsOptionalFeature -NoRestart -Online -FeatureName MicrosoftWindowsPowerShellV2
+Disable-WindowsOptionalFeature -NoRestart -Online -FeatureName MicrosoftWindowsPowerShellV2Root
 }
 disable_win_feature
 
-$sysdrive =  $Env:SystemDrive
 # To replace the command in harden-*.cmd - https://learn.microsoft.com/en-us/powershell/module/dism/repair-windowsimage?view=windowsserver2022-ps
 # Repair-WindowsImage -Online -RestoreHealth -Source "$sysdrive\Windows\WinSxS" 
 Repair-WindowsImage  -RestoreHealth -ResetBase -NoRestart -Online

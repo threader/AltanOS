@@ -393,7 +393,7 @@ reg delete \"HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\WindowsUpdate\\Orchestrato
 :: Works, but not very user friendly... Make this optional .. are you set up for 'work' or 'modern' gaming?
 :: %powshcmd% "Set-ProcessMitigation -System -Enable DEP, EmulateAtlThunks, RequireInfo, BottomUp, HighEntropy, StrictHandle, SuppressExports, SEHOP, AuditMicrosoftSigned, AuditStoreSigned, EnforceModuleDependencySigning, DisableNonSystemFonts, AuditFont, EnableRopStackPivot"
 :: so land on this for now. 
- %powshcmd% "Set-ProcessMitigation -System -Enable DEP, EmulateAtlThunks, RequireInfo, BottomUp, HighEntropy, SEHOP, DisableNonSystemFonts, AuditFontAuditMicrosoftSigned, AuditStoreSigned, EnableRopStackPivo"
+ %powshcmd% "Set-ProcessMitigation -System -Enable DEP, EmulateAtlThunks, RequireInfo, BottomUp, HighEntropy, SEHOP, DisableNonSystemFonts, AuditFontAuditMicrosoftSigned, AuditStoreSigned, EnableRopStackPivot"
 
 bcdedit /set nx Optin
 
