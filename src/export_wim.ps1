@@ -6,11 +6,13 @@ $awimadir = $sysdrive\AltanOS.wim
 
 function awimawhe() {
 
+$get_date = Get-Date -Format "dddd-MM-dd-yyyy-HH-mm"
+
 $awimprefix = altanos-$get_date
 
-$get_date = Get-Date -Format "dddd-MM-dd-yyyy-HH-mm"
-$hashfile = "$awimadir\hash.output.$awimprefix.txt"
-$hashfilenew = "$awimadir\hash.output.new.$awimprefix.txt"
+$hashfile = "$awimadir\hash.output.old.txt"
+$hashfilenew = "$awimadir\hash.output.$awimprefix.new.txt"
+$hashfileold = "$awimadir\hash.output.$awimprefix.old.txt"
 
 if (-not (Test-Path -Path $hashfilenew)) {
 $hashfileout = $hashfile
@@ -45,6 +47,13 @@ New-WindowsImage -ImagePath "$awim" -CapturePath "$sysdrive" -CompressionType "N
 
 #New-WindowsImage -ImagePath "$awim" -CapturePath "$sysdrive" -CompressionType "None" -ConfigFilePath $awimusracfg -Name "$awimprefix_$sysdrive_user_wim" -SupportEa -Setbootable -WIMBoot -Verify
 
+pause 
+break
+if (-not (Test-Path $hashfile)) {
+  cp $hashfileout $hashfile
+	} else {
+  cp $hashfileout $hashfileold
+  }
 
 }
 awimawhe
