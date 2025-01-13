@@ -58,8 +58,11 @@ Write-Output "SHA256 compare $altanoswimloc"
 
 $get_date = Get-Date -Format "dddd-MM-dd-yyyy-HH-mm"
 
-$hashfile = "$altanoswimdir\hash.output.txt"
-$hashfilenew = "$altanoswimdir\hash.output.$get_date.txt"
+$awimprefix = altanos-$get_date
+
+$hashfile = "$altanoswimdir\hash.output.old.txt"
+$hashfilenew = "$altanoswimdir\hash.output.$aprefix.new.txt"
+$hashfileold = "$awimadir\hash.output.$awimprefix.old.txt"
 
 if (-not (Test-Path -Path $hashfilenew)) {
 $hashfileout = $hashfile
@@ -72,19 +75,33 @@ $altansearchwim = $null
 
 write-output "Locate AltanOS-*.wim:"
 $altansearchwim = Get-ChildItem -Path $altanoswimdir -include altanos-*.wim -Force -Recurse |
+				? FullName -notLike '$altanoswimdir\*.iso' |
 				Get-ChildItem -File -Force |
 				select-object -Expand FullName
-	Write-output "Found: $altanwimloc" 
 
+	if ($null -eq $altansearchwim) {
+		Write-Output "No WIM file found or selected. Aborting"
+		pause
+		break
+	}
 	$altanoswimloc = Split-Path -Path "$altansearchwim" -Parent
 
-	if (Test-Path "$altanoswimloc\altan.crt.txt") {
+	Write-output "Found: $altanoswimloc" 
+
+#        $ask = Read-Host -Prompt "Found $altanoswimloc , use this file?[y/n]"
+#			if ( $ask -eq 'y' ) {
+#				$altansearchwim = Resolve-Path -Path $altanoswimloc\altanos-*.wim
+#				write-output "Using: $altansearchwim"
+#			}
+
+
+	if (Test-Path "$altanoswimloc\*.priv.txt") {
 
 	$sha256 = New-Object -TypeName System.Security.Cryptography.SHA256CryptoServiceProvider
-	$hash = [System.BitConverter]::ToString($sha256.ComputeHash([System.IO.File]::ReadAllBytes($altanoswimloc\altan.crt))).Replace("-","")
+	$hash = [System.BitConverter]::ToString($sha256.ComputeHash([System.IO.File]::ReadAllBytes($altanoswimloc\*.priv.txt))).Replace("-","")
 	Out-File -FilePath $hashfileout -InputObject $hash 
 
-	ForEach ($_ in $altansearchwim) {
+	ForEach ($_ in $altanoswimloc) {
 	$altanwimrespath = Resolve-Path -Path $_\altanos-*.wim
 
 	$sha256 = New-Object -TypeName System.Security.Cryptography.SHA256CryptoServiceProvider
@@ -93,21 +110,8 @@ $altansearchwim = Get-ChildItem -Path $altanoswimdir -include altanos-*.wim -For
 	Out-File -FilePath $hashfileout -InputObject $hash -Append
 	}
 
-#        $ask = Read-Host -Prompt "Found $altanoswimloc , use this file?[y/n]"
-#			if ( $ask -eq 'y' ) {
-#				$altansearchwim = Resolve-Path -Path $altanoswimloc\altanos-*.wim
-#				write-output "Using: $altansearchwim"
-#			}
 
 	}
-
-	if ($null -eq $altansearchwim) {
-		Write-Output "No WIM file found or selected. Aborting"
-		pause
-		break
-	}
-	write-output "WIM location: $altanoswimloc"
-
 
 function CompareHashFiles() {
 $algo = "-Algorithm SHA512"
@@ -126,8 +130,13 @@ $litteral_path = $null
 	} else { 
 #	 Write-Output "$GrubForMsEfiLoc is equal to $msefi" 
  #   }
-
+pause 
+break
+if (-not (Test-Path $hashfile)) {
   cp $hashfileout $hashfile
+	} else {
+  cp $hashfileout $hashfileold
+  }
 
 #	} else {
 #	    Write-output  "$hashfile and $hashfilenew are the same file. Assume all is well."
