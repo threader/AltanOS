@@ -112,6 +112,7 @@ Disabled - well, strip_windows.ps1 now verbatim disables everything, but essenti
  * WorkFolders
  * Internetprinting
  * MSRDC
+ * VBSCRIPT
 
 On Windows 10 and 11 _pro_ and above enabled: 
  * [Containers-DisposableClientVM](https://learn.microsoft.com/en-us/windows/security/application-security/application-isolation/windows-sandbox/windows-sandbox-overview)
@@ -125,15 +126,17 @@ Good reading:
 * harden.ps1
 * harden.reg								 				- ofc
 * mouse-config.ps1								 			- There is just one item that is enabled atm, jump to default button.  
-* pkgs-prep.ps1
-* pref-cnt.ps1
-* schedule-tasks.ps1								        - Not yet working.
+* pkgs-prep.ps1												- pkgs: 
+* pref-cnt.ps1												- Reset preformance counters. (Might be a good idea if initially installed via VM?)
+* schedule-tasks.ps1								        		- Not yet working.
 * strip_windows.ps1											- Strips all and everything , still needs some testing as i cobbled this together being quite tired and at a time while i needed to give _it a rest_.
 * wsl-2-debian.ps1											- Not executed yet.
-* wdegc\Enable-ExploitGuard-AttackSurfaceReduction.ps1		- Script by Gunnar Haslinger to handle the [attack surface reduction rules](https://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference).
-* whs\windows-hardening-script.cmd							- Script by 'atlantsecurity' later modified by 'zer0lightning' - might also block some of the things relied on. - testing needed 
+* wdegc\Enable-ExploitGuard-AttackSurfaceReduction.ps1							- Modified: script by Gunnar Haslinger to handle the [attack surface reduction rules](https://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference).
+* whs\windows-hardening-script.cmd									- Modified: script by 'atlantsecurity' with work by 'zer0lightning' - https://github.com/atlantsecurity/windows-hardening-scripts 
+* ewls\YamatoSecurityConfigureWinEventLogs.bat								- Modified: Script by [Yamato-Security](https://github.com/Yamato-Security/EnableWindowsLogSettings)
+* sysmon.exe -i -accepteula sysmon-config\sysmonconfig-export-block-loldrivers.xml			- Modified: XML by [THEVER1TAS](https://github.com/THEVER1TAS/sysmon-config) - 
 
-## The following packages are left installed:
+## The following packages are left installed: - _this is an incomplete list_, see strip_windows.ps1 and doc\w11pro.nonremovable.def.txt as it ought\must have additions for _at least_ AMD stuff ( On a side note(quest) anyone want to see what happens if you run strip_windows.ps1 in reverse install and enable all windows features? :D)
 * VCLibs
 * NET.CoreRuntime
 * NET.Native
@@ -204,11 +207,11 @@ To be made optional:
 * MiniGW
 
 ## It will schedule tasks to be autorun - N.B! Not yet working, scheduling script is bonkers: 
-* autorun-update.ps1                - Runs PSWindowsUpdate every thuesday at 17pm
-* autorun-maintain.ps1              - Runs sfc /scannow and DISM /Online /Cleanup-Image /StartComponentCleanup /ResetBase /RestoreHealth every 3 weeks at 18pm  
-* autorun-privazer.ps1              - Runs PrivaZer to delete residue in the NTFS journal, and write ZERO to the free disk space as well as remove temporary files everywhere. Every 3 weeks Wedensday at 17pm
-* autorun-awdcleaner.ps1            - Runs AwdClenaer every Wedensday at 16pm.
-* autorun-sysmon.ps1 				- Runs sysmon service config for blocking unwanted events - TBD.
+* autorun-update.ps1			- Runs PSWindowsUpdate every thuesday at 17pm
+* autorun-maintain.ps1			- Runs DISM /Online /Cleanup-Image /StartComponentCleanup /ResetBase /RestoreHealth and sfc /scannow every 3 weeks at 18pm  
+* autorun-privazer.ps1			- Runs PrivaZer to delete residue in the NTFS journal, and write ZERO to the free disk space as well as remove temporary files everywhere. Every 3 weeks Wedensday at 17pm
+* autorun-awdcleaner.ps1		- Runs AwdClenaer every Wedensday at 16pm.
+* autorun-sysmon.ps1			- Runs sysmon service config for blocking unwanted events - TBD.
 
 autorun-maintain.ps1 will (once i fix this....) also be run upon login, once, after a reboot(!!!).
 
@@ -217,6 +220,7 @@ autorun-maintain.ps1 will (once i fix this....) also be run upon login, once, af
 * Removed "Windows Welcome Experience" after update.
 * Finally got around to adding "Open PowerShell/cmd in current directory".
 * https://github.com/gunnarhaslinger/Add-or-Remove-Application-To-Windows-10-Taskbar - Not yet tested
+* Allow BitLocker without a compatible TPM - This will be needed later for things like [Create-BitLocker-Encrypted-VHDX-Virtual-Disk-Containerfile](https://github.com/threader/Create-BitLocker-Encrypted-VHDX-Virtual-Disk-Containerfile)
 
 ## Look and feel: 
 
@@ -225,6 +229,8 @@ autorun-maintain.ps1 will (once i fix this....) also be run upon login, once, af
 * Mouse is set to (hopefully) jump to a prompt and land on the default answer, this saves time.
 * Revert8Plus (turns windows 10/11 into Windows7) install script is not initialized.
 * Black theme enabled in harden.reg. - Must bother to split this soon - there migt be a bug here leading to black text on dark windows, before first reboot?
+* Disable widgets\news&interest
+* Block new Outlook
 
 Also in harden.reg (- ofc.. where else would you logically put the taskbar colour settings?)
 The following settings live there, that are turned off because they are untested.
