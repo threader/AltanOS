@@ -81,7 +81,7 @@ function disable_win_packages()  {
 # (Get-Host).Version and Get-Host should work.
 # $altanosdir = "$sysdrive\AltanOS"
 # PowerShell -command -wait $altanosdir\src\strip_windows.ps1
-Get-Help
+Get-Help >> $null
 # Get-AppPackage -AllUsers | Remove-AppPackage -AllUsers
  # This will remove all user installed packages on the system.. 
  # this is for newer PowerShell versions.
