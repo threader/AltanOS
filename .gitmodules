@@ -16,4 +16,4 @@
 	url = https://github.com/threader/EnableWindowsLogSetting.git
 [submodule "sysmon-config"]
 	path = sysmon-config
-	url = https://github.com/THEVER1TAS/sysmon-config.git
+	url = https://github.com/threader/sysmon-config.git
