@@ -49,6 +49,15 @@ Set-ProcessMitigation -PolicyFilePath $altanosinstdir\ProcessMitigation.xml
 # No reboot is needed after making the change. This workaround does not prevent exploitation of SMB clients.
 Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\LanmanServer\Parameters" DisableCompression -Type DWORD -Value 1 -Force
 
+# Enable Defender signatures for Potentially Unwanted Applications (PUA)
+Set-MpPreference -PUAProtection enable
+
+# Enable Network protection
+# Enabled - Users will not be able to access malicious IP addresses and domains
+# Disable (Default) - The Network protection feature will not work. Users will not be blocked from accessing malicious domains
+# AuditMode - If a user visits a malicious IP address or domain, an event will be recorded in the Windows event log but the user will not be blocked from visiting the address.
+Set-MpPreference -EnableNetworkProtection Enabled 
+
 # List the optional features in the running Operating System:
 #    PS C:\> Get-WindowsOptionalFeature –Online
 function disable_win_feature() {
