@@ -260,12 +260,27 @@
       "AllowLocalSubnet": false,
       "AppExceptions": [
         {
-          "Id": "61f130b2-181b-4bb2-9545-f91445996a1e",
-          "CreationDate": "2024-02-29T18:54:42.2353177+01:00",
+          "Id": "b5c634b7-e651-4427-9c24-5d8308905463",
+          "CreationDate": "2024-12-05T08:47:39.0356505+01:00",
           "Timer": 0,
           "Subject": {
             "SubjectType": 2,
-            "ExecutablePath": "C:\\Program Files (x86)\\TinyWall\\TinyWall.exe"
+            "ExecutablePath": "C:\\Windows\\System32\\smartscreen.exe"
+          },
+          "Policy": {
+            "PolicyType": 3,
+            "LocalNetworkOnly": false,
+            "AllowedRemoteTcpConnectPorts": "*"
+          },
+          "ChildProcessesInherit": false
+        },
+        {
+          "Id": "6d54b0fe-adb5-4344-8575-ebd00cce4243",
+          "CreationDate": "2024-12-05T08:48:24.1680299+01:00",
+          "Timer": 0,
+          "Subject": {
+            "SubjectType": 2,
+            "ExecutablePath": "C:\\Windows\\System32\\MRT.exe"
           },
           "Policy": {
             "PolicyType": 3,
@@ -292,6 +307,78 @@
             "AllowedRemoteUdpConnectPorts": "*",
             "AllowedLocalTcpListenerPorts": "*",
             "AllowedLocalUdpListenerPorts": "*"
+          },
+          "ChildProcessesInherit": false
+        },
+        {
+          "Id": "2ffbe4ba-7b11-48e9-a273-b8254c588208",
+          "CreationDate": "2025-01-14T04:15:49.4909508+01:00",
+          "Timer": 0,
+          "Subject": {
+            "SubjectType": 2,
+            "ExecutablePath": "C:\\Users\\thread-adm\\AppData\\Local\\Chromium\\Application\\chrome.exe"
+          },
+          "Policy": {
+            "PolicyType": 3,
+            "LocalNetworkOnly": false,
+            "AllowedRemoteTcpConnectPorts": "*",
+            "AllowedRemoteUdpConnectPorts": "*",
+            "AllowedLocalTcpListenerPorts": "*",
+            "AllowedLocalUdpListenerPorts": "*"
+          },
+          "ChildProcessesInherit": false
+        },
+        {
+          "Id": "611f4e4a-7549-43f2-9b12-4d179dffe78c",
+          "CreationDate": "2025-01-14T04:17:46.3887044+01:00",
+          "Timer": 0,
+          "Subject": {
+            "SubjectType": 2,
+            "ExecutablePath": "C:\\AltanOS.inst\\bin\\adwcleaner.exe"
+          },
+          "Policy": {
+            "PolicyType": 3,
+            "LocalNetworkOnly": false,
+            "AllowedRemoteTcpConnectPorts": "*",
+            "AllowedRemoteUdpConnectPorts": "*",
+            "AllowedLocalTcpListenerPorts": "*",
+            "AllowedLocalUdpListenerPorts": "*"
+          },
+          "ChildProcessesInherit": false
+        },
+        {
+          "Id": "104e5a9c-ab40-472d-9cc2-575140a791b1",
+          "CreationDate": "2025-01-14T04:20:27.7924341+01:00",
+          "Timer": 0,
+          "Subject": {
+            "SubjectType": 2,
+            "ExecutablePath": "C:\\Program Files\\Mozilla Firefox\\firefox.exe"
+          },
+          "Policy": {
+            "PolicyType": 3,
+            "LocalNetworkOnly": false,
+            "AllowedRemoteTcpConnectPorts": "*",
+            "AllowedRemoteUdpConnectPorts": "*",
+            "AllowedLocalTcpListenerPorts": "*",
+            "AllowedLocalUdpListenerPorts": "*"
+          },
+          "ChildProcessesInherit": false
+        },
+        {
+          "Id": "92a48b44-c440-4abb-b87f-448c5a9bd198",
+          "CreationDate": "2025-01-14T04:37:04.4354885+01:00",
+          "Timer": 0,
+          "Subject": {
+            "SubjectType": 2,
+            "ExecutablePath": "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe"
+          },
+          "Policy": {
+            "PolicyType": 3,
+            "LocalNetworkOnly": false,
+            "AllowedRemoteTcpConnectPorts": "*",
+            "AllowedRemoteUdpConnectPorts": "*",
+            "AllowedLocalTcpListenerPorts": "",
+            "AllowedLocalUdpListenerPorts": ""
           },
           "ChildProcessesInherit": false
         },
@@ -332,6 +419,24 @@
           "ChildProcessesInherit": false
         },
         {
+          "Id": "eb292d8d-506d-44b9-8f65-40359262a585",
+          "CreationDate": "2025-01-14T04:45:13.9612015+01:00",
+          "Timer": 0,
+          "Subject": {
+            "SubjectType": 2,
+            "ExecutablePath": "C:\\AltanOS.inst\\bin\\PrivaZer.exe"
+          },
+          "Policy": {
+            "PolicyType": 3,
+            "LocalNetworkOnly": false,
+            "AllowedRemoteTcpConnectPorts": "*",
+            "AllowedRemoteUdpConnectPorts": "*",
+            "AllowedLocalTcpListenerPorts": "*",
+            "AllowedLocalUdpListenerPorts": "*"
+          },
+          "ChildProcessesInherit": false
+        },
+        {
           "Id": "33ddeb3a-edf5-41e1-b3e6-9d18fd95927f",
           "CreationDate": "2024-02-29T22:03:50.9580348+01:00",
           "Timer": 0,
@@ -356,6 +461,42 @@
           "Subject": {
             "SubjectType": 2,
             "ExecutablePath": "C:\\Program Files\\Git\\mingw64\\libexec\\git-core\\git-remote-https.exe"
+          },
+          "Policy": {
+            "PolicyType": 3,
+            "LocalNetworkOnly": false,
+            "AllowedRemoteTcpConnectPorts": "*",
+            "AllowedRemoteUdpConnectPorts": "*",
+            "AllowedLocalTcpListenerPorts": "*",
+            "AllowedLocalUdpListenerPorts": "*"
+          },
+          "ChildProcessesInherit": false
+        },
+        {
+          "Id": "854c6564-2812-4481-a360-aa3d56ad5eb8",
+          "CreationDate": "2025-01-14T05:20:06.2919362+01:00",
+          "Timer": 0,
+          "Subject": {
+            "SubjectType": 2,
+            "ExecutablePath": "C:\\Program Files\\WindowsApps\\Microsoft.DesktopAppInstaller_1.24.25200.0_x64__8wekyb3d8bbwe\\WindowsPackageManagerServer.exe"
+          },
+          "Policy": {
+            "PolicyType": 3,
+            "LocalNetworkOnly": false,
+            "AllowedRemoteTcpConnectPorts": "*",
+            "AllowedRemoteUdpConnectPorts": "*",
+            "AllowedLocalTcpListenerPorts": "*",
+            "AllowedLocalUdpListenerPorts": "*"
+          },
+          "ChildProcessesInherit": false
+        },
+        {
+          "Id": "422498dc-1269-4c2e-bf74-b06beed01f07",
+          "CreationDate": "2025-01-14T05:20:08.148909+01:00",
+          "Timer": 0,
+          "Subject": {
+            "SubjectType": 2,
+            "ExecutablePath": "C:\\Users\\thread-adm\\AppData\\Local\\Programs\\UniGetUI\\UniGetUI.exe"
           },
           "Policy": {
             "PolicyType": 3,
@@ -440,6 +581,24 @@
           "ChildProcessesInherit": false
         },
         {
+          "Id": "993ea9f3-2ee5-408f-885c-c9759e298796",
+          "CreationDate": "2025-01-14T05:20:13.2332797+01:00",
+          "Timer": 0,
+          "Subject": {
+            "SubjectType": 2,
+            "ExecutablePath": "C:\\Program Files\\WindowsApps\\Microsoft.DesktopAppInstaller_1.24.25200.0_x64__8wekyb3d8bbwe\\winget.exe"
+          },
+          "Policy": {
+            "PolicyType": 3,
+            "LocalNetworkOnly": false,
+            "AllowedRemoteTcpConnectPorts": "*",
+            "AllowedRemoteUdpConnectPorts": "*",
+            "AllowedLocalTcpListenerPorts": "*",
+            "AllowedLocalUdpListenerPorts": "*"
+          },
+          "ChildProcessesInherit": false
+        },
+        {
           "Id": "caef5377-b9b9-46f2-a53b-258fb6f81c84",
           "CreationDate": "2024-02-29T22:19:23.7705107+01:00",
           "Timer": 0,
@@ -457,6 +616,27 @@
           },
           "ChildProcessesInherit": false
         },
+        {
+          "Id": "ebc8d9af-521c-45c0-8fad-56baf9b0fe81",
+          "CreationDate": "2025-01-14T05:20:37.720742+01:00",
+          "Timer": 0,
+          "Subject": {
+            "SubjectType": 2,
+            "ExecutablePath": "C:\\Program Files\\Malwarebytes\\Anti-Malware\\Malwarebytes.exe"
+          },
+          "Policy": {
+            "PolicyType": 3,
+            "LocalNetworkOnly": false,
+            "AllowedRemoteTcpConnectPorts": "*",
+            "AllowedRemoteUdpConnectPorts": "*",
+            "AllowedLocalTcpListenerPorts": "*",
+            "AllowedLocalUdpListenerPorts": "*"
+          },
+          "ChildProcessesInherit": false
+        }
+      ],
+      "DisplayOffBlock": false
+    },
         {
           "Id": "06560ead-4103-4bc4-8e3c-010dc4a282be",
           "CreationDate": "2024-02-29T22:31:45.0672846+01:00",
