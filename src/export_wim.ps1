@@ -44,7 +44,7 @@ $rsapub = "$awimadir\$awimprefix.pub.txt"
 
 # New-WindowsImage -ImagePath "$awim" -CapturePath "$sysdrive" -CompressionType "None" -ConfigFilePath $awimacfg -Name "$awimprefix"  -SupportEa -Setbootable -WIMBoot -Verify
 	Write-Output   "$awim  $sysdrive  $awimacfg  $awimprefix"
-New-WindowsImage -ImagePath $awim -CapturePath $sysdrive -ConfigFilePath $awimacfg -Name $awimprefix -WIMBoot -Verify
+	New-WindowsImage -ImagePath $awim -CapturePath $sysdrive -ConfigFilePath $awimacfg -Name $awimprefix -SupportEa -WIMBoot -Verify
 
 	$sha256 = New-Object -TypeName System.Security.Cryptography.SHA256CryptoServiceProvider
 	$hash = [System.BitConverter]::ToString($sha256.ComputeHash([System.IO.File]::ReadAllBytes($awim))).Replace("-","")
