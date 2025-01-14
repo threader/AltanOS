@@ -120,7 +120,7 @@ Repair-WindowsImage  -RestoreHealth -ResetBase -NoRestart -Online
 # EOF SwapMouse.ps1
 #
 
-# something failed here on my first win 11 pro test - wont get around to that for 'a few more weeks' when i set up on a new system with modern VM capability.
+# something failed here on my first win 11 pro test - wont get around to that for 'a few 
 Set-VMProcessor -VMName VM-Sandbox -ExposeVirtualizationExtensions $true
 Update-VMVersion -VMName VM-Sandbox
 Enable-WindowsOptionalFeature -FeatureName "Containers-DisposableClientVM" -All -Online
