@@ -196,6 +196,9 @@ sysmon.exe -i -d sumonmon
 :: Backup to bootable .wim 
  %powshadmcmd% "%altanosdir%\src\export-wim.ps1"
 
+:: Schedule checkdisk next reboot 
+chkdsk %SystemDrive% /F /R /X 
+
 :: Disable this untill i fix it
 :: %powshadmcmd% "%altanosdir%\src\schedule-tasks.ps1"
 
