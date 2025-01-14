@@ -44,6 +44,11 @@ harden_processes
 Invoke-WebRequest -Uri https://demo.wd.microsoft.com/Content/ProcessMitigation.xml -OutFile $altanosinstdir\ProcessMitigation.xml
 Set-ProcessMitigation -PolicyFilePath $altanosinstdir\ProcessMitigation.xml
 
+# Disable SMBv3 compression
+# You can disable compression to block unauthenticated attackers from exploiting the vulnerability against an SMBv3 Server with the PowerShell command below.
+# No reboot is needed after making the change. This workaround does not prevent exploitation of SMB clients.
+Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\LanmanServer\Parameters" DisableCompression -Type DWORD -Value 1 -Force
+
 # List the optional features in the running Operating System:
 #    PS C:\> Get-WindowsOptionalFeature –Online
 function disable_win_feature() {
@@ -60,7 +65,7 @@ disable_win_feature
 
 # To replace the command in harden-*.cmd - https://learn.microsoft.com/en-us/powershell/module/dism/repair-windowsimage?view=windowsserver2022-ps
 # Repair-WindowsImage -Online -RestoreHealth -Source "$sysdrive\Windows\WinSxS" 
-Repair-WindowsImage  -RestoreHealth -ResetBase -NoRestart -Online
+Repair-WindowsImage  -RestoreHealth -StartComponentCleanup  -ResetBase -NoRestart -Online
 
 # Repair-WindowsImage -CheckHealth -ScanHealth -RestoreHealth -StartComponentCleanup -ResetBase -NoRestart -Online
 
