@@ -134,10 +134,12 @@ Repair-WindowsImage  -RestoreHealth -StartComponentCleanup  -ResetBase -NoRestar
 # EOF SwapMouse.ps1
 #
 
-# something failed here on my first win 11 pro test - wont get around to that for 'a few 
-Set-VMProcessor -VMName VM-Sandbox -ExposeVirtualizationExtensions $true
-Update-VMVersion -VMName VM-Sandbox
+# https://learn.microsoft.com/en-us/powershell/module/hyper-v/set-vmprocessor?view=windowsserver2025-ps
+# https://learn.microsoft.com/en-us/windows/security/application-security/application-isolation/windows-sandbox/windows-sandbox-overview
+# This sets up a 6.4 gb image in \ProgramData\Microsoft\Contrainers\*
 Enable-WindowsOptionalFeature -FeatureName "Containers-DisposableClientVM" -All -Online
+# Set-VMProcessor -VMName VM-Sandbox -ExposeVirtualizationExtensions $true
+# Update-VMVersion -VMName VM-Sandbox
 
 
 Read-Host -Prompt "Press any key to continue"
