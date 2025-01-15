@@ -94,7 +94,7 @@ for /f "delims=" %%b in ('reg query "HKLM\SYSTEM\CurrentControlSet\Services\NetB
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\Dnscache\Parameters" /v "DisableParallelAandAAAA " /t REG_DWORD /d "1" /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows NT\DNSClient" /v "DisableSmartNameResolution" /t REG_DWORD /d "1" /f
 
-:: disable startup delay of running apps
+:: disable startup delay of running apps %currentuser% 
 reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Serialize" /v "StartupDelayInMSec" /t REG_DWORD /d "0" /f
 
 :: set strong cryptography on 64 bit and 32 bit .net framework (version 4 and above) to fix a scoop installation issue
@@ -112,6 +112,35 @@ for /f %%i in ('wmic path win32_networkadapter get GUID ^| findstr "{"') do (
      reg add "HKLM\SYSTEM\CurrentControlSet\services\Tcpip\Parameters\Interfaces\%%i" /v "TcpDelAckTicks" /t REG_DWORD /d "0" /f
      reg add "HKLM\SYSTEM\CurrentControlSet\services\Tcpip\Parameters\Interfaces\%%i" /v "TCPNoDelay" /t REG_DWORD /d "1" /f
 )
+
+:: disable speech model updates
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Speech" /v "AllowSpeechModelUpdate" /t REG_DWORD /d "0" /f
+
+
+:: disable website access to language list %currentuser% 
+reg add "HKCU\Control Panel\International\User Profile" /v "HttpAcceptLanguageOptOut" /t REG_DWORD /d "1" /f
+
+
+
+:: disable online speech recognition
+reg add "HKLM\SOFTWARE\Policies\Microsoft\InputPersonalization" /v "AllowInputPersonalization" /t REG_DWORD /d "0" /f
+
+:: disable windows insider and build previews
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\PreviewBuilds" /v "EnableConfigFlighting" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\PreviewBuilds" /v "AllowBuildPreview" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\PreviewBuilds" /v "EnableExperimentation" /t REG_DWORD /d "0" /f
+reg add "HKLM\SOFTWARE\Microsoft\WindowsSelfHost\UI\Visibility" /v "HideInsiderPage" /t REG_DWORD /d "1" /f
+:: damn i really thought EnableExperimentation was disabled...
+
+:: disable activity feed
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\System" /v "EnableActivityFeed" /t REG_DWORD /d "0" /f
+
+:: disable windows media DRM internet access
+reg add "HKLM\SOFTWARE\Policies\Microsoft\WMDRM" /v "DisableOnline" /t REG_DWORD /d "1" /f
+
+:: disable windows media player wizard on first run
+%currentuser% reg add "HKCU\SOFTWARE\Microsoft\MediaPlayer\Preferences" /v "AcceptedPrivacyStatement" /t REG_DWORD /d "1" /f
+
 
 :: configure search settings
  reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Search" /v "ConnectedSearchUseWeb" /t REG_DWORD /d "0" /f
@@ -131,6 +160,13 @@ for /f %%i in ('wmic path win32_networkadapter get GUID ^| findstr "{"') do (
  reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer" /v "NoResolveTrack" /t REG_DWORD /d "1" /f
  reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "HideFileExt" /t REG_DWORD /d "0" /f
 
+:: show hidden files, folders and drives in file epxlorer%currentuser%
+ reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "Hidden" /t REG_DWORD /d "1" /f
+
+:: show command prompt on win+x menu %currentuser%
+ reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "DontUsePowerShellOnWinX" /t REG_DWORD /d "1" /f
+
+
 :: disable lock screen camera
  reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Personalization" /v "NoLockScreenCamera" /t REG_DWORD /d "1" /f
 
@@ -139,6 +175,7 @@ for /f %%i in ('wmic path win32_networkadapter get GUID ^| findstr "{"') do (
  reg add "HKLM\SYSTEM\CurrentControlSet\Control\Remote Assistance" /v "fAllowToGetHelp" /t REG_DWORD /d "0" /f
  reg add "HKLM\SYSTEM\CurrentControlSet\Control\Remote Assistance" /v "fEnableChatControl" /t REG_DWORD /d "0" /f
 
+:: Good one on old intel i7 from 1008 or sso.
 :: enable legacy photo viewer
 for %%i in (tif tiff bmp dib gif jfif jpe jpeg jpg jxr png) do (
       reg add "HKLM\SOFTWARE\Microsoft\Windows Photo Viewer\Capabilities\FileAssociations" /v ".%%~i" /t REG_SZ /d "PhotoViewer.FileAssoc.Tiff" /f
@@ -168,12 +205,38 @@ wevtutil set-log "Microsoft-Windows-UserModePowerService/Diagnostic" /e:false
 :: do not allow pinning microsoft store app to taskbar
 :: reg add "HKCU\SOFTWARE\Policies\Microsoft\Windows\Explorer" /v "NoPinningStoreToTaskbar" /t REG_DWORD /d "1" /f
 
+
+:: show more details in file transfer dialog currentuser
+ reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\OperationStatusManager" /v "EnthusiastMode" /t REG_DWORD /d "1" /f
+
+:: Extend icon cache size to 4 MB
+reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer" /v "Max Cached Icons" /t REG_SZ /d "4096" /f
+
 :: restrict windows' access to internet resources
 :: enables various other GPOs that limit access on specific windows services
  reg add "HKLM\SOFTWARE\Policies\Microsoft\InternetManagement" /v "RestrictCommunication" /t REG_DWORD /d "1" /f
 
 :: disable devicecensus.exe telemetry process
  reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\'DeviceCensus.exe'" /v "Debugger" /t REG_SZ /d "%WinDir%\System32\taskkill.exe" /f
+
+:: disable use sign-in info to auto finish setting up device after update or restart
+reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /v "DisableAutomaticRestartSignOn" /t REG_DWORD /d "1" /f
+
+:: do not preserve zone information in file attachments %currentuser%
+ reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Attachments" /v "SaveZoneInformation" /t REG_DWORD /d "1" /f
+
+
+:: disable annoying keyboard and mouse features %currentuser%
+ reg add "HKCU\Control Panel\Accessibility\HighContrast" /v "Flags" /t REG_DWORD /d "0" /f
+ reg add "HKCU\Control Panel\Accessibility\Keyboard Response" /v "Flags" /t REG_DWORD /d "0" /f
+ reg add "HKCU\Control Panel\Accessibility\MouseKeys" /v "Flags" /t REG_DWORD /d "0" /f
+ reg add "HKCU\Control Panel\Accessibility\StickyKeys" /v "Flags" /t REG_DWORD /d "0" /f
+ reg add "HKCU\Control Panel\Accessibility\ToggleKeys" /v "Flags" /t REG_DWORD /d "0" /f
+
+:: disable touch visual feedback
+ reg add "HKCU\Control Panel\Cursors" /v "GestureVisualization" /t REG_DWORD /d "0" /f
+ reg add "HKCU\Control Panel\Cursors" /v "ContactVisualization" /t REG_DWORD /d "0" /f
+
 
 :: disable text/ink/handwriting telemetry
  reg add "HKCU\SOFTWARE\Microsoft\InputPersonalization" /v "RestrictImplicitInkCollection" /t REG_DWORD /d "1" /f
@@ -211,7 +274,7 @@ wevtutil set-log "Microsoft-Windows-UserModePowerService/Diagnostic" /e:false
 :: disable nvidia telemetry
  reg add "HKLM\SOFTWARE\NVIDIA Corporation\NvControlPanel2\Client" /v "OptInOrOutPreference" /t REG_DWORD /d "0" /f
 
-:: disable typing insights
+:: disable typing insights - %currentuser%
  reg add "HKCU\SOFTWARE\Microsoft\Input\Settings" /v "InsightsEnabled" /t REG_DWORD /d "0" /f
 
 :: disable cloud optimized taskbars
@@ -252,7 +315,7 @@ echo The spooler will not accept client connections nor allow users to share pri
 :: reg add "HKCR\regfile\Shell\RunAs\Command" /ve /t REG_SZ /d "NSudoLG.exe -U:T -P:E reg import "%%1"" /f
 
 :: install cab context menu
- reg delete "HKCR\CABFolder\Shell\RunAs" /f > nul 2>nul
+ reg delete "HKCR\CABFolder\Shell\RunAs" /f >
  reg add "HKCR\CABFolder\Shell\RunAs" /ve /t REG_SZ /d "Install" /f
  reg add "HKCR\CABFolder\Shell\RunAs" /v "HasLUAShield" /t REG_SZ /d "" /f       
  reg add "HKCR\CABFolder\Shell\RunAs\Command" /ve /t REG_SZ /d "cmd /k DISM /online /add-package /packagepath:\"%%1\"" /f
@@ -308,6 +371,11 @@ reg add "HKCU\SOFTWARE\Policies\Microsoft\Windows\Explorer" /v "NoRemoteDestinat
  reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\System" /v "PublishUserActivities" /t REG_DWORD /d "0" /f
  reg add "HKLM\SYSTEM\CurrentControlSet\Control\Diagnostics\Performance" /v "DisableDiagnosticTracing" /t REG_DWORD /d "1" /f
  reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WDI\{9c5a40da-b965-4fc3-8781-88dd50a6299d}" /v "ScenarioExecutionEnabled" /t REG_DWORD /d "0" /f
+
+:: hide news and interests on taskbar - sorting out shat of these regs should to the user/user not adm/user will be a pain
+:: %currentuser% 
+reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Feeds" /v "ShellFeedsTaskbarViewMode" /t REG_DWORD /d "2" /f
+
 
 :: disable shared experiences
  reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\System" /v "EnableCdp" /t REG_DWORD /d "0" /f
@@ -365,6 +433,86 @@ reg add "HKCU\SOFTWARE\Policies\Microsoft\Windows\Explorer" /v "NoRemoteDestinat
     reg add "%%a\Properties" /v "{b3f8fa53-0004-438e-9003-51a46e139bfc},4" /t REG_DWORD /d "0" /f
 )
 
+for /f "delims=" %%a in ('reg query "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\MMDevices\Audio\Render"') do (
+    reg add "%%a\Properties" /v "{b3f8fa53-0004-438e-9003-51a46e139bfc},3" /t REG_DWORD /d "0" /f
+    reg add "%%a\Properties" /v "{b3f8fa53-0004-438e-9003-51a46e139bfc},4" /t REG_DWORD /d "0" /f
+)
+
+:: lsass hardening
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\lsass.exe" /v "AuditLevel" /t REG_DWORD /d "8" /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\CredentialsDelegation" /v "AllowProtectedCreds" /t REG_DWORD /d "1" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\Lsa" /v "DisableRestrictedAdminOutboundCreds" /t REG_DWORD /d "1" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\Lsa" /v "DisableRestrictedAdmin" /t REG_DWORD /d "0" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\Lsa" /v "RunAsPPL" /t REG_DWORD /d "1" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\WDigest" /v "Negotiate" /t REG_DWORD /d "0" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\WDigest" /v "UseLogonCredential" /t REG_DWORD /d "0" /f
+
+
+:: enable hybrid sleep
+powercfg -setacvalueindex 11111111-1111-1111-1111-111111111111 238c9fa8-0aad-41ed-83f4-97be242c8f20 94ac6d29-73ce-41a6-809f-6363ba21b47e 1
+powercfg -setdcvalueindex 11111111-1111-1111-1111-111111111111 238c9fa8-0aad-41ed-83f4-97be242c8f20 94ac6d29-73ce-41a6-809f-6363ba21b47e 1
+powercfg -setactive scheme_current
+
+:: Hecky but ok , I've got a but in my menu now where items have appeared twice 
+:: debloat 'Send To' context menu, hidden files do not show up in the 'Send To' context menu
+attrib +h "C:\Users\%loggedinusername%\AppData\Roaming\Microsoft\Windows\SendTo\Bluetooth File Transfer.LNK"
+attrib +h "C:\Users\%loggedinusername%\AppData\Roaming\Microsoft\Windows\SendTo\Mail Recipient.MAPIMail"
+attrib +h "C:\Users\%loggedinusername%\AppData\Roaming\Microsoft\Windows\SendTo\Documents.mydocs"
+
+:: remove share from context menu
+reg delete "HKCR\*\shellex\ContextMenuHandlers\ModernSharing" /f >
+
+:: Hmmm i feel i've gone hunting here before .... more (old) from atlas/src/AtlasModules/atlas-config.cm
+
+
+:: add music and videos folders to quick access
+:: start /b %PowerShell% "$o = new-object -com shell.application; $o.Namespace("""$env:userprofile\Videos""").Self.InvokeVerb("""pintohome"""); $o.Namespace("""$env:userprofile\Music""").Self.InvokeVerb("""pintohome""")" > nul 2>&1
+
+
+set setSvc=call :setSvc
+
+:: Workstation disbled as Network Sharing dependency.
+%setSvc% NlaSvc 4
+%setSvc% lmhosts 4
+%setSvc% netman 4
+::EventLog enabled as Network Sharing dependency
+%setSvc% NlaSvc 2
+%setSvc% lmhosts 3
+%setSvc% netman 3
+::Workstation disabled
+%setSvc% rdbss 4
+%setSvc% KSecPkg 4
+%setSvc% mrxsmb20 4
+%setSvc% mrxsmb 4
+%setSvc% srv2 4
+%setSvc% LanmanWorkstation 4
+
+:: disable fault tolerant heap
+:: https://docs.microsoft.com/en-us/windows/win32/win7appqual/fault-tolerant-heap
+:: doc listed as only affected in windows 7, is also in 7+
+reg add "HKLM\SOFTWARE\Microsoft\FTH" /v "Enabled" /t REG_DWORD /d "0" /f
+
+:: enable file system mitigations (default)
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager" /v "ProtectionMode" /t REG_DWORD /d "1" /f
+
+:: unpin all quick access shortcuts by default
+reg add "HKCU\Control Panel\Quick Actions\Control Center\Unpinned" /v "Microsoft.QuickAction.WiFi" /t REG_NONE /d "" /f
+reg add "HKCU\Control Panel\Quick Actions\Control Center\Unpinned" /v "Microsoft.QuickAction.AllSettings" /t REG_NONE /d "" /f
+reg add "HKCU\Control Panel\Quick Actions\Control Center\Unpinned" /v "Microsoft.QuickAction.BlueLightReduction" /t REG_NONE /d "" /f
+reg add "HKCU\Control Panel\Quick Actions\Control Center\Unpinned" /v "Microsoft.QuickAction.AvailableNetworks" /t REG_NONE /d "" /f
+reg add "HKCU\Control Panel\Quick Actions\Control Center\Unpinned" /v "Microsoft.QuickAction.Location" /t REG_NONE /d "" /f
+reg add "HKCU\Control Panel\Quick Actions\Control Center\Unpinned" /v "Microsoft.QuickAction.Connect" /t REG_NONE /d "" /f
+reg add "HKCU\Control Panel\Quick Actions\Control Center\Unpinned" /v "Microsoft.QuickAction.QuietHours" /t REG_NONE /d "" /f
+reg add "HKCU\Control Panel\Quick Actions\Control Center\Unpinned" /v "Microsoft.QuickAction.ScreenClipping" /t REG_NONE /d "" /f
+reg add "HKCU\Control Panel\Quick Actions\Control Center\Unpinned" /v "Microsoft.QuickAction.Vpn" /t REG_NONE /d "" /f
+reg add "HKCU\Control Panel\Quick Actions\Control Center\Unpinned" /v "Microsoft.QuickAction.Project" /t REG_NONE /d "" /f
+
+
+:: hmm interesting 
+:: set Win32PrioritySeparation to short variable 1:1, no foreground boost
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\PriorityControl" /v "Win32PrioritySeparation" /t REG_DWORD /d "36" /f
+
+
 :: Block new Outlook
 reg delete \"HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\WindowsUpdate\\Orchestrator\\UScheduler_Oobe\\OutlookUpdate\" /f
 
@@ -393,9 +541,20 @@ reg delete \"HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\WindowsUpdate\\Orchestrato
 :: Works, but not very user friendly... Make this optional .. are you set up for 'work' or 'modern' gaming?
 :: %powshcmd% "Set-ProcessMitigation -System -Enable DEP, EmulateAtlThunks, RequireInfo, BottomUp, HighEntropy, StrictHandle, SuppressExports, SEHOP, AuditMicrosoftSigned, AuditStoreSigned, EnforceModuleDependencySigning, DisableNonSystemFonts, AuditFont, EnableRopStackPivot"
 :: so land on this for now. 
- %powshcmd% "Set-ProcessMitigation -System -Enable DEP, EmulateAtlThunks, RequireInfo, BottomUp, HighEntropy, SEHOP, DisableNonSystemFonts, AuditFontAuditMicrosoftSigned, AuditStoreSigned, EnableRopStackPivot"
+ %powshcmd% "Set-ProcessMitigation -System -Enable DEP, EmulateAtlThunks, RequireInfo, BottomUp, HighEntropy, CFG, SEHOP,  AuditSEHOP, SEHOPTelemetry, DisableNonSystemFonts, AuditFontAuditMicrosoftSigned, AuditStoreSigned, EnableRopStackPivot"
+:: disable data execution prevention (DEP) may need to enable for faceit, valorant and other anti-cheats
+
 
 bcdedit /set nx Optin
+
+:: Keep this in mind as i maanged to get in a sticky place with a windows account and these hardenings
+:: detect if user is using a microsoft account
+:: %PowerShell% "Get-LocalUser | Select-Object Name,PrincipalSource" | findstr /C:"MicrosoftAccount" > nul 2>&1 && set MSACCOUNT=YES || set MSACCOUNT=NO
+:: if "%MSACCOUNT%"=="NO" ( %setSvc% wlidsvc 4 ) ELSE ( echo "Microsoft Account detected, not disabling wlidsvc..." )
+:: choice /c yn /m "Last warning, continue? [Y/N]" /n
+::sc stop TabletInputService
+::%setSvc% TabletInputService 4
+
 
 @echo on
 

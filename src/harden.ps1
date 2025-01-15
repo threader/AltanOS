@@ -7,6 +7,9 @@ if (-not (Test-Path -Path $altanosinstdir)) {
 	mkdir "$altanosinstdir\bin"
 	mkdir "$altanosinstdir\games"
 }
+# Taken from (old) Atlas
+New-Object -comObject WScript.Shell; $Shortcut = $WshShell.CreateShortcut("""$env:ProgramData\Microsoft\Windows\Start Menu\Programs\Process Explorer.lnk"""); $Shortcut.TargetPath = """$Env:Username/AppData/Local/Microsoft/WinGet/Packages/Microsoft.Sysinternals.ProcessExplorer_Microsoft.Winget.Source_8wekyb3d8bbwe/procexp.exe"""; $Shortcut.Save()
+New-Object -comObject WScript.Shell; $Shortcut = $WshShell.CreateShortcut("""$env:ProgramData\Microsoft\Windows\Start Menu\Programs\Process Monitor.lnk"""); $Shortcut.TargetPath = """$Env:Username/AppData/Local/Microsoft/WinGet/Packages/Microsoft.Sysinternals.ProcessMonitor_Microsoft.Winget.Source_8wekyb3d8bbwe/procmon.exe"""; $Shortcut.Save()
 
 # huge thanks to Matthew Graeber @ SpecterOps - https://github.com/palantir/exploitguard
 function harden_processes() {
