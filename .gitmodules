@@ -17,3 +17,4 @@
 [submodule "sysmon-config"]
 	path = sysmon-config
 	url = https://github.com/threader/sysmon-config.git
+	branch = main_altan
