@@ -13,7 +13,7 @@
 	url = https://github.com/threader/windows-hardening-scripts
 [submodule "ewls"]
 	path = ewls
-	url = https://github.com/threader/EnableWindowsLogSetting.git
+	url = https://github.com/threader/EnableWindowsLogSettings.git
 [submodule "sysmon-config"]
 	path = sysmon-config
 	url = https://github.com/threader/sysmon-config.git

@@ -103,7 +103,7 @@ The following projects are included in one form or another:
 * [exploitguard](https://github.com/palantir/exploitguard/) - Added to AltanOS/src/harden.ps1 
 * [Modified: Windows-Defender-Exploit-Guard-Configuration](https://github.com/threader/Windows-Defender-Exploit-Guard-Configuration) - Runs AltanOS/wdegc/Enable-ExploitGuard-AttackSurfaceReduction.ps1 originally by [Gunnar Haslinger](https://github.com/gunnarhaslinger/).
 * [Modified: windows-hardening-scripts](https://github.com/threader/windows-hardening-scripts) by [atlantsecurity](https://github.com/atlantsecurity/windows-hardening-scripts) and [zer0lightning](https://github.com/zer0lightning/windows-hardening-scripts).
-* [Modified: EnableWindowsLogSettings](https://github.com/threader/EnableWindowsLogSetting) by [Yamato-Security](https://github.com/Yamato-Security/EnableWindowsLogSetting) - Increases log sizes substantially (1GBx4, so mind the windows\logs directory) to better detection of unwanted events .
+* [Modified: EnableWindowsLogSettings](https://github.com/threader/EnableWindowsLogSettings) by [Yamato-Security](https://github.com/Yamato-Security/EnableWindowsLogSettings) - Increases log sizes substantially (1GBx4, so mind the windows\logs directory) to better detection of unwanted events .
 * [Modified: Sysmon-config](https://github.com/threader/sysmon-config) maintained by [THEVER1TAS](https://github.com/THEVER1TAS/sysmon-config) - Sysmon configration to detect and block malicious and vulnerable drivers, binaries and events.
 
 Disabled - well, strip_windows.ps1 now verbatim disables everything, but essentially: 
