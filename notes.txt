@@ -215,3 +215,22 @@ https://github.com/grub4dos/grub4dos
 
 https://github.com/builtbybel/SuperMSConfig
 https://github.com/builtbybel/Flyby11 
+
+https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/manage-bde-protectors 
+
+bcdedit /export bcd_orig
+bcdedit /store BCD /enum all /raw 
+
+
+
+Command Prompt: 
+manage-bde -protectors - get C: > %UserProfile%\Desktop\BitLocker_Recovery_Key.txt
+
+Powershell: (Get-BitLockerVolume -MountPoint C).KeyProtector > $env:UserProfile\Desktop\BitLocker_Recovery_Key.txt
+
+
+manage-bde -protectors -get c: 
+manage-bde -protectors -adbackup -id $sysdrive\Altanos.inst\bak\bitlocker\
+manage-bde -protectors -aadbackup -id $sysdrive\Altanos.inst\bak\bitlocker\
+
+# manage-bde -protectors -get c:

@@ -117,7 +117,7 @@ if (-not (Test-Path "$altanosinstdir\Microsoft.DesktopAppInstaller.msixbundle"))
 #Register-PackageSource -provider NuGet -name nugetRepository -location https://www.nuget.org/api/v2
 #Install-Package Microsoft.UI.Xaml --version 2.8.6 -Force
 
-	Invoke-WebRequest -uri https://github.com/microsoft/winget-cli/releases/download/v1.9.25200/Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle -OutFile $altanosinstdir\Microsoft.DesktopAppInstaller.msixbundle
+	Invoke-WebRequest -uri https://github.com/microsoft/winget-cli/releases/latest/download/Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle -OutFile $altanosinstdir\Microsoft.DesktopAppInstaller.msixbundle
 #	Invoke-WebRequest -uri https://github.com/microsoft/terminal/releases/download/v1.21.1772.0/Microsoft.WindowsTerminalPreview_1.21.1772.0_8wekyb3d8bbwe.msixbundle -OutFile $altanosdir\Microsoft.DesktopAppInstaller.msixbundle
 
 # Invoke-WebRequest -uri https://github.com/marticliment/UniGetUI/releases/download/3.1.3/UniGetUI.Installer.exe  -OutFile $altanosinstdir\UniGetUI.Installer.exe

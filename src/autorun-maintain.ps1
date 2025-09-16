@@ -1,7 +1,7 @@
 Write-Output "Basic maintainance of Windows."
 
- DISM /Online /Cleanup-Image /StartComponentCleanup /ResetBase /RestoreHealth
  sfc /SCANNOW
+ DISM /Online /Cleanup-Image /StartComponentCleanup /ResetBase /RestoreHealth
  
  Set-ExecutionPolicy -ExecutionPolicy Restricted
  

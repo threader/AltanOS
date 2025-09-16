@@ -149,3 +149,8 @@ Windows Registry Editor Version 5.00
 [HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Dsh]
 "AllowNewsAndInterests"=dword:00000000
 
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows Defender\Windows Defender Exploit Guard\Controlled Folder Access\AllowedApplications]
+"%windir%\\System32\\WindowsPowerShell\\v1.0\\powershell.exe"=dword:00000000
+"%windir%\\System32\\msiexec.exe"=dword:00000000
+"%windir%\\System32\\cleanmgr.exe"=dword:00000000
+
