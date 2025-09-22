@@ -1,0 +1,20 @@
+[submodule "wdegc"]
+	path = wdegc
+	url = https://github.com/threader/Windows-Defender-Exploit-Guard-Configuration.git
+        branch = master
+[submodule "pttb"]
+	path = pttb
+	url = https://github.com/gunnarhaslinger/Add-or-Remove-Application-To-Windows-10-Taskbar
+[submodule "wsgm/Windows-Super-God-Mode"]
+	path = wsgm/Windows-Super-God-Mode
+	url = https://github.com/ThioJoe/Windows-Super-God-Mode
+[submodule "whs"]
+	path = whs
+	url = https://github.com/threader/windows-hardening-scripts
+[submodule "ewls"]
+	path = ewls
+	url = https://github.com/threader/EnableWindowsLogSettings.git
+[submodule "sysmon-config"]
+	path = sysmon-config
+	url = https://github.com/threader/sysmon-config.git
+	branch = main_altan

@@ -1,0 +1,47 @@
+-and ($_.PackageName -notlike "c5e2524a-ea46-4f67-841f-6a9465d9d515") 
+-and ($_.PackageName -notlike "E2A4F912-2574-4A75-9BB0-0D023378592B")
+-and ($_.PackageName -notlike "F46D4000-FD22-4DB4-AC8E-4E1DDDE828FE")
+-and ($_.PackageName -notlike "Microsoft.AccountsControl")
+-and ($_.PackageName -notlike "Microsoft.AsyncTextService")
+-and ($_.PackageName -notlike "Microsoft.CredDialogHost")
+-and ($_.PackageName -notlike "Microsoft.ECApp")
+-and ($_.PackageName -notlike "Microsoft.LockApp")
+-and ($_.PackageName -notlike "Microsoft.MicrosoftEdgeDevToolsClient")
+-and ($_.PackageName -notlike "Microsoft.Win32WebViewHos")
+-and ($_.PackageName -notlike "Microsoft.Windows.Apprep.ChxApp")
+-and ($_.PackageName -notlike "Microsoft.Windows.CallingShellApp")
+-and ($_.PackageName -notlike "Microsoft.Windows.CapturePicker")
+-and ($_.PackageName -notlike "Microsoft.Windows.PinningConfirmationDialog")
+-and ($_.PackageName -notlike "Microsoft.Windows.SecHealthUI")
+-and ($_.PackageName -notlike "Microsoft.Windows.XGpuEjectDialog")
+-and ($_.PackageName -notlike "NcsiUwpApp")
+-and ($_.PackageName -notlike "Windows.CBSPreview")
+-and ($_.PackageName -notlike "MicrosoftWindows.Client.CBS")
+-and ($_.PackageName -notlike "Microsoft.Windows.ContentDeliveryManager")
+-and ($_.PackageName -notlike "Microsoft.Windows.Search")
+-and ($_.PackageName -notlike "Microsoft.Windows.ShellExperienceHost")
+-and ($_.PackageName -notlike "Microsoft.Windows.StartMenuExperienceHost")
+-and ($_.PackageName -notlike "MicrosoftWindows.UndockedDevKit")
+-and ($_.PackageName -notlike "Microsoft.Windows.OOBENetworkCaptivePortal")
+-and ($_.PackageName -notlike "Microsoft.Windows.OOBENetworkConnectionFlow")
+-and ($_.PackageName -notlike "Microsoft.AAD.BrokerPlugin")
+-and ($_.PackageName -notlike "Microsoft.BioEnrollment")
+-and ($_.PackageName -notlike "Microsoft.Windows.CloudExperienceHost")
+-and ($_.PackageName -notlike "Windows.PrintDialog")
+-and ($_.PackageName -notlike "Microsoft.MicrosoftEdge.Stable")
+-and ($_.PackageName -notlike "windows.immersivecontrolpanel")
+
+remove:? 
+-and ($_.PackageName -notlike "Microsoft.Windows.NarratorQuickStart")
+-and ($_.PackageName -notlike "Microsoft.Windows.ParentalControls")
+-and ($_.PackageName -notlike "Microsoft.Windows.PeopleExperienceHost")
+-and ($_.PackageName -notlike "Microsoft.Windows.OOBENetworkCaptivePortal") ???
+
+
+# ask
+-and ($_.PackageName -notlike "Microsoft.Windows.Search")
+-and ($_.PackageName -notlike "Microsoft.Windows.CloudExperienceHost")
+-and ($_.PackageName -notlike "Microsoft.MicrosoftEdge")
+
+$GETREMOVABLEAPPSPOLICY = Get-NonRemovableAppsPolicy -Online 
+$SETREMOVABLEAPPSPOLICY Set-NonRemovableAppsPolicy -Online -PackageFamilyName 
