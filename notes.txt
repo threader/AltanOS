@@ -1,0 +1,225 @@
+Notes: again... 
+
+---
+https://superuser.com/questions/985332/ramdisk-os-installing-windows-10-on-a-ramdisk :
+
+Yes you can and 16G RAM are more than enough
+
+    Shrink the size of any windows iso using tools like ntlite or winreducer
+    Feed the output wim in to NtSetup
+    Boot the output VHD and configure your Windows - add firadisk driver
+    Mount the VHD from your normal OS and capture it with wimlib
+    Apply the output wim to a new VHD using the compact=lzx switch
+    Use grub4dos to map that VHD in RAM and boot it
+
+That's a rough sketch of the procedure, it's a lot more complicated than it sounds but it can be done. I'm using a 1.2G Windows 10 VHD booted from RAM right now. Windows 10 support LZX compression on the fly. Windows 7 too but with the help of wofadk.sys.
+
+If you're still interested ask for details.
+
+---
+https://github.com/grub4dos/firadisk/blob/main/src/driver.c
+
+---
+https://github.com/grub4dos/wimboot_bios
+https://github.com/grub4dos/wimboot
+docs: https://ipxe.org/wimboot
+---
+
+https://github.com/grub4dos/ntloader  -  NTloader -- Windows NT6+ OS/VHD/WIM loader
+
+https://github.com/grub4dos/mkimage - Make a bootable image of GRUB4EFI.
+
+https://github.com/grub4dos/grub2-filemanager  - https://github.com/grub4dos/grub2-filemanager#support-types-of-files 
+
+https://github.com/grub4dos/grub4dos
+
+---
+
+# https://mspoweruser.com/how-to-use-staging-tool/
+# https://www.theverge.com/2023/8/3/23818363/microsoft-windows-11-stagingtool-leak-secret-features
+# https://rentry.co/build-win2k3 is always on option. a version with EFI would be nice though.
+# could be fun research some time though. maybe seg up these windows scripts to bulld thay windows might be a bit fun, its an historic relic anyway.
+# https://archive.org/download/microsoftSrcLeakCollection/misc/ebooks/Undocumented%20Windows%202000%20Secrets%20-%20The%20Programmers%20Cookbook.7z
+# https://archive.org/download/ws03_ntdev/How%20to%20compile%20Windows%20Server%202003.mp4
+# https://archive.org/download/microsoftSrcLeakCollection/windows_research_kernel/Windows%20Kernel%20Source%20Code%20like.7z
+# wassat? https://archive.org/download/microsoftSrcLeakCollection/misc/OpenNT_final_build.7z
+# https://archive.org/download/microsoftSrcLeakCollection/nt5src.7z 
+# https://archive.org/download/microsoftSrcLeakCollection/windows_2000_source_code.7z
+# https://archive.org/download/microsoftSrcLeakCollection/windows_nt_4_source_code.7z 
+# https://archive.org/download/microsoftSrcLeakCollection/windows_nt_3_5_source_code.7z
+# https://archive.org/download/microsoftSrcLeakCollection/ms_dos_6_0_source_code.7z
+
+# note :
+# It is my opinion that encrypting the entire HDD is a complete waste of read/write cycles, 
+# using something like a bellow encrypted throw away disposable VM image or really something makes more sense. 
+# nb. maintainability and backup in case of emergency, that emergency could be some poor animal, an ant or idk, snail crawling scross your TPM module? it is afer all a lot easier to ask the user 'do you happen to remember 
+# your users/ passwo, your windows/system password or %programfiles% or Documents password than do you remember your password and 
+#'oh yeah have you maybe seen that 128 digit hex decimal or whatever hash that flew by that one time you'r computer crashed'. 
+
+# while im noting notes, keep the VM encryption script in .bat or .cmd or so, these scripts are with 
+# probably little to no modification compatible as far back as powershell goes? and even then the .ps1 
+# scripts can simply be dropped and you have a reasonable result, or what do i know, powershell might 
+# be running on "'win2k'" with all those whacky backports that was floating around.  
+# Since i'm a sucker for backwards and fowards compabilbity, at least try to make notes of breakge and possible w/a
+
+# hmm, win2k... hmmm thats been a while, might be handy to have a bootable image to boot from usb, no?
+# this is for research and i hope some verified valied sources can be found so this too can be handled 
+# from the ground up, "easily", i'm sure this will be real quick, i mean, how much fuss can win2k 
+# and all the patched until extended EOL support or whatever and finding some sort of 
+# verified link to the 2bn patches for that really be, anyway? and what about crawiling up the windowses 
+# to have them all handy on one bootable usb drive for support, reaserch etc? 
+
+# Where to begin. ... 
+# https://archive.org/details/win2kproiso
+# https://archive.org/details/Windows2000_en-us 
+# https://archive.org/details/windows-2000-kb-935839-v-30e-x-86-extendedkernel-enu
+# https://w2k.phreaknet.org/guide 
+# https://www.reddit.com/r/windows2000/comments/10jbglp/windows_2000_in_2023_and_more/ 
+
+# this should be interesting enough 
+# https://github.com/threader/WinNT4
+# * this actually opens the door for rapid development and twsting of say a 64 bit NT4? with AHCI SATA drivers and a newer ntfs.dll and whatever
+# https://github.com/threader/win2k
+# https://github.com/threader/nt5src
+# https://github.com/threader/Windows-Server-2003
+# https://github.com/threader/ntoskrnl
+# https://github.com/threader/NTOSKRNL_Emu
+# https://github.com/threader/Easy-Build-2k
+
+# niice https://archive.org/details/windows-nt-4_202102
+# Nt 4 note:
+# https://archive.org/download/windows-nt-4_202102/Windows%20NT%204.iso
+ # https://archive.org/download/WinNT40SP6aISOEXE/sp6ai386.iso
+ # https://archive.org/download/WinNT40SP6aISOEXE/sp6ai386.exe
+ # https://winworldpc.com/product/windows-nt-40/patches
+ # https://winworldpc.com/download/41c384c2-a875-18c3-9a11-c3a4e284a2ef (nt4 usb support)
+# https://www.itprotoday.com/devops/adding-wmi-to-nt-4-0-and-win95-systems
+  # 
+# ahem. i want dos 7.0 https://archive.org/download/windows-me_202103/MEFull.iso
+# 
+# could i get away with grabbing SP4 and the extended kernel and replacing it with win 10 maybe?
+# # nopw, i must have misread or sorthing.. there was a time when wine happily chewed windows .dll's, those old versions could come in handy developing the win2kX images.
+# Right, this could be fun :D --- huhm, i believe win2k could be stripped rather hard in it self, does OneFileLinux have a companion?
+# hmm. continuing that trail of thought, maybe get something around win7(x86/x64) or so, see how far that can be stripped, use that 
+# as something of a recovery for windows stuff, have win2k handy for booting in something like an .efi or load fron grub/2/wingrub/ whatever 
+# in either case, i also wonder if it's possible to somehow chainload upwards in some fasion, create all sorts of imaginable recovery
+# options and see what floats what. having win2k booted in ram sounds rather cool either way so i think i'll start there slowly.
+# I guess the next reasonable version is win2003 etc, maybe research the server releases here as this isnt to be used at bastille and
+# for recovery and research anyway. huhm, that wound mean if onefilelinux incudeed qemu... there are chances of recovery there. 
+# as like fixing ntfs volumes requires a proper ntfs.dll version etc , not to mention this bitlocker madnsess... in the end 
+# i fully expect to be stuffing things trough an early version as possible bitlocker to if i so must shoehorn something in
+# win7-x64 or whatever the earliest can be made to decrypt win10/11 etc. bitlocker encrypted volumes? hrmf, ReactOS or.. something...?
+# christ , what is this, my theisis is OS design; what about making everything configurable, creating all the above mentioned versions
+# and why not include everything from some DOS to some franken Win9x/ME thing or something. I'm pretty sure you could just run GRUB from
+# OFL.efi already so it would be just a matter of mounting the .img/.iso/.wmi or something. so then the design would be something like:
+# win2k/03/08 compatible unencrypted ntfs c:\ with encerypted %Documents% %programfiles% etc.. etc.. it's really just a matter 
+# of exporting the .reg for programs to run across platforms anwyay so you could have a sit. where you have a drive r: with .reg
+# and other config files and just boot any random WinNT version and rock on... hmmm  
+
+# might as well start takinnh all the notes on how to properly export microsoft .efi files, bootrect and sll that etc. thank god i already did s bit of thst again already 
+ # https://learn.microsoft.com/en-us/windows-hardware/manufacture/desktop/windows-setup-installing-using-the-mbr-or-gpt-partition-style?view=windows-11
+
+
+ 
+# Mkay my draft proposal of the layout for this I would like to be something like: 
+# What about ' abusing ' hybrid HDD/SDD combos to have the MMU on the SSD unnap a region for storing ' sensetive files '?
+# ESP/EFI Partition: 2gb/512mb fat32/fat16 / Rufus ntfs efi... 
+#  * One File Linux w/GRUB and Win2kX .wmi, note. there exists also the possibility of making this rntire project even more complicated and including Apple PPC since GRUB supports that and dot down my yaboot config on PPC next time its on.
+# BOOT
+# * Somehow veryfy the MD5/SHA256/512 of the core booting image. etc 
+# BOOT encypted (kexex vmlinux from here and have grub decrypt the volume in OFL? for "other-os",.efi etc? and rest of available .wim .iso .img and whatever GRUB supports.)
+# * Somehow veryfy the MD5/SHA256/512 of the core booting image. etc 
+# RECOVERY_BASIC 
+# * (Win2008 or the first basic common denomenator that supports the generation laptop and the requierd versions
+# * Windows-*.iso or something that can be sha256 compared and verified or someting
+# something with bitlocker compatible with win 10/11 say) 
+# * (a debian stable to chroot to from One File Linux or something)
+# * Debian Stable-netinst or something - updated trough som0e process regularly
+# RECOVERY_ENCRYPTED_OR_WHATEVER(if needed for increased security or maybe use this as the backup partition)
+# * Windows-*.iso or something that can be sha256 compared and verified or someting
+# * Encrypted volume or image files of some sort
+# * (a debian stable to chroot to from One File Linux or something)
+# * Debian Stable-netinst or something - updated trough some process regularly
+# SYSTEM (NTFS)
+# * Win 10/11 ( user ) *image 
+# * Win 2016/2025 * Images 
+# * Win 2008/2012??? * Images 
+# SYSTEM ( EXT 4 )
+# u know what to do
+# BACKUP
+# Mount the windows.wim as read only and only while applying updates unlock, run the check_image.ps1/cmd/sh periodically, somehow veryfy trust upwards and backesrds when booted to ENC_
+# Then comes what to do, or how to handle things so that we can have users/ %programfiles% (most interesting right now since there 
+# will be some switching between the early winnt versions as a startingpoint here etc. on a different "HDD" alltogether etc and have 
+# this work like mount -o loop etc. 
+#
+# and implement check_image_integ.ps1 / check_image_integ.sh or whatever will be the case 
+#
+# Maybe have an encrypted WMI or whatever that you boot from, mabye encrypt the windows folder 
+# maybe encrypt the /Users/<user> foler or maybe just documents or pictures or something. ,
+# Reasonably, id say create an encrypted 'stable' windows image and store somewhere as a backup anyway, 
+# and copy this and use it as the regular 'day to day' boot image. create another encrypted image
+# and store /users/ in , and this can be on something like d:  
+
+# Make this a choice
+# Docs: 
+# https://learn.microsoft.com/en-us/windows/win32/secprov/getencryptionmethod-win32-encryptablevolume
+# https://learn.microsoft.com/en-us/windows/security/operating-system-security/data-protection/bitlocker/operations-guide?tabs=powershell#bitlocker-powershell-module 
+# https://learn.microsoft.com/en-us/powershell/module/bitlocker/add-bitlockerkeyprotector?view=windowsserver2022-ps
+# https://learn.microsoft.com/en-us/powershell/module/bitlocker/enable-bitlocker?view=windowsserver2022-ps
+# 
+# "BitLocker automatically encrypts internal drives during the out-of-box experience (OOBE) "
+
+# Disable for devices in need of performance over security 
+# Disable-Bitlocker
+
+# $sysdrive =  $Env:SystemDrive
+#
+# Rip from MS docs - note "Allow BitLocker without a compatible TPM " is set in harden.reg
+# $pw = Read-Host -AsSecureString
+# Add-BitLockerKeyProtector E: -PasswordProtector -Password $pw
+
+# Add-BitLockerKeyProtector -MountPoint $sysdrive -RecoveryPasswordProtector
+# $SecureString = ConvertTo-SecureString "123456" -AsPlainText -Force
+# Enable-BitLocker $sysdrive -StartupKeyProtector -EncryptionMethod XtsAes256 -Pin $SecureString # -TPMandPinProtector # -TpmProtector
+#
+# Obtain the ID of the new recovery password:
+# (Get-BitLockerVolume -mountpoint $env:SystemDrive).KeyProtector | where-object {$_.KeyProtectorType -eq 'RecoveryPassword'} | ft KeyProtectorId,RecoveryPassword
+
+
+# note: https://learn.microsoft.com/en-us/powershell/module/dism/?view=windowsserver2022-ps 
+# Get-NonRemovableAppsPolicy -Online  # or -Path ".\wim\image.wim"
+# Set-NonRemovableAppsPolicy -Online -PackageFamilyName Application1_1.0.0.0+x64__ms7gsqeatfeb6 -NonRemovable 0
+# Get-AppxProvisionedPackage -Online 
+# Remove-AppxProvisionedPackage -PackageName MyAppxPkg -AllUsers -Online <package_name>
+# Remove-WindowsDriver -Path "c:\offline" -Driver "OEM1.inf"
+# Optimize-AppXProvisionedPackages -Online 
+# Optimize-WindowsImage -Path "c:\" -OptimizationTarget "WIMBoot" 
+# https://learn.microsoft.com/en-us/powershell/module/dism/new-windowsimage?view=windowsserver2022-ps :
+# New-WindowsImage -ImagePath "c:\imagestore\custom.wim" -CapturePath "d:\" -Name "Drive D"
+# https://learn.microsoft.com/en-us/powershell/module/dism/export-windowsimage?view=windowsserver2022-ps
+# Export-WindowsImage -SourceImagePath C:\imagestore\custom.wim -SourceIndex 1 -DestinationImagePath c:\imagestore\export.wim -DestinationName "Exported Image"
+# Export-WindowsImage -CheckIntegrity -SourceImagePath C:\imagestore\custom.wim -SourceIndex 1 -DestinationImagePath c:\imagestore\export.wim -DestinationName "Exported Image" -Setbootable -WIMBoot
+
+# Quick note: maybe export the resulting image to a https://github.com/threader/Create-BitLocker-Encrypted-VHDX-Virtual-Disk-Containerfile and drop into that if not on win pro?
+
+https://github.com/builtbybel/SuperMSConfig
+https://github.com/builtbybel/Flyby11 
+
+https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/manage-bde-protectors 
+
+bcdedit /export bcd_orig
+bcdedit /store BCD /enum all /raw 
+
+
+
+Command Prompt: 
+manage-bde -protectors - get C: > %UserProfile%\Desktop\BitLocker_Recovery_Key.txt
+
+Powershell: (Get-BitLockerVolume -MountPoint C).KeyProtector > $env:UserProfile\Desktop\BitLocker_Recovery_Key.txt
+
+
+manage-bde -protectors -get c: 
+manage-bde -protectors -adbackup -id $sysdrive\Altanos.inst\bak\bitlocker\
+manage-bde -protectors -aadbackup -id $sysdrive\Altanos.inst\bak\bitlocker\
+
+# manage-bde -protectors -get c:

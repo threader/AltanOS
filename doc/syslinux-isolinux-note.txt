@@ -1,0 +1,152 @@
+Isolinux HowTo for newbies - Part 1 UPDATED
+ 
+GENERAL:
+Isolinux is CD boot loader with a posibilities like: booting floppy images (using MEMDISK), booting CD boot sectors, booting linux kernels and passing parameters to kernels/initrd if needed.
+
+Legend:
+blue text - predefined names or command names and cannot be changed by user
+red text - user defined names
+
+Isolinux files:
+isolinux.bin - boot loader for no-emulation boot
+memdisk - this file is used to load floppy and HDD images
+isolinux.cfg - configuration file
+*.txt / *.msg - text files with some commands. This files are used for making boot messages - splash screens
+*.lss - Isolinux graphic splash screen
+
+isolinux.bin
+This file is loader himself. If you are making bootable CD that uses Isolinux for booting, then point your CD-burning software to this file when it ask for boot sector.
+
+Memdisk
+This file is loader for floppy and HDD images. Memdisk is called by isolinux.bin according to options specified in isolinux.cfg.
+For a floppy image, the size of the image should be exactly one of the following:
+
+1,228,800 bytes - For a 1200K floppy image
+1,474,560 bytes - For a 1440K floppy image
+2,949,120 bytes - For a 2880K floppy image
+
+Any other size is assumed to be a hard disk image.
+See isolinux.cfg for more details on using memdisk.
+
+isolinux.cfg
+This is configuration file for isolinux. It is a plain text file and can be edited in any text editor.
+Options in isolinux.cfg  DON'T have a particular order. Isolinux.cfg can be in DOS or Linux text format.
+
+Items/commands in isolinux.cfg:
+
+#  - comment, use this at the begining of line to insert comments
+
+DEFAULT {label name or kernel options} - specifies what will be booted after boot timeout or if user just hits ENTER without specifiing boot options.
+example:
+DEFAULT myDOS - this will work just like you have typed myDOS at boot prompt, that means - it will boot anything that is specified in label myDOS (see label item)
+DEFAULT kernel bootsec.bin - this will boot bootsec.bin (for example WindowsXP installation CD boot sector)
+
+LABEL {label name} - This is a section that explains boot options for {label name}.
+example 1:
+LABEL myDOS
+    kernel memdisk
+    append initrd=DOS.IMG
+This means: if user types myDOS at boot prompt then use memdisk (as kernel) to load DOS.IMG (floppy image file).
+example 2:
+LABEL oldbootcd
+    kernel bootsec.bin
+This means: if user types oldbootcd at boot prompt then load CD boot sector as kernel (this can be used if you integrate more bootable CDs to your multiboot CD or to load any other no-emulation boot sector). With this method you can load BCDW, BScriptor or CDShell from Isolinux ( see Links section ).
+example 3:
+LABEL linux
+    kernel vmlinuz
+    append max_loop=255 initrd=initrd.gz init=linuxrc livecd_subdir=/ ...
+This means: if user types linux at boot prompt then load linux kernel and pass parameters from append section to linux kernel (used for live linux CDs).
+example 4:
+LABEL hdd
+    localboot 0x80
+This means: if user types hdd at boot prompt then boot from first partition of first HDD.
+Valid parameters for localboot are:
+0x80 - first partition of first HDD (C: in DOS)
+0x81 - 2nd partition of first HDD (D: in DOS)
+0x00 - first floppy drive (A: in DOS)
+....etc
+-1 - tell BIOS to boot from next device listed in BIOS
+example 5 :
+LABEL somethig
+    kernel memdisk
+    append myFolder/myDisk.img
+This is example how you can use folders. In this example isolinux will search for myDisk.img in subfolder of folder that contains isolinux.cfg (in most cases this is /Isolinux folder). If isolinux.cfg is in folder /Isolinux, then myDisk.img should be in /Isolinux/myFolder.
+example 6:
+LABEL something
+    kernel /vmlinuz
+    append max_loop=255 initrd=/initrd.gz init=linuxrc livecd_subdir=/ ...
+This one will search for vmlinuz in a parent folder of folder that contains isolinux.cfg. It will also search for initrd.gz in parent folder ( "/" before vmlinuz and before initrd.gz). If isolinux.cfg folder is /Isolinux then files will be searched in root folder of the CD.
+example 7:
+LABEL something
+    kernel /livelin/vmlinuz
+    append max_loop=255 initrd=/livelin/initrd.gz init=linuxrc livecd_subdir=/ ...
+This one will search for vmlinuz and initrd.gz in following way: go to the parent folder of folder containing isolinux.cfg  (in most cases this if /Isolinux folder), now go  to the subfolder livelin and find files there. Kernel file and initrd file don't need to be in the same folder.
+
+TIMEOUT x - set timeout in 1/10 sec. If user don't type anything at boot prompt in time set by TIMEOUT, then DEFAULT or ONTIMEOUT will be executed ( see ONTIMEOUT for details).
+
+ONTIMEOUT {label name or kernel options} - same as DEFAULT. If ONTIMEOUT option is set, then DEFAULT is used just if user hits ENTER without options at boot prompt.
+
+DISPLAY filename - display text (splash screen) specified with filename before boot prompt (at isolinux start). Splash screen is text file that can contain some commands. Extension of splash screen files can be ANY (.txt .msg .xyz...) except of:  .0 .bin .bs .bss .c32 .cbt .com .img
+
+F1  filename - display text (same kind of text files as for DISPLAY) if user press F1. Same for F2 F3 ... F9 F0.
+
+SAY message - print the message on the screen
+
+PROMPT x - If x is 0, display the boot prompt only if the Shift or Alt key is pressed, or Caps Lock or Scroll lock is set (this is the default). If x is 1, always display the boot prompt. My advice: - use PROMPT 1.
+
+Notes:
+-command names are case insensitive, but label names are case sensitive.
+-isolinux.bin will search for isolinux.cfg file in following folders on CD: / (root of CD), /boot, /isolinux
+
+Example of isolinux.cfg:
+
+# default to boot from hard drive
+default 0
+# let the user know the basic options
+display WELCOME.TXT
+prompt 1
+# various options are available for booting
+
+# hd
+label 0
+localboot 0x80
+
+# floppy
+label a
+localboot 0x00
+
+# cancel and try next boot device
+label q
+localboot -1
+
+# MY BOOT
+label mydos
+kernel memdisk
+append initrd=BOBBY71p.IMG
+
+# MY BOOT2
+label mydos2
+kernel memdisk
+append initrd=BOBBY71s.IMG
+
+# part image
+label 11
+kernel partimg/vmlinuz
+append initrd=partimg/initrd.img load_ramdisk=1 prompt_ramdisk=0 rw root=/dev/ram
+ 
+# movix vesa
+label VE
+kernel kernel/vmlinuz
+append initrd=initrd.gz load_ramdisk=1 prompt_ramdisk=0 ramdisk_size=62000 rw root=/dev/ram0 LABEL=vesa video=vesa:off
+
+timeout 200
+F1 DOS.TXT
+F2 MOVIX2.txt
+F3 UTIL.TXT
+F4 LINUX.TXT
+F5 MX2HELP.TXT
+F6 TRBLST.TXT
+F7 MPHELP.TXT
+F8 PARTIMG.TXT
+F9 WELCOME.TXT
+F0 WELCOME.TXT
