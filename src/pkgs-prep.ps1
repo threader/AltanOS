@@ -145,8 +145,18 @@ winget install --accept-source-agreements --id 9N0DX20HK701 --source msstore
 # winget install --exact --id SomePythonThings.WingetUIStore --source winget # WingetUI
 winget install --disable-interactivity --accept-source-agreements --id Sandboxie.Plus --source winget
 winget install --disable-interactivity --accept-source-agreements --id SomePythonThings.WingetUIStore --source winget
+
+# Maybe drop AltanOS in $sysdrive. 
 winget install --disable-interactivity --accept-source-agreements --id Git.Git --source winget
-winget install --disable-interactivity --accept-source-agreements --id Microsoft.Sysinternals.ProcessMonitor --source winget
+git clone https://github.com/threader/AltanOS $sysdrive\AltanOS
+cd  $sysdrive\AltanOS
+git submodule update --init --recursive
+
+# winget install --disable-interactivity --accept-source-agreements --id Microsoft.Sysinternals.PsTools --source winget
+# use psexec to scheduel task to run as SYSTEM. accept eual
+# winget install --disable-interactivity --accept-source-agreements --id Microsoft.Sysinternals.ProcessMonitor --source winget
+# psexec.exe -accepteula
+
 winget install --disable-interactivity --accept-source-agreements --id Microsoft.Sysinternals.ProcessExplorer --source winget
 winget install --disable-interactivity --accept-source-agreements --id Microsoft.Sysinternals.SysMon --source winget
 winget install --disable-interactivity --accept-source-agreements --id WinDirStat.WinDirStat --source winget
