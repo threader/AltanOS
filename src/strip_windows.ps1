@@ -9,17 +9,19 @@ if (-not (Test-Path -Path $altanlog)) {
 }
 
 
-function set_all_win_packages_removable() {
+function set_win_packages_removable() {
 
- $GET_APPPACKAGE_NON_REMOVABLE_TRUE = Get-AppPackage -AllUsers | Where-Object {  ($_.NonRemovable -like 'True')   }
- #  -and ($_.PackageFamilyName -notlike "")
+ $GET_APPPACKAGE_NON_REMOVABLE_TRUE = Get-AppPackage -AllUsers | Where-Object {  ($_.NonRemovable -like 'True') -and ($_.PackageFamilyName -notlike "Microsoft.AccountsControl*") -and ($_.PackageFamilyName -notlike "Microsoft.AsyncTextService*") -and ($_.PackageFamilyName -notlike "Microsoft.CredDialogHost*") -and ($_.PackageFamilyName -notlike "Microsoft.ECApp*") -and ($_.PackageFamilyName -notlike "Microsoft.LockApp*") -and ($_.PackageFamilyName -notlike "Microsoft.Win32WebViewHost*") -and  ($_.PackageFamilyName -notlike "Microsoft.Windows.CapturePicker*") -and ($_.PackageFamilyName -notlike "Microsoft.Windows.OOBE*") -and ($_.PackageFamilyName -notlike "Microsoft.Windows.PinningConfirmationDialog*") -and ($_.PackageFamilyName -notlike "Microsoft.Windows.SecHealthU*") -and ($_.PackageFamilyName -notlike "Microsoft.Windows.XGpuEjectDialog*") -and ($_.PackageFamilyName -notlike "Microsoft.XboxGameCallableUI*") -and ($_.PackageFamilyName -notlike "MicrosoftWindows.UndockedDevKi*") -and ($_.PackageFamilyName -notlike "NcsiUwpApp*") -and ($_.PackageFamilyName -notlike "windows.immersivecontrolpanel*") -and ($_.PackageFamilyName -notlike "Windows.PrintDialog*") -and ($_.PackageFamilyName -notlike "1527c705-839a-4832-9118-54d4Bd6a0c89") -and ($_.PackageFamilyName -notlike "c5e2524a-ea46-4f67-841f-6a9465d9d515") -and ($_.PackageFamilyName -notlike "E2A4F912-2574-4A75-9BB0-0D023378592B") -and ($_.PackageFamilyName -notlike "F46D4000-FD22-4DB4-AC8E-4E1DDDE828FE") -and ($_.PackageFamilyName -notlike "Microsoft.AAD.BrokerPlugin*") -and ($_.PackageFamilyName -notlike "Microsoft.AccountsControl*") -and ($_.PackageFamilyName -notlike "Microsoft.Windows.ShellExperienceHost*") -and ($_.PackageFamilyName -notlike "Microsoft.Windows.StartMenuExperienceHost*") -and ($_.PackageFamilyName -notlike "Microsoft.Windows.Search*") -and ($_.PackageFamilyName -notlike "Microsoft.Windows.Search*")   }
+
  ForEach ($_ in $GET_APPPACKAGE_NON_REMOVABLE_TRUE.PackageFamilyName) {
-  Write-Output "Setting NonRemovableAppsPolicy 0 to : $_" >> $altanlog\NonRemovableAppsPolicy.log
+  Write-Output "Could set NonRemovableAppsPolicy to 0 to package : $_" >> $altanlog\NonRemovableAppsPolicy_current.log
   #Set-NonRemovableAppsPolicy -Online -PackageFamilyName $_ -NonRemovable 0 >> $altanlog\NonRemovableAppsPolicy_process.log
+  Set-NonRemovableAppsPolicy -Online -PackageFamilyName $_ -NonRemovable 0 >> $altanlog\NonRemovableAppsPolicy_now_disabled.log
+
  }
 
 }
-#set_all_win_packages_removable
+set_win_packages_removable
 
 # Get-AppPackage -AllUsers | Remove-AppPackage -AllUsers # Try to be more spesific
 
