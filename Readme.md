@@ -10,6 +10,7 @@ A forced update to this repository is planned in the near future to keep the wei
 
 I've noticed the script expects an input somewhere, either a 'Y' or 'Enter' and appears to stop, i've put pauses at some points to review the output, (some) logs should end up in %systemdrive%\Altanos.inst\logs . 
 
+A checkdisk is forced triggerd at the end of this script, allocate a lot of time for this check to complete after a reboot that ought be immediate. 
 End of warnings?
 ---
 Run AltanOS.cmd from It's parent directory and the rest happens with some interaction. There are some pauses for input and information text, and even an unexpected pause where i think the correct thing is to press Y or ENTER, uninstalling Edge needs a mouse button click, 'PSWindowsUpdate' also require NuGet that requires confirmation. And some WinGet packages absolutley require you to press 'Y' or a swallow randomly implodes outside.
