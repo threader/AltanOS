@@ -28,7 +28,21 @@ $awim = "$awimadir\$awimprefix.wim"
 $rsapriv = "$awimadir\$awimprefix.priv.txt"
 $rsapub = "$awimadir\$awimprefix.pub.txt"
 
+# Add local admin/user/online for .wim
 
+# $local_usr = write-output $Env:UserName
+# if (-not (Test-Path -Path $local_usr-usr)) {
+# net user /ADD $local_usr-adm
+# net user /ADD $local_usr-usr
+# net user /ADD $local_usr-online
+
+# Aaaand this depends on the language of the system. run 'net localgroup'
+# net localgroup Administartors user /ADD $local_usr-adm
+# }
+
+# Only include new users in exported WIM
+# write-output $Env:HomePath >> ../bin/WimScript.ini
+ 
 # huh - https://learn.microsoft.com/en-us/dotnet/api/system.security.cryptography.rsa.exportrsaprivatekeypem?view=net-9.0#system-security-cryptography-rsa-exportrsaprivatekeypem 
 # https://learn.microsoft.com/en-us/dotnet/api/system.security.cryptography.rsacryptoserviceprovider?view=net-9.0
 #
