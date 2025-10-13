@@ -9,10 +9,6 @@ if (-not (Test-Path -Path $altanosinstdir)) {
 	mkdir "$altanosinstdir\games"
 }
 
-if (-not (Test-Path -Path $altanosdir)) {
- cp -r $PWD\..\AltanOS $altanosdir
-}
-Set-Location $altanosdir
 
 # $DesktopPath = [Environment]::GetFolderPath("Desktop")
 # Get-Location | Foreach-Object { $_.Path }
@@ -148,9 +144,21 @@ winget install --disable-interactivity --accept-source-agreements --id SomePytho
 
 # Maybe drop AltanOS in $sysdrive. 
 winget install --disable-interactivity --accept-source-agreements --id Git.Git --source winget
-git clone https://github.com/threader/AltanOS $sysdrive\AltanOS
-cd  $sysdrive\AltanOS
+
+if (-not (Test-Path -Path $altanosdir)) {
+#  cp -r $PWD\..\AltanOS $altanosdir
+Set-Location $altanosdir
+git clone https://github.com/threader/AltanOS $altanosdir
+# cd $altanosdir
 git submodule update --init --recursive
+} else {
+Set-Location $altanosdir
+git pull
+git submodule update --recursive
+}
+
+
+
 
 # winget install --disable-interactivity --accept-source-agreements --id Microsoft.Sysinternals.PsTools --source winget
 # use psexec to scheduel task to run as SYSTEM. accept eual
