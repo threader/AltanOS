@@ -1,0 +1,34 @@
+# – install update 2025-08 KB5062649 (19045.6159) Preview or later (the August updates will do)
+
+# – check registry to see the current state:
+
+reg.exe query "HKCU\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Windows\ConsumerESU"
+
+# if “ESUEligibility” value is non-zero “0x0”, then the feature is 
+#sc.exe config DiagTrack start=auto
+#sc.exe start DiagTrack
+reg.exe add "HKLM\SYSTEM\CurrentControlSet\Policies\Microsoft\FeatureManagement\Overrides" /v 4011992206 /t REG_DWORD /d 2 /f
+# – restart the system
+# It’s actually possible to enable the feature override without having to enable the mischievous DiagTrack service
+
+# so, replace its step with:
+
+# – add the registry step
+# reg.exe add "HKLM\SYSTEM\CurrentControlSet\Policies\Microsoft\FeatureManagement\Overrides" /v 4011992206 /t REG_DWORD /d 2 /f
+# – Run Windows Powershell as administrator
+# – copy and paste the following code as-is:
+
+$TN = "ReconcileFeatures"; $TP = "\Microsoft\Windows\Flighting\FeatureConfig\"; $null = Enable-ScheduledTask $TN $TP
+Start-ScheduledTask $TN $TP; while ((Get-ScheduledTask $TN $TP).State.value__ -eq 4) {start-sleep -sec 1}; "Task Completed"
+#
+$TN = "UsageDataFlushing"; $TP = "\Microsoft\Windows\Flighting\FeatureConfig\"; $null = Enable-ScheduledTask $TN $TP
+Start-ScheduledTask $TN $TP; while ((Get-ScheduledTask $TN $TP).State.value__ -eq 4) {start-sleep -sec 1}; "Task Completed"
+#
+# vb scripts are utterly turned off in my configuration...
+# .\wscript.exe slmgr.vbs /ipk f520e45e-7413-4a34-a497-d2765967d094
+
+# check.. 
+# 'ClipESUConsumer' Doesnt seem to do anything in the configuration i am running. .. running it trough regular windows update in settings enrolls the device. wheee....
+cmd /c ClipESUConsumer.exe -evaluateEligibility
+
+reg.exe query "HKCU\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Windows\ConsumerESU"
