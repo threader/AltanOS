@@ -1,0 +1,63 @@
+# win 10 ltsc/ito 
+# interesting, i googled 'convert win 10 iot' and it gave me a product key. Thanks google.
+# 
+# Download the ISO: Download the Windows 10 Enterprise LTSC 2021 ISO file that matches your system's language from the official Microsoft download page.
+# Edit the registry: You may need to make registry edits to allow the upgrade. This is an advanced step and it is recommended to create a backup first. Some methods involve changing the EditionID to EnterpriseS and the ProductName to Windows 10 Enterprise LTSC.
+reg.exe add  "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion" /v "EditionID" /t REG_SZ /d "EnterpriseS" /f
+# or 
+reg.exe add  "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion" /v "EditionID" /t REG_SZ /d "IoTEnterpriseS" /f
+#
+reg.exe add  "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion" /v "ProductName" /t REG_SZ /d "Windows 10 Enterprise 2021 LTS" /f
+# Run the setup: Mount the LTSC ISO and run the setup file to perform the in-place upgrade.
+# Activate: After the upgrade, use the IoT LTSC 2021 product key [REDACTED] to activate your installation via the Windows settings or command prompt (slmgr /ipk followed by slmgr /ato)
+# Run the LTSC setup: Open the mounted ISO file or the bootable USB, run setup.exe, and choose the option to keep personal files and apps
+# https://info.microsoft.com/ww-landing-windows-10-enterprise.html 
+# https://massgrave.dev/windows_ltsc_links 
+# https://drive.massgrave.dev/en-gb_windows_10_enterprise_ltsc_2021_x64_dvd_7fe51fe8.iso
+# https://drive.massgrave.dev/en-us_windows_10_iot_enterprise_ltsc_2021_x64_dvd_257ad90f.iso
+# pfff, this is not the way... I would prefer a microsoft official iso link.. file hashing is needed in this case..
+# en-us:
+# https://files.rg-adguard.net/file/d4af271c-9bfb-7457-fba3-b600a921d9cc
+# SHA-256:	a0334f31ea7a3e6932b9ad7206608248f0bd40698bfb8fc65f14fc5e4976c160
+# en-gb
+# https://files.rg-adguard.net/file/840b39b6-c54b-20c4-32aa-919b0b995b22
+# SHA-256:	f8cefc47fac0967d207b03dbec091dcbafa23d215940cc967892921915b3d96b
+
+	$downloaded_hash = "f8cefc47fac0967d207b03dbec091dcbafa23d215940cc967892921915b3d96b".ToString
+	$win10ltsc_iso = "$pwd\en-gb_windows_10_enterprise_ltsc_2021_x64_dvd_7fe51fe8.iso"
+	$hashfileout = "$pwd\win10ltsc.hash.txt"
+	$sha256 = New-Object -TypeName System.Security.Cryptography.SHA256CryptoServiceProvider
+    $Stream = [System.IO.FileStream]::new($win10ltsc_iso, [System.IO.FileMode]::Open, [System.IO.FileAccess]::Read, 
+        [System.IO.FileShare]::Read, 1MB, [System.IO.FileOptions]::SequentialScan)
+	$hash = [System.BitConverter]::ToString($sha256.ComputeHash($Stream)).Replace("-","").ToLower()
+	Write-Output "SHA-256: $hash"
+	Out-File -FilePath $hashfileout -InputObject $hash -Append
+	if ($hash -ne $downloaded_hash.ToString) {
+		Write-Output "SHA-256: $hash does not match $downloaded_hash" 
+		pause
+	} else {
+		Write-Output "SHA-256: $hash matches $downloaded_hash"
+		# off to stackoverflow it is then. 
+		# https://stackoverflow.com/questions/61535306/mount-iso-with-a-drive-letter-via-powershell
+		# mount the ISO, but first check if it is already mounted
+		$isoDrive = Get-DiskImage -ImagePath $win10ltsc_iso
+		if (!$isoDrive) {
+		$isoDrive = Mount-DiskImage -ImagePath $win10ltsc_iso -PassThru
+		} 
+		# Mount-DiskImage -ImagePath $win10ltsc_iso
+		# Get-DiskImage -ImagePath $win10ltsc_iso | Dismount-DiskImage
+		# $isoDrive is a Microsoft.Management.Infrastructure.CimInstance#ROOT/Microsoft/Windows/Storage/MSFT_DiskImage
+
+		# get the DriveLetter currently assigned to the drive (a single [char])
+		$isoLetter = ($isoDrive | Get-Volume).DriveLetter
+		
+		# find the volume by its automatically assigned driveletter and set the new drive letter
+		$drive = Get-WmiObject Win32_Volume -Filter ('DriveLetter = "{0}:"' -f $isoLetter)
+		$drive.DriveLetter = 'Y:'
+		$null = $drive.Put()
+		
+		# $isoDrive | Dismount-DiskImage | Out-Null
+		
+		# mkay, pray
+		Start-Process $drive.DriveLetter:/Setup.exe
+	}
