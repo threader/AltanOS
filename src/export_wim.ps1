@@ -61,7 +61,10 @@ $rsapub = "$awimadir\$awimprefix.pub.txt"
 	New-WindowsImage -ImagePath $awim -CapturePath $sysdrive -ConfigFilePath $awimacfg -Name $awimprefix -SupportEa -WIMBoot -Verify
 
 	$sha256 = New-Object -TypeName System.Security.Cryptography.SHA256CryptoServiceProvider
-	$hash = [System.BitConverter]::ToString($sha256.ComputeHash([System.IO.File]::ReadAllBytes($awim))).Replace("-","")
+
+    	$Stream = [System.IO.FileStream]::new($awim, [System.IO.FileMode]::Open, [System.IO.FileAccess]::Read, 
+        [System.IO.FileShare]::Read, 1MB, [System.IO.FileOptions]::SequentialScan)
+	$hash = [System.BitConverter]::ToString($sha256.ComputeHash($Stream)).Replace("-","").ToLower()
 	Write-Output "$altanoswimloc $algo $hash"
 	Out-File -FilePath $hashfileout -InputObject $hash -Append
 
