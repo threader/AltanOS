@@ -1,0 +1,33 @@
+#!/usr/bin/make -f
+
+%:
+	dh $@
+
+BYHAND ?= no
+
+override_dh_auto_build:
+ifneq ($(SOURCE_DATE_EPOCH),)
+	# Fix their time after being patched by debian/patches/
+	touch -t $(shell date +"%Y%m%d%H%M.%S" --date=@$(SOURCE_DATE_EPOCH)) doc/manual.txt initrd/Makefile
+endif
+	$(MAKE) -C src/srclinux
+	(cd src; ytasm /b loadlin.asm, ../loadlin.exe )
+	gzip -cv9n loadlin.exe >loadlin.exe.gz
+	$(MAKE) -C initrd freeramdisk
+
+override_dh_auto_clean:
+	dh_auto_clean
+	$(MAKE) -C src/srclinux clean
+	$(MAKE) -C initrd clean
+
+override_dh_installchangelogs:
+	dh_installchangelogs doc/changes
+
+override_dh_install:
+	dh_install
+ifeq ($(BYHAND),yes)
+	cp loadlin.exe ..
+	dpkg-distaddfile loadlin.exe byhand -
+	cp doc/manual.txt ../loadlin.txt
+	dpkg-distaddfile loadlin.txt byhand -
+endif

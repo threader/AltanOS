@@ -1,0 +1,16 @@
+The Debian maintainer for loadlin is Samuel Thibault <sthibault@debian.org> now.
+
+Loadlin is available from http://youpibouh.thefreecat.org/loadlin/
+
+Upstream author: Hans Lermen <lermen@fgan.de>
+Upstream maintainer: Samuel Thibault <samuel.thibault@ens-lyon.org>
+
+   LOADLIN v1.6 Copyright (C) 1994..1996 Hans Lermen (lermen@elserv.ffm.fgan.de)
+   (C) 2007..2008 Samuel Thibault (samuel.thibault@ens-lyon.org)
+
+Loadlin is licensed under the GNU General Public License version 2 or any later
+version, a copy of which may be found in /usr/share/common-licenses/GPL-2.
+
+loadlin was originally debianized by Christoph Lameter on October 1, 1996,
+and maintained by Martin Mitchell <martin@debian.org> then Lenart Janos
+<ocsi@debian.org>, and now Samuel Thibault <sthibault@debian.org>

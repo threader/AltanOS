@@ -1,0 +1,5 @@
+initrd/*.c
+initrd/Makefile
+initrd/mkdisk
+test.par
+linux.bat

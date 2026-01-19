@@ -1,0 +1,12 @@
+loadlin for Debian
+------------------
+
+You will find loadlin.exe.gz in /usr/lib/loadlin. Copy that file
+plus a kernel (and optionally ramdisk contents) to your dos partition,
+and ungzip it with gzip -d loadlin.exe.
+Read the instructions and then you should be able to boot Linux
+from DOS.
+Note the additional tool `freeramdisk' in the loadlin package which is a
+tool for freeing up the allocated ramdisk.
+
+ -- LENART Janos <ocsi@debian.org>  Wed, 23 Mar 2005 10:03:43 +0100

@@ -1,0 +1,1967 @@
+Hacks to let yasm compile loadlin, despite its current shortcomings, notably the
+lack of support for
+
+	mov a,1
+	...
+	a db ?
+
+This is the output of hg diff -p -r default -r yasm
+
+diff -r 56b6cf82d167 -r c8190a00fb15 src/loadlin.asm
+--- a/src/loadlin.asm	Tue Feb 09 03:29:55 2010 +0100
++++ b/src/loadlin.asm	Wed Apr 28 20:13:19 2010 +0200
+@@ -73,6 +73,10 @@ LOADLIN_VERSION equ '1.6f'
+               locals
+               jumps
+ 
++ifdef __YASM_MAJOR__
++              %stacksize large
++endif
++
+ REALBIOS_FILE equ 'C:\REALBIOS.INT'
+ 
+ SIGNATURE                = 'SrdH' ; "HdrS"
+@@ -101,33 +105,57 @@ debug_stop macro marker
+            jmp   short $
+            endm
+ 
++ifndef __YASM_MAJOR__
+ align_  macro   start,val
+         org     (((($-start)+(val-1))/val)*val)
+         endm
++else
++align_  macro   start,val
++        db ((start-$) and ((val)-1)) dup (?)
++        endm
++endif
+ 
++ifndef __YASM_MAJOR__
++org_ macro val
++	org val
++	endm
++__SECT__ macro
++	endm
++else
++%macro org_ 1
++	[absolute %1]
++%endmacro
++endif
+ 
++ifndef __YASM_MAJOR__
+ psp_seg segment  at 0 use16
++endif
+ 
+ ; -------------PSP Program Segment Prefix----------------------
+-        org      2h
++        org_     2h
+   PSP_memend_frame            dw ?
+-        org      2ch
++        org_     2ch
+   PSP_envir_frame             dw ?
+-        org      80h
++        org_     80h
++ifndef __YASM_MAJOR__
+   PSP_DTA                     db ? (100h-80h) dup(?)
++else
++  PSP_DTA                     db (100h-80h) dup(?)
++endif
++	__SECT__
+ ; -------------------------------------------------------------
+ psp_seg ends
+ 
+ code    segment  para use16
+         assume   cs:code,ds:psp_seg,es:code
+-code_org0     label   byte
++code_org0     ;label   byte
+ 
+ ; ---------------------------------------------------------------------
+ ;                        Bootsector (512 bytes)
+ ;                        within this BEFORE start of setup:
+ ;                        (may be set by "LOADLIN")
+ bootsec       label   byte
+-              org     20h
++              org_    20h
+ CL_MAGIC      dw      ?  ;0020   commandline magic number (=0xA33F)
+ CL_OFFSET     dw      ?  ;0022   commandline offset
+                          ; Address of commandline is calculated:
+@@ -138,7 +166,7 @@ CL_OFFSET     dw      ?  ;0022   command
+                          ; and /etc/rc. The variabel "root=xxxx" is
+                          ; interpreted by main directly, "single" is
+                          ; interpreted by init or simpleinit.
+-              org     1F1h
++              org_    1F1h
+ setup_sects   db      ?  ; no. of sectors
+ ro_flag       dw      ?  ; =0: root file system should be mounted read-write
+                          ;<>0: root file system should be mounted readonly
+@@ -146,16 +174,16 @@ ro_flag       dw      ?  ; =0: root file
+                          ;  options "ro" / "rw")
+ ;             --------------------------------
+ ;                        within this AFTER setup has run:
+-              org     0
++              org_    0
+ curr_curs     dw      ?  ;0000 saved cursor position
+ ext_mem_size  dw      ?  ;0002     extended memory size in Kb (from int 0x15)
+-              org     80h
++              org_    80h
+ hd0_disk_par  label   byte ;080     hd0-disk-parameter from intvector 0x41
+ hd1_disk_par  label   byte ;090     hd1-disk-parameter from intvector 0x46
+ 
+ ;             --------------------------------
+ ;                        within this as loaded from "zImage"
+-              org     01F4h
++              org_    01F4h
+ kernel_size16 dw      ?  ; size of kernel-part in the image-file
+                          ; (in 16 byte units, rounded up)
+ swap_dev      dw      ?  ; swap device
+@@ -201,12 +229,18 @@ bootmagic     dw      ?  ;01FE Bootsecto
+                          ; NOTE: '@@loadlinx@@' or '@@loadliXXXX'
+                          ;       must NOT be used,
+                          ;       if starting LOADLIN without LOADLINX or ULOADLIN
+-              org     0200h
++              org_    0200h
+ params_from_loadlinX label byte
++	      __SECT__
+ 
+ 
+ ; -------------------------------------------------------------------
++ifndef __YASM_MAJOR__
+               org     0200h
++else
++; we're still at 0, go to origin
++              db      0200h dup (?)
++endif
+ setup_prog    label   byte
+                                     ; the setup-program itself
+                                     ; must be started at 9020h:0 !!!
+@@ -263,8 +297,16 @@ heap_end_ptr          dw  0         ; po
+                   ; ---- end of v2.0 setup-header --------------------
+ 
+ start_of_setup:
+-              org     setup_prog
++ifndef __YASM_MAJOR__
++              org_    setup_prog
++else
++              org_    0200h
++endif
+               db      maximum_setup_sects*512 dup(?)
++	      __SECT__
++ifdef __YASM_MAJOR__
++	      times ((maximum_setup_sects+1)*512-0226h) db 0
++endif
+ ; -------------------------------------------------------------
+ ; the following layout is private to LOADLIN.EXE :
+ 
+@@ -383,6 +425,8 @@ xms_avail dw      0
+ xms_handle dw      0
+ xms_phys_addr dd   0
+ 
++ifndef __YASM_MAJOR
++; yasm doesn't support nested structures yet
+ pblock  struc
+   taddr  DD   ? ; linear address where the block of pages
+                 ; must be moved to
+@@ -390,7 +434,9 @@ pblock  struc
+   tstart DW   ? ; index within sources of first entry
+   tcount DW   ? ; number of entries for taddr in sources
+ pblock  ends
++endif
+ 
++ifndef __YASM_MAJOR__
+ pages_list struc
+   ncount    DD     ?       ; number of entries in 'sources'
+   number_of_blocks DD ?    ; number of valid blocks-items
+@@ -400,6 +446,26 @@ pages_list struc
+ ; 128 pages of adresse+usedby gives us the above 65536 maximum pages.
+   sources   DD     128 dup (?) ; list of addresses where the block of pages
+ pages_list ends
++else
++pages_list struc
++  ncount    DD     ?       ; number of entries in 'sources'
++  number_of_blocks DD ?    ; number of valid blocks-items
++  auxbuf    DD     ?       ; address of 4096 bytes auxiliary buffer
++  blocks.taddr DD ?
++  blocks.tstart DW ?
++  blocks.tcount DW ?
++  blocks1.taddr DD ?
++  blocks1.tstart DW ?
++  blocks1.tcount DW ?
++  blocks2.taddr DD ?
++  blocks2.tstart DW ?
++  blocks2.tcount DW ?
++  blocks3.taddr DD ?
++  blocks3.tstart DW ?
++  blocks3.tcount DW ?
++  sources   DD     128 dup (?) ; list of addresses where the block of pages
++pages_list ends
++endif
+ 
+ 
+ 
+@@ -542,7 +608,13 @@ USING_XMS      =      3
+ 
+   ;                  align_  SYSTEMDATA_,1024
+   ;IDT Interrupt Descriptor Table -------------------------v
++ifndef __YASM_MAJOR__
+   idtnull    descript  32 dup (<0>)
++else
++  ; yasm doesn't support repeated initialization yet
++  idtnull    descript  <0>
++	db (8*31) dup (0)
++endif
+   idtlast    descript  <?>    ; dummy for addressing
+   ;IDT Interrupt Descriptor Table -------------------------^
+ 
+@@ -609,6 +681,8 @@ endm
+ 
+ 
+ 
++ifndef __YASM_MAJOR__
++; we can't do this in yasm because we can't define two macros at the same time
+ push_ macro r1,r2,r3,r4,r5,r6,r7,r8,rx
+            irp   parm,<&r1,&r2,&r3,&r4,&r5,&r6,&r7,&r8,&rx>
+              ifndef parm
+@@ -624,7 +698,23 @@ pop_  macro r1,r2,r3,r4,r5,r6,r7,r8
+              endif
+            endm
+          endm
++else
++; but we have nice equivalents
++%macro	push_ 1-*
++	%rep 	%0
++		push %1
++	%rotate	1
++	%endrep
++%endmacro
++%macro	pop_ 1-*
++	%rep 	%0
++	%rotate	-1
++		pop %1
++	%endrep
++%endmacro
++endif
+ 
++ifndef __YASM_MAJOR__
+ pushAD_struc macro prefix
+            irp   parm,<edi,esi,ebp,esp,ebx,edx,ecx,eax>
+              prefix&&parm  dd  ?
+@@ -636,6 +726,7 @@ pushA_struc macro prefix
+              prefix&&parm  dw  ?
+            endm
+          endm
++endif
+ 
+ 
+ cpu_86     equ   0
+@@ -744,14 +835,14 @@ start:
+         mov      cs:PSP_frame,es
+         mov      ax,cs     ; switch the to our stack
+         mov      ss,ax
+-        lea      sp,stack_top
++        lea      sp,[stack_top]
+         mov      ds,ax
+         mov      es,ax
+         call     clear_uninitialized_data
+         mov      ds,cs:PSP_frame
+         cld
+         lea      si,PSP_DTA+1
+-        lea      di,comline+1
++        lea      di,[comline+1]
+         mov      cl,PSP_DTA
+         xor      ch,ch
+         jcxz     start__2
+@@ -761,8 +852,8 @@ start__:                          ; skip
+         inc      si
+         loop     start__
+ start__2:
+-        mov      comline-1,ch
+-        mov      comline,cl
++        mov      es:[comline-1],ch
++        mov      es:[comline],cl
+         inc      cx             ; get the CR too
+         rep movsb               ; get the commandline out of psp
+ 
+@@ -773,16 +864,16 @@ start__2:
+ 
+                  ; make sure that size byte is correct
+                  ; ( some DOS versions set only CR .. sometimes )
+-        lea      di,comline+1
++        lea      di,[comline+1]
+         mov      al,13
+         call     strlen
+-        cmp      al,comline
++        cmp      al,[comline]
+         jnb      start_0
+-        mov      comline,al
++        mov      [comline],al
+ start_0:
+-        mov      bx,word ptr comline-1
++        mov      bx,word ptr [comline-1]
+         xchg     bh,bl
+-        mov      comline[bx+1],0  ; replace CR by ZERO
++        mov      byte ptr comline[bx+1],0  ; replace CR by ZERO
+ 
+         mov      logo_out,0
+         mov      print_dots,0
+@@ -791,12 +882,12 @@ start_0:
+         mov      free_mem_start,cs  ;save CS as later freemem
+ 
+                  ; now check if (on error) we can exit do DOS
+-        lea      bx,comspec_tx
++        lea      bx,[comspec_tx]
+         call     get_env_variable     ; we expect COMSPEC= in the environement
+         mov      al,byte ptr es:[di]
+         mov      can_exit_to_dos,al
+                  ; check if we are running under windows
+-        lea      bx,windows_tx
++        lea      bx,[windows_tx]
+         call     get_env_variable     ; we expect WINDIR= in the environement
+         mov      al,byte ptr es:[di]
+         mov      cannot_load_because_of_windows,al
+@@ -804,7 +895,8 @@ start_0:
+         pop      es
+ 
+ 
+-        lea      ax,modul_end+15
++	.186
++        lea      ax,[modul_end+15]
+         shr      ax,4
+         mov      bx,ax
+         add      ax,High_Seg
+@@ -842,14 +934,14 @@ start_9:
+         mov      cpu_check_status,0
+         mov      option_clone,1  ; avoid reading CR0 before parsing -clone
+         call     cpu_check
+-        lea      dx,err_wrong_cpu_tx
++        lea      dx,[err_wrong_cpu_tx]
+         cmp      ax,cpu_386V86
+         jb       err_print    ; has no 386 or greater at all
+ 
+         .386    ; now we are sure beeing on a 386(and greater) CPU
+         cmp      can_exit_to_dos,0
+         jnz      m2
+-        lea      di,comline+1   ; as DOS (stupidly) converts all from
++        lea      di,[comline+1]   ; as DOS (stupidly) converts all from
+                                 ; CONFIG.SYS to UPPERCASE, we do TOLOWER
+         call     tolower
+ m2:
+@@ -892,31 +984,31 @@ start_continue:
+         cmp      token_count,0
+         jg       m3
+         jz       start_continue_1
+-        cmp      comline,0   ; have we an emtpy string ?
++        cmp      byte ptr [comline],0   ; have we an emtpy string ?
+         jnz      m3
+ start_continue_1:
+         mov      need_mapped_put_buffer,1 ; | we are doing this to
+         call     build_buffer_heap        ; | get the avail mem for printing
+-        lea      dx,empty_tx
++        lea      dx,[empty_tx]
+         jmp      err_print
+ 
+                           ; have file-name at minimum
+                           ; trying to open it
+ m3:
+         mov      ax,DOS_OPEN_FILE shl 8
+-        lea      dx,image_name
++        lea      dx,[image_name]
+         DosInt
+         jnc      fileopened
+ m4:
+-        lea      dx,err_file_notfound_tx
++        lea      dx,[err_file_notfound_tx]
+ m4_:
+         call     print
+-        lea      dx,enter_commandline_tx
++        lea      dx,[enter_commandline_tx]
+         call     print
+         call     readstring
+-        cmp      comline,0   ; have we an emtpy string ?
++        cmp      byte ptr [comline],0   ; have we an emtpy string ?
+         jnz      m2
+-        lea      dx,abort_tx
++        lea      dx,[abort_tx]
+         call     print
+         jmp      err_exit
+ 
+@@ -930,7 +1022,7 @@ IFNDEF DEBUG
+         pop      ds
+         xor      si,si
+         xor      di,di
+-        lea      cx,modul_end+3
++        lea      cx,[modul_end+3]
+         shr      cx,2
+         rep movsd
+         push     es
+@@ -938,13 +1030,13 @@ IFNDEF DEBUG
+                  ; we have move ourself up
+                  ; must now change cs
+         push     ds
+-        lea      ax,back_from_low
++        lea      ax,[back_from_low]
+         push     ax
+         retf
+ back_from_low:
+         mov      ax,ds     ; switch the stack to top
+         mov      ss,ax
+-        lea      sp,stack_top
++        lea      sp,[stack_top]
+ ENDIF
+                  ; from now on we have CS=DS=ES=SS=setup_memory
+         ;-------------------------------------------
+@@ -965,15 +1057,15 @@ back_from_low_continue:
+         jnc      have_bootsect
+ fileopened_wrong:
+         DosCall  DOS_CLOSE_FILE
+-        lea      dx,err_wrong_file_tx
++        lea      dx,[err_wrong_file_tx]
+         jmp      m4_
+ err_wrong_setup:
+         DosCall  DOS_CLOSE_FILE
+-        lea      dx,err_wrong_setup_tx
++        lea      dx,[err_wrong_setup_tx]
+         jmp      m4_
+ err_setup_too_long:
+         DosCall  DOS_CLOSE_FILE
+-        lea      dx,err_setup_too_long_tx
++        lea      dx,[err_setup_too_long_tx]
+         jmp      m4_
+ 
+ have_bootsect:
+@@ -1019,7 +1111,7 @@ new_bootsect_3:
+         cmp      word ptr setup_version,0200h
+         jb       err_uppermem ; we can't continue
+                  ; ok, we set the correct move size
+-        lea      ax,modul_end
++        lea      ax,[modul_end]
+         mov      setup_move_size,ax
+ have_setup_3:
+         mov      ax,High_Seg
+@@ -1095,7 +1187,15 @@ not_signed:
+         cld
+ keep_searching:
+         repnz scasb
++ifndef __YASM_MAJOR__	
+         jcxz     err_wrong_setup
++else
++        jcxz     jmp_err_wrong_setup
++        jmp      noerr_wrong_setup
++jmp_err_wrong_setup:
++        jmp      err_wrong_setup
++noerr_wrong_setup:
++endif
+         cmp      dword ptr [di],70E680B0h ; mov al,80h
+                                           ; out 70h,al
+         jnz      keep_searching
+@@ -1120,17 +1220,17 @@ dont_patch_:
+ 	mov	eax,kernel_size
+         cmp      eax,load_buffer_size
+         jb       have_space
+-        lea      dx,err_kernel_to_big_tx
++        lea      dx,[err_kernel_to_big_tx]
+         cmp      option_t,0
+         je       err_print
+ 
+ have_space:
+ 
+                            ; now we update the params
+-        cmp      command_line,0
++        cmp      byte ptr [command_line],0
+         jz       no_comline
+         mov      CL_MAGIC,0A33Fh
+-        lea      ax,command_line
++        lea      ax,[command_line]
+         mov      CL_OFFSET,ax
+         mov      si,cl_pointer
+         mov      byte ptr [si-1],0 ;delete the last blank
+@@ -1168,10 +1268,10 @@ no_option_v:
+         cmp      option_t,0
+         jz       no_option_t
+         DosCall  DOS_CLOSE_FILE
+-        lea      dx,option_t_terminate_tx
++        lea      dx,[option_t_terminate_tx]
+         cmp      option_t_forced,0
+         jz       no_option_t_forced
+-        lea      dx,option_t_forced_tx
++        lea      dx,[option_t_forced_tx]
+ no_option_t_forced:
+         call     print
+         jmp      err_exit
+@@ -1210,7 +1310,7 @@ no_need_to_roundup:
+         cmp      option_nodiskprompt,0;
+         jnz      no_ram_disk
+                            ;we must prompt for insertion of floppy
+-        lea      dx,insert_floppy_tx
++        lea      dx,[insert_floppy_tx]
+         call     print
+         call     readstring    ; just to wait for prompt
+ no_ram_disk:
+@@ -1254,7 +1354,7 @@ ___go_continue:
+         shr      bx,4
+         mov      ax,High_Seg
+         add      ax,bx
+-        lea      sp,setup_stack_top  ; separate stack during
++        lea      sp,[setup_stack_top]  ; separate stack during
+                                      ; setup and real_switch
+         push     ax
+         push     0
+@@ -1273,7 +1373,7 @@ real_switch proc far
+         push_    ds,es,fs,gs
+         pushad
+         mov      al,80h
+-        out      [70h],al
++        out      70h,al
+         mov      ax,cs
+         mov      ds,ax
+         mov      es,ax
+@@ -1281,7 +1381,7 @@ real_switch proc far
+         mov      dword ptr setup_own_stack,esp
+                         ; Ok,ok, today setup has our stack (no need to switch)
+         mov      ss,ax  ; ... but we want to be sure for the future,
+-        lea      sp,stack_top ; so we switch to our stack
++        lea      sp,[stack_top] ; so we switch to our stack
+         cmp      have_to_intercept_setup,2 ; have we to move the kernel down ?
+         je       @@3  ; no, setup will do it (knows the location of the image)
+                       ; yes, we have patched in the intercept code,
+@@ -1303,7 +1403,7 @@ move_kernel_down proc near
+         cli
+         mov      ax,kernel_start
+         cmp      kernel_load_frame,ax
+-        je       short @@ex  ; yes
++        je       @@ex  ; yes
+                            ; no, must move it down
+         push_    ds,es
+         cld
+@@ -1341,17 +1441,17 @@ move_kernel_down endp
+ 
+ 
+ err_wrong_cpu:
+-        lea      dx,err_cpu_v86_tx
++        lea      dx,[err_cpu_v86_tx]
+ err_print:
+         cmp      token_count,0
+         jz       err_print_1
+         jg       err_print_2
+-        cmp      word ptr comline-1,0   ; have we an command line
++        cmp      word ptr [comline-1],0   ; have we an command line
+         jnz      err_print_2 ; yes
+                              ; no, print help and status
+ err_print_1:
+         push     dx
+-        lea      dx,usage_tx
++        lea      dx,[usage_tx]
+         call     print
+         pop      dx
+ err_print_2:
+@@ -1361,12 +1461,12 @@ err_print_2:
+         call     print_verbose_stat
+         jmp      err_exit
+ err_io:
+-        lea      dx,err_io_tx
++        lea      dx,[err_io_tx]
+         call     print
+         jmp      err_exit
+ 
+ err_uppermem:
+-        lea      dx,err_uppermem_tx
++        lea      dx,[err_uppermem_tx]
+         call     print
+ err_exit:
+         cmp      cs:can_exit_to_dos,0
+@@ -1377,7 +1477,7 @@ exit_to_dos:
+         call     close_debug_file
+         DosCall  DOS_TERMINATE_EXE
+ idle:
+-        lea      dx,err_in_config_sys_tx
++        lea      dx,[err_in_config_sys_tx]
+         call     print
+         call     close_debug_file
+ idle_:
+@@ -1424,7 +1524,7 @@ print proc near
+         jnz      @@ex
+         mov      cs:logo_out,1
+         push_    ax,dx
+-        lea      dx,logo_tx
++        lea      dx,[logo_tx]
+         call     real_print
+         pop_      ax,dx
+ @@ex:
+@@ -1437,7 +1537,7 @@ print_crlf proc near
+         pushf
+         push    ax
+         push    dx
+-        lea     dx,@@crlf
++        lea     dx,[@@crlf]
+         call    print
+         pop     dx
+         pop     ax
+@@ -1452,13 +1552,13 @@ print_dot proc  near
+         jb      @@ex
+         push    ax
+         push    dx
+-        lea     dx,@@dot_tx
++        lea     dx,[@@dot_tx]
+         je      @@1
+-        lea     dx,@@start_tx
++        lea     dx,[@@start_tx]
+         dec     cs:print_dots
+         cmp     cs:print_dots,1
+         jbe     @@1
+-        lea     dx,@@start_tx_2
++        lea     dx,[@@start_tx_2]
+         dec     cs:print_dots
+ @@1:
+         call    print
+@@ -1486,7 +1586,7 @@ handle_kernel_size proc near
+ 	jae	@@bigger
+ 	movzx	eax,kernel_size16
+ 	shl	eax,4
+-	jmp	short @@ex
++	jmp	@@ex
+ 
+ @@bigger:
+ 		; first get the filesize
+@@ -1517,7 +1617,7 @@ read_handle proc    near
+         push    ecx
+         push    cs
+         pop     ds                 ; target seg = IO_buffer
+-        lea     dx,aligned_auxbuff ; target off = IO_buffer
++        lea     dx,[aligned_auxbuff] ; target off = IO_buffer
+         mov     esi,ecx
+         mov     ecx,granularity
+         jmp     @@start
+@@ -1588,14 +1688,14 @@ clear_uninitialized_data proc near
+                 ; because we don't yet know on which machine we are
+         push_   es,ax,cx,di
+         xor     ax,ax
+-        lea     di,uninitialized_data_start
++        lea     di,[uninitialized_data_start]
+         mov     cx,(uninitialized_data_stop-uninitialized_data_start)/2
+         cld
+         rep stosw
+         call    preset_pagedir_from_template
+-        les     ax,@@aux
+-        mov     word ptr pageadjlist.auxbuf,ax
+-        mov     word ptr pageadjlist.auxbuf+2,es
++        les     ax,[@@aux]
++        mov     word ptr [pageadjlist.auxbuf],ax
++        mov     word ptr [pageadjlist.auxbuf+2],es
+         pop_    es,ax,cx,di
+         ret
+         .386
+@@ -1614,13 +1714,18 @@ preset_pagedir_from_template endp
+ ; Here we expect the realy end of any _preset_ data in the .EXE.
+ ; Below we have _uninitialized_ data, that will not appear in the binary.
+ ; We put the LOADLIN >= 1.6 Magic and suffix-structure here:
+-          align  dword
++          ;align  dword
++          align  4
+           dd     0     ; relative offset within file to previous suffix
+                        ; (e.g the size of the appended part)
+           dd     0     ; flags, indicating what kind of appended
+                        ; file we have
+           db     0     ; suffix level, 0= no further suffix
++ifndef __YASM_MAJOR__
+           db     'Loadlin-',LOADLIN_VERSION ; exactly 11 bytes !!!
++else
++          db     'Loadlin-','1.6f'; exactly 11 bytes !!!
++endif	  
+ ;------------------------------------------------------------------------
+ 
+ 
+@@ -1635,6 +1740,7 @@ stack_top label byte
+ 
+ 
+ uninitialized_data_start label byte
++__bss_start label byte
+ 
+                 db    ?   ; belongs to comline
+ comline         db    128 dup(?) ; copied from PSP_DTA
+diff -r 56b6cf82d167 -r c8190a00fb15 src/loadlini.asm
+--- a/src/loadlini.asm	Tue Feb 09 03:29:55 2010 +0100
++++ b/src/loadlini.asm	Wed Apr 28 20:13:19 2010 +0200
+@@ -32,18 +32,18 @@ relocate_setup_code proc near
+          mov    have_relocated_setup,1
+                 ; these can simply overwriten
+          mov    ax,High_seg
+-         mov    reloc_hseg_1,ax
+-         mov    reloc_hseg_2,ax
++         mov    [reloc_hseg_1],ax
++         mov    [reloc_hseg_2],ax
+ 
+ @@relocd macro  desc
+          lea    bx,desc
+          call   relocate_descriptor
+          endm
+                 ; these descriptors have to get added the displacement
+-         @@relocd gdt_code
+-         @@relocd gdt_data
+-         @@relocd gdt_ldt
+-         @@relocd gdt_tss
++         @@relocd [gdt_code]
++         @@relocd [gdt_data]
++         @@relocd [gdt_ldt]
++         @@relocd [gdt_tss]
+ 
+                 ; these DWORDS have to get added the displacement
+          sub    ax,High_seg_
+@@ -96,9 +96,9 @@ read_comline_from_file proc near
+         call     @@open
+         jnc      @@isopen
+ @@err:
+-        lea      dx,err_comfile_tx
++        lea      dx,[err_comfile_tx]
+         call     print
+-        mov      word ptr comline-1,0
++        mov      word ptr [comline-1],0
+         jmp      @@ex
+ @@ioerr:
+ ;;        DosCall  DOS_CLOSE_FILE
+@@ -107,7 +107,7 @@ read_comline_from_file proc near
+ @@isopen:
+         mov      bx,ax
+         cld
+-        lea      di,comline+1
++        lea      di,[comline+1]
+ @@loop:
+         mov      dx,di
+         mov      cx,1
+@@ -141,7 +141,7 @@ read_comline_from_file proc near
+         mov      ax,di
+         sub      ax,offset comline+1
+         xchg     al,ah
+-        mov      word ptr comline-1,ax
++        mov      word ptr [comline-1],ax
+ ;;        DosCall  DOS_CLOSE_FILE
+         call     @@close
+         jmp      @@ex
+@@ -166,20 +166,20 @@ read_comline_from_file proc near
+ @@virtual db     0
+ 
+ @@open:                    ; virtual open routine
+-        cmp      dword ptr image_name,'ol@@'
++        cmp      dword ptr [image_name],'ol@@'
+         jne      @@open_d
+-        cmp      dword ptr image_name+4,'ilda'
++        cmp      dword ptr [image_name+4],'ilda'
+         je      @@open_v
+ @@open_d:
+         mov      @@virtual,0
+-        lea      dx,image_name+1
++        lea      dx,[image_name+1]
+         mov      ax,DOS_OPEN_FILE shl 8
+         DosInt
+         ret
+ @@open_v:
+         mov      @@virtual,1
+         mov      ax,High_Seg
+-        cmp      dword ptr image_name+4+4,'@@xn'
++        cmp      dword ptr [image_name+4+4],'@@xn'
+         jne      @@open_vhex
+         mov      fs,ax
+         lea      ax,params_from_loadlinX
+@@ -187,7 +187,7 @@ read_comline_from_file proc near
+         ret
+ @@open_vhex:
+         push     si
+-        lea      si,image_name+4+2
++        lea      si,[image_name+4+2]
+         mov      word ptr [si],'x0'
+         call     value_of
+         mov      fs,ax
+@@ -231,9 +231,22 @@ build_arglist proc near
+ ; output:
+ ;   DI      = pointing to next free byte in target buffer
+ ;   all other registers preserved
++ifndef __YASM_MAJOR__
+ @@stack struc
+   pushA_struc @@
+ @@stack ends
++else
++@@stack struc
++  @@di dw ?
++  @@si dw ?
++  @@bp dw ?
++  @@sp dw ?
++  @@bx dw ?
++  @@dx dw ?
++  @@cx dw ?
++  @@ax dw ?
++@@stack ends
++endif
+         pusha
+         mov     bp,sp
+         xor     cx,cx
+@@ -267,29 +280,29 @@ IF 0
+ ELSE
+         pushad
+         cld
+-        lea     di,aligned_auxbuff
+-        mov     @@list,di
++        lea     di,[aligned_auxbuff]
++        mov     [@@list],di
+         call    build_arglist     ; we save the rest of the old commandline
+-        mov     @@ptr,di
++        mov     [@@ptr],di
+         call    read_comline_from_file
+-        cmp     word ptr aligned_auxbuff,0 ; nothing left in the old ?
++        cmp     word ptr [aligned_auxbuff],0 ; nothing left in the old ?
+         jz      @@ex
+-        lea     si,comline+1
+-        mov     @@cptr,si
++        lea     si,[comline+1]
++        mov     [@@cptr],si
+         cld
+-        mov     di,@@ptr
++        mov     di,[@@ptr]
+         call    build_arglist      ;we scan the read-in commandline
+                          ; now we check if there are overwrites
+-        mov     si,word ptr aligned_auxbuff
+-        mov     @@list,si
+-        mov     dx,@@ptr
++        mov     si,word ptr [aligned_auxbuff]
++        mov     [@@list],si
++        mov     dx,[@@ptr]
+         mov     si,dx
+         mov     si,word ptr [si]
+         or      si,si
+         jz      @@ex_0
+                 ; check if we have to replace the image
+-        lea     di,@@image
+-        mov     bx,@@list ; string list of old args
++        lea     di,[@@image]
++        mov     bx,[@@list] ; string list of old args
+         call    check_token
+         js      @@2
+         mov     bx,word ptr aligned_auxbuff[bx]
+@@ -310,19 +323,19 @@ ELSE
+         jne     @@1_3
+         cmp     word ptr [si],'or'
+         jne     @@1_1
+-        lea     di,@@rw    ; search the opposite (rw replaces ro)
++        lea     di,[@@rw]    ; search the opposite (rw replaces ro)
+         jmp     @@1_2
+ @@1_1:
+         cmp     word ptr [si],'wr'
+         jne     @@1_3
+-        lea     di,@@ro    ; search the opposite (ro replaces rw)
++        lea     di,[@@ro]    ; search the opposite (ro replaces rw)
+ @@1_2:
+-        mov     bx,@@list ; string list of old args
++        mov     bx,[@@list] ; string list of old args
+         call    check_token
+         jmp     @@1_4
+ @@1_3:
+         mov     di,si
+-        mov     bx,@@list ; string list of old args
++        mov     bx,[@@list] ; string list of old args
+         call    check_token
+ @@1_4:
+         js      @@2
+@@ -330,19 +343,19 @@ ELSE
+         mov     si,word ptr aligned_auxbuff[bx]
+ @@2:
+         push    si
+-        mov     di,@@cptr
++        mov     di,[@@cptr]
+         call    stringcpy
+         pop     si
+-        mov     @@cptr,di
++        mov     [@@cptr],di
+         mov     byte ptr [di-1],' '
+         add     dx,2
+-        cmp     si,@@list       ; avoid overwriting our constants
++        cmp     si,[@@list]       ; avoid overwriting our constants
+         jb      @@1
+         mov     byte ptr [si],1
+         jmp     @@1
+ @@ex_0:
+                 ; we have to take the rest of the old commandline
+-        lea     bx,aligned_auxbuff ; string list of old args
++        lea     bx,[aligned_auxbuff] ; string list of old args
+ @@ex_1:
+         mov     si,word ptr [bx]
+         add     bx,2
+@@ -350,20 +363,20 @@ ELSE
+         jz      @@ex_2
+         cmp     byte ptr [si],1
+         je      @@ex_1       ; skip, what we already replaced
+-        mov     di,@@cptr
++        mov     di,[@@cptr]
+         call    stringcpy
+-        mov     @@cptr,di
++        mov     [@@cptr],di
+         mov     byte ptr [di-1],' '
+         jmp     @@ex_1
+ @@ex_2:
+-        mov     bx,@@cptr
++        mov     bx,[@@cptr]
+         mov     byte ptr [bx-1],0
+-        sub     bx, offset comline+1
++        sub     bx, offset [comline+1]
+         jz      @@ex_5
+         dec     bx
+ @@ex_5:
+         xchg    bh,bl
+-        mov     word ptr comline-1,bx
++        mov     word ptr [comline-1],bx
+ @@ex:
+         popad
+         ret
+@@ -404,7 +417,11 @@ check_token proc near
+         jz      @@not_found
+ @@loop_entry:
+         push    di
++ifndef __YASM_MAJOR__
+         mov     cx,size aux_token
++else
++        mov     cx,80
++endif
+         call    name_compare
+         jz      @@loop
+         pop     ax     ; clean up stack
+@@ -435,39 +452,43 @@ get_setup_version endp
+ 
+ 
+ parscommandline proc near
+-        mov     image_name,0
++        jmp     @@go
++@@toex_carry:
++        jmp     @@ex_carry
++@@go:
++        mov     byte ptr [image_name],0
+ parscommandline_:
+         call    clear_to_default
+-        mov     cx,word ptr comline-1
++        mov     cx,word ptr [comline-1]
+         xchg    ch,cl
+-        jcxz    @@ex_carry
++        jcxz    @@toex_carry
+         mov     si,cx
+-        mov     comline[si+1],0
+-        mov     command_line,0
+-        mov     cl_pointer,offset command_line
+-        lea     si,comline+1
++        mov     byte ptr comline[si+1],0
++        mov     byte ptr [command_line],0
++        mov     cl_pointer,offset [command_line]
++        lea     si,[comline+1]
+         cld
+-        cmp     image_name,0
++        cmp     byte ptr [image_name],0
+         jnz     @@1
+-        lea     di,image_name
++        lea     di,[image_name]
+         call    get_token   ; get the zImage-file name
+         jz      @@ex_carry
+ 
+-        cmp     image_name,'-'
++        cmp     byte ptr [image_name],'-'
+         jne     @@0
+-        mov     dword ptr image_name,'amiz'
+-        mov     word ptr image_name+4,'eg'
+-        mov     image_name+6,0
++        mov     dword ptr [image_name],'amiz'
++        mov     word ptr [image_name+4],'eg'
++        mov     byte ptr [image_name+6],0
+         jmp     parscommandline_
+ @@0:
+                             ; got zImage-name
+                             ; try to get params
+-        cmp     image_name,'@'
++        cmp     byte ptr [image_name],'@'
+         jne     @@1
+         call    handle_response_file
+         jmp     parscommandline
+ @@1:
+-        lea     di,image_name
++        lea     di,[image_name]
+         call    tolower
+         jmp     @@next_token
+ 
+@@ -539,11 +560,11 @@ parscommandline_:
+               dw  @@option_dskreset
+ 
+ @@next_token:
+-        lea     di,aux_token
++        lea     di,[aux_token]
+         call    get_token
+         jz      @@ex0
+-        lea     di,aux_token
+-        lea     bx,@@token_table
++        lea     di,[aux_token]
++        lea     bx,[@@token_table]
+         call    check_token
+         js      @@not_my_token
+         jmp     @@jmp_table[bx]
+@@ -551,7 +572,7 @@ parscommandline_:
+ @@mem:
+         jz      @@not_my_token
+         push    di
+-        lea     di,aux_token
++        lea     di,[aux_token]
+         call    tolower
+         pop     di
+         cmp     byte ptr [di],'n'  ; = 'nopentium'
+@@ -566,7 +587,7 @@ parscommandline_:
+ @@option_wait:
+         jz      @@not_my_token
+         push    di
+-        lea     di,aux_token
++        lea     di,[aux_token]
+         call    tolower
+         pop     di
+         xchg    si,di
+@@ -579,7 +600,7 @@ parscommandline_:
+         jz      @@not_my_token
+         push_   si,di
+         xchg    si,di
+-        lea     di,rdimage_name
++        lea     di,[rdimage_name]
+         call    stringcpy
+         pop_    si,di
+         mov     option_initrd,1
+@@ -646,12 +667,12 @@ parscommandline_:
+         jmp     @@next_token
+ 
+ @@option_d:
+-        lea     di,aux_token   ; get output file name
++        lea     di,[aux_token]   ; get output file name
+         call    get_token
+         jz      @@option_t     ; no file name
+         push_   bx,cx,dx
+         xor     cx,cx
+-        lea     dx,aux_token
++        lea     dx,[aux_token]
+         DosCall DOS_CREATE_FILE
+         pop_    bx,cx,dx
+         jc      @@option_t
+@@ -701,22 +722,22 @@ parscommandline_:
+ 
+ @@not_my_token:
+         push    si
+-        lea     si,aux_token
++        lea     si,[aux_token]
+         call    @@append_to_commandline
+         pop     si
+         jmp     @@next_token
+ @@tolower:
+-        lea     di,aux_token
++        lea     di,[aux_token]
+         call    tolower
+         jmp     @@not_my_token
+ 
+ 
+ 
+ @@ex0:
+-        lea     si,@@boot_tx
++        lea     si,[@@boot_tx]
+         call    @@append_to_commandline
+         dec     cl_pointer
+-        lea     si,image_name
++        lea     si,[image_name]
+         cld
+         mov     di,si
+ @@ex1:
+@@ -802,15 +823,15 @@ get_token endp
+ 
+ readstring proc near
+         push    dx
+-        mov     comline-1,255-2
+-        lea     dx,comline-1
++        mov     byte ptr [comline-1],255-2
++        lea     dx,[comline-1]
+         DosCall DOS_BUFFERED_INPUT
+-        lea     dx,newline_tx
++        lea     dx,[newline_tx]
+         call    print
+         push    bx
+-        movzx   bx,comline
+-        mov     comline[bx+1],0
+-        mov     comline-1,0
++        movzx   bx,[comline]
++        mov     byte ptr comline[bx+1],0
++        mov     byte ptr [comline-1],0
+         pop     bx
+         pop     dx
+         ret
+@@ -874,33 +895,33 @@ name_compare proc near
+ @@m3:
+           lodsb
+           cmp     al,'='        ; may be name in environement
+-          jne     short @@32
++          jne     @@32
+           xor     al,al
+-          jmp     short @@m35
++          jmp     @@m35
+ @@32:
+           cmp     al,'A'        ; tolower !
+-          jb      short @@m35
++          jb      @@m35
+           cmp     al,'Z'
+-          ja      short @@m35
++          ja      @@m35
+           add     al,'a'-'A'
+ @@m35:
+           mov     ah,al
+           mov     al,byte ptr cs:[si+bx-1]
+           cmp     al,'='        ; may be name in environement
+-          jne     short @@34
++          jne     @@34
+           xor     al,al
+-          jmp     short @@m36
++          jmp     @@m36
+ @@34:
+           cmp     al,'A'        ; tolower !
+-          jb      short @@m36
++          jb      @@m36
+           cmp     al,'Z'
+-          ja      short @@m36
++          ja      @@m36
+           add     al,'a'-'A'
+ @@m36:
+           or      al,al
+-          jz      short @@ex_
++          jz      @@ex_
+           or      ah,ah
+-          jz      short @@exfalse
++          jz      @@exfalse
+           cmp     ah,al
+           jne     @@exfalse
+           loop    @@m3
+@@ -1029,7 +1050,7 @@ value_of proc near
+           lodsb
+           or     al,20h    ; convert to lowercase
+           cmp    al,'9'
+-          jna    short @@m4
++          jna    @@m4
+           add    al,9
+ @@m4:
+           and    al,0fh
+@@ -1050,18 +1071,18 @@ value_of proc near
+ @@check_white:
+           mov    ah,'f'
+           cmp    bl,16
+-          je     short @@7
++          je     @@7
+           mov    ah,'9'
+ @@7:
+           or     al,20h
+           cmp    al,'0'
+-          jb     short @@9
++          jb     @@9
+           cmp    al,ah
+-          ja     short @@9
++          ja     @@9
+           cmp    al,'9'
+-          jbe    short @@8
++          jbe    @@8
+           cmp    al,'a'
+-          jae    short @@8
++          jae    @@8
+ @@9:
+           mov    al,' '
+ @@8:
+diff -r 56b6cf82d167 -r c8190a00fb15 src/loadlinj.asm
+--- a/src/loadlinj.asm	Tue Feb 09 03:29:55 2010 +0100
++++ b/src/loadlinj.asm	Wed Apr 28 20:13:19 2010 +0200
+@@ -27,6 +27,7 @@ check_VCPI_present proc near
+           push    es
+           push    ds
+           lea     esp,[esp-4] ; local space
++ifndef __YASM_MAJOR__
+ @@stack struc
+   @@handle dw   ?
+            dw   ?
+@@ -34,6 +35,22 @@ check_VCPI_present proc near
+   @@es     dw   ?
+   pushad_struc @@
+ @@stack ends
++else
++@@stack struc
++  @@handle dw   ?
++  @@foo0   dw   ?
++  @@ds     dw   ?
++  @@es     dw   ?
++  @@edi    dd   ?
++  @@esi    dd   ?
++  @@ebp    dd   ?
++  @@esp    dd   ?
++  @@ebx    dd   ?
++  @@edx    dd   ?
++  @@ecx    dd   ?
++  @@eax    dd   ?
++@@stack ends
++endif
+           xor     eax,eax      ; check EMM_interrupt present
+           mov     [esp].@@eax,eax
+           mov     es,ax
+@@ -63,7 +80,7 @@ check_VCPI_present proc near
+           mov     ax,0DE00h   ; check for VCPI present
+           int     emm_int
+           cmp     ah,0
+-          jne     short @@notok
++          jne     @@notok
+           mov     byte ptr [esp].@@eax,1
+ @@notok:
+           mov     dx,word ptr [esp].@@handle
+@@ -91,7 +108,7 @@ get_VCPI_interface endp
+ check_low_mem_mapping proc near
+           call    get_VCPI_interface
+           xor     edx,edx
+-          lea     si,page0
++          lea     si,[page0]
+           cld
+           mov     cx,(640/4)
+ @@loop:
+@@ -121,8 +138,8 @@ get_protected_mode_interface proc near
+           push    es
+ 
+                                     ; convert pagebuffer to linear address
+-          movzx   eax,word ptr server_pagebuffer+2
+-          movzx   ebx,word ptr server_pagebuffer
++          movzx   eax,word ptr [server_pagebuffer+2]
++          movzx   ebx,word ptr [server_pagebuffer]
+           shl     eax,4
+           add     eax,ebx
+           shr     eax,4      ; make real mode address
+@@ -131,7 +148,7 @@ get_protected_mode_interface proc near
+           push    ds
+           mov     es,ax                ; ES = frame of server_pagebuf
+           xor     di,di                ; ES:DI = >buffer for page0-table<
+-          lds     si,server_selectors ; DS:DI = >3 GDT entries for VCPI
++          lds     si,[server_selectors] ; DS:DI = >3 GDT entries for VCPI
+                                ; calling VCPI server
+           mov     ax,0DE01h
+           int     emm_int
+@@ -150,20 +167,28 @@ get_protected_mode_interface proc near
+           pop     di
+           pop     si
+           pop     bp
++ifndef __YASM_MAJOR__
+           ret     returnpop
++else
++          ret     8
++endif
+ get_protected_mode_interface endp
+ 
+ 
+ try_biosintv proc near
+           pushad
+           mov      ax,DOS_OPEN_FILE shl 8
+-          lea      dx,@@fname
++          lea      dx,[@@fname]
+           DosInt
+           jc       @@ex_false
+           mov      bx,ax
+           mov      ax,4402h
++ifndef __YASM_MAJOR__
+           mov      cx,size intv_buf
+-          lea      dx,intv_buf
++else
++          mov      cx,128*4
++endif
++          lea      dx,[intv_buf]
+           DosInt
+           pushf
+           push     ax
+@@ -186,11 +211,11 @@ try_biosintv endp
+ try_realbios proc near
+           pushad
+           mov      ax,DOS_OPEN_FILE shl 8
+-          lea      dx,@@fname_realbios
++          lea      dx,[@@fname_realbios]
+           DosInt
+           jc       @@ex_false
+           mov      bx,ax
+-          lea      dx,intv_buf
++          lea      dx,[intv_buf]
+           mov      cx,realbios_end-intv_buf
+           DosCall  DOS_READ_FROM_HANDLE
+           pushf
+@@ -216,7 +241,7 @@ try_realbios proc near
+           cmp      eax,dword ptr cs:biosdate+4
+           jne      @@ex_wrong_bios
+                    ; we check the real_bios_magic
+-          cmp      cs:real_bios_magic,0a5a5h
++          cmp      word ptr cs:real_bios_magic,0a5a5h
+           jne      @@ex_wrong_bios
+ @@ex_true:
+           mov      ax,1
+@@ -235,7 +260,11 @@ try_realbios proc near
+           call    force_error_verbose
+           jmp     @@ex_false
+ 
++ifndef __YASM_MAJOR__
+ @@fname_realbios db REALBIOS_FILE,0
++else
++@@fname_realbios db 'C:\REALBIOS.INT',0
++endif
+ try_realbios endp
+ 
+ get_default_bios_intvectors proc near
+@@ -314,7 +343,7 @@ pmode_task proc near
+           db      0EAh
+           dw      @@here
+ reloc_hseg_1  dw  High_Seg_
+-@@here    label   far
++@@here    label   byte
+ 
+           ; 7. Use LIDT instruction to load the base and limits of the
+           ;    real-mode interrupt vector table
+@@ -349,17 +378,17 @@ get_mem_from_CMOS proc near
+           cli
+           push    bx
+           mov     al,18h
+-          out     [070h],al
++          out     070h,al
+           dec     al
+           mov     bl,al
+           iodelay
+-          in      al,[071h]
++          in      al,071h
+           mov     ah,al
+           mov     al,bl
+           iodelay
+-          out     [070h],al
++          out     070h,al
+           iodelay
+-          in      al,[071h] ; extended mem read from CMOS
++          in      al,071h ; extended mem read from CMOS
+           pop     bx
+           popf
+           ret
+@@ -368,6 +397,12 @@ get_mem_from_CMOS endp
+ 
+ 
+ restore_bios_default_vectors proc near
++ifdef __YASM_MAJOR__
++          jmp     @@go
++@@to_ex:
++          jmp     @@ex
++@@go:
++endif
+           push_   es,ds,ax,cx,si,di
+           xor     di,di
+           mov     es,di
+@@ -384,57 +419,73 @@ restore_bios_default_vectors proc near
+ @@p2:
+           mov     cx,cs:intv_size
+           shr     cx,2
++ifndef __YASM_MAJOR__
+           jcxz    @@ex
++else
++          jcxz    @@to_ex
++endif
+           ; we now reset the intvector to bios-defaults
+           push    cs
+           pop     ds
++ifndef __YASM_MAJOR__
+           cmp     cx,(size intv_buf)/4  ; have we REALBIOS
++else
++          cmp     cx,128*4/4  ; have we REALBIOS
++endif
+           jna     @@1     ; no
+                           ; yes
+                           ; restoring BIOSdata also
+           mov     cx,(dummy_dos_data-intv_buf)/4
+ @@1:
+-          lea     si,intv_buf
++          lea     si,[intv_buf]
+           cld
+           rep movsd
++ifndef __YASM_MAJOR__
+           cmp     cs:intv_size,(size intv_buf)  ; have we REALBIOS
++else
++          cmp     cs:intv_size,128*4  ; have we REALBIOS
++endif
+           jna     @@8      ; no
+                            ; yes, restoring BIOSscratch also
+           mov     di,09FC0h
+           mov     es,di
+           xor     di,di
+-          lea     si,bios_scratch
++          lea     si,[bios_scratch]
++ifndef __YASM_MAJOR__
+           mov     cx,(size bios_scratch)/4
++else
++          mov     cx,1024/4
++endif
+           rep movsd
+                            ; now reprogram the PICs (8259A)
+                            ; (may be redirected by VCPI-client)
+           mov     al,11h        ; enter programming mode
+-          out     [20h],al      ; master
++          out     20h,al      ; master
+           iodelay
+-          out     [0A0h],al     ; slave
++          out     0A0h,al     ; slave
+           iodelay
+           mov     al,8          ; IRQ0..7 --> INT8..F
+-          out     [21h],al      ; master
++          out     21h,al      ; master
+           iodelay
+           mov     al,70h        ; IRQ8..F --> INT70..77
+-          out     [0A1h],al     ; slave
++          out     0A1h,al     ; slave
+           iodelay
+           mov     al,4          ; master bit
+-          out     [21h],al      ; master
++          out     21h,al      ; master
+           iodelay
+           mov     al,2          ; slave bit
+-          out     [0A1h],al     ; slave
++          out     0A1h,al     ; slave
+           iodelay
+           mov     al,1          ; 8086 mode
+-          out     [21h],al      ; master
++          out     21h,al      ; master
+           iodelay
+-          out     [0A1h],al     ; slave
++          out     0A1h,al     ; slave
+           iodelay
+           mov     al,cs:slaveIMR
+-          out     [0A1h],al     ; slave
++          out     0A1h,al     ; slave
+           iodelay
+           mov     al,cs:masterIMR
+-          out     [21h],al      ; master
++          out     21h,al      ; master
+ 
+ @@p1:                      ; we hook on the INT15
+           xor     ax,ax
+@@ -466,7 +517,7 @@ our_int15 proc near
+ ; interrupt 15 hook, in case of realbios
+           cmp     ah,88h
+           je      @@we_do_it
+-          jmp     dword ptr cs:intv_buf+(4*15H)
++          jmp     far ptr cs:intv_buf+(4*15H)
+ @@we_do_it:
+           mov     ax,cs:real_bios_int15
+ ;;;test          mov     ax,0c00h*4
+@@ -487,7 +538,7 @@ switch_to_protected_mode_and_return_in_3
+           mov    cs:have_to_force_realmode,0
+           pushad
+           mov    pmode_return_esp,esp
+-          lea    ax,pmode_task
++          lea    ax,[pmode_task]
+           movzx  eax,ax
+           mov    dword ptr protected_mode_target,eax
+           mov    word ptr protected_mode_target+4,g_code
+@@ -672,7 +723,7 @@ get_effective_physmem proc near
+ @@sim_int15:
+          cmp      wrong_realbios,0
+          jne      @@sim_int15_1
+-         cmp      cs:real_bios_magic,0a5a5h  ; have we a saved value
++         cmp      word ptr cs:real_bios_magic,0a5a5h  ; have we a saved value
+          jne      @@sim_int15_2              ; no
+          mov      ax,cs:real_bios_int15      ; yes
+          jmp      @@1
+@@ -683,7 +734,7 @@ get_effective_physmem proc near
+          cli
+          push     cs
+          push     offset @@1
+-         push     dword ptr intv_buf+(15h*4)
++         push     dword ptr [intv_buf+(15h*4)]
+          retf
+ @@1:
+          movzx    eax,ax
+@@ -715,55 +766,59 @@ print_verbose proc near
+           call   writehexword
+          endm
+ 
+-         @@print  @@t1
++         @@print  [@@t1]
++ifndef __YASM_MAJOR__
+          @@prints image_name,<size image_name>
++else
++         @@prints [image_name],80
++endif
+          cmp      have_to_intercept_setup,2
+          jne      @@m1
+          cmp      setup_header_version,0105h
+          jb       @@m1
+          cmp      kernel_version,0
+          jz       @@m1
+-         @@print  @@t1_
++         @@print  [@@t1_]
+          mov      dx,kernel_version
+          add      dx,offset setup_prog
+          call     print
+ @@m1:
+-         @@print  @@t2
++         @@print  [@@t2]
+ ;         @@hexw   kernel_size
+ 	 mov      eax,kernel_size
+ 	 call     writehexdword
+          cmp      have_big_kernel,0
+          jz       @@m1_1
+-         @@print  @@t2_big
++         @@print  [@@t2_big]
+          jmp      @@m1_2
+ @@m1_1:
+-         @@print  @@t2_
++         @@print  [@@t2_]
+ @@m1_2:
+          @@hexw   new_setup_size
+          cmp      setup_version,0201h
+          jb       @@m1_5
+          test     loadflags,CAN_USE_HEAP
+          jz       @@m1_5
+-         @@print  @@t2_heap
++         @@print  [@@t2_heap]
+          mov      ax,heap_end_ptr
+          sub      ax,new_setup_size
+          @@hexw   ax
+ @@m1_5:
+-         @@print  @@v1
++         @@print  [@@v1]
+          @@hexw   vga_mode
+-         @@print  @@c2
+-         lea      di,command_line
++         @@print  [@@c2]
++         lea      di,[command_line]
+          xor      ax,ax
+          call     strlen
+          push     ax
+          call   writehexword
+-         @@print  @@c1
++         @@print  [@@c1]
+          pop      cx
+-         @@prints command_line,cx
++         @@prints [command_line],cx
+          @@cr
+ 
+ @@verbose_stat:
+-         @@print  @@t21
++         @@print  [@@t21]
+          mov      eax,load_buffer_size
+          call   writehexdword
+ 
+@@ -772,63 +827,67 @@ print_verbose proc near
+          mov      dx,@@hmtable[bx]
+          call   print
+ 
+-         @@print  @@t21_
++         @@print  [@@t21_]
+          mov      ax,maximum_setup_sects*512
+          call   writehexword
+          cmp      have_relocated_setup,0
+          jz       @@mmt22
+-         @@print  @@t21_oc
++         @@print  [@@t21_oc]
+ @@mmt22:
+          cmp      high_mem_access,0
+          jz       @@mmt23
+-         @@print  @@t22low
++         @@print  [@@t22low]
+          mov      eax,heap_end
+          sub      eax,heap_ptr
+          call   writehexdword
+-         @@print  @@t22low2
++         @@print  [@@t22low2]
+ @@mmt23:
+-         @@print  @@t22
++         @@print  [@@t22]
+          call   get_effective_physmem
+          call   writehexdword
+ 
+ 
+-         @@print  @@t5
+-         lea      dx,@@real_
++         @@print  [@@t5]
++         lea      dx,[@@real_]
+          cmp      cpu_type,cpu_386GE
+          je       @@3
+-         lea      dx,@@real_p
++         lea      dx,[@@real_p]
+          ja       @@3
+-         lea      dx,@@v86
++         lea      dx,[@@v86]
+ @@3:
+          call   print
+          cmp      wrong_realbios,0
+          je       @@3__
+-         @@print  @@t6_
+-         lea      dx,@@t6__
++         @@print  [@@t6_]
++         lea      dx,[@@t6__]
+          jmp      @@3_1
+ @@3__:
+          cmp      intv_size,0
+          jz       @@3_1_
+-         lea      dx,@@t6
++         lea      dx,[@@t6]
++ifndef __YASM_MAJOR__
+          cmp      intv_size,(size intv_buf)  ; have we REALBIOS
++else
++         cmp      intv_size,128*4  ; have we REALBIOS
++endif
+          jna      @@3_
+-         lea      dx,@@t6_
++         lea      dx,[@@t6_]
+ @@3_:
+          call   print
+-         lea      dx,@@no
++         lea      dx,[@@no]
+          cmp      intv_size,0
+          jz       @@3_1
+-         lea      dx,@@yes
++         lea      dx,[@@yes]
+ @@3_1:
+          call   print
+ @@3_1_:
+-         @@print  @@t7
+-         lea      dx,@@no
++         @@print  [@@t7]
++         lea      dx,[@@no]
+          cmp      have_to_intercept_setup,1
+          jb       @@3_2
+-         lea      dx,@@setup_
++         lea      dx,[@@setup_]
+          je       @@3_2
+-         lea      dx,@@setup
++         lea      dx,[@@setup]
+          call   print
+          mov      ax,setup_version
+          call   writehexword
+@@ -836,34 +895,34 @@ print_verbose proc near
+ @@3_2:
+          call   print
+ @@3_2_1:
+-         @@print  @@s
++         @@print  [@@s]
+          mov      bx,cpu_check_status
+          mov      dx,@@stable[bx]
+          call   print
+-         @@print  @@cc2
+-         lea      di,comline+1
++         @@print  [@@cc2]
++         lea      di,[comline+1]
+          xor      ax,ax
+          call     strlen
+          push     ax
+          call   writehexword
+-         @@print  @@cc1
++         @@print  [@@cc1]
+          pop      cx
+-         @@prints comline+1,cx
+-         @@print  @@started
+-         lea      dx,@@rundos
++         @@prints [comline+1],cx
++         @@print  [@@started]
++         lea      dx,[@@rundos]
+          cmp      can_exit_to_dos,0
+          jnz      @@4_1
+-         lea      dx,@@runshell
++         lea      dx,[@@runshell]
+ @@4_1:
+          call     print
+ 
+          cmp      cannot_load_because_of_windows,0
+          jz       @@5
+-         @@print  @@sw
++         @@print  [@@sw]
+ @@5:
+          cmp      cpu_type,cpu_386GE_real_paging
+          jne      @@6
+-         @@print  @@w1
++         @@print  [@@w1]
+ @@6:
+ 
+ ;         movzx    eax,kernel_size
+@@ -871,15 +930,15 @@ print_verbose proc near
+          mov      eax,kernel_size
+          cmp      eax,load_buffer_size
+          jb       @@7
+-         @@print  @@w2
++         @@print  [@@w2]
+ @@7:
+          cmp      new_setup_size,maximum_setup_sects*512
+          jna      @@8
+-         @@print  @@w3
++         @@print  [@@w3]
+ @@8:
+          cmp      option_force,0
+          jz       @@8_1
+-         @@print  @@w4
++         @@print  [@@w4]
+ @@8_1:
+          pop_   ds,es
+          popad
+@@ -1018,7 +1077,11 @@ logo_tx               label byte
+ IFDEF ALPHA
+   INCLUDE LOADLINA.ASM
+ ENDIF
++ifndef __YASM_MAJOR__
+                       db   'LOADLIN v',LOADLIN_VERSION,' (C) 1994..2002 Hans Lermen <lermen@fgan.de>',13,10
++else
++                      db   'LOADLIN v','1.6f',' (C) 1994..2002 Hans Lermen <lermen@fgan.de>',13,10
++endif
+                       db   '              (C) 2008..2010 Samuel Thibault <samuel.thibault@ens-lyon.org>',13,10,'$'
+ comspec_tx            db   'comspec',0
+ windows_tx            db   'windir',0
+diff -r 56b6cf82d167 -r c8190a00fb15 src/loadlinm.asm
+--- a/src/loadlinm.asm	Tue Feb 09 03:29:55 2010 +0100
++++ b/src/loadlinm.asm	Wed Apr 28 20:13:19 2010 +0200
+@@ -38,7 +38,18 @@ call_pmode_routine proc near
+ ; High_seg
+ ;
+ @@regs struc
++ifndef __YASM_MAJOR__
+   pushAD_struc @@
++else
++  @@edi dd ?
++  @@esi dd ?
++  @@ebp dd ?
++  @@esp dd ?
++  @@ebx dd ?
++  @@edx dd ?
++  @@ecx dd ?
++  @@eax dd ?
++endif
+ @@regs ends
+           pushf
+           CLI
+@@ -63,7 +74,7 @@ call_pmode_routine proc near
+            push   offset @@pmode_return
+                  ; ÀÄÄÄÄÄÄ  IRET stack for return to VM86
+           mov    cs:pmode_return_esp,esp
+-          lea    ax,@@pmode_task
++          lea    ax,[@@pmode_task]
+           movzx  eax,ax
+           mov    dword ptr protected_mode_target,eax
+           mov    word ptr protected_mode_target+4,g_code
+@@ -110,12 +121,20 @@ ELSE
+ AUXPAGE       =  0 ; at start of our segment, only used in protected mode
+ ENDIF
+ AUXPAGE_size  =  02000h
++ifndef __YASM_MAJOR__
+ AUXPAGE_entry =  (AUXPAGE shr (12-2))
++else
++AUXPAGE_entry =  (AUXPAGE >> (12-2))
++endif
+ AUXPAGE_S     =  AUXPAGE
+ AUXPAGE_T     =  AUXPAGE+AUXPAGE_size
+ 
+-AUXPAGE_S_entry equ page0+AUXPAGE_entry[bx]
+-AUXPAGE_T_entry equ page0+(AUXPAGE_entry+(AUXPAGE_size shr (12-2)))[bx]
++AUXPAGE_S_entry = page0+AUXPAGE_entry+bx
++ifndef __YASM_MAJOR__
++AUXPAGE_T_entry = page0+(AUXPAGE_entry+(AUXPAGE_size shr (12-2)))+bx
++else
++AUXPAGE_T_entry = page0+(AUXPAGE_entry+(AUXPAGE_size >> (12-2)))+bx
++endif
+ AUXPAGE_BITS  =  3       ; writeable, present
+ 
+ move_anywhere_vcpi proc near
+@@ -127,22 +146,33 @@ move_anywhere_vcpi proc near
+ ;    all registers preserved
+                 ; we are in VM86 and at this point assume to have VCPI
+         push    ax
+-        lea     ax,@@pmove
++        lea     ax,[@@pmove]
+         call    call_pmode_routine
+         pop     ax
+         ret
+                 ; this will be executed in 16-bit protected mode
+ @@pmove:
+ @@regs struc
++ifndef __YASM_MAJOR__
+   pushAD_struc @@
++else
++  @@edi dd ?
++  @@esi dd ?
++  @@ebp dd ?
++  @@esp dd ?
++  @@ebx dd ?
++  @@edx dd ?
++  @@ecx dd ?
++  @@eax dd ?
++endif
+ @@regs ends
+                 ; save pagetable-entries
+         mov     bx,High_Seg
+         shr     bx,(12-4-2)
+-        push    AUXPAGE_S_entry
+-        push    AUXPAGE_S_entry+4
+-        push    AUXPAGE_T_entry
+-        push    AUXPAGE_T_entry+4
++        push    dword ptr [AUXPAGE_S_entry]
++        push    dword ptr [AUXPAGE_S_entry+4]
++        push    dword ptr [AUXPAGE_T_entry]
++        push    dword ptr [AUXPAGE_T_entry+4]
+ 
+ mmm     macro   reg,st
+         mov     eax,[bp].@@e&reg
+@@ -151,9 +181,9 @@ mmm     macro   reg,st
+         lea     reg,[reg]+AUXPAGE_&st
+         and     ax,0f000h
+         or      al,AUXPAGE_BITS
+-        mov     AUXPAGE_&st&_entry,eax
++        mov     [AUXPAGE_&st&_entry],eax
+         add     eax,1000h
+-        mov     AUXPAGE_&st&_entry+4,eax
++        mov     [AUXPAGE_&st&_entry+4],eax
+         endm
+ 
+         mmm     si,S        ; map source
+@@ -170,10 +200,10 @@ mmm     macro   reg,st
+         rol     ecx,2
+         rep movsb
+                 ; restore pagetable-entries
+-        pop     AUXPAGE_T_entry+4
+-        pop     AUXPAGE_T_entry
+-        pop     AUXPAGE_S_entry+4
+-        pop     AUXPAGE_S_entry
++        pop     dword ptr [AUXPAGE_T_entry+4]
++        pop     dword ptr [AUXPAGE_T_entry]
++        pop     dword ptr [AUXPAGE_S_entry+4]
++        pop     dword ptr [AUXPAGE_S_entry]
+         ret
+ move_anywhere_vcpi endp
+ 
+@@ -211,18 +241,19 @@ move_anywhere_INT15 proc near
+                               ; we simple do it also for the last page
+         push    cs
+         pop     es
+-        lea     si,@@gdt
++        lea     si,[@@gdt]
+         mov     ax,08700h
+         int     15h
+         pop_    es,eax,esi,edi,ecx
+         ret
+-        align   qword
++        ;align   qword
++        align   8
+ @@gdt   @@descript <0,0,0,0,0,0>
+-        @@descript <0,0,0,0,0,0>
++@@foo0  @@descript <0,0,0,0,0,0>
+ @@src   @@descript <0ffffh,0,0,093h,0,0>
+ @@dest  @@descript <0ffffh,0,0,093h,0,0>
+-        @@descript <0,0,0,0,0,0>      ; BIOS CS
+-        @@descript <0,0,0,0,0,0>      ; BIOS SS
++@@foo1  @@descript <0,0,0,0,0,0>      ; BIOS CS
++@@foo2  @@descript <0,0,0,0,0,0>      ; BIOS SS
+ move_anywhere_INT15 endp
+ 
+ ;============================================================================
+@@ -237,10 +268,17 @@ XMS_MOVE_BLOCK    =  0bh
+ XMS_LOCK_BLOCK    =  0ch
+ XMS_UNLOCK_BLOCK  =  0dh
+ 
++ifndef __YASM_MAJOR__
+ xmscall   macro   function
+           mov     ah,function
+           call    cs:xms_entry
+           endm
++else
++xmscall   macro   function
++          mov     ah,function
++          call    far word ptr cs:xms_entry
++          endm
++endif
+ 
+ check_for_XMS  proc near
+           push_   ds,es,ax,bx
+@@ -305,7 +343,7 @@ lock_xms_block proc near
+ @@err:
+           push    cs
+           pop     ds
+-          lea     dx,@@tx
++          lea     dx,[@@tx]
+           call    print
+           jmp     exit_to_dos
+ @@tx      db      13,10,'Cannot lock XMS memory',13,10,'$'
+@@ -341,12 +379,13 @@ move_anywhere_xms proc near
+                               ; NOTE: XMS moves have to be even,
+                               ; because we alway move 1000h,
+                               ; we simple do it also for the last page
+-          mov     @@length,ecx
++          mov     [@@length],ecx
++
+           sub     edi,DUMMY_XMS_BLOCK_START
+           jb      @@lowdi
+-          mov     @@doffs,edi  ; high destination, just record
++          mov     [@@doffs],edi  ; high destination, just record
+           mov     di,xms_handle
+-          mov     @@dhandle,di
++          mov     [@@dhandle],di
+           jmp     @@source
+ @@lowdi:
+           ror     edi,4
+@@ -366,10 +405,10 @@ move_anywhere_xms proc near
+           jmp     @@done
+ @@lowsi:
+           ror     esi,4
+-          mov     word ptr @@soffs+2,si
++          mov     word ptr [@@soffs+2],si
+           xor     si,si
+           rol     esi,4
+-          mov     word ptr @@soffs,si
++          mov     word ptr [@@soffs],si
+           xor     si,si
+           mov     word ptr [@@shandle],si
+ 
+@@ -540,7 +579,7 @@ free_extended_memory proc near
+         jne      @@ex
+ @@vcpi:
+         push_    eax,bx,ecx,dx,bp,esi,edi
+-        mov      cx,word ptr pageadjlist.ncount
++        mov      cx,word ptr [pageadjlist.ncount]
+         sub      cx,1
+         jc       @@ex1
+         mov      bp,cx
+@@ -677,14 +716,14 @@ open_new_mapped_block proc near
+         cmp      need_mapped_put_buffer,0
+         jz       @@ex
+         push_    bx,edi
+-        mov      bx,word ptr pageadjlist.number_of_blocks
++        mov      bx,word ptr [pageadjlist.number_of_blocks]
+         shl      bx,3    ; * sizeof(pblock)
+         and      di,0f000h
+         mov      pageadjlist.blocks.taddr[bx],edi
+-        mov      di,word ptr pageadjlist.ncount
++        mov      di,word ptr [pageadjlist.ncount]
+         mov      pageadjlist.blocks.tstart[bx],di
+-        mov      pageadjlist.blocks.tcount[bx],0
+-        inc      pageadjlist.number_of_blocks
++        mov      word ptr pageadjlist.blocks.tcount[bx],0
++        inc      dword ptr [pageadjlist.number_of_blocks]
+         mov      do_mapped_put_buffer,1    ; notice 'put_buffer' what to do
+         pop_     bx,edi
+ @@ex:
+@@ -790,7 +829,7 @@ put_buffer  proc near
+         popad
+ errnomem:
+         DosCall  DOS_CLOSE_FILE
+-        lea     dx,@@tx
++        lea     dx,[@@tx]
+         call    print
+         jmp     exit_to_dos
+ @@tx    db      13,10,'Out of memory (may be low or extended)',13,10,'$'
+@@ -894,20 +933,20 @@ load_initrd proc near
+         ret
+ @@err:
+         popad
+-        mov     dx,@@errtx_addr
++        mov     dx,[@@errtx_addr]
+         call    print
+         jmp     exit_to_dos
+ @@err_open:
+-        mov     @@errtx_addr,offset @@tx
++        mov     dword ptr [@@errtx_addr],offset @@tx
+         jmp     @@err
+ @@err_mem:
+-        mov     @@errtx_addr,offset @@txmem
++        mov     dword ptr [@@errtx_addr],offset @@txmem
+         jmp     @@err
+ @@err_io:
+-        mov     @@errtx_addr,offset @@txio
++        mov     dword ptr [@@errtx_addr],offset @@txio
+         jmp     @@err
+ @@err_unable:
+-        mov     @@errtx_addr,offset @@txno
++        mov     dword ptr [@@errtx_addr],offset @@txno
+         jmp     @@err
+ @@tx    db      13,10,"can't open image file for initrd",13,10,'$'
+ @@txmem db      13,10,"no place after kernel for initrd",13,10,'$'

@@ -1,0 +1,343 @@
+loadlin (1.6f-13) unstable; urgency=medium
+
+  * patches/return-type: Fix missing return type (Closes: Bug#1075230)
+
+ -- Samuel Thibault <sthibault@debian.org>  Thu, 04 Jul 2024 14:17:04 +0200
+
+loadlin (1.6f-12) unstable; urgency=medium
+
+  * rules: Set BYHAND back to no.
+  * rules: Fix time of patched files.
+  * control: Replace bsdmainutils build-dep with bsdextrautils
+    (Closes: #1016428)
+  * patches/flags: Also disable cf-protection, not supported on i386.
+    (closes: #1052746)
+  * loadlin.install: Install freeramdisk to /usr/sbin (Closes: #1059172)
+  * patches/implicit-function-declaration: Fix build with
+    -Werror=implicit-function-declaration.
+  * source/lintian-overrides: Update override.
+
+ -- Samuel Thibault <sthibault@debian.org>  Tue, 08 Aug 2023 23:53:59 +0200
+
+loadlin (1.6f-11) unstable; urgency=medium
+
+  [ Samuel Thibault ]
+  * control: Set Rules-Requires-Root to no.
+  * control: Bump Standards-Version to 4.6.0 (no change)
+  * rules: Set BYHAND to yes to update ftpmaster to version 1.6f.
+
+  [ Debian Janitor ]
+  * Remove constraints unnecessary since stretch:
+    + Build-Depends: Drop versioned constraint on yasm.
+
+ -- Samuel Thibault <sthibault@debian.org>  Mon, 02 May 2022 16:47:43 +0200
+
+loadlin (1.6f-10) unstable; urgency=medium
+
+  * Update packaging URL.
+  * patches/flags: Fix passing hardening flags.
+  * rules, loadlin.install: Simplify building freeramdisk.
+  * copyright: Fix pointer to GPL-2.
+
+ -- Samuel Thibault <sthibault@debian.org>  Fri, 01 Jan 2021 18:53:26 +0100
+
+loadlin (1.6f-9) unstable; urgency=medium
+
+  * control: Bump Standards-Version to 4.5.0 (no change)
+  * control: Bump debhelper compat to 12.
+
+ -- Samuel Thibault <sthibault@debian.org>  Sun, 01 Nov 2020 01:48:47 +0100
+
+loadlin (1.6f-8) unstable; urgency=medium
+
+  * control: Build-depend on bsdmainutils (closes: #963451).
+
+ -- Samuel Thibault <sthibault@debian.org>  Sun, 21 Jun 2020 22:45:38 +0200
+
+loadlin (1.6f-7) unstable; urgency=medium
+
+  * control: Bump Standards-Version to 4.4.0 (no changes).
+  * source/lintian-overrides: Silence warning.
+
+ -- Samuel Thibault <sthibault@debian.org>  Sat, 07 Dec 2019 13:32:24 +0100
+
+loadlin (1.6f-6) unstable; urgency=medium
+
+  * control: Add branch name in Vcs-Hg
+  * control: Bump Standards-Version to 4.1.4 (no change)
+
+ -- Samuel Thibault <sthibault@debian.org>  Sun, 17 Jun 2018 14:33:01 +0200
+
+loadlin (1.6f-5) unstable; urgency=medium
+
+  * Ship unpacked initrd example instead of a tarball. Fixes reproducibility.
+  * control: Bump Standards-Version to 3.9.7 (no change).
+
+ -- Samuel Thibault <sthibault@debian.org>  Tue, 23 Feb 2016 01:05:35 +0100
+
+loadlin (1.6f-4) unstable; urgency=low
+
+  * rules: Make build reproducible. Thanks Chris Lamb for the patch
+    (Closes: #779146)
+  * Bump Standards-Version to 3.9.6 (no changes).
+  * 01-hg-update: Update trivias from hg.
+  * compat: Bump to 9.
+  * rules: Use dh.
+  * control: Bump debhelper version, drop cdbs.
+
+ -- Samuel Thibault <sthibault@debian.org>  Tue, 22 Dec 2015 21:00:08 +0100
+
+loadlin (1.6f-3) unstable; urgency=low
+
+  * control: Build-depend on libc6-dev-i386 on amd64 only.
+
+ -- Samuel Thibault <sthibault@debian.org>  Sun, 30 Jun 2013 22:00:14 +0200
+
+loadlin (1.6f-2) unstable; urgency=low
+
+  * debian/rules: Set BYHAND back to no.
+  * debian/control: Build-depend on libc6-dev-i386 to get the 32bit version of
+    bits/predefs.h on amd64 (Closes: #713676)
+
+ -- Samuel Thibault <sthibault@debian.org>  Sun, 23 Jun 2013 21:21:55 +0200
+
+loadlin (1.6f-1) unstable; urgency=low
+
+  * New upstream release. Fixes booting the Wheezy kernels.
+  * debian/rules:
+    - Set BYHAND to yes, as we need a new loadlin.exe uploaded to mirrors to
+    be able to boot the Wheezy kernels.
+  * debian/patches/cppcheck: Drop, merged upstream.
+
+ -- Samuel Thibault <sthibault@debian.org>  Mon, 17 Sep 2012 01:42:31 +0200
+
+loadlin (1.6e-2) unstable; urgency=low
+
+  * debian/rules:
+    - Set BYHAND to no.
+    - Add proper build-arch target (Closes: #666299)
+  * doc/manual.txt: Fix typo (Closes: #613635)
+  * Bump Standards-Version to 3.9.3 (no change needed)
+  * debian/control: Fix description.
+  * debian/patches/cppcheck: Add patch to address cppcheck warnings.
+
+ -- Samuel Thibault <sthibault@debian.org>  Sun, 01 Apr 2012 21:32:37 +0200
+
+loadlin (1.6e-1) unstable; urgency=low
+
+  New upstream release. Fixes VCPI support and loading >8MB kernel+initrd on
+  machines with 16MiB INT15 memory. (Closes: Bug#588530)
+  * debian/rules: Add refresh rule.
+  * debian/control: Add Vcs-Hg field.
+  * debian/control: Bump Standards-Version to 3.9.1 (no change needed).
+  * debian/patches/99-yasm.patch: Update.
+  * debian/rules: Set BYHAND to yes to upload new loadlin binary into
+    ftp://ftp.debian.org/debian/tools/
+
+ -- Samuel Thibault <sthibault@debian.org>  Wed, 25 Aug 2010 02:51:35 +0200
+
+loadlin (1.6d.nobinary-2) unstable; urgency=low
+
+  * debian/source/format: Switch to 3.0 (quilt).
+  * debian/rules:
+    - Remove inclusion of /usr/share/quilt/quilt.make
+  * debian/control:
+    - Add Multi-Arch: foreign header.
+    - Bump Standards-Version to 3.8.3 (no change needed).
+    - Remove quilt build-dependency.
+
+ -- Samuel Thibault <sthibault@debian.org>  Fri, 01 Jan 2010 21:40:07 +0100
+
+loadlin (1.6d.nobinary-1) unstable; urgency=low
+
+  * New upstream release
+    - debian/rules: No need to unpack srclinux and initrd by hand any more.
+    - debian/patches/10-setupfix.patch: Remove patch, merged upstream
+    - debian/patches/20-dynamic.patch: Remove patch, merged upstream
+    - debian/patches/30-yasm.patch: Rename to 99-yasm.patch, fix version number.
+    - debian/patch-srclinux: Remove patch, merged upstream.
+    - debian/control: Add Homepage field.
+    - debian/copyright: Add new maintainer homepage, address and copyright.
+    - debian/loadlin.docs: Follow readme.1st -> README.1ST rename.
+    - debian/loadlin.install: ramdisk is now built in place.
+  * debian/control:
+    - Change my email, remove DM-Upload-Allowed.
+    - Bump Standards-Version to 3.8.2 (no change needed).
+    - Set debhelper dependency to >= 5.
+    - Add misc:Depends to loadlin's Depends.
+  * debian/rules: use ytasm instead of tasm (Closes: Bug#536872)
+    - debian/control: bump Build-Depend to >= 0.8.
+    - New variable BYHAND to control byhand upload.
+
+ -- Samuel Thibault <sthibault@debian.org>  Sat, 18 Jul 2009 17:55:11 +0200
+
+loadlin (1.6c.really1.6c.nobin-2) unstable; urgency=low
+
+  * Instead of the .zip file, install byhand the .exe and the manual to tools/.
+
+ -- Samuel Thibault <samuel.thibault@ens-lyon.org>  Mon, 01 Dec 2008 21:36:37 +0100
+
+loadlin (1.6c.really1.6c.nobin-1) unstable; urgency=low
+
+  * New maintainer. (closes: #487338)
+  * Remove loadlin.exe and src/pgadjust.asm binary blobs.
+  * Refactor debian/rules. (closes: #437484)
+  * Add build-dependency on debhelper, cdbs and quilt
+  * patches/10-setupfix.patch: New patch to extend max number of setup sectors
+  to 40 to fix booting C setup.
+  * patches/20-dynamic.patch and patch-srclinux: New patches to load pgadjust
+  table in high memory too. (closes: #469533)
+  * patches/30-yasm.patch: New patch to build loadlin.exe with yasm.
+  (closes: #356055)
+  * Add build-dependency on yasm (>= 0.7.0-3) for its TASM support.
+  * debian/copyright: Add copyright information.
+  * debian/control:
+    + Set policy to 3.8.0.
+    + Set DM-Upload-Allowed to yes.
+
+ -- Samuel Thibault <samuel.thibault@ens-lyon.org>  Mon, 13 Oct 2008 01:57:45 +0200
+
+loadlin (1.6c.really1.6c-1.2) unstable; urgency=low
+
+  * Non-maintainer upload.
+  * Fixed bashisms in debian/rules, using patch from Ubuntu. Closes: #382585.
+
+ -- Lucas Nussbaum <lucas@lucas-nussbaum.net>  Sat, 19 Jan 2008 17:37:51 +0100
+
+loadlin (1.6c.really1.6c-1.1) unstable; urgency=high
+
+  * Non-maintainer upload (allowed by the maintainer, see #338318)
+  * No source change. Add a call to dpkg-distaddfile so that the
+    zip file in debian/tools/ will be updated (Closes: #338318)
+    Based on the patch prepared by Samuel Thibault
+  * Update Standards-Version to 3.7.2 (no change needed)
+  * urgency=high as we need a new version of loadlin.zip in the
+    tools/ directory of debian servers before the release.
+
+ -- Vincent Danjean <vdanjean@debian.org>  Tue, 21 Nov 2006 11:12:01 +0100
+
+loadlin (1.6c.really1.6c-1) unstable; urgency=low
+
+  * New upstream version: 1.6c; really for this time
+      (closes: #252527, #314612, #320861)
+
+ -- LENART Janos <ocsi@debian.org>  Mon,  8 Aug 2005 12:20:59 +0200
+
+loadlin (1.6c.debspecfix-1) unstable; urgency=low
+
+  * Adopted the package. (closes: #227780)
+  * For some reason loadlin used to be packaged as a Debian specific
+    way. Now .orig.tar.gz is really the original tar.gz. In order to
+    achieve this I must have included '.debspecfix' in the upstream
+    version number so the new-old source will made it into the archive.
+  * Manpage for freeramdisk(8).
+
+ -- LENART Janos <ocsi@debian.org>  Wed, 23 Mar 2005 10:03:43 +0100
+
+loadlin (1.6c-1) unstable; urgency=low
+
+  * QA Upload
+  * debian/control - Added amd64 to Architecture list, closes: #252527.
+  * debian/rules - Cleaned up various odd install commands.
+
+ -- Stephen Quinney <stephen@jadevine.org.uk>  Sat, 22 Jan 2005 08:41:39 +0000
+
+loadlin (1.6c-0.4) unstable; urgency=low
+
+  * Uploading with maintainer set to QA group
+  * debian/rules: don't create link to undocumented manpage
+
+ -- Andrew Pollock <apollock@debian.org>  Sun, 15 Feb 2004 16:12:10 +1100
+
+loadlin (1.6c-0.3) unstable; urgency=low
+
+  * NMU to fix an RC bug.
+    + Rebuild to fix depends on libc6 (Closes: #202884).
+
+ -- Sebastien Bacher <seb128@debian.org>  Wed,  6 Aug 2003 23:04:45 +0200
+
+loadlin (1.6c-0.2) unstable; urgency=low
+
+  * NMU, Part II
+  * Commented insane gcc checks in initrd/Makefile, we do already ensure the
+    conditions by Build-Deps, Thanks to Daniel Schepler (Closes: #194825)
+  * Forgotten close tag in the last NMU (Closes: #163098)
+
+ -- Eduard Bloch <blade@debian.org>  Fri, 25 Jul 2003 15:08:00 +0200
+
+loadlin (1.6c-0.1) unstable; urgency=low
+
+  * NMU, no reaction from maintainer for more than 280 days
+  * New upstream version (Closes: #123203, #134569, #137486, #140608, #142421)
+  * initrd/Makefile: added missing \, though I wonder why GNU make does
+    not break on this (Closes: #194825)
+  * debian/rules: swapped changelog.gz and changes.gz to make lintian quiet
+  * debian/control: updated standards version
+
+ -- Eduard Bloch <blade@debian.org>  Mon, 14 Jul 2003 15:42:43 +0200
+
+loadlin (1.6a-6) unstable; urgency=low
+
+  * Set priority to optional.
+
+ -- Martin Mitchell <martin@debian.org>  Sun,  8 Apr 2001 21:11:58 +1000
+
+loadlin (1.6a-5) unstable; urgency=low
+
+  * Update to standards version 3.5.2. (closes: #91569, #91202)
+  * Enhance description to include freeramdisk. (closes: #49878)
+  * Move freeramdisk to /sbin. (closes: #88420)
+
+ -- Martin Mitchell <martin@debian.org>  Tue, 27 Mar 2001 19:31:39 +1000
+
+loadlin (1.6a-4) frozen unstable; urgency=low
+
+  * Update to standards version 2.4.1.
+  * Fix lintian changelog error.
+  * Update copyright information.
+
+ -- Martin Mitchell <martin@debian.org>  Wed, 21 Oct 1998 03:17:54 +1000
+
+loadlin (1.6a-3) frozen unstable; urgency=low
+
+  * Update to standards version 2.4.0.0.
+  * Strip freeramdisk binary.
+  * Install link for freeramdisk manpage.
+
+ -- Martin Mitchell <martin@debian.org>  Wed,  1 Apr 1998 01:21:45 +1000
+
+loadlin (1.6a-2) unstable; urgency=low
+
+  * Fix strange permissions in installed docs. (#14436)
+  * Upstream changelog installed correctly. (#9663)
+
+ -- Martin Mitchell <martin@debian.org>  Tue,  4 Nov 1997 16:42:07 +1100
+
+loadlin (1.6a-1) unstable; urgency=low
+
+  * New maintainer.
+  * Update to loadlin 1.6a.
+
+ -- Martin Mitchell <martin@debian.org>  Wed, 29 Oct 1997 16:01:36 +1100
+
+loadlin (1.6-2.1) unstable; urgency=low
+
+  * Non-maintainer release.
+  * Libc6 compile. (freeramdisk)
+  * Fix typo in README.debian.
+
+ -- Martin Mitchell <martin@debian.org>  Wed, 29 Oct 1997 01:52:50 +1100
+
+loadlin (1.6-2) unstable; urgency=low
+
+  * remove x bit for loadlin.exe
+  * Use debmake
+  * Fix bug #5087
+
+ -- Christoph Lameter <clameter@debian.org>  Sat, 8 Feb 1997 19:31:22 -0800
+
+loadlin (1.6-1) unstable; urgency=high
+
+  * Initial Release
+
+ -- Christoph Lameter <clameter@debian.org>  Tue, 1 Oct 1996 09:00:00 +0800

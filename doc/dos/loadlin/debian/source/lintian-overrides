@@ -1,0 +1,2 @@
+# We do rebuild it
+source-contains-prebuilt-windows-binary [loadlin.exe]

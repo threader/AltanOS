@@ -1,0 +1,19 @@
+# HG changeset patch
+# User Samuel Thibault <samuel.thibault@ens-lyon.org>
+# Date 1713725153 -7200
+#      Sun Apr 21 20:45:53 2024 +0200
+# Node ID 2fcbe7155523ce39e92b11266b13919ee759ed36
+# Parent  c62a5b1e15ec2b4ddeb2230962e38689ec2cbcaf
+Fix missing function declaration
+
+diff --git a/initrd/freeramdisk.c b/initrd/freeramdisk.c
+--- a/initrd/freeramdisk.c
++++ b/initrd/freeramdisk.c
+@@ -1,6 +1,7 @@
+ #include <stdio.h>
+ #include <stdlib.h>
+ #include <string.h>
++#include <unistd.h>
+ #include <sys/mount.h>
+ #include <sys/types.h>
+ #include <sys/stat.h>

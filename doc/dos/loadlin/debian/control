@@ -1,0 +1,26 @@
+Source: loadlin
+Section: admin
+Priority: optional
+Maintainer: Samuel Thibault <sthibault@debian.org>
+Standards-Version: 4.6.0
+Build-Depends: debhelper-compat (= 12), zip, yasm, libc6-dev-i386 [amd64], bsdextrautils
+Rules-Requires-Root: no
+Homepage: http://youpibouh.thefreecat.org/loadlin/
+Vcs-Git: https://salsa.debian.org/debian/loadlin.git
+Vcs-Browser: https://salsa.debian.org/debian/loadlin
+
+Package: loadlin
+Architecture: i386 amd64
+Multi-Arch: foreign
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: loader (running under DOS) for LINUX kernel images
+ LOADLIN-1.6 is highly adaptable to different DOS configurations, and now
+ has very few loading restrictions. It makes use of extended memory and
+ also can load big kernels (bzImages) and ramdisk images (initrd)
+ directly high.
+ .
+ LOADLIN also can load out of Virtual-86 mode (which is normal when
+ using EMS drivers) if a VCPI server is present.
+ .
+ The loadlin package also includes the freeramdisk program, which can
+ return memory to the system when a ramdisk is no longer needed.

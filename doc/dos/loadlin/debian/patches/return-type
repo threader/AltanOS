@@ -1,0 +1,20 @@
+# HG changeset patch
+# User Samuel Thibault <samuel.thibault@ens-lyon.org>
+# Date 1720095319 -7200
+#      Thu Jul 04 14:15:19 2024 +0200
+# Node ID 7ae629150e8cc07258d3c8a3e3a9901016e34171
+# Parent  2fcbe7155523ce39e92b11266b13919ee759ed36
+Fix missing function return type
+
+diff --git a/initrd/freeramdisk.c b/initrd/freeramdisk.c
+--- a/initrd/freeramdisk.c
++++ b/initrd/freeramdisk.c
+@@ -10,7 +10,7 @@
+ #include <linux/fs.h>
+ #include <errno.h>
+ 
+-main(int argc, char **argv)
++int main(int argc, char **argv)
+ {
+   char rname[256]="/dev/ram";
+   char b[256];

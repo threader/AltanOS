@@ -1,0 +1,23 @@
+diff --exclude .svn --exclude .git --exclude CVS --exclude .hg -ur loadlin-1.6f/doc/manual.txt /home/samy/prog/debian/loadlin/doc/manual.txt
+--- loadlin-1.6f/doc/manual.txt	2012-09-17 01:37:40.986396005 +0200
++++ /home/samy/prog/debian/loadlin/doc/manual.txt	2015-11-12 01:57:47.443360913 +0100
+@@ -199,6 +199,7 @@
+ 
+       - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+       LOADLIN v1.6 (C) 1994..1996 Hans Lermen <lermen@elserv.ffm.fgan.de>
++                   (C) 2008..2010 Samuel Thibault (samuel.thibault@ens-lyon.org)
+ 
+       USAGE:
+         LOADLIN @params
+diff --exclude .svn --exclude .git --exclude CVS --exclude .hg -ur loadlin-1.6f/src/loadlinj.asm /home/samy/prog/debian/loadlin/src/loadlinj.asm
+--- loadlin-1.6f/src/loadlinj.asm	2012-09-17 01:37:40.994395810 +0200
++++ /home/samy/prog/debian/loadlin/src/loadlinj.asm	2015-12-22 20:39:05.000000000 +0100
+@@ -1018,7 +1018,7 @@
+ IFDEF ALPHA
+   INCLUDE LOADLINA.ASM
+ ENDIF
+-                      db   'LOADLIN v',LOADLIN_VERSION,' (C) 1994..2002 Hans Lermen <lermen@fgan.de>',13,10,'$'
++                      db   'LOADLIN v',LOADLIN_VERSION,' (C) 1994..2002 Hans Lermen <lermen@fgan.de>',13,10
+                       db   '              (C) 2008..2010 Samuel Thibault <samuel.thibault@ens-lyon.org>',13,10,'$'
+ comspec_tx            db   'comspec',0
+ windows_tx            db   'windir',0

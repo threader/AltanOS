@@ -1,0 +1,2 @@
+initrd/freeramdisk usr/sbin
+loadlin.exe.gz usr/lib/loadlin
