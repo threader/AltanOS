@@ -37,6 +37,7 @@ $rsapub = "$awimadir\$awimprefix.pub.txt"
 # net user /ADD $local_usr-online
 
 # Aaaand this depends on the language of the system. run 'net localgroup'
+# net localgroup Administrators /add $local_usr-adm
 # net localgroup Administartors user /ADD $local_usr-adm
 # }
 
@@ -70,8 +71,6 @@ $rsapub = "$awimadir\$awimprefix.pub.txt"
 
 #New-WindowsImage -ImagePath "$awim" -CapturePath "$sysdrive" -CompressionType "None" -ConfigFilePath $awimusracfg -Name "$awimprefix_$sysdrive_user_wim" -SupportEa -Setbootable -WIMBoot -Verify
 
-pause 
-break
 if (-not (Test-Path $hashfile)) {
   cp $hashfileout $hashfile
 	} else {
