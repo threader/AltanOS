@@ -11,6 +11,27 @@ if (-not (Test-Path -Path $altanosinstdir)) {
 New-Object -comObject WScript.Shell; $Shortcut = $WshShell.CreateShortcut("""$env:ProgramData\Microsoft\Windows\Start Menu\Programs\Process Explorer.lnk"""); $Shortcut.TargetPath = """$Env:Username/AppData/Local/Microsoft/WinGet/Packages/Microsoft.Sysinternals.ProcessExplorer_Microsoft.Winget.Source_8wekyb3d8bbwe/procexp.exe"""; $Shortcut.Save()
 New-Object -comObject WScript.Shell; $Shortcut = $WshShell.CreateShortcut("""$env:ProgramData\Microsoft\Windows\Start Menu\Programs\Process Monitor.lnk"""); $Shortcut.TargetPath = """$Env:Username/AppData/Local/Microsoft/WinGet/Packages/Microsoft.Sysinternals.ProcessMonitor_Microsoft.Winget.Source_8wekyb3d8bbwe/procmon.exe"""; $Shortcut.Save()
 
+
+ $local_usr = write-output $Env:UserName
+ if (-not (Test-Path -Path $local_usr-usr)) {
+ net user /ADD $local_usr-adm /logonpasswordchg:yes
+ net user /ADD $local_usr-usr /logonpasswordchg:yes
+# not exactly sure how to handle the fact that 
+# changing the stored encryption for users creds. 
+# makes the user have to go troug a recovery process 
+# net user $local_usr "" /logonpasswordchg:yes
+# net user /ADD $local_usr-online
+# some light reading and this can be done - https://stackoverflow.com/a/64615504
+# $Credentials = [System.Net.CredentialCache]::DefaultNetworkCredentials
+# $Username = $Credentials.UserName
+# $Password = $Credentials.Password
+# so maybe?:
+# net user $local_usr $Credentials.Password 
+
+# Aaaand this depends on the language of the system. run 'net localgroup'
+ net localgroup Administartors $local_usr-adm /ADD 
+ }
+
 # huge thanks to Matthew Graeber @ SpecterOps - https://github.com/palantir/exploitguard
 function harden_processes() {
 Set-ProcessMitigation -Name outlook.exe -Enable DEP,BottomUp,ForceRelocateImages,CFG,AuditRemoteImageLoads,AuditLowLabelImageLoads,EnableExportAddressFilter,EnableExportAddressFilterPlus,EnableImportAddressFilter,EnableRopStackPivot,EnableRopCallerCheck,EnableRopSimExec,SEHOP,TerminateOnError,AuditChildProcess
@@ -77,7 +98,7 @@ disable_win_feature
 
 # To replace the command in harden-*.cmd - https://learn.microsoft.com/en-us/powershell/module/dism/repair-windowsimage?view=windowsserver2022-ps
 # Repair-WindowsImage -Online -RestoreHealth -Source "$sysdrive\Windows\WinSxS" 
-Repair-WindowsImage  -RestoreHealth -StartComponentCleanup  -ResetBase -NoRestart -Online
+# Repair-WindowsImage  -RestoreHealth -StartComponentCleanup  -ResetBase -NoRestart -Online
 
 # Repair-WindowsImage -CheckHealth -ScanHealth -RestoreHealth -StartComponentCleanup -ResetBase -NoRestart -Online
 

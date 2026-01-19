@@ -1,5 +1,5 @@
 Write-output "Running 'winget update' and Windows Update."
-
+$ProgressPreference = 'SilentlyContinue'
 winget upgrade --accept-source-agreements --disable-interactivity --include-unknown -r
 
 # Set-ExecutionPolicy -ExecutionPolicy Bypass

@@ -4,7 +4,9 @@
 @echo on
 cls
 echo Setting up and hardening Windows.
-
+ sfc /SCANNOW
+ DISM /Online /Cleanup-Image /StartComponentCleanup /ResetBase /RestoreHealth
+ 
 :: set variables
 IF "%PROCESSOR_ARCHITECTURE%"=="AMD64" (set niarchbit=-64)
 IF "%PROCESSOR_ARCHITECTURE%"=="AMD64" (set nsarchbit=x64
@@ -578,9 +580,9 @@ echo Disablng WMP and IE, enable Hyper-V and WSL
 %powshadmcmd% "%altanosdir%\wdegc\Enable-ExploitGuard-AttackSurfaceReduction.ps1"
 
  :: echo info: cleaning the winsxs folder - bah this needs to be done after a reboot 
- :: DISM /Online /Cleanup-Image /StartComponentCleanup /ResetBase /RestoreHealth
+:: DISM /Online /Cleanup-Image /StartComponentCleanup /ResetBase /RestoreHealth
 
- sfc /SCANNOW
+:: sfc /SCANNOW
  :: ask and make user aware this will trash connectivity...
  :: echo Remember to configure the TinyWall firewall, select autolearn from the menu for a while for instance to allo traffic
  :: %msipkg% %altanosinstdir%\TinyWall-v3-Installer.msi
