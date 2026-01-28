@@ -188,6 +188,7 @@ winget install --disable-interactivity --accept-source-agreements --id Malwareby
 winget install --disable-interactivity --accept-source-agreements --id SaferNetworking.SpybotAntiBeacon --source winget
 # https://learn.microsoft.com/en-us/windows/powertoys/
 winget install --disable-interactivity --accept-source-agreements --id Microsoft.PowerToys --source winget
+# winget install --disable-interactivity --accept-source-agreements --id  db browser for sqlite
 
 # dev tools - ask
 winget install --accept-source-agreements --id Cygwin.Cygwin.Cygwin --source winget

@@ -96,6 +96,17 @@ Disable-WindowsOptionalFeature -NoRestart -Online -FeatureName MicrosoftWindowsP
 }
 disable_win_feature
 
+# Stop the service
+#Stop-Service -Name "CDPUserSvc" -Force
+Get-Service -Name "CDP*Svc_*" | Stop-Service -Force
+
+# Disable the service
+
+Set-Service -Name "CDPSvc" -StartupType Disabled
+Set-Service -Name "CDPUserSvc_*" -StartupType Disabled
+
+Remove-Item $env:LocalAppData\ConnectedDevicesPlatform -Recurse -Force
+
 # To replace the command in harden-*.cmd - https://learn.microsoft.com/en-us/powershell/module/dism/repair-windowsimage?view=windowsserver2022-ps
 # Repair-WindowsImage -Online -RestoreHealth -Source "$sysdrive\Windows\WinSxS" 
 # Repair-WindowsImage  -RestoreHealth -StartComponentCleanup  -ResetBase -NoRestart -Online
