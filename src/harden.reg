@@ -163,3 +163,6 @@ Windows Registry Editor Version 5.00
 
 [HKEY_CURRENT_USER\Software\Microsoft\Clipboard]
 "EnableClipboardHistory"=dword:00000000
+
+[HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\WindowsUpdate\AU]
+"NoAutoRebootWithLoggedOnUsers"=dword:00000001
